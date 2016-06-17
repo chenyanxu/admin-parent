@@ -1,0 +1,11 @@
+#-----------------------------------------------------------------
+# Use this file to add customized Bnd instructions for the bundle
+#-----------------------------------------------------------------
+
+Bundle-Activator: ${bundle.namespace}.internal.InitActivator
+Import-Package: com.kalix.admin.core.dto.model.query,\
+                com.kalix.admin.core.dto.model,\
+                com.kalix.framework.core.api.biz,\
+                com.kalix.framework.core.api.persistence,\
+                com.kalix.admin.core.entities,*
+Bundle-Category: Kalix Admin Core

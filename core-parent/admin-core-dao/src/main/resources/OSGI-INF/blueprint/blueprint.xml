@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- default-activation="lazy" -->
+<blueprint xmlns:jpa="http://aries.apache.org/xmlns/jpa/v2.0.0"
+           xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.2.0"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+    <jpa:enable/>
+    <tx:enable-annotations/>
+
+    <!--用户dao-->
+    <service id="userBeanDao" ref="userBeanDaoImpl" interface="com.kalix.admin.core.api.dao.IUserBeanDao"/>
+
+    <bean id="userBeanDaoImpl"
+          class="com.kalix.admin.core.dao.UserBeanDaoImpl"> <!--init-method="init">-->
+        <tx:transaction method="*" value="Required"/>
+    </bean>
+
+
+    <service id="roleUserBeanDao" ref="roleUserBeanDaoImpl" interface="com.kalix.admin.core.api.dao.IRoleUserBeanDao"/>
+
+    <bean id="roleUserBeanDaoImpl"
+          class="com.kalix.admin.core.dao.RoleUserBeanDaoImpl">
+        <tx:transaction method="*" value="Required"/>
+    </bean>
+
+    <service id="roleBeanDao" ref="roleBeanDaoImpl" interface="com.kalix.admin.core.api.dao.IRoleBeanDao"/>
+
+    <bean id="roleBeanDaoImpl" class="com.kalix.admin.core.dao.RoleBeanDaoImpl">
+        <tx:transaction method="*" value="Required"/>
+    </bean>
+
+    <service id="roleApplicationBeanDao" ref="roleApplicationBeanDaoOpenjpa" interface="com.kalix.admin.core.api.dao.IRoleApplicationBeanDao"/>
+    <bean id="roleApplicationBeanDaoOpenjpa"
+          class="com.kalix.admin.core.dao.RoleApplicationBeanDaoImpl"> <!--init-method="init">-->
+        <tx:transaction method="*" value="Required"/>
+    </bean>
+
+    <service id="roleFunctionBeanDao" interface="com.kalix.admin.core.api.dao.IRoleFunctionBeanDao"
+             ref="roleFunctionBeanDaoImpl"/>
+    <bean id="roleFunctionBeanDaoImpl" class="com.kalix.admin.core.dao.RoleFunctionBeanDaoImpl">
+        <tx:transaction method="*" value="Required"/>
+    </bean>
+
+    <service id="permissionBeanDao" interface="com.kalix.admin.core.api.dao.IPermissionBeanDao"
+             ref="permissionBeanDaoImpl"/>
+
+    <bean id="permissionBeanDaoImpl" class="com.kalix.admin.core.dao.PermissionBeanDaoImpl">
+        <tx:transaction method="*" value="Required"/>
+    </bean>
+
+    <!--字典dao-->
+    <service id="dictBeanDao" interface="com.kalix.admin.core.api.dao.IDictBeanDao" ref="dictBeanDaoImpl"/>
+
+    <bean id="dictBeanDaoImpl" class="com.kalix.admin.core.dao.DictBeanDaoImpl">
+        <tx:transaction method="*" value="Required"/>
+    </bean>
+
+    <!--工作组用户dao-->
+    <service id="workGroupUserBeanDao" interface="com.kalix.admin.core.api.dao.IWorkGroupUserBeanDao"
+             ref="workGroupUserBeanDaoImpl"/>
+
+    <bean id="workGroupUserBeanDaoImpl" class="com.kalix.admin.core.dao.WorkGroupUserBeanDaoImpl">
+        <tx:transaction method="*" value="Required"/>
+    </bean>
+
+    <!--工作组用户dao-->
+    <service id="workGroupRoleBeanDao" interface="com.kalix.admin.core.api.dao.IWorkGroupRoleBeanDao"
+             ref="workGroupRoleBeanDaoImpl"/>
+
+    <bean id="workGroupRoleBeanDaoImpl" class="com.kalix.admin.core.dao.WorkGroupRoleBeanDaoImpl">
+        <tx:transaction method="*" value="Required"/>
+    </bean>
+
+    <!--工作组dao-->
+    <service id="workGroupBeanDao" interface="com.kalix.admin.core.api.dao.IWorkGroupBeanDao" ref="workGroupBeanDaoImpl"/>
+
+    <bean id="workGroupBeanDaoImpl"
+          class="com.kalix.admin.core.dao.WorkGroupBeanDaoImpl"> <!--init-method="init">-->
+        <tx:transaction method="*" value="Required"/>
+    </bean>
+
+    <!--区域dao-->
+    <service id="areaBeanDao" interface="com.kalix.admin.core.api.dao.IAreaBeanDao" ref="areaBeanDaoImpl"/>
+
+    <bean id="areaBeanDaoImpl" class="com.kalix.admin.core.dao.AreaBeanDaoImpl">
+        <tx:transaction method="*" value="Required"/>
+    </bean>
+
+    <!--机构dao-->
+    <service id="orgBeanDao" interface="com.kalix.admin.core.api.dao.IOrganizationBeanDao" ref="organizationBeanDaoImpl"/>
+
+    <bean id="organizationBeanDaoImpl" class="com.kalix.admin.core.dao.OrganizationBeanDaoImpl">
+        <tx:transaction method="*" value="Required"/>
+    </bean>
+
+    <!--部门dao-->
+    <service id="depBeanDao" interface="com.kalix.admin.core.api.dao.IDepartmentBeanDao" ref="departmentBeanDaoImpl"/>
+
+    <bean id="departmentBeanDaoImpl" class="com.kalix.admin.core.dao.DepartmentBeanDaoImpl">
+        <tx:transaction method="*" value="Required"/>
+    </bean>
+
+    <!--部门用户dao-->
+    <service id="depUserBeanDao" interface="com.kalix.admin.core.api.dao.IDepartmentUserBeanDao"
+             ref="departmentUserBeanDaoImpl"/>
+
+    <bean id="departmentUserBeanDaoImpl" class="com.kalix.admin.core.dao.DepartmentUserBeanDaoImpl">
+        <tx:transaction method="*" value="Required"/>
+    </bean>
+
+    <service id="officeBeanDao" interface="com.kalix.admin.core.api.dao.IOfficeBeanDao" ref="officeBeanDaoImpl"/>
+
+    <bean id="officeBeanDaoImpl" class="com.kalix.admin.core.dao.OfficeBeanDaoImpl">
+        <tx:transaction method="*" value="Required"/>
+    </bean>
+
+    <!--系统版本dao-->
+    <service id="aboutBeanDao" interface="com.kalix.admin.core.api.dao.IAboutBeanDao" ref="aboutBeanDaoImpl"/>
+
+    <bean id="aboutBeanDaoImpl" class="com.kalix.admin.core.dao.AboutBeanDaoImpl">
+        <tx:transaction method="*" value="Required"/>
+    </bean>
+
+    <!--系统消息dao-->
+    <service id="messageBeanDao" interface="com.kalix.admin.core.api.dao.IMessageBeanDao" ref="messageBeanDaoImpl"/>
+
+    <bean id="messageBeanDaoImpl"
+          class="com.kalix.admin.core.dao.MessageBeanDaoImpl"> <!--init-method="init">-->
+        <tx:transaction method="*" value="Required"/>
+    </bean>
+
+
+    <!--应用dao-->
+    <service id="applicationBeanDao" interface="com.kalix.admin.core.api.dao.IApplicationBeanDao"
+             ref="applicationBeanDaoImpl"/>
+
+    <bean id="applicationBeanDaoImpl" class="com.kalix.admin.core.dao.ApplicationBeanDaoImpl">
+        <tx:transaction method="*" value="Required"/>
+    </bean>
+
+
+    <!--功能dao-->
+    <service id="functionBeanDao" interface="com.kalix.admin.core.api.dao.IFunctionBeanDao" ref="functionBeanDaoImpl"/>
+
+    <bean id="functionBeanDaoImpl" class="com.kalix.admin.core.dao.FunctionBeanDaoImpl">
+        <tx:transaction method="*" value="Required"/>
+    </bean>
+
+    <!--插件dao-->
+    <service id="pluginBeanDao" interface="com.kalix.admin.core.api.dao.IPluginBeanDao" ref="pluginBeanDaoImpl"/>
+
+    <bean id="pluginBeanDaoImpl" class="com.kalix.admin.core.dao.PluginBeanDaoImpl">
+        <tx:transaction method="*" value="Required"/>
+    </bean>
+</blueprint>
+

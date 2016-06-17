@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+    <reference id="areaService" interface="com.kalix.admin.core.api.biz.IAreaBeanService"/>
+    <camelContext id="areaCamel" xmlns="http://camel.apache.org/schema/blueprint">
+
+        <restConfiguration component="servlet" bindingMode="json">
+            <dataFormatProperty key="prettyPrint" value="true"/>
+        </restConfiguration>
+
+        <!-- defines the rest services using the context-path /area -->
+        <rest path="/areas" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+            <description>area rest service</description>
+            <!-- this is a rest PUT to create an area -->
+            <post id="route-addArea" type="com.kalix.admin.core.entities.AreaBean"
+                  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Create a area</description>
+                <to uri="bean:areaService?method=saveEntity"/>
+            </post>
+
+            <!-- this is a rest PUT to update an area -->
+            <put id="route-updateArea" type="com.kalix.admin.core.entities.AreaBean"
+                 outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Updates a area</description>
+                <to uri="bean:areaService?method=updateEntity"/>
+            </put>
+
+            <!-- this is a rest DELETE to delete an area -->
+            <delete id="route-deleteArea" outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Delete a area</description>
+                <to uri="bean:areaService?method=deleteEntity(${header.id})"/>
+            </delete>
+
+            <!-- this is a rest GET to find all areas -->
+            <get id="route-getAllArea" outType="com.kalix.admin.core.dto.model.AreaDTO">
+                <description>Find all areas</description>
+                <to uri="bean:areaService?method=getAllArea"/>
+            </get>
+
+            <!-- this is a rest GET to view an orgs by the given  area id -->
+            <get id="route-getOrgsByAreaId" uri="/{id}/orgs" >
+                <description>Find dep by id</description>
+                <to uri="bean:orgService?method=getAllByAreaId(${header.id})"/>
+            </get>
+        </rest>
+    </camelContext>
+</blueprint>

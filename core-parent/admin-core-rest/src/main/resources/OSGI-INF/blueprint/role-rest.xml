@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+    <reference id="roleService" interface="com.kalix.admin.core.api.biz.IRoleBeanService"/>
+    <camelContext id="roleCamel" xmlns="http://camel.apache.org/schema/blueprint">
+
+        <restConfiguration component="servlet" bindingMode="json">
+            <dataFormatProperty key="prettyPrint" value="true"/>
+        </restConfiguration>
+
+        <!-- defines the rest services using the context-path /role -->
+        <rest path="/roles" consumes="application/json" produces="application/json">
+            <description>role rest service</description>
+
+            <!-- this is a rest GET to find all role -->
+            <get id="route-getAllRolebyPage" outType="com.kalix.framework.core.api.persistence.JsonData">
+                <description>Find all Roles</description>
+                <to uri="bean:roleService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr})"/>
+            </get>
+
+            <!--<get uri="/all" id="route-getAllUser" outType="com.kalix.framework.core.api.persistence.JsonData">
+                <description>Find all roles for report</description>
+                <to uri="bean:roleService?method=getAllEntityforReport(${header.jsonStr})"/>
+            </get>-->
+
+            <!-- this is a rest POST to create a role -->
+            <post id="route-addRole" type="com.kalix.admin.core.entities.RoleBean"
+                  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Create a Role</description>
+                <to uri="bean:roleService?method=saveEntity"/>
+            </post>
+
+            <!-- this is a rest GET to view a role by the given id -->
+            <get uri="/{id}" id="route-getRole" outType="com.kalix.admin.core.entities.RoleBean">
+                <description>Find Role by id</description>
+                <to uri="bean:roleService?method=getEntity(${header.id})"/>
+            </get>
+
+            <!-- this is a rest PUT to update a role -->
+            <put uri="/{id}" id="route-updateRole" type="com.kalix.admin.core.entities.RoleBean"
+                 outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Updates a Role</description>
+                <to uri="bean:roleService?method=updateEntity"/>
+            </put>
+
+            <!-- this is a rest DELETE to delete a role -->
+            <delete uri="/{id}" id="route-deleteRole"
+                    outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Delete a Role</description>
+                <to uri="bean:roleService?method=deleteEntity(${header.id})"/>
+            </delete>
+
+            <!-- this is a rest GET to view an user by the given id -->
+            <get id="route-getUsersByRoleId" uri="/roleUsers/users/{id}" outType="java.util.List">
+                <description>Find users by WorkGroup Id</description>
+                <to uri="bean:roleService?method=getUsersByRoleId(${header.id})"/>
+            </get>
+
+            <!-- this is a rest GET to view an user by the given id -->
+            <get id="route-saveRoleUsers" uri="/roleUsers"  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>save WorkGroupUsers</description>
+                <to uri="bean:roleService?method=saveRoleUsers(${header.roleId},${header.userIds})"/>
+            </get>
+
+            <!-- this is a rest GET to view an user by the given id -->
+            <get id="route-getRoleAll" uri="/all" outType="com.kalix.framework.core.api.persistence.JsonData">
+                <description>Find user</description>
+                <to uri="bean:roleService?method=getAllRole()"/>
+            </get>
+
+            <!-- this is a rest GET to view an user by the given id -->
+            <get id="route-saveAuthorization" uri="/authorizations"  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>save Authorization</description>
+                <to uri="bean:roleService?method=saveAuthorization(${header.roleId},${header.authorizationIds})"/>
+            </get>
+
+            <!-- this is a rest GET to view an user by the given id -->
+            <get id="route-getAuthorizationTree" uri="/{id}/authorizations" >
+                <description>find Authorizaition by RoleId</description>
+                <to uri="bean:roleService?method=getAuthorizationTree(${header.id})"/>
+            </get>
+
+        </rest>
+    </camelContext>
+</blueprint>

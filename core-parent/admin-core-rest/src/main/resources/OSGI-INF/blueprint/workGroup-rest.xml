@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+    <reference id="workgroupService" interface="com.kalix.admin.core.api.biz.IWorkGroupBeanService"/>
+    <camelContext id="workGroupCamel" xmlns="http://camel.apache.org/schema/blueprint">
+
+        <restConfiguration component="servlet" bindingMode="json">
+            <dataFormatProperty key="prettyPrint" value="true"/>
+        </restConfiguration>
+
+        <!-- defines the rest services using the context-path /workGroup -->
+        <rest path="/workGroups" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+            <description>workGroup rest service</description>
+
+            <!-- this is a rest GET to find all workgroup -->
+            <get id="route-getAllWorkGroupByPage" outType="com.kalix.framework.core.api.persistence.JsonData">
+                <description>Find all WorkGroups</description>
+                <to uri="bean:workgroupService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr})"/>
+            </get>
+
+            <!-- this is a rest POST to create a workgroup -->
+            <post id="route-addWorkGroup" type="com.kalix.admin.core.entities.WorkGroupBean"
+                  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Create a WorkGroup</description>
+                <to uri="bean:workgroupService?method=saveEntity"/>
+            </post>
+
+            <!-- this is a rest GET to view a workgroup by the given id -->
+            <get uri="/{id}" id="route-getWorkGroup" outType="com.kalix.admin.core.entities.WorkGroupBean">
+                <description>Find WorkGroup by id</description>
+                <to uri="bean:workgroupService?method=getEntity(${header.id})"/>
+            </get>
+
+            <!-- this is a rest PUT to update a workgroup -->
+            <put uri="/{id}" id="route-updateWorkGroup" type="com.kalix.admin.core.entities.WorkGroupBean"
+                 outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Updates a WorkGroup</description>
+                <to uri="bean:workgroupService?method=updateEntity"/>
+            </put>
+
+            <!-- this is a rest DELETE to delete a workgroup -->
+            <delete uri="/{id}" id="route-deleteWorkGroup"
+                    outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Delete a WorkGroup</description>
+                <to uri="bean:workgroupService?method=deleteEntity(${header.id})"/>
+            </delete>
+
+            <get uri="/all" id="route-getAllWorkGroup" outType="com.kalix.framework.core.api.persistence.JsonData">
+                <description>Find all users for WorkGroup</description>
+                <to uri="bean:workgroupService?method=getAllEntityforReport(${header.jsonStr})"/>
+            </get>
+
+            <!-- this is a rest GET to view an user by the given id -->
+            <get id="route-getUsersByWorkGroupId" uri="/workGroupUsers/users/{id}" outType="java.util.List">
+                <description>Find users by WorkGroup Id</description>
+                <to uri="bean:workgroupService?method=getUsersByWorkGroupId(${header.id})"/>
+            </get>
+
+            <!-- this is a rest GET to view an user by the given id -->
+            <get id="route-getRolesByWorkGroupId" uri="/workGroupRoles/roles/{id}" outType="java.util.List">
+                <description>Find users by WorkGroup Id</description>
+                <to uri="bean:workgroupService?method=getRolesByWorkGroupId(${header.id})"/>
+            </get>
+
+            <!-- this is a rest GET to view an user by the given id -->
+            <get id="route-saveWorkGroupUsers" uri="/workGroupUsers"   outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>save WorkGroupUsers</description>
+                <to uri="bean:workgroupService?method=saveWorkGroupUsers(${header.groupId},${header.userIds})"/>
+            </get>
+
+            <!-- this is a rest GET to view an user by the given id -->
+            <get id="route-saveWorkGroupRoles" uri="/workGroupRoles"   outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>save WorkGroupUsers</description>
+                <to uri="bean:workgroupService?method=saveWorkGroupRoles(${header.groupId},${header.roleIds})"/>
+            </get>
+
+        </rest>
+        
+    </camelContext>
+</blueprint>

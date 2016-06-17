@@ -1,0 +1,31 @@
+<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.2.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+">
+    <tx:enable-annotations/>
+    <reference id="auditBeanDao" interface="com.kalix.admin.audit.api.dao.IAuditBeanDao"/>
+    <service id="auditBeanService" interface="com.kalix.admin.audit.api.biz.IAuditBeanService" ref="beanServiceImpl">
+    </service>
+
+    <bean id="beanServiceImpl" class="com.kalix.admin.audit.biz.biz.AuditBeanServiceImpl">
+        <property name="dao" ref="auditBeanDao"/>
+        <tx:transaction method="*" value="Required"/>
+    </bean>
+
+    <bean id="auditUserLoginEventImpl" class="com.kalix.admin.audit.biz.biz.AuditUserLoginEventImpl">
+        <property name="dao" ref="auditBeanDao"/>
+    </bean>
+
+    <service interface="org.osgi.service.event.EventHandler" ref="auditUserLoginEventImpl">
+        <service-properties>
+            <entry key="event.topics">
+                <array value-type="java.lang.String">
+                    <value>com/kalix/userlogin</value>
+                    <value>com/kalix/userlogout</value>
+                </array>
+            </entry>
+        </service-properties>
+    </service>
+</blueprint>
+

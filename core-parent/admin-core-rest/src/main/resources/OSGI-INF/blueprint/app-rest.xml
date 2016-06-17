@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+    <reference id="applicationService" interface="com.kalix.admin.core.api.biz.IApplicationBeanService"/>
+    <camelContext id="applicationCamel" xmlns="http://camel.apache.org/schema/blueprint">
+
+        <restConfiguration component="servlet" bindingMode="json">
+            <dataFormatProperty key="prettyPrint" value="true"/>
+        </restConfiguration>
+
+        <!-- defines the rest services using the context-path /application -->
+        <rest path="/applications" consumes="application/json" produces="application/json">
+            <description>application rest service</description>
+
+            <!-- this is a rest GET to find all application -->
+            <get id="route-getAllApplicationByPage" outType="com.kalix.framework.core.api.persistence.JsonData">
+                <description>Find all Applications</description>
+                <to uri="bean:applicationService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr})"/>
+            </get>
+
+            <!-- this is a rest POST to create a application -->
+            <post id="route-addApplication" type="com.kalix.admin.core.entities.ApplicationBean"
+                  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Create a Application</description>
+                <to uri="bean:applicationService?method=saveEntity"/>
+            </post>
+
+            <!-- this is a rest GET to view a application by the given id -->
+            <get uri="/{id}" id="route-getApplication" outType="com.kalix.admin.core.entities.ApplicationBean">
+                <description>Find Application by id</description>
+                <to uri="bean:applicationService?method=getEntity(${header.id})"/>
+            </get>
+
+            <!-- this is a rest PUT to update a application -->
+            <put uri="/{id}" id="route-updateApplication" type="com.kalix.admin.core.entities.ApplicationBean"
+                 outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Updates a Application</description>
+                <to uri="bean:applicationService?method=updateEntity"/>
+            </put>
+
+            <!-- this is a rest DELETE to delete a application -->
+            <delete uri="/{id}" id="route-deleteApplication"
+                    outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Delete a Application</description>
+                <to uri="bean:applicationService?method=deleteEntity(${header.id})"/>
+            </delete>
+
+            <!-- this is a rest GET to view an user by the given id -->
+            <get id="route-getTreesByAllApplications" uri="/all/trees" >
+                <description>save getTreesByAllApplications</description>
+                <to uri="bean:applicationService?method=getTreesByAllApplications"/>
+            </get>
+
+            <!-- this is a rest GET to view an user by the given id -->
+            <get id="route-getAuthorizationTree" uri="/authorizations" >
+                <description>save getTreesByAllApplications</description>
+                <to uri="bean:applicationService?method=getAuthorizationTree"/>
+            </get>
+
+        </rest>
+    </camelContext>
+</blueprint>

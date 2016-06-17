@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+    <persistence-unit transaction-type="JTA" name="duty-unit">
+        <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+        <jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/ds)</jta-data-source>
+        <class>com.kalix.framework.core.api.persistence.PersistentEntity</class>
+        <class>com.kalix.admin.core.entities.UserBean</class>
+        <class>com.kalix.admin.core.entities.RoleBean</class>
+        <class>com.kalix.admin.core.entities.PermissionBean</class>
+
+        <class>com.kalix.admin.duty.entities.DutyBean</class>
+        <class>com.kalix.admin.duty.entities.DutyUserBean</class>
+        <properties>
+            <property name="openjpa.BrokerImpl" value="non-finalizing"/>
+            <property name="openjpa.Sequence" value="table(Table=OPENJPASEQ, Increment=100)"/>
+            <property name="openjpa.jdbc.UpdateManager"
+                      value="org.apache.openjpa.jdbc.kernel.BatchingConstraintUpdateManager"/>
+            <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema"/>
+            <property name="openjpa.jdbc.DBDictionary" value="postgres"/>
+            <property name="openjpa.Log" value="SQL=Info"/>
+            <property name="openjpa.ConnectionFactoryProperties" value="PrintParameters=true"/>
+            <property name="openjpa.RuntimeUnenhancedClasses" value="supported"/>
+        </properties>
+    </persistence-unit>
+</persistence>

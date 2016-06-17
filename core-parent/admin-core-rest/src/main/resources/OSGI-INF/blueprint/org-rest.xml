@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+    <reference id="orgService" interface="com.kalix.admin.core.api.biz.IOrganizationBeanService"/>
+    <camelContext id="orgCamel" xmlns="http://camel.apache.org/schema/blueprint">
+
+        <restConfiguration component="servlet" bindingMode="json">
+            <dataFormatProperty key="prettyPrint" value="true"/>
+        </restConfiguration>
+
+        <!-- defines the rest services using the context-path /org -->
+        <rest path="/orgs" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+            <description>org rest service</description>
+
+            <!-- this is a rest GET to view an org by the given id -->
+            <get id="route-getOrg" uri="/{id}">
+                <description>Find org by id</description>
+                <to uri="bean:orgService?method=getOrg(${header.id})"/>
+            </get>
+
+            <!-- this is a rest GET to view an org by the given name -->
+            <get id="route-getOrgByName" uri="/name">
+                <description>Find org by id</description>
+                <to uri="bean:orgService?method=getOrgByName(${header.name})"/>
+            </get>
+
+            <!-- this is a rest PUT to create an org -->
+            <post id="route-addOrg" type="com.kalix.admin.core.entities.OrganizationBean"
+                  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Create a org</description>
+                <to uri="bean:orgService?method=saveEntity"/>
+            </post>
+
+            <!-- this is a rest PUT to update an org -->
+            <put id="route-updateOrg" type="com.kalix.admin.core.entities.OrganizationBean"
+                 outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Updates a org</description>
+                <to uri="bean:orgService?method=updateEntity"/>
+            </put>
+
+            <!-- this is a rest DELETE to delete an org -->
+            <delete id="route-deleteOrg" outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Delete a org</description>
+                <to uri="bean:orgService?method=deleteEntity(${header.id})"/>
+            </delete>
+
+            <!-- this is a rest GET to find all orgs -->
+            <get id="route-getAllOrg">
+                <description>Find all orgs</description>
+                <to uri="bean:orgService?method=getAllOrg"/>
+            </get>
+        </rest>
+
+    </camelContext>
+</blueprint>

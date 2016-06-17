@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>admin-parent</artifactId>
+        <groupId>com.kalix.admin</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <modules>
+        <module>admin-audit-entities</module>
+        <module>admin-audit-api</module>
+        <module>admin-audit-dao</module>
+        <module>admin-audit-biz</module>
+        <module>admin-audit-rest</module>
+        <module>admin-audit-web</module>
+        <module>admin-audit-extjs</module>
+    </modules>
+
+    <groupId>com.kalix.admin.audit</groupId>
+    <artifactId>audit-parent</artifactId>
+    <name>Kalix Admin Audit Parent</name>
+    <packaging>pom</packaging>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.kalix.admin.audit</groupId>
+                <artifactId>admin-audit-entities</artifactId>
+                <version>${globle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kalix.admin.audit</groupId>
+                <artifactId>admin-audit-api</artifactId>
+                <version>${globle.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+    <reference id="depService" interface="com.kalix.admin.core.api.biz.IOrganizationBeanService"/>
+    <camelContext id="depCamel" xmlns="http://camel.apache.org/schema/blueprint">
+
+        <restConfiguration component="servlet" bindingMode="json">
+            <dataFormatProperty key="prettyPrint" value="true"/>
+        </restConfiguration>
+
+        <!-- defines the rest services using the context-path /dep -->
+        <rest path="/deps" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+            <description>dep rest service</description>
+
+            <!-- this is a rest GET to view an dep by the given id -->
+            <get id="route-getDep" uri="/{id}">
+                <description>Find dep by id</description>
+                <to uri="bean:depService?method=getOrg(${header.id})"/>
+            </get>
+
+
+
+            <!-- this is a rest PUT to create an dep -->
+            <post id="route-addDep" type="com.kalix.admin.core.entities.OrganizationBean"
+                  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Create a dep</description>
+                <to uri="bean:depService?method=saveEntity"/>
+            </post>
+
+            <!-- this is a rest PUT to update an dep -->
+            <put id="route-updateDep" type="com.kalix.admin.core.entities.OrganizationBean"
+                 outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Updates a dep</description>
+                <to uri="bean:depService?method=updateEntity"/>
+            </put>
+
+            <!-- this is a rest DELETE to delete an dep -->
+            <delete id="route-deleteDep" outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Delete a dep</description>
+                <to uri="bean:depService?method=deleteEntity(${header.id})"/>
+            </delete>
+            <!-- this is a rest GET to view an user by the given id -->
+            <get id="route-getUsersByDepartmentId" uri="/departmentUsers/users/{id}" outType="java.util.List">
+                <description>Find users by department Id</description>
+                <to uri="bean:depService?method=getUsersByDepartmentId(${header.id})"/>
+            </get>
+
+            <!-- this is a rest GET to view an user by the given id -->
+            <get id="route-getUserAllAndDepartmentUsers" uri="/departmentUsers/users/all/{id}" outType="java.util.List">
+                <description>Find users by department Id</description>
+                <to uri="bean:depService?method=getUserAllAndDepartmentUsers(${header.id})"/>
+            </get>
+
+            <!-- this is a rest GET to view an user by the given id -->
+            <get id="route-saveDepartmentUsers" uri="/departmentUsers" outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>save departmentUsers</description>
+                <to uri="bean:depService?method=saveDepartmentUsers(${header.depId},${header.userIds})"/>
+            </get>
+
+        </rest>
+        <rest path="/org" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+            <!-- this is a rest GET to view an dep by the given id -->
+            <get id="route-getDepsByOrgId" uri="/{id}/depts">
+                <description>Find dep by id</description>
+                <to uri="bean:depService?method=getAllByOrgId(${header.id})"/>
+            </get>
+        </rest>
+    </camelContext>
+</blueprint>

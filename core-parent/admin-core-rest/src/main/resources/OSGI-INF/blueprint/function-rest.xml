@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+    <reference id="functionService" interface="com.kalix.admin.core.api.biz.IFunctionBeanService"/>
+    <camelContext id="functionCamel" xmlns="http://camel.apache.org/schema/blueprint">
+
+        <restConfiguration component="servlet" bindingMode="json">
+            <dataFormatProperty key="prettyPrint" value="true"/>
+        </restConfiguration>
+
+        <!-- defines the rest services using the context-path /function -->
+        <rest path="/functions" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+            <description>function rest service</description>
+
+            <!-- this is a rest PUT to create an function -->
+            <post id="route-addFunction" type="com.kalix.admin.core.entities.FunctionBean"
+                  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Create a function</description>
+                <to uri="bean:functionService?method=saveEntity"/>
+            </post>
+
+            <!-- this is a rest GET to view an dep by the given id -->
+            <get id="route-getAllByApplicationId" uri="/application/{id}" >
+                <description>Find function by application id</description>
+                <to uri="bean:functionService?method=getAllByApplicationId(${header.id})"/>
+            </get>
+
+
+            <!-- this is a rest PUT to update an function -->
+            <put id="route-updateFunction" type="com.kalix.admin.core.entities.FunctionBean"
+                 outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Updates a function</description>
+                <to uri="bean:functionService?method=updateEntity"/>
+            </put>
+
+            <!-- this is a rest DELETE to delete an function -->
+            <delete id="route-deleteFunction" outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Delete a function</description>
+                <to uri="bean:functionService?method=deleteEntity(${header.id})"/>
+            </delete>
+
+            <!-- this is a rest GET to find all functions -->
+            <get id="route-getAllFunction" outType="com.kalix.admin.core.entities.FunctionBean">
+                <description>Find all functions</description>
+                <to uri="bean:functionService?method=getAllEntity"/>
+            </get>
+
+        </rest>
+
+    </camelContext>
+</blueprint>

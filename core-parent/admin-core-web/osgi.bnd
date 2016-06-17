@@ -1,0 +1,5 @@
+Bundle-Activator: ${bundle.namespace}.internal.InitActivator
+#Include-Resource: src/main/resources
+Bundle-Category: Kalix Admin Core
+Bundle-Classifier:IApplication
+Bundle-ApplicationId:admin

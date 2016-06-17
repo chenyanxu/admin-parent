@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+
+    <reference id="dutyService" interface="com.kalix.admin.duty.api.biz.IDutyBeanService"/>
+
+    <camelContext id="dutyCamel" xmlns="http://camel.apache.org/schema/blueprint">
+
+        <restConfiguration component="servlet" bindingMode="json">
+            <dataFormatProperty key="prettyPrint" value="true"/>
+        </restConfiguration>
+
+        <!-- defines the rest services using the context-path /duty -->
+        <rest path="/dutys" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+            <description>duty rest service</description>
+
+            <!-- this is a rest GET to find all duty -->
+            <get id="route-getAllDuty" outType="com.kalix.framework.core.api.persistence.JsonData">
+                <description>Find all Dutys</description>
+                <to uri="bean:dutyService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr})"/>
+            </get>
+
+            <!-- this is a rest POST to create a duty -->
+            <post id="route-addDuty" type="com.kalix.admin.duty.entities.DutyBean"
+                  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Create a Duty</description>
+                <to uri="bean:dutyService?method=saveEntity"/>
+            </post>
+
+            <!-- this is a rest GET to view a duty by the given id -->
+            <get uri="/{id}" id="route-getDuty" outType="com.kalix.admin.duty.entities.DutyBean">
+                <description>Find Duty by id</description>
+                <to uri="bean:dutyService?method=getEntity(${header.id})"/>
+            </get>
+
+            <!-- this is a rest GET to view a duty by the given id -->
+            <get uri="/dep/{id}" id="route-getDutiesByDepId" outType="java.util.List">
+                <description>Find Duty by id</description>
+                <to uri="bean:dutyService?method=getDutiesByDepId(${header.id})"/>
+            </get>
+
+            <!-- this is a rest PUT to update a duty -->
+            <put id="route-updateDuty" type="com.kalix.admin.duty.entities.DutyBean"
+                 outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Updates a Duty</description>
+                <to uri="bean:dutyService?method=updateEntity"/>
+            </put>
+
+            <!-- this is a rest DELETE to delete a duty -->
+            <delete uri="/{depId}/{id}" id="route-deleteDuty"
+                    outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Delete a Duty</description>
+                <to uri="bean:dutyService?method=deleteDuty(${header.depId},${header.id})"/>
+            </delete>
+
+            <!-- this is a rest GET to view an user by the given id -->
+            <get id="route-getUsersByDutyId" uri="/dutyUsers/users/{depId}/{id}" outType="java.util.List">
+                <description>Find users by departent Id and duty id</description>
+                <to uri="bean:dutyService?method=getUsersByDutyId(${header.depId},${header.id})"/>
+            </get>
+
+            <!-- this is a rest GET to view an user by the given id -->
+            <get id="route-getUserAllAndDutyUsers" uri="/dutyUsers/users/all/{depId}/{id}" outType="java.util.List">
+                <description>Find users by department Id and duty id</description>
+                <to uri="bean:dutyService?method=getUserAllAndDutyUsers(${header.depId},${header.id})"/>
+            </get>
+
+            <!-- this is a rest GET to view an user by the given id -->
+            <get id="route-saveDutyUsers" uri="/dutyUsers" outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>save dutyUsers</description>
+                <to uri="bean:dutyService?method=saveDutyUsers(${header.depId},${header.dutyId},${header.userIds})"/>
+            </get>
+        </rest>
+    </camelContext>
+</blueprint>

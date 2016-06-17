@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+    <reference id="auditService" interface="com.kalix.admin.audit.api.biz.IAuditBeanService"/>
+    <camelContext id="auditCamel" xmlns="http://camel.apache.org/schema/blueprint">
+        <restConfiguration component="servlet" bindingMode="json">
+            <dataFormatProperty key="prettyPrint" value="true"/>
+        </restConfiguration>
+
+        <!-- defines the rest services using the context-path /audit -->
+        <rest path="/audits" consumes="application/json" produces="application/json">
+            <description>audit rest service</description>
+
+            <!-- this is a rest GET to find all audit -->
+            <get id="route-getAllAudit" outType="com.kalix.framework.core.api.persistence.JsonData">
+                <description>Find all Audits</description>
+                <to uri="bean:auditService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr})"/>
+            </get>
+
+            <!-- this is a rest POST to create a audit -->
+            <post id="route-addAudit" type="com.kalix.admin.audit.entities.AuditBean"
+                  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Create a Audit</description>
+                <to uri="bean:auditService?method=saveEntity"/>
+            </post>
+
+            <!-- this is a rest GET to view a audit by the given id -->
+            <get uri="/{id}" id="route-getAudit" outType="com.kalix.admin.audit.entities.AuditBean">
+                <description>Find Audit by id</description>
+                <to uri="bean:auditService?method=getEntity(${header.id})"/>
+            </get>
+
+            <!-- this is a rest PUT to update a audit -->
+            <put uri="/{id}" id="route-updateAudit" type="com.kalix.admin.audit.entities.AuditBean"
+                 outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Updates a Audit</description>
+                <to uri="bean:auditService?method=updateEntity"/>
+            </put>
+
+            <!-- this is a rest DELETE to delete a audit -->
+            <delete uri="/{id}" id="route-deleteAudit"
+                    outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Delete a Audit</description>
+                <to uri="bean:auditService?method=deleteEntity(${header.id})"/>
+            </delete>
+            <!-- this is a rest DELETE to batch delete  audits -->
+            <delete uri="/remove" id="route-batchDeleteAudit"
+                    outType="com.kalix.framework.core.api.biz.JsonStatus">
+                <description>Batch Delete Audits</description>
+                <to uri="bean:auditService?method=batchDeleteEntity(${header.ids})"/>
+            </delete>
+        </rest>
+    </camelContext>
+</blueprint>
