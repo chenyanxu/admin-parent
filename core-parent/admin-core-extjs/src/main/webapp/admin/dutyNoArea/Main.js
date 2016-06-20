@@ -6,7 +6,7 @@
  * @version 1.0.0
  */
 Ext.define('kalix.admin.dutyNoArea.Main', {
-    extend: 'Ext.panel.Panel',
+    extend: 'kalix.view.components.common.AutoHPanel',
     requires: [
         'kalix.admin.dutyNoArea.viewModel.DutyNoAreaViewModel',
         'kalix.admin.dutyNoArea.controller.DutyNoAreaController',
@@ -19,15 +19,9 @@ Ext.define('kalix.admin.dutyNoArea.Main', {
     viewModel: {
         type: 'dutyNoAreaViewModel'
     },
-    layout: {
-        type: 'hbox',
-        align: 'stretch'
-    },
-    renderTo: document.body,
     items: [
         {
             xtype: 'orgNoAreaTreeList',
-            region : 'west',
             flex: 1,
             listeners: {
                 itemClick: 'onOrgClick'
@@ -35,7 +29,6 @@ Ext.define('kalix.admin.dutyNoArea.Main', {
         },
         {
             xtype: 'depNoAreaTreeList',
-            region : 'center',
             flex: 1,
             listeners: {
                 itemClick: 'onDepClick'
@@ -43,10 +36,8 @@ Ext.define('kalix.admin.dutyNoArea.Main', {
         },
         {
             xtype: 'dutyNoAreaGridPanel',
-            region : 'east',
             title: '职位列表',
-            flex: 2//,
-            //store: Ext.create('kalix.admin.dutyNoArea.store.DutyNoAreaStore')
+            flex: 2
         }
     ]
 });

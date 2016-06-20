@@ -55,7 +55,7 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
     @Override
     public JsonData getUserAll(long depId) {
         JsonData jsonData = new JsonData();
-        List<UserBean> users = dutyUserBeanDao.findByNativeSql("select a.* from sys_user as  a, sys_department_user as  b where a.id = b.userid and depid=" + depId, UserBean.class, null);
+        List<UserBean> users = dutyUserBeanDao.findByNativeSql("select a.* from sys_user as  a, sys_department_user as  b where a.id = b.userid and depid=" + depId+" order by a.name asc", UserBean.class, null);
         List<PersistentEntity> persistentEntities = new ArrayList<PersistentEntity>();
         if (users != null && users.size() > 0) {
             for (UserBean user : users) {
@@ -72,7 +72,7 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
     @Override
     public JsonData getUserAllAndDutyUsers(long depId, long dutyId) {
         JsonData jsonData = new JsonData();
-        List<UserBean> users = dutyUserBeanDao.findByNativeSql("select a.* from sys_user as  a, sys_department_user as  b where a.id = b.userid and depid=" + depId/*+" and a.id not in (select userid from sys_duty_user)"*/, UserBean.class, null);
+        List<UserBean> users = dutyUserBeanDao.findByNativeSql("select a.* from sys_user as  a, sys_department_user as  b where a.id = b.userid and depid=" + depId + " order by a.name asc"/*+" and a.id not in (select userid from sys_duty_user)"*/, UserBean.class, null);
         List<PersistentEntity> persistentEntities = new ArrayList<PersistentEntity>();
         if (users != null && users.size() > 0) {
             for (UserBean user : users) {
@@ -81,7 +81,7 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
                 }
             }
         }
-        List<UserBean> dutyUserBeans = dutyUserBeanDao.findByNativeSql("select a.* from sys_user a where a.id in (select du.userId from sys_duty_user du where du.depId=" + depId + " and du.dutyId=" + dutyId + ")", UserBean.class, null);
+        List<UserBean> dutyUserBeans = dutyUserBeanDao.findByNativeSql("select a.* from sys_user a where a.id in (select du.userId from sys_duty_user du where du.depId=\" + depId + \" and du.dutyId=\" + dutyId + \") order by a.name asc", UserBean.class, null);
         if (dutyUserBeans != null && dutyUserBeans.size() > 0) {
             for (UserBean dutyUserBean : dutyUserBeans) {
                 if (dutyUserBean != null) {

@@ -6,7 +6,7 @@
  * @version 1.0.0
  */
 Ext.define('kalix.admin.depNoArea.Main', {
-    extend: 'Ext.panel.Panel',
+    extend: 'kalix.view.components.common.AutoHPanel',
     requires: [
         'kalix.admin.depNoArea.viewModel.DepNoAreaViewModel',
         'kalix.admin.depNoArea.controller.DepNoAreaController'
@@ -15,10 +15,6 @@ Ext.define('kalix.admin.depNoArea.Main', {
     controller: 'depNoAreaController',
     viewModel: {
         type: 'depNoAreaViewModel'
-    },
-    layout: {
-        type: 'hbox',
-        align: 'stretch'
     },
     items: [{
             xtype: 'orgNoAreaTreeList',

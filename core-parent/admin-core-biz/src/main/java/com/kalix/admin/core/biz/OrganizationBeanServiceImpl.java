@@ -333,7 +333,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
     @Override
     public JsonData getUserAllAndDepartmentUsers(long depId) {
         JsonData jsonData = new JsonData();
-        List<UserBean> users = dao.find("select u from UserBean u where u.id not in (select dub.userId from DepartmentUserBean dub)");
+        List<UserBean> users = dao.find("select u from UserBean u where u.id not in (select dub.userId from DepartmentUserBean dub) order by u.name asc");
         List<PersistentEntity> persistentEntities = new ArrayList<PersistentEntity>();
         if (users != null && users.size() > 0) {
             for (UserBean user : users) {
@@ -342,7 +342,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
                 }
             }
         }
-        List<UserBean> departmentUserBeans = dao.find("select u from UserBean u where u.id in (select du.userId from DepartmentUserBean du where du.depId=?1)", depId);
+        List<UserBean> departmentUserBeans = dao.find("select u from UserBean u where u.id in (select du.userId from DepartmentUserBean du where du.depId=?1) order by u.name asc", depId);
         if (departmentUserBeans != null && departmentUserBeans.size() > 0) {
             for (UserBean departmentUserBean : departmentUserBeans) {
                 if (departmentUserBean != null) {
