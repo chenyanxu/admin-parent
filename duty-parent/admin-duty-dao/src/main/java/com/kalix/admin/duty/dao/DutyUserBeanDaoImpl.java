@@ -2,7 +2,7 @@ package com.kalix.admin.duty.dao;
 
 import com.kalix.admin.duty.api.dao.IDutyUserBeanDao;
 import com.kalix.admin.duty.entities.DutyUserBean;
-import com.kalix.framework.core.impl.persistence.GenericDao;
+import com.kalix.framework.core.impl.dao.GenericDao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class DutyUserBeanDaoImpl extends GenericDao<DutyUserBean, Long> implements IDutyUserBeanDao {
     @Override
-    @PersistenceContext(unitName = "duty-unit")
+    @PersistenceContext(unitName = "admin-duty-unit")
     public void setEntityManager(EntityManager em) {
         super.setEntityManager(em);
     }

@@ -41,11 +41,6 @@ public class DepartmentMenuImpl implements IMenu {
     }
 
     @Override
-    public String getIcon() {
-        return "admin/resources/images/building.png";
-    }
-
-    @Override
     public String getRouteId() {
         return "admin/Dep";
     }

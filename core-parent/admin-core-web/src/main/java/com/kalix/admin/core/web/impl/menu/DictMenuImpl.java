@@ -41,11 +41,6 @@ public class DictMenuImpl implements IMenu {
     }
 
     @Override
-    public String getIcon() {
-        return "admin/resources/images/book.png";
-    }
-
-    @Override
     public String getRouteId() {
         return "admin/Dict";
     }

@@ -3,7 +3,7 @@ package com.kalix.admin.core.biz;
 import com.kalix.admin.core.api.biz.IOfficeBeanService;
 import com.kalix.admin.core.api.dao.IOfficeBeanDao;
 import com.kalix.admin.core.entities.OfficeBean;
-import com.kalix.framework.core.api.persistence.IGenericDao;
+import com.kalix.framework.core.api.dao.IGenericDao;
 import com.kalix.framework.core.impl.biz.GenericBizServiceImpl;
 
 /**

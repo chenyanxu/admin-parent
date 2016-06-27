@@ -21,7 +21,7 @@
 
             <!-- this is a rest POST to create a audit -->
             <post id="route-addAudit" type="com.kalix.admin.audit.entities.AuditBean"
-                  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Create a Audit</description>
                 <to uri="bean:auditService?method=saveEntity"/>
             </post>
@@ -34,20 +34,20 @@
 
             <!-- this is a rest PUT to update a audit -->
             <put uri="/{id}" id="route-updateAudit" type="com.kalix.admin.audit.entities.AuditBean"
-                 outType="com.kalix.framework.core.api.biz.JsonStatus">
+                 outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Updates a Audit</description>
                 <to uri="bean:auditService?method=updateEntity"/>
             </put>
 
             <!-- this is a rest DELETE to delete a audit -->
             <delete uri="/{id}" id="route-deleteAudit"
-                    outType="com.kalix.framework.core.api.biz.JsonStatus">
+                    outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Delete a Audit</description>
                 <to uri="bean:auditService?method=deleteEntity(${header.id})"/>
             </delete>
             <!-- this is a rest DELETE to batch delete  audits -->
             <delete uri="/remove" id="route-batchDeleteAudit"
-                    outType="com.kalix.framework.core.api.biz.JsonStatus">
+                    outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Batch Delete Audits</description>
                 <to uri="bean:auditService?method=batchDeleteEntity(${header.ids})"/>
             </delete>

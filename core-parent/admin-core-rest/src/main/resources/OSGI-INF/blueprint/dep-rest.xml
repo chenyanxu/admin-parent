@@ -24,20 +24,20 @@
 
             <!-- this is a rest PUT to create an dep -->
             <post id="route-addDep" type="com.kalix.admin.core.entities.OrganizationBean"
-                  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Create a dep</description>
                 <to uri="bean:depService?method=saveEntity"/>
             </post>
 
             <!-- this is a rest PUT to update an dep -->
             <put id="route-updateDep" type="com.kalix.admin.core.entities.OrganizationBean"
-                 outType="com.kalix.framework.core.api.biz.JsonStatus">
+                 outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Updates a dep</description>
                 <to uri="bean:depService?method=updateEntity"/>
             </put>
 
             <!-- this is a rest DELETE to delete an dep -->
-            <delete id="route-deleteDep" outType="com.kalix.framework.core.api.biz.JsonStatus">
+            <delete id="route-deleteDep" outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Delete a dep</description>
                 <to uri="bean:depService?method=deleteEntity(${header.id})"/>
             </delete>
@@ -54,7 +54,7 @@
             </get>
 
             <!-- this is a rest GET to view an user by the given id -->
-            <get id="route-saveDepartmentUsers" uri="/departmentUsers" outType="com.kalix.framework.core.api.biz.JsonStatus">
+            <get id="route-saveDepartmentUsers" uri="/departmentUsers" outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>save departmentUsers</description>
                 <to uri="bean:depService?method=saveDepartmentUsers(${header.depId},${header.userIds})"/>
             </get>

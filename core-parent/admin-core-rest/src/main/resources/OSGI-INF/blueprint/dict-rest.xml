@@ -27,7 +27,7 @@
 
             <!-- this is a rest POST to create an dict -->
             <post id="route-addDict" type="com.kalix.admin.core.entities.DictBean"
-                  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Create a Dict</description>
                 <to uri="bean:dictService?method=saveEntity"/>
             </post>
@@ -40,14 +40,14 @@
 
             <!-- this is a rest PUT to update a dict -->
             <put uri="/{id}" id="route-updateDict" type="com.kalix.admin.core.entities.DictBean"
-                 outType="com.kalix.framework.core.api.biz.JsonStatus">
+                 outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Updates a Dict</description>
                 <to uri="bean:dictService?method=updateEntity"/>
             </put>
 
             <!-- this is a rest DELETE to delete a dict -->
             <delete uri="/{id}" id="route-deleteDict"
-                    outType="com.kalix.framework.core.api.biz.JsonStatus">
+                    outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Delete a Dict</description>
                 <to uri="bean:dictService?method=deleteEntity(${header.id})"/>
             </delete>

@@ -18,4 +18,11 @@
     <properties>
         <bundle.symbolicName>com.kalix.admin.core.web</bundle.symbolicName>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.kalix.framework.core</groupId>
+            <artifactId>framework-core-impl</artifactId>
+        </dependency>
+    </dependencies>
 </project>

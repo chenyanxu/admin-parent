@@ -3,7 +3,5 @@
 #-----------------------------------------------------------------
 
 Bundle-Activator: ${bundle.namespace}.internal.InitActivator
-Meta-Persistence: META-INF/persistence.xml
-Import-Package:*
-JPA-PersistenceUnits:audit-unit
+Meta-Persistence: META-INF/persistence-jpa.xml
 Bundle-Category: Kalix Admin Audit

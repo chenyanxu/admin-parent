@@ -24,7 +24,7 @@
 
             <!-- this is a rest POST to create a duty -->
             <post id="route-addDuty" type="com.kalix.admin.duty.entities.DutyBean"
-                  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Create a Duty</description>
                 <to uri="bean:dutyService?method=saveEntity"/>
             </post>
@@ -43,14 +43,14 @@
 
             <!-- this is a rest PUT to update a duty -->
             <put id="route-updateDuty" type="com.kalix.admin.duty.entities.DutyBean"
-                 outType="com.kalix.framework.core.api.biz.JsonStatus">
+                 outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Updates a Duty</description>
                 <to uri="bean:dutyService?method=updateEntity"/>
             </put>
 
             <!-- this is a rest DELETE to delete a duty -->
             <delete uri="/{depId}/{id}" id="route-deleteDuty"
-                    outType="com.kalix.framework.core.api.biz.JsonStatus">
+                    outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Delete a Duty</description>
                 <to uri="bean:dutyService?method=deleteDuty(${header.depId},${header.id})"/>
             </delete>
@@ -68,7 +68,7 @@
             </get>
 
             <!-- this is a rest GET to view an user by the given id -->
-            <get id="route-saveDutyUsers" uri="/dutyUsers" outType="com.kalix.framework.core.api.biz.JsonStatus">
+            <get id="route-saveDutyUsers" uri="/dutyUsers" outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>save dutyUsers</description>
                 <to uri="bean:dutyService?method=saveDutyUsers(${header.depId},${header.dutyId},${header.userIds})"/>
             </get>

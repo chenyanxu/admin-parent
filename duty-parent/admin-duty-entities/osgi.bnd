@@ -3,7 +3,6 @@
 #-----------------------------------------------------------------
 
 Bundle-Activator: ${bundle.namespace}.internal.InitActivator
-Meta-Persistence: META-INF/persistence.xml
+Meta-Persistence: META-INF/persistence-jpa.xml
 Import-Package:com.kalix.admin.core.entities,*
-JPA-PersistenceUnits:duty-unit
 Bundle-Category: Kalix Admin Duty

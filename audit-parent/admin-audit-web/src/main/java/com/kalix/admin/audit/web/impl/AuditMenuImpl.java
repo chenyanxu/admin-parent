@@ -45,10 +45,7 @@ public class AuditMenuImpl  implements IMenu {
         return "可以对业务操作进行审计管理";
     }
 
-    @Override
-    public String getIcon() {
-        return null;
-    }
+
 
     @Override
     public String getRouteId() {

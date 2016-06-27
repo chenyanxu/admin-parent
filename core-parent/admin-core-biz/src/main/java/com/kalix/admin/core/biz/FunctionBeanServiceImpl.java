@@ -6,7 +6,7 @@ import com.kalix.admin.core.dto.model.AuthorizationDTO;
 import com.kalix.admin.core.dto.model.FunctionDTO;
 import com.kalix.admin.core.entities.FunctionBean;
 import com.kalix.admin.core.entities.RoleFunctionBean;
-import com.kalix.framework.core.api.biz.JsonStatus;
+import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
 import org.dozer.DozerBeanMapper;

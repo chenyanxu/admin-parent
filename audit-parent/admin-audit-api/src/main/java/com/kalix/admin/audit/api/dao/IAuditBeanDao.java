@@ -1,7 +1,7 @@
 package com.kalix.admin.audit.api.dao;
 
 import com.kalix.admin.audit.entities.AuditBean;
-import com.kalix.framework.core.api.persistence.IGenericDao;
+import com.kalix.framework.core.api.dao.IGenericDao;
 
 /**
  * @类描述：公告管理

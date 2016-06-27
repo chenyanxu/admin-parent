@@ -8,7 +8,7 @@ import com.kalix.admin.core.dto.model.DepartmentDTO;
 import com.kalix.admin.core.entities.DepartmentBean;
 import com.kalix.admin.core.entities.DepartmentUserBean;
 import com.kalix.admin.core.entities.UserBean;
-import com.kalix.framework.core.api.biz.JsonStatus;
+import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.api.persistence.JsonData;
 import com.kalix.framework.core.api.persistence.PersistentEntity;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;

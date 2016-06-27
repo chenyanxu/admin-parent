@@ -41,11 +41,6 @@ public class AreaMenuImpl implements IMenu {
     }
 
     @Override
-    public String getIcon() {
-        return "admin/resources/images/shape_square.png";
-    }
-
-    @Override
     public String getRouteId() {
         return "admin/Area";
     }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+    <persistence-unit transaction-type="JTA" name="admin-audit-unit">
+        <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+        <jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/ds)
+        </jta-data-source>
+        <class>com.kalix.framework.core.api.persistence.PersistentEntity</class>
+
+        <properties>
+            <property name="openjpa.BrokerImpl" value="non-finalizing"/>
+            <property name="openjpa.Sequence" value="table(Table=OPENJPASEQ, Increment=100)"/>
+            <property name="openjpa.jdbc.UpdateManager"
+                      value="org.apache.openjpa.jdbc.kernel.BatchingConstraintUpdateManager"/>
+            <!-- These properties are creating the database on the fly. We are using them to avoid users having
+            to create a database to run the sample. This is not something that should be used in production.
+            See also the create=true line in the ariestrader-derby-ds blueprint meta data -->
+            <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema"/>
+            <property name="openjpa.ConnectionFactoryProperties" value="PrintParameters=true"/>
+            <property name="openjpa.RuntimeUnenhancedClasses" value="supported"/>
+        </properties>
+    </persistence-unit>
+</persistence>

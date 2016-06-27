@@ -41,11 +41,6 @@ public class OrganizationMenuImpl implements IMenu {
     }
 
     @Override
-    public String getIcon() {
-        return "admin/resources/images/script.png";
-    }
-
-    @Override
     public String getRouteId() {
         return "admin/Org";
     }

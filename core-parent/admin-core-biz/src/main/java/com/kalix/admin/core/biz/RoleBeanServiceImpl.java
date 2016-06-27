@@ -9,7 +9,7 @@ import com.kalix.admin.core.api.dao.IFunctionBeanDao;
 import com.kalix.admin.core.dto.model.AuthorizationDTO;
 import com.kalix.admin.core.entities.ApplicationBean;
 import com.kalix.admin.core.entities.FunctionBean;
-import com.kalix.framework.core.api.biz.JsonStatus;
+import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.api.persistence.JsonData;
 import com.kalix.framework.core.api.persistence.PersistentEntity;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;

@@ -15,14 +15,14 @@
             <description>User shiro service</description>
 
             <get id="route-validSession"
-                  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>validate user session</description>
                 <to uri="bean:shiroService?method=validSession(${header.sessionId})"/>
             </get>
 
             <!-- this is a rest PUT to create an user -->
             <get uri="/permission" id="route-validPermission"
-                 outType="com.kalix.framework.core.api.biz.JsonStatus">
+                 outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>validate user permission</description>
                 <to uri="bean:shiroService?method=validPermission(${header.sessionId},${header.permission})"/>
             </get>

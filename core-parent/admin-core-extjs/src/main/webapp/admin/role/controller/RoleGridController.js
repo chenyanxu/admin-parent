@@ -101,7 +101,7 @@ Ext.define('kalix.admin.role.controller.RoleGridController', {
                 callback: function (options, success, response) {
                     var resp = Ext.JSON.decode(response.responseText);
                     if (resp != null && resp.success) {
-                        kalix.core.Notify.success(resp.msg, CONFIG.ALTER_TITLE_SUCCESS);
+                        kalix.Notify.success(resp.msg, CONFIG.ALTER_TITLE_SUCCESS);
                     } else {
                         Ext.Msg.alert(CONFIG.ALTER_TITLE_FAILURE, resp.msg);
                     }

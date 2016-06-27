@@ -4,7 +4,7 @@ package com.kalix.admin.core.biz;
 import com.kalix.admin.core.api.biz.IPluginBeanService;
 import com.kalix.admin.core.api.dao.IPluginBeanDao;
 import com.kalix.admin.core.entities.PluginBean;
-import com.kalix.framework.core.api.biz.JsonStatus;
+import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.impl.biz.GenericBizServiceImpl;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;

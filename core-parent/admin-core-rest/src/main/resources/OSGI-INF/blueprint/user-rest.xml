@@ -27,7 +27,7 @@
 
             <!-- this is a rest POST to create a user -->
             <post id="route-addUser" type="com.kalix.admin.core.entities.UserBean"
-                  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Create a User</description>
                 <to uri="bean:userService?method=saveEntity"/>
             </post>
@@ -40,14 +40,14 @@
 
             <!-- this is a rest PUT to update a user -->
             <put uri="/{id}" id="route-updateUser" type="com.kalix.admin.core.entities.UserBean"
-                 outType="com.kalix.framework.core.api.biz.JsonStatus">
+                 outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Updates a User</description>
                 <to uri="bean:userService?method=updateEntity"/>
             </put>
 
             <!-- this is a rest DELETE to delete a user -->
             <delete uri="/{id}" id="route-deleteUser"
-                    outType="com.kalix.framework.core.api.biz.JsonStatus">
+                    outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Delete a User</description>
                 <to uri="bean:userService?method=deleteEntity(${header.id})"/>
             </delete>

@@ -3,7 +3,7 @@ package com.kalix.admin.core.api.biz;
 import com.kalix.admin.core.dto.model.OrganizationDTO;
 import com.kalix.admin.core.entities.OrganizationBean;
 import com.kalix.framework.core.api.biz.IBizService;
-import com.kalix.framework.core.api.biz.JsonStatus;
+import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.api.persistence.JsonData;
 
 import java.util.List;

@@ -2,7 +2,7 @@ package com.kalix.admin.audit.dao;
 
 import com.kalix.admin.audit.api.dao.IAuditBeanDao;
 import com.kalix.admin.audit.entities.AuditBean;
-import com.kalix.framework.core.impl.persistence.GenericDao;
+import com.kalix.framework.core.impl.dao.GenericDao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,7 +24,7 @@ public class AuditBeanDaoImpl extends GenericDao<AuditBean, Long> implements IAu
     }
 
     @Override
-    @PersistenceContext(unitName = "audit-unit")
+    @PersistenceContext(unitName = "admin-audit-unit")
     public void setEntityManager(EntityManager em) {
         super.setEntityManager(em);
     }

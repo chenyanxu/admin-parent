@@ -7,7 +7,7 @@ import com.kalix.admin.core.api.dao.IWorkGroupUserBeanDao;
 import com.kalix.admin.core.entities.WorkGroupBean;
 import com.kalix.admin.core.entities.WorkGroupRoleBean;
 import com.kalix.admin.core.entities.WorkGroupUserBean;
-import com.kalix.framework.core.api.biz.JsonStatus;
+import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.api.persistence.JsonData;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;

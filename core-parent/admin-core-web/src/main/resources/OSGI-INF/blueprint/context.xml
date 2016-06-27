@@ -6,43 +6,28 @@
 	 	http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
 	 	http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://svn.apache.org/repos/asf/aries/trunk/blueprint/blueprint-cm/src/main/resources/org/apache/aries/blueprint/compendium/cm/blueprint-cm-1.1.0.xsd
 	 ">
-
-    <cm:property-placeholder persistent-id="ConfigWeb" update-strategy="reload">
-        <cm:default-properties>
-            <!--<cm:property name="TOMCAT_PATH" value="D:\\java-develop\\apache-tomcat-7.0.53"/>
-            <cm:property name="TOMCAT_URL" value="http://202.111.175.224:8080"/>-->
-        </cm:default-properties>
-    </cm:property-placeholder>
-
-    <!--&lt;!&ndash;监听IApplication项模块的加载和卸载&ndash;&gt;
-    <reference-list interface="com.kalix.framework.core.api.web.IApplication" member-type="service-reference" availability="optional">
-        <reference-listener bind-method="register" unbind-method="unregister">
-            <bean class="com.kalix.framework.core.web.impl.BodyImpl"/>
-        </reference-listener>
-    </reference-list>-->
     <bean id="adminApplicationImpl" class="com.kalix.admin.core.web.impl.app.AdminApplicationImpl"/>
+    <!--应用-->
     <!--系统应用-->
     <service interface="com.kalix.framework.core.api.web.IApplication" ref="adminApplicationImpl">
         <service-properties>
             <entry key="id" value="admin"/>
         </service-properties>
     </service>
-
-
-    <!--系统管理-->
-    <service interface="com.kalix.framework.core.api.web.IModule">
-        <bean class="com.kalix.admin.core.web.impl.module.AdminModuleImpl"/>
-    </service>
-
-    <!--权限控制-->
+    <!--模块-->
+    <!--权限管理-->
     <service interface="com.kalix.framework.core.api.web.IModule">
         <bean class="com.kalix.admin.core.web.impl.module.PermissionModuleImpl"/>
     </service>
-    <!--系统常量-->
+    <!--组织结构-->
     <service interface="com.kalix.framework.core.api.web.IModule">
         <bean class="com.kalix.admin.core.web.impl.module.ConstructModuleImpl"/>
     </service>
-
+    <!--系统管理-->
+    <service interface="com.kalix.framework.core.api.web.IModule">
+        <bean class="com.kalix.admin.core.web.impl.module.SystemModuleImpl"/>
+    </service>
+    <!---菜单-->
     <!--用户管理-->
     <service interface="com.kalix.framework.core.api.web.IMenu">
         <bean class="com.kalix.admin.core.web.impl.menu.UserMenuImpl"/>
@@ -56,35 +41,23 @@
         <bean class="com.kalix.admin.core.web.impl.menu.WorkGroupMenuImpl"/>
     </service>
 
-    <!--字典管理-->
-    <service interface="com.kalix.framework.core.api.web.IMenu">
-        <bean class="com.kalix.admin.core.web.impl.menu.DictMenuImpl"/>
-    </service>
-    <!--区域管理-->
-    <service interface="com.kalix.framework.core.api.web.IMenu">
-        <bean class="com.kalix.admin.core.web.impl.menu.AreaMenuImpl"/>
-    </service>
-    <!--机构管理-->
-    <!--<service interface="com.kalix.framework.core.api.web.IMenu">-->
-    <!--<bean class="com.kalix.admin.core.web.impl.menu.OrganizationMenuImpl"/>-->
-    <!--</service>-->
-    <!--不带区域的机构管理-->
-    <service interface="com.kalix.framework.core.api.web.IMenu">
-        <bean class="com.kalix.admin.core.web.impl.menu.OrganizationNoAreaMenuImpl"/>
-    </service>
     <!--组织结构树-->
     <service interface="com.kalix.framework.core.api.web.IMenu">
         <bean class="com.kalix.admin.core.web.impl.menu.OrgChartMenuImpl"/>
     </service>
-    <!--部门管理-->
-    <!--<service interface="com.kalix.framework.core.api.web.IMenu">-->
-    <!--<bean class="com.kalix.admin.core.web.impl.menu.DepartmentMenuImpl"/>-->
-    <!--</service>-->
+    <!--不带区域的机构管理-->
+    <service interface="com.kalix.framework.core.api.web.IMenu">
+        <bean class="com.kalix.admin.core.web.impl.menu.OrganizationNoAreaMenuImpl"/>
+    </service>
     <!--不带区域部门管理-->
     <service interface="com.kalix.framework.core.api.web.IMenu">
         <bean class="com.kalix.admin.core.web.impl.menu.DepartmentNoAreaMenuImpl"/>
     </service>
 
+    <!--字典管理-->
+    <service interface="com.kalix.framework.core.api.web.IMenu">
+        <bean class="com.kalix.admin.core.web.impl.menu.DictMenuImpl"/>
+    </service>
     <!--应用管理-->
     <service interface="com.kalix.framework.core.api.web.IMenu">
         <bean class="com.kalix.admin.core.web.impl.menu.ApplicationMenuImpl"/>
@@ -92,17 +65,5 @@
     <!--功能管理-->
     <service interface="com.kalix.framework.core.api.web.IMenu">
         <bean class="com.kalix.admin.core.web.impl.menu.FunctionMenuImpl"/>
-    </service>
-    <!--插件管理-->
-    <service interface="com.kalix.framework.core.api.web.IMenu">
-        <bean class="com.kalix.admin.core.web.impl.menu.PluginMenuImpl"/>
-    </service>
-    <!--模块控制-->
-    <!--<service interface="com.kalix.framework.core.api.web.IMenu">
-        <bean class="com.kalix.admin.core.web.impl.AppControlMenuImpl"/>
-    </service>-->
-    <!--模块管理-->
-    <service interface="com.kalix.framework.core.api.web.IModule">
-        <bean class="com.kalix.admin.core.web.impl.module.AppModuleImpl"/>
     </service>
 </blueprint>

@@ -27,7 +27,7 @@
 
             <!-- this is a rest POST to create a role -->
             <post id="route-addRole" type="com.kalix.admin.core.entities.RoleBean"
-                  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Create a Role</description>
                 <to uri="bean:roleService?method=saveEntity"/>
             </post>
@@ -40,14 +40,14 @@
 
             <!-- this is a rest PUT to update a role -->
             <put uri="/{id}" id="route-updateRole" type="com.kalix.admin.core.entities.RoleBean"
-                 outType="com.kalix.framework.core.api.biz.JsonStatus">
+                 outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Updates a Role</description>
                 <to uri="bean:roleService?method=updateEntity"/>
             </put>
 
             <!-- this is a rest DELETE to delete a role -->
             <delete uri="/{id}" id="route-deleteRole"
-                    outType="com.kalix.framework.core.api.biz.JsonStatus">
+                    outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Delete a Role</description>
                 <to uri="bean:roleService?method=deleteEntity(${header.id})"/>
             </delete>
@@ -59,7 +59,7 @@
             </get>
 
             <!-- this is a rest GET to view an user by the given id -->
-            <get id="route-saveRoleUsers" uri="/roleUsers"  outType="com.kalix.framework.core.api.biz.JsonStatus">
+            <get id="route-saveRoleUsers" uri="/roleUsers"  outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>save WorkGroupUsers</description>
                 <to uri="bean:roleService?method=saveRoleUsers(${header.roleId},${header.userIds})"/>
             </get>
@@ -71,7 +71,7 @@
             </get>
 
             <!-- this is a rest GET to view an user by the given id -->
-            <get id="route-saveAuthorization" uri="/authorizations"  outType="com.kalix.framework.core.api.biz.JsonStatus">
+            <get id="route-saveAuthorization" uri="/authorizations"  outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>save Authorization</description>
                 <to uri="bean:roleService?method=saveAuthorization(${header.roleId},${header.authorizationIds})"/>
             </get>

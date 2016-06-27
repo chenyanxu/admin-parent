@@ -1,7 +1,7 @@
 package com.kalix.admin.core.api.dao;
 
 import com.kalix.admin.core.entities.ApplicationBean;
-import com.kalix.framework.core.api.persistence.IGenericDao;
+import com.kalix.framework.core.api.dao.IGenericDao;
 
 /**
  * 应用DAO接口

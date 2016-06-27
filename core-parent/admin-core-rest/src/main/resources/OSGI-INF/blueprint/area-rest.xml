@@ -15,20 +15,20 @@
             <description>area rest service</description>
             <!-- this is a rest PUT to create an area -->
             <post id="route-addArea" type="com.kalix.admin.core.entities.AreaBean"
-                  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Create a area</description>
                 <to uri="bean:areaService?method=saveEntity"/>
             </post>
 
             <!-- this is a rest PUT to update an area -->
             <put id="route-updateArea" type="com.kalix.admin.core.entities.AreaBean"
-                 outType="com.kalix.framework.core.api.biz.JsonStatus">
+                 outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Updates a area</description>
                 <to uri="bean:areaService?method=updateEntity"/>
             </put>
 
             <!-- this is a rest DELETE to delete an area -->
-            <delete id="route-deleteArea" outType="com.kalix.framework.core.api.biz.JsonStatus">
+            <delete id="route-deleteArea" outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Delete a area</description>
                 <to uri="bean:areaService?method=deleteEntity(${header.id})"/>
             </delete>

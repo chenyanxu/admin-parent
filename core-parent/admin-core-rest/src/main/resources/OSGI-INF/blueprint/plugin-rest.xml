@@ -24,7 +24,7 @@
 
             <!-- this is a rest POST to create a plugin -->
             <post id="route-addPlugin" type="com.kalix.admin.core.entities.PluginBean"
-                  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Create a Plugin</description>
                 <to uri="bean:pluginService?method=saveEntity"/>
             </post>
@@ -37,32 +37,32 @@
 
             <!-- this is a rest PUT to update a plugin -->
             <put uri="/{id}" id="route-updatePlugin" type="com.kalix.admin.core.entities.PluginBean"
-                 outType="com.kalix.framework.core.api.biz.JsonStatus">
+                 outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Updates a Plugin</description>
                 <to uri="bean:pluginService?method=updateEntity"/>
             </put>
 
             <!-- this is a rest DELETE to delete a plugin -->
             <delete uri="/{id}" id="route-deletePlugin"
-                    outType="com.kalix.framework.core.api.biz.JsonStatus">
+                    outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Delete a Plugin</description>
                 <to uri="bean:pluginService?method=deleteEntity(${header.id})"/>
             </delete>
 
             <!--start a plugin-->
-            <get id="route-startPlugin" uri="/start" outType="com.kalix.framework.core.api.biz.JsonStatus">
+            <get id="route-startPlugin" uri="/start" outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Start a plugin</description>
                 <to uri="bean:pluginService?method=startPlugin(${header.key})"/>
             </get>
 
             <!--stop a plugin-->
-            <get id="route-stopPlugin" uri="/stop" outType="com.kalix.framework.core.api.biz.JsonStatus">
+            <get id="route-stopPlugin" uri="/stop" outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Stop a plugin</description>
                 <to uri="bean:pluginService?method=stopPlugin(${header.key})"/>
             </get>
 
             <!--stop a plugin-->
-            <get id="route-statusPlugin" uri="/status" outType="com.kalix.framework.core.api.biz.JsonStatus">
+            <get id="route-statusPlugin" uri="/status" outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Stop a plugin</description>
                 <to uri="bean:pluginService?method=getPluginStatus(${header.pluginIds})"/>
             </get>

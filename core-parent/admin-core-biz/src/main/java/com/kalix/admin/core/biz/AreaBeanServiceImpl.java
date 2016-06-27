@@ -9,7 +9,7 @@ import com.kalix.admin.core.api.dao.IDepartmentUserBeanDao;
 import com.kalix.admin.core.dto.model.AreaDTO;
 import com.kalix.admin.core.entities.AboutBean;
 import com.kalix.admin.core.entities.AreaBean;
-import com.kalix.framework.core.api.biz.JsonStatus;
+import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
 import org.dozer.DozerBeanMapper;

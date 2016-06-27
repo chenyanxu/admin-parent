@@ -1,7 +1,7 @@
 package com.kalix.admin.core.api.dao;
 
 import com.kalix.admin.core.entities.WorkGroupRoleBean;
-import com.kalix.framework.core.api.persistence.IGenericDao;
+import com.kalix.framework.core.api.dao.IGenericDao;
 
 /**
  * 工作组角色关联DAO接口

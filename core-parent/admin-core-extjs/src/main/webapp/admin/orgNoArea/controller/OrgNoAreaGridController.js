@@ -111,7 +111,7 @@ Ext.define('kalix.admin.orgNoArea.controller.OrgNoAreaGridController', {
                     callback: function (options, success, response) {
                         var resp = Ext.JSON.decode(response.responseText);
                         if (resp != null && resp.success) {
-                            kalix.core.Notify.success(resp.msg, CONFIG.ALTER_TITLE_SUCCESS);
+                            kalix.Notify.success(resp.msg, CONFIG.ALTER_TITLE_SUCCESS);
                             var store = grid.getStore();
                             store.reload();
                         } else {

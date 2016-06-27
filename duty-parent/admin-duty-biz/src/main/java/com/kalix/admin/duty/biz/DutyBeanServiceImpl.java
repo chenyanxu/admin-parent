@@ -6,7 +6,7 @@ import com.kalix.admin.duty.api.dao.IDutyBeanDao;
 import com.kalix.admin.duty.api.dao.IDutyUserBeanDao;
 import com.kalix.admin.duty.entities.DutyBean;
 import com.kalix.admin.duty.entities.DutyUserBean;
-import com.kalix.framework.core.api.biz.JsonStatus;
+import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.api.persistence.JsonData;
 import com.kalix.framework.core.api.persistence.PersistentEntity;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;

@@ -22,7 +22,7 @@
 
             <!-- this is a rest POST to create a application -->
             <post id="route-addApplication" type="com.kalix.admin.core.entities.ApplicationBean"
-                  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Create a Application</description>
                 <to uri="bean:applicationService?method=saveEntity"/>
             </post>
@@ -35,14 +35,14 @@
 
             <!-- this is a rest PUT to update a application -->
             <put uri="/{id}" id="route-updateApplication" type="com.kalix.admin.core.entities.ApplicationBean"
-                 outType="com.kalix.framework.core.api.biz.JsonStatus">
+                 outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Updates a Application</description>
                 <to uri="bean:applicationService?method=updateEntity"/>
             </put>
 
             <!-- this is a rest DELETE to delete a application -->
             <delete uri="/{id}" id="route-deleteApplication"
-                    outType="com.kalix.framework.core.api.biz.JsonStatus">
+                    outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Delete a Application</description>
                 <to uri="bean:applicationService?method=deleteEntity(${header.id})"/>
             </delete>

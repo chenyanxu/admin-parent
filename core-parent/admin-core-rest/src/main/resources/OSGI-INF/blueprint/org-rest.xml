@@ -28,20 +28,20 @@
 
             <!-- this is a rest PUT to create an org -->
             <post id="route-addOrg" type="com.kalix.admin.core.entities.OrganizationBean"
-                  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Create a org</description>
                 <to uri="bean:orgService?method=saveEntity"/>
             </post>
 
             <!-- this is a rest PUT to update an org -->
             <put id="route-updateOrg" type="com.kalix.admin.core.entities.OrganizationBean"
-                 outType="com.kalix.framework.core.api.biz.JsonStatus">
+                 outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Updates a org</description>
                 <to uri="bean:orgService?method=updateEntity"/>
             </put>
 
             <!-- this is a rest DELETE to delete an org -->
-            <delete id="route-deleteOrg" outType="com.kalix.framework.core.api.biz.JsonStatus">
+            <delete id="route-deleteOrg" outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Delete a org</description>
                 <to uri="bean:orgService?method=deleteEntity(${header.id})"/>
             </delete>

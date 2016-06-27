@@ -5,7 +5,7 @@ package com.kalix.admin.audit.biz.biz;
 import com.kalix.admin.audit.api.biz.IAuditBeanService;
 import com.kalix.admin.audit.api.dao.IAuditBeanDao;
 import com.kalix.admin.audit.entities.AuditBean;
-import com.kalix.framework.core.api.biz.JsonStatus;
+import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.impl.biz.GenericBizServiceImpl;
 
 import javax.transaction.Transactional;

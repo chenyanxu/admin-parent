@@ -126,7 +126,7 @@ Ext.define('kalix.admin.depNoArea.controller.DepNoAreaGridController', {
                     var resp = Ext.JSON.decode(response.responseText);
                     if (resp != null && resp.success) {
                         //Ext.MessageBox.alert(CONFIG.ALTER_TITLE_INFO, resp.msg);
-                        kalix.core.Notify.success(resp.msg, CONFIG.ALTER_TITLE_SUCCESS);
+                        kalix.Notify.success(resp.msg, CONFIG.ALTER_TITLE_SUCCESS);
                     } else {
                         Ext.MessageBox.alert(CONFIG.ALTER_TITLE_FAILURE, resp.msg);
                     }
@@ -236,7 +236,7 @@ Ext.define('kalix.admin.depNoArea.controller.DepNoAreaGridController', {
                     callback: function (options, success, response) {
                         var resp = Ext.JSON.decode(response.responseText);
                         if (resp != null && resp.success) {
-                            kalix.core.Notify.success(resp.msg, CONFIG.ALTER_TITLE_SUCCESS);
+                            kalix.Notify.success(resp.msg, CONFIG.ALTER_TITLE_SUCCESS);
                             var store = grid.getStore();
                             store.reload();
                         } else {

@@ -5,7 +5,7 @@ import com.kalix.admin.core.entities.RoleBean;
 import com.kalix.admin.core.entities.RoleUserBean;
 import com.kalix.admin.core.entities.UserBean;
 import com.kalix.framework.core.api.biz.IBizService;
-import com.kalix.framework.core.api.biz.JsonStatus;
+import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.api.persistence.JsonData;
 
 import java.util.List;

@@ -16,7 +16,7 @@
 
             <!-- this is a rest PUT to create an function -->
             <post id="route-addFunction" type="com.kalix.admin.core.entities.FunctionBean"
-                  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Create a function</description>
                 <to uri="bean:functionService?method=saveEntity"/>
             </post>
@@ -30,13 +30,13 @@
 
             <!-- this is a rest PUT to update an function -->
             <put id="route-updateFunction" type="com.kalix.admin.core.entities.FunctionBean"
-                 outType="com.kalix.framework.core.api.biz.JsonStatus">
+                 outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Updates a function</description>
                 <to uri="bean:functionService?method=updateEntity"/>
             </put>
 
             <!-- this is a rest DELETE to delete an function -->
-            <delete id="route-deleteFunction" outType="com.kalix.framework.core.api.biz.JsonStatus">
+            <delete id="route-deleteFunction" outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Delete a function</description>
                 <to uri="bean:functionService?method=deleteEntity(${header.id})"/>
             </delete>

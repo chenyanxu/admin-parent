@@ -41,11 +41,6 @@ public class PluginMenuImpl implements IMenu {
     }
 
     @Override
-    public String getIcon() {
-        return "app/resources/images/note.png";
-    }
-
-    @Override
     public String getRouteId() {
         return "app/plugin";
     }

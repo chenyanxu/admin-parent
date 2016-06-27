@@ -22,7 +22,7 @@
 
             <!-- this is a rest POST to create a workgroup -->
             <post id="route-addWorkGroup" type="com.kalix.admin.core.entities.WorkGroupBean"
-                  outType="com.kalix.framework.core.api.biz.JsonStatus">
+                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Create a WorkGroup</description>
                 <to uri="bean:workgroupService?method=saveEntity"/>
             </post>
@@ -35,14 +35,14 @@
 
             <!-- this is a rest PUT to update a workgroup -->
             <put uri="/{id}" id="route-updateWorkGroup" type="com.kalix.admin.core.entities.WorkGroupBean"
-                 outType="com.kalix.framework.core.api.biz.JsonStatus">
+                 outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Updates a WorkGroup</description>
                 <to uri="bean:workgroupService?method=updateEntity"/>
             </put>
 
             <!-- this is a rest DELETE to delete a workgroup -->
             <delete uri="/{id}" id="route-deleteWorkGroup"
-                    outType="com.kalix.framework.core.api.biz.JsonStatus">
+                    outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Delete a WorkGroup</description>
                 <to uri="bean:workgroupService?method=deleteEntity(${header.id})"/>
             </delete>
@@ -65,13 +65,13 @@
             </get>
 
             <!-- this is a rest GET to view an user by the given id -->
-            <get id="route-saveWorkGroupUsers" uri="/workGroupUsers"   outType="com.kalix.framework.core.api.biz.JsonStatus">
+            <get id="route-saveWorkGroupUsers" uri="/workGroupUsers"   outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>save WorkGroupUsers</description>
                 <to uri="bean:workgroupService?method=saveWorkGroupUsers(${header.groupId},${header.userIds})"/>
             </get>
 
             <!-- this is a rest GET to view an user by the given id -->
-            <get id="route-saveWorkGroupRoles" uri="/workGroupRoles"   outType="com.kalix.framework.core.api.biz.JsonStatus">
+            <get id="route-saveWorkGroupRoles" uri="/workGroupRoles"   outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>save WorkGroupUsers</description>
                 <to uri="bean:workgroupService?method=saveWorkGroupRoles(${header.groupId},${header.roleIds})"/>
             </get>
