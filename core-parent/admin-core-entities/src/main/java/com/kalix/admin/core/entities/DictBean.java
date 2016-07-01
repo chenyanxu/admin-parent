@@ -20,6 +20,7 @@ import javax.persistence.Table;
 @Inheritance(strategy = InheritanceType.JOINED)
 //@XmlRootElement
 public class DictBean extends PersistentEntity {
+    private String dictName;//字典中文名称
     //    @NotNull(message = "'标签名'是必填项")
     private String label;    // 标签名
     //    @NotNull(message = "'数据值'是必填项")
@@ -29,6 +30,14 @@ public class DictBean extends PersistentEntity {
     private String description;// 描述
     //    @NotNull(message = "'排序'是必填项")
     private long sort;    // 排序
+
+    public String getDictName() {
+        return dictName;
+    }
+
+    public void setDictName(String dictName) {
+        this.dictName = dictName;
+    }
 
     public String getLabel() {
         return label;
@@ -66,7 +75,7 @@ public class DictBean extends PersistentEntity {
         return sort;
     }
 
-    public void setSort(Integer sort) {
+    public void setSort(long sort) {
         this.sort = sort;
     }
 }
