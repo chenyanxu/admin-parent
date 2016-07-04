@@ -4,7 +4,7 @@
  * @author
  * @version 1.0.0
  */
-Ext.define('kalix.admin.audit.controller.AuditGridController', {
+Ext.define('kalix.sys.audit.controller.AuditGridController', {
     extend: 'kalix.controller.BaseGridController',
     alias: 'controller.auditGridController'
 });

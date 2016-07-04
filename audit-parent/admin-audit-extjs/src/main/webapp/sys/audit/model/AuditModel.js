@@ -5,7 +5,7 @@
  *         date:2015-7-3
  * @version 1.0.0
  */
-Ext.define('kalix.admin.audit.model.AuditModel', {
+Ext.define('kalix.sys.audit.model.AuditModel', {
     extend: 'kalix.model.BaseModel',
     fields: [
         {name: 'appName', type: 'string'},//应用名称

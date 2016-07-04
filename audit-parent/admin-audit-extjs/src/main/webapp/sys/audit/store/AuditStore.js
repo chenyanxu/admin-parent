@@ -4,9 +4,9 @@
  * @author
  * @version 1.0.0
  */
-Ext.define('kalix.admin.audit.store.AuditStore', {
+Ext.define('kalix.sys.audit.store.AuditStore', {
     extend: 'kalix.store.BaseStore',
-    model: 'kalix.admin.audit.model.AuditModel',
+    model: 'kalix.sys.audit.model.AuditModel',
     alias: 'store.auditStore',
     xtype: 'auditStore',
     storeId: "auditStore",

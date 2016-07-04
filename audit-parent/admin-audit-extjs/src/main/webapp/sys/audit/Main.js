@@ -4,12 +4,12 @@
  * @author
  * @version 1.0.0
  */
-Ext.define('kalix.admin.audit.Main', {
+Ext.define('kalix.sys.audit.Main', {
     extend: 'kalix.container.BaseContainer',
     requires: [
-        'kalix.admin.audit.view.AuditGrid',
-        'kalix.admin.audit.view.AuditSearchForm',
-        'kalix.admin.audit.viewModel.AuditViewModel'
+        'kalix.sys.audit.view.AuditGrid',
+        'kalix.sys.audit.view.AuditSearchForm',
+        'kalix.sys.audit.viewModel.AuditViewModel'
     ],
     storeId: 'auditStore',
     viewModel: 'auditViewModel',

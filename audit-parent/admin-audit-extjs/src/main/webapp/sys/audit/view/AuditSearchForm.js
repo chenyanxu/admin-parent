@@ -3,7 +3,7 @@
  * @author
  * @version 1.0.0
  */
-Ext.define('kalix.admin.audit.view.AuditSearchForm', {
+Ext.define('kalix.sys.audit.view.AuditSearchForm', {
     extend: 'kalix.view.components.common.BaseSearchForm',
     alias: 'widget.auditSearchForm',
     xtype: 'auditSearchForm',

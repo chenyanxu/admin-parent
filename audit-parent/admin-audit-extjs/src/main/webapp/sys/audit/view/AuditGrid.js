@@ -3,19 +3,19 @@
  * @author
  * @version 1.0.0
  */
-Ext.define('kalix.admin.audit.view.AuditGrid', {
+Ext.define('kalix.sys.audit.view.AuditGrid', {
     extend: 'kalix.view.components.common.BaseGrid',
     requires: [
-        'kalix.admin.audit.controller.AuditGridController',
-        'kalix.admin.audit.store.AuditStore',
+        'kalix.sys.audit.controller.AuditGridController',
+        'kalix.sys.audit.store.AuditStore',
     ],
     alias: 'widget.auditGrid',
     xtype: 'auditGridPanel',
     controller: {
         type: 'auditGridController',
         storeId: 'auditStore',
-        cfgViewForm: 'kalix.admin.audit.view.AuditViewWindow',
-        cfgModel: 'kalix.admin.audit.model.AuditModel'
+        cfgViewForm: 'kalix.sys.audit.view.AuditViewWindow',
+        cfgModel: 'kalix.sys.audit.model.AuditModel'
     },
     store: {
         type: 'auditStore'

@@ -5,14 +5,12 @@
  * @version 1.0.0
  */
 
-Ext.define('kalix.admin.audit.view.AuditViewWindow', {
+Ext.define('kalix.sys.audit.view.AuditViewWindow', {
     extend: 'kalix.view.components.common.BaseWindow',
         requires: [
-            'kalix.admin.audit.viewModel.AuditViewModel',
             'kalix.admin.user.store.UserStore'
         ],
         alias: 'widget.auditViewWindow',
-        viewModel: 'auditViewModel',
         xtype: "auditViewWindow",
         width: 400,
     items: [{
