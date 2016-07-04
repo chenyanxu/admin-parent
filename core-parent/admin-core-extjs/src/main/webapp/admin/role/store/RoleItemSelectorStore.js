@@ -10,6 +10,7 @@ Ext.define('kalix.admin.role.store.RoleItemSelectorStore', {
     model: 'kalix.admin.role.model.RoleModel',
     alias: 'store.roleItemSelectorStore',
     xtype: 'roleItemSelectorStore',
+    pageSize: 0,
     autoLoad: true,
     fields: ['id', 'name'],
     proxy: {

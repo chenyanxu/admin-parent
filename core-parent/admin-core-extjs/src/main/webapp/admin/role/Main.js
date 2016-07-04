@@ -9,11 +9,9 @@ Ext.define('kalix.admin.role.Main', {
     extend: 'kalix.container.BaseContainer',
     requires: [
         'kalix.admin.role.view.RoleGrid',
-        'kalix.admin.role.view.RoleSearchForm',
-        'kalix.admin.role.viewModel.RoleViewModel'
+        'kalix.admin.role.view.RoleSearchForm'
     ],
     storeId: 'roleStore',
-    viewModel: 'roleViewModel',
     items: [
         {
             title: '角色查询',

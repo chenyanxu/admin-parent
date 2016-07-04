@@ -1,8 +1,8 @@
 /**
  * 机构编辑表单
  *
- * @author majian <br/>
- *         date:2015-7-21
+ * @author zangyanming <br/>
+ *         date:2016-3-10
  * @version 1.0.0
  */
 Ext.define('kalix.admin.org.view.OrgEditForm', {
@@ -26,67 +26,53 @@ Ext.define('kalix.admin.org.view.OrgEditForm', {
     jsonSubmit: true,
     method: "PUT",
     defaultType: 'textfield',
+    url:CONFIG.restRoot + '/camel/rest/orgs/',
     buttonAlign: "center",
     items: [
-        {xtype: 'hiddenfield', name: 'id'},
-        {xtype: 'hiddenfield', name: 'parentId', itemId: 'parentIdId', value: '-1'},
+        {xtype: 'hiddenfield', name: 'id', bind:{value:'{rec.id}'}},
+        {xtype: 'hiddenfield', bind:{value:'{rec.parentId}'}},
         {xtype: 'hiddenfield', name: 'isLeaf',value:'1'},
-        {xtype: 'hiddenfield', name: 'areaId', itemId: 'areaIdId', value: '-1'},
-        {
-            fieldLabel: '所属区域',
-            itemId: "areaName",
-            isFormField: false,
-            disabled: true,
-            beforeLabelTpl: [
-                '<span style="color:red;font-weight:bold" data-qtip="必填选项">*</span>'
-            ]
-        },
         {
             fieldLabel: '上级机构',
-            itemId: "parentName",
-            isFormField: false,
-            disabled:true,
+            editable:false,
             beforeLabelTpl: [
                 '<span style="color:red;font-weight:bold" data-qtip="必填选项">*</span>'
-            ]
+            ],
+            bind:{
+                value:'{rec.parentName}'
+            }
         },
         {
-            fieldLabel: '名称',
-            itemId: 'nameId',
+            fieldLabel: '机构名称',
             name: 'name',
             allowBlank: false,
-            blankText: '名称不能为空!',
+            blankText: '机构名称不能为空!',
             beforeLabelTpl: [
                 '<span style="color:red;font-weight:bold" data-qtip="必填选项">*</span>'
-            ]
+            ],
+            bind:{
+                value:'{rec.name}'
+            }
         },
         {
             fieldLabel: '机构代码',
-            itemId: 'codeId',
             name: 'code',
             allowBlank: false,
             blankText: '机构不能为空!',
             beforeLabelTpl: [
                 '<span style="color:red;font-weight:bold" data-qtip="必填选项">*</span>'
-            ]
-        },
-        {
-            fieldLabel: '中心代码',
-            itemId: 'centerCodeId',
-            name: 'centerCode',
-            allowBlank: false,
-            blankText: '中心代码不能为空!',
-            beforeLabelTpl: [
-                '<span style="color:red;font-weight:bold" data-qtip="必填选项">*</span>'
-            ]
+            ],
+            bind:{
+                value:'{rec.code}'
+            }
         }
     ],
     buttons: [
         {
-            text: '保存', glyph: 'xf0c7@FontAwesome', type: 'submit', handler: 'onUpdate'
+            text: '保存', iconCls:'iconfont icon-save iconfont-btn-small', type: 'submit', handler: 'onUpdate'
         },
         {
-            text: '重置', glyph: 'xf0e2@FontAwesome', handler: 'onEditReset'
+            text: '重置', iconCls:'iconfont icon-reset iconfont-btn-small', handler: 'onEditReset'
         }
     ]
 });

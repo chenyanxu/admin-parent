@@ -8,11 +8,9 @@ Ext.define('kalix.sys.application.Main', {
     extend: 'kalix.container.BaseContainer',
     requires: [
         'kalix.sys.application.view.ApplicationGrid',
-        'kalix.sys.application.view.ApplicationSearchForm',
-        'kalix.sys.application.viewModel.ApplicationViewModel'
+        'kalix.sys.application.view.ApplicationSearchForm'
     ],
     storeId: 'applicationStore',
-    viewModel: 'applicationViewModel',
     items: [
         {
             title: '应用查询',

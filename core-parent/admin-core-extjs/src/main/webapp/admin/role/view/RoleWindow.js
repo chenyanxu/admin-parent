@@ -7,12 +7,10 @@
 Ext.define('kalix.admin.role.view.RoleWindow', {
     extend: 'kalix.view.components.common.BaseWindow',
     requires: [
-        'kalix.admin.role.viewModel.RoleViewModel',
         'kalix.controller.BaseWindowController',
         'kalix.admin.user.store.UserStore'
     ],
     alias: 'widget.roleWindow',
-    viewModel: 'roleViewModel',
     controller: {
         type: 'baseWindowController',
         storeId: 'roleStore'

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<blueprint xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
-           xsi:schemaLocation="
-	 	http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
-	 	http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://svn.apache.org/repos/asf/aries/trunk/blueprint/blueprint-cm/src/main/resources/org/apache/aries/blueprint/compendium/cm/blueprint-cm-1.1.0.xsd
-	 ">
+<blueprint
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+        xsi:schemaLocation="
+	 	http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
     <bean id="adminApplicationImpl" class="com.kalix.admin.core.web.impl.app.AdminApplicationImpl"/>
     <!--应用-->
     <!--系统应用-->
@@ -45,19 +43,11 @@
     <service interface="com.kalix.framework.core.api.web.IMenu">
         <bean class="com.kalix.admin.core.web.impl.menu.OrgChartMenuImpl"/>
     </service>
-    <!--不带区域的机构管理-->
+    <!--机构管理-->
     <service interface="com.kalix.framework.core.api.web.IMenu">
-        <bean class="com.kalix.admin.core.web.impl.menu.OrganizationNoAreaMenuImpl"/>
-    </service>
-    <!--不带区域部门管理-->
-    <service interface="com.kalix.framework.core.api.web.IMenu">
-        <bean class="com.kalix.admin.core.web.impl.menu.DepartmentNoAreaMenuImpl"/>
+        <bean class="com.kalix.admin.core.web.impl.menu.OrganizationMenuImpl"/>
     </service>
 
-    <!--字典管理-->
-    <service interface="com.kalix.framework.core.api.web.IMenu">
-        <bean class="com.kalix.admin.core.web.impl.menu.DictMenuImpl"/>
-    </service>
     <!--应用管理-->
     <service interface="com.kalix.framework.core.api.web.IMenu">
         <bean class="com.kalix.admin.core.web.impl.menu.ApplicationMenuImpl"/>
@@ -65,5 +55,9 @@
     <!--功能管理-->
     <service interface="com.kalix.framework.core.api.web.IMenu">
         <bean class="com.kalix.admin.core.web.impl.menu.FunctionMenuImpl"/>
+    </service>
+    <!--字典管理-->
+    <service interface="com.kalix.framework.core.api.web.IMenu">
+        <bean class="com.kalix.admin.core.web.impl.menu.DictMenuImpl"/>
     </service>
 </blueprint>

@@ -9,16 +9,10 @@ Ext.define('kalix.admin.user.controller.UserGridController', {
     alias: 'controller.userGridController',
 
     onEdit: function (grid, rowIndex, colIndex) {
-        var viewModel = this.getViewModel();
-        var selModel = grid.getStore().getData().items[rowIndex];
-        var view = Ext.create('kalix.admin.user.view.UserEditWindow');
-        var vm = view.lookupViewModel();
-
-        vm.set('rec', selModel);
-        vm.set('iconCls', 'iconfont icon-edit');
-        vm.set('title', viewModel.get('edit_title'));
-        view.show();
-        grid.setSelection(selModel);
+        var oldView=this.cfgForm;
+        this.cfgForm='kalix.admin.user.view.UserEditWindow';
+        this.callParent(arguments);
+        this.cfgForm=oldView;
     },
     //修改密码
     onKey: function (grid, rowIndex, colIndex) {
@@ -28,8 +22,8 @@ Ext.define('kalix.admin.user.controller.UserGridController', {
         var view = Ext.create('kalix.admin.user.view.UserKeyWindow');
         var vm = view.lookupViewModel();
         vm.set('rec', selModel);
-        vm.set('icon', viewModel.get('key_image_path'));
-        vm.set('title', viewModel.get('key_title'));
+        vm.set('iconCls', 'iconfont icon-view');
+        vm.set('title', '修改密码');
         view.show();
         grid.setSelection(selModel);
     }

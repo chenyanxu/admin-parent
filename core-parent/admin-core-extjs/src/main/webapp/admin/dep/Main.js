@@ -1,27 +1,32 @@
 /**
  * 部门组件
  *
- * @author majian <br/>
- *         date:2015-7-21
+ * @author zangyanming <br/>
+ *         date:2016-3-10
  * @version 1.0.0
  */
-Ext.define('kalix.admin.dep.Main', {
-    extend: 'Ext.panel.Panel',
+Ext.define('kalix.admin.depNoArea.Main', {
+    extend: 'kalix.view.components.common.AutoHPanel',
     requires: [
-        'kalix.admin.dep.viewModel.DepViewModel',
-        'kalix.admin.dep.controller.DepController'
+        'kalix.admin.depNoArea.viewModel.DepNoAreaViewModel',
+        'kalix.admin.depNoArea.controller.DepNoAreaController'
     ],
-    xtype: 'depPanel',
-    controller: 'depController',
+    xtype: 'depNoAreaPanel',
+    controller: 'depNoAreaController',
     viewModel: {
-        type: 'depViewModel'
+        type: 'depNoAreaViewModel'
     },
-    items: [],
-    initComponent: function () {
-        var depController = this.getController("depController");
-
-        this.items[0] = depController.onInitPanel();
-
-        this.callParent(arguments);
-    }
+    items: [{
+            xtype: 'orgNoAreaTreeList',
+            flex: 1,
+            listeners: {
+                itemClick: 'onOrgClick'
+            }
+        },
+        {
+            xtype: 'depNoAreaGridPanel',
+            flex: 2,
+            store: Ext.create('kalix.admin.depNoArea.store.DepNoAreaStore')
+        }
+    ]
 });

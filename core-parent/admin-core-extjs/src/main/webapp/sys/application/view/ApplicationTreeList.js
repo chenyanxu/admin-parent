@@ -7,15 +7,11 @@
 Ext.define('kalix.sys.application.view.ApplicationTreeList', {
     extend: 'Ext.tree.Panel',
     requires: [
-        'kalix.sys.application.viewModel.ApplicationViewModel',
         'kalix.sys.application.controller.ApplicationGridController'
     ],
     alias: 'widget.applicationTreeList',
     xtype: 'applicationTreeList',
     controller: 'applicationGridController',
-    viewModel: {
-        type: 'applicationViewModel'
-    },
     collapsible: true,
     autoScroll: true,
     border: true,

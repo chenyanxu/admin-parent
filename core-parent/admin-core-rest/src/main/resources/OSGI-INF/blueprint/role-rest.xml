@@ -61,7 +61,7 @@
             <!-- this is a rest GET to view an user by the given id -->
             <get id="route-saveRoleUsers" uri="/roleUsers"  outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>save WorkGroupUsers</description>
-                <to uri="bean:roleService?method=saveRoleUsers(${header.roleId},${header.userIds})"/>
+                <to uri="bean:roleService?method=saveRoleUsers(${header.id},${header.ids})"/>
             </get>
 
             <!-- this is a rest GET to view an user by the given id -->

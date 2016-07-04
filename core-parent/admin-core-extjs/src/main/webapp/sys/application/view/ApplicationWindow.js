@@ -7,12 +7,10 @@
 Ext.define('kalix.sys.application.view.ApplicationWindow', {
     extend: 'kalix.view.components.common.BaseWindow',
     requires: [
-        'kalix.sys.application.viewModel.ApplicationViewModel',
         'kalix.controller.BaseWindowController',
         'kalix.admin.user.store.UserStore'
     ],
     alias: 'widget.applicationWindow',
-    viewModel: 'applicationViewModel',
     controller: {
         type: 'baseWindowController',
         storeId: 'applicationStore'

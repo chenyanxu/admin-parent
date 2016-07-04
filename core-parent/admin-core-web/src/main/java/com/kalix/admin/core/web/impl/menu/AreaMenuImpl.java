@@ -1,6 +1,5 @@
 package com.kalix.admin.core.web.impl.menu;
 
-import com.kalix.admin.core.web.impl.Const;
 import com.kalix.framework.core.api.web.IMenu;
 
 /**
@@ -52,7 +51,7 @@ public class AreaMenuImpl implements IMenu {
 
     @Override
     public String getPermission() {
-        return Const.APP_NAME + ":" + getModuleId() + ":" + getId();
+        return  "admin:" + getModuleId() + ":" + getId();
     }
 
     @Override

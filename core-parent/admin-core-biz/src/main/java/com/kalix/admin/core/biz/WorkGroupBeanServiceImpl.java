@@ -95,12 +95,12 @@ public class WorkGroupBeanServiceImpl extends ShiroGenericBizServiceImpl<IWorkGr
 
     @Override
     public List getUsersByWorkGroupId(long id) {
-        List<String> userIds=new ArrayList<String>();
+        List userIds=new ArrayList<String>();
         List<WorkGroupUserBean> workGroupUserBeans=workGroupUserBeanDao.find("select ob from WorkGroupUserBean ob where ob.groupId = ?1", id);
         if(workGroupUserBeans!=null&&!workGroupUserBeans.isEmpty()){
             for(WorkGroupUserBean workGroupUserBean:workGroupUserBeans){
                 if(workGroupUserBean!=null&&workGroupUserBean.getUserId()!=0){
-                    userIds.add(String.valueOf(workGroupUserBean.getUserId()));
+                    userIds.add(workGroupUserBean.getUserId());
                 }
             }
         }
@@ -108,12 +108,12 @@ public class WorkGroupBeanServiceImpl extends ShiroGenericBizServiceImpl<IWorkGr
     }
     @Override
     public List getRolesByWorkGroupId(long id) {
-        List<String> roleIds=new ArrayList<String>();
+        List roleIds=new ArrayList<>();
         List<WorkGroupRoleBean> workGroupRoleBeans=workGroupRoleBeanDao.find("select ob from WorkGroupRoleBean ob where ob.groupId = ?1", id);
         if(workGroupRoleBeans!=null&&!workGroupRoleBeans.isEmpty()){
             for(WorkGroupRoleBean workGroupRoleBean:workGroupRoleBeans){
                 if(workGroupRoleBean!=null&&workGroupRoleBean.getRoleId()!=0){
-                    roleIds.add(String.valueOf(workGroupRoleBean.getRoleId()));
+                    roleIds.add(workGroupRoleBean.getRoleId());
                 }
             }
         }

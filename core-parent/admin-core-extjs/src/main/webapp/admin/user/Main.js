@@ -9,10 +9,8 @@ Ext.define('kalix.admin.user.Main', {
     requires: [
         'kalix.admin.user.view.UserGrid',
         'kalix.admin.user.view.UserSearchForm',
-        'kalix.admin.user.viewModel.UserViewModel'
     ],
     storeId: 'userStore',
-    viewModel: 'userViewModel',
     items: [
         {
             title: '用户查询',

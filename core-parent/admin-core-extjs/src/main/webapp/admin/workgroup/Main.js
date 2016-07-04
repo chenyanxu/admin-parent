@@ -9,11 +9,9 @@ Ext.define('kalix.admin.workgroup.Main', {
     extend: 'kalix.container.BaseContainer',
     requires: [
         'kalix.admin.workgroup.view.WorkGroupGrid',
-        'kalix.admin.workgroup.view.WorkGroupSearchForm',
-        'kalix.admin.workgroup.viewModel.WorkGroupViewModel'
+        'kalix.admin.workgroup.view.WorkGroupSearchForm'
     ],
     storeId: 'workgroupStore',
-    viewModel: 'workgroupViewModel',
     items: [
         {
             title: '工作组查询',

@@ -6,34 +6,31 @@
  */
 
 Ext.define('kalix.sys.application.view.ApplicationViewWindow', {
-    extend: 'kalix.view.components.common.BaseWindow',
-        requires: [
-            'kalix.sys.application.viewModel.ApplicationViewModel'
-        ],
-        alias: 'widget.applicationViewWindow',
-        viewModel: 'applicationViewModel',
-        xtype: "applicationViewWindow",
-        width: 400,
+  extend: 'kalix.view.components.common.BaseWindow',
+
+  alias: 'widget.applicationViewWindow',
+  xtype: "applicationViewWindow",
+  width: 400,
+  items: [{
+    defaults: {readOnly: true},
+    xtype: 'baseForm',
     items: [{
-        defaults: {readOnly: true},
-        xtype: 'baseForm',
-        items: [{
-            fieldLabel: '名称',
-            bind: {
-                value: '{rec.name}'
-            }
-        },
-            {
-                fieldLabel: '应用代码',
-                bind: {
-                    value: '{rec.code}'
-                }
-            }, {
-                fieldLabel: '备注',
-                xtype: 'textarea',
-                bind: {
-                    value: '{rec.remark}'
-                }
-            }]
-    }]
+      fieldLabel: '名称',
+      bind: {
+        value: '{rec.name}'
+      }
+    },
+      {
+        fieldLabel: '应用代码',
+        bind: {
+          value: '{rec.code}'
+        }
+      }, {
+        fieldLabel: '备注',
+        xtype: 'textarea',
+        bind: {
+          value: '{rec.remark}'
+        }
+      }]
+  }]
 });

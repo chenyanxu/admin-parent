@@ -1,14 +1,15 @@
 /**
  * 机构列表
- * @author majian <br/>
- *         date:2015-7-23
+ * @author zangyanming <br/>
+ *         date:2016-3-10
  * @version 1.0.0
  */
 Ext.define('kalix.admin.org.view.OrgTreeList', {
     extend: 'Ext.tree.Panel',
     requires: [
         'kalix.admin.org.viewModel.OrgViewModel',
-        'kalix.admin.org.controller.OrgGridController'
+        'kalix.admin.org.controller.OrgGridController',
+        'kalix.admin.org.store.OrgStore'
     ],
     alias: 'widget.orgTreeList',
     xtype: 'orgTreeList',
@@ -16,21 +17,34 @@ Ext.define('kalix.admin.org.view.OrgTreeList', {
     viewModel: {
         type: 'orgViewModel'
     },
-    constructor:function(){
-        this.callParent(arguments);
-        this.store.on('load',function(target,records, successful, operation, eOpts){
-            var grid=this.findParentByType('panel').items.getAt(2).items.getAt(0);
-            if(grid){
-                grid.store.proxy.url = CONFIG.restRoot + '/camel/rest/deps/org/-1';
-                grid.store.load();
-            }
-        },this);
+    store: {
+        type: 'orgStore',
+        proxy:{
+            type:'ajax',
+            url: CONFIG.restRoot + '/camel/rest/orgs/'
+        }
     },
+    //store:'orgStore',
+    autoLoad:true,
     collapsible: true,
     autoScroll: true,
-    /*rootProperty:{
-     id:'-1',
-     name:'根机构'
-     },*/
-    rootVisible: false
+    rootVisible: false,
+    title: '机构列表',
+    iconCls: 'iconfont icon-organization-management',
+    tbar: [
+        {
+            tooltip: '刷新',
+            iconCls:'iconfont icon-refresh',
+            handler: 'onRefersh'
+        },
+        {
+            tooltip: '展开',
+            iconCls: 'iconfont icon-tree-expand',
+            handler: 'onOrgExpandAll'
+        },
+        {
+            tooltip: '收起',
+            iconCls: 'iconfont icon-tree-collapse',
+            handler: 'onOrgCollapseAll'
+        }]
 });

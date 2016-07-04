@@ -1,8 +1,8 @@
 /**
  * 机构组件
  *
- * @author majian <br/>
- *         date:2015-7-21
+ * @author zangyanming <br/>
+ *         date:2016-3-10
  * @version 1.0.0
  */
 Ext.define('kalix.admin.org.Main', {
@@ -16,12 +16,16 @@ Ext.define('kalix.admin.org.Main', {
     viewModel: {
         type: 'orgViewModel'
     },
-    items: [],
-    initComponent: function () {
-        var OrgController = this.getController("orgController");
-
-        this.items[0] = OrgController.onInitPanel();
-
-        this.callParent(arguments);
-    }
+    layout: {
+        type: 'hbox',
+        align: 'stretch'
+    },
+    items: [
+        {
+            xtype: 'orgGridPanel',
+            title: '机构列表',
+            flex: 2,
+            store: Ext.create('kalix.admin.org.store.OrgStore')
+        }
+    ]
 });

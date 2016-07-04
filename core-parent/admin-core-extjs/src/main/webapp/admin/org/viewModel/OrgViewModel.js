@@ -1,19 +1,21 @@
 /**
  * 机构视图模型
  *
- * @author majian <br/>
- *         date:2015-7-21
+ * @author zangyanming <br/>
+ *         date:2016-3-10
  * @version 1.0.0
  */
 Ext.define('kalix.admin.org.viewModel.OrgViewModel', {
     extend: 'Ext.app.ViewModel',
+    alias: 'viewmodel.orgViewModel',
+    xtype:'orgViewModel',
     requires: [
         'kalix.admin.org.store.OrgStore'
     ],
-    alias: 'viewmodel.orgViewModel',
     data: {
         addTitle: '新增机构',
         editTitle: '编辑机构',
-        url: CONFIG.restRoot + '/camel/rest/orgs'
+        url: CONFIG.restRoot + '/camel/rest/orgs',
+        rec:null
     }
 });

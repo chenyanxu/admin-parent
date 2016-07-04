@@ -301,12 +301,12 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
 
     @Override
     public List getUsersByRoleId(long id) {
-        List<String> userIds = new ArrayList<String>();
+        List userIds = new ArrayList();
         List<RoleUserBean> roleUserBeans = roleUserBeanDao.find("select ob from RoleUserBean ob where ob.roleId = ?1", id);
         if (roleUserBeans != null && !roleUserBeans.isEmpty()) {
             for (RoleUserBean roleUserBean : roleUserBeans) {
                 if (roleUserBean != null && roleUserBean.getUserId() != 0) {
-                    userIds.add(String.valueOf(roleUserBean.getUserId()));
+                    userIds.add(roleUserBean.getUserId());
                 }
             }
         }
