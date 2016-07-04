@@ -1,29 +1,35 @@
 /**
- * 职位首页
+ * 部门组件
  *
- * @author
+ * @author zangyanming <br/>
+ *         date:2016-3-10
  * @version 1.0.0
  */
-Ext.define('kalix.app.duty.Main', {
-    extend: 'kalix.container.BaseContainer',
+Ext.define('kalix.admin.duty.Main', {
+    extend: 'kalix.view.components.common.AutoHPanel',
     requires: [
-        'kalix.app.duty.view.DutyGrid',
-        'kalix.app.duty.view.DutySearchForm',
-        'kalix.app.duty.viewModel.DutyViewModel'
+        'kalix.admin.duty.viewModel.DutyViewModel',
+        'kalix.admin.duty.controller.DutyController',
+        'kalix.admin.org.view.OrgTreeList',
+        'kalix.admin.duty.view.DutyGrid'
     ],
-    storeId: 'dutyStore',
-    viewModel: 'dutyViewModel',
+    xtype: 'dutyPanel',
+    controller: 'dutyController',
+    viewModel: {
+        type: 'dutyViewModel'
+    },
     items: [
         {
-            title: '职位查询',
-            iconCls: 'x-fa fa-search',
-            xtype: 'dutySearchForm'
-        }, {
+            xtype: 'orgTreeList',
+            flex: 1,
+            listeners: {
+                itemClick: 'onOrgClick'
+            }
+        },
+        {
             xtype: 'dutyGridPanel',
-            id: 'dutyGridPanel',
             title: '职位列表',
-            iconCls: 'x-fa fa-cutlery',
-            margin: 10
+            flex: 2
         }
     ]
 });

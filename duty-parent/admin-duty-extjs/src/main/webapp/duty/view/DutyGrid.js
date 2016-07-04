@@ -1,77 +1,67 @@
 /**
- * 职位表格
- * @author
+ * 部门表格
+ * @author zangyanming <br/>
+ *         date:2016-3-10
  * @version 1.0.0
  */
-Ext.define('kalix.app.duty.view.DutyGrid', {
-    extend: 'kalix.view.components.common.BaseGrid',
+Ext.define('kalix.admin.duty.view.DutyGrid', {
+    extend: 'Ext.tree.Panel',
     requires: [
-        'kalix.app.duty.controller.DutyGridController',
-        'kalix.app.duty.store.DutyStore'
+        'kalix.admin.duty.viewModel.DutyViewModel',
+        'kalix.admin.duty.controller.DutyGridController'
     ],
     alias: 'widget.dutyGrid',
     xtype: 'dutyGridPanel',
-    controller: {
-        type: 'dutyGridController',
-        storeId: 'dutyStore',
-        cfgForm: 'kalix.app.duty.view.DutyWindow',
-        cfgViewForm: 'kalix.app.duty.view.DutyViewWindow',
-        cfgModel: 'kalix.app.duty.model.DutyModel'
+    controller: 'dutyGridController',
+    viewModel: {
+        type: 'dutyViewModel'
     },
-    store: {
-        type: 'dutyStore'
+    title: '职位列表',
+    iconCls: 'x-fa fa-university',
+    stripeRows: true,
+    manageHeight: true,
+    rootVisible: false,
+    defaults: {
+        flex: 1
     },
-
-    //todo 在此修改grid显示列
     columns: {
-        defaults: {flex: 1,renderer: 'addTooltip'},
-        items: [
-            {
-                xtype: "rownumberer",
-                text: "行号",
-                width: 50,
-                align: 'center',
-                flex:0,
-                renderer:this.update
-            },
-            {
-                text: '编号',
-                dataIndex: 'id',
-                hidden: true
-            },
-            {
-                text: '职位名称',
-                dataIndex: 'name'
-            },
-            {
-                text: '所在部门',
-                dataIndex: 'department'
+        defaults: {flex: 1},
+        items:[
+        {text: '编号', dataIndex: 'id'},
+        {text: '职位名称', dataIndex: 'name'},
+        {text: '职位描述', dataIndex: 'comment'},
+        {text: '所属部门', dataIndex: 'depid'},
+        {text: '创建人', dataIndex: 'createBy'},
+        {
+            text: '创建日期', dataIndex: 'creationDate'
+        },
+        {
+            header: '操作',
+            xtype: "actioncolumn",
+            items: [{
+                iconCls:'iconfont icon-edit-column',
+                tooltip: '编辑',
+                handler: 'onEdit'
             }, {
-                text: '职位描述',
-                dataIndex: 'comment'
-            },
-            {
-                xtype: 'securityGridColumnRUD',
-                //todo change permission
-                permissions: [
-                    'admin:constructModule:dutyMenu:view',
-                    'admin:constructModule:dutyMenu:edit',
-                    'admin:constructModule:dutyMenu:delete'
-                ]
-            }
-        ]
-    },
-    tbar: {
-        xtype: 'securityToolbar',
-        verifyItems: [
-            {
-                text: '添加',
-                xtype: 'button',
-                //todo change permission
-                permission: 'admin:constructModule:dutyMenu:add',
-                bind: {icon: '{add_image_path}'},
-                handler: 'onAdd'
-            }
-        ]
-    }
+                iconCls:'iconfont icon-delete',
+                tooltip: '删除',
+                handler: 'onDelete'
+            }, {
+                iconCls:'iconfont icon-add-user-column',
+                tooltip: '添加用户',
+                handler: 'onAddUser'
+            }]
+        }
+    ]},
+    tbar: [
+        {
+            text: '添加',
+            iconCls:'iconfont icon-add',
+            handler: 'onAdd'
+        }, {
+            text: '刷新',
+            iconCls:'iconfont icon-refresh',
+            handler: 'onRefersh'
+        }]
+
 });

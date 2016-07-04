@@ -9,9 +9,6 @@ import org.osgi.service.http.HttpService;
  * Created by sunlf on 14-3-23.
  */
 public class InitActivator extends KalixBundleActivator {
-
-    public static final String KALIX_APP_ROFFICE_PATH = "/kalix/app/duty";
-    public static final String KALIX_ROFFICE_RESOURCES_IMAGES = "/kalix/duty/resources/images";
     private ServiceReference reference;
     private HttpService httpService;
 
@@ -21,7 +18,7 @@ public class InitActivator extends KalixBundleActivator {
 
         reference = bundleContext.getServiceReference(HttpService.class.getName());
         httpService = (HttpService) bundleContext.getService(reference);
-        httpService.registerResources(contextPath + "/app/app/duty", "/duty", null);
+        httpService.registerResources(contextPath + "/app/admin/duty", "/duty", null);
     }
 
     @Override
@@ -29,7 +26,7 @@ public class InitActivator extends KalixBundleActivator {
         SystemUtil.stopBundlePrintln(bundleContext);
 
         if(httpService!=null){
-            httpService.unregister(contextPath +"/app/app/duty");
+            httpService.unregister(contextPath +"/app/admin/duty");
         }
         if (reference != null)
                     bundleContext.ungetService(reference);
