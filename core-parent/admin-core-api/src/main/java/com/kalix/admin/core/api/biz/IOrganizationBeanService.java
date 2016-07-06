@@ -10,27 +10,31 @@ import java.util.List;
 
 /**
  * 机构管理服务接口
- * @author majian <br/>
- *         date:2015-7-21
+ * @author majian date:2015-7-21
+ *
+ * 修改 2016-07-01 by p
+ * 原为对应部门的方法，修改为对应机构
+ * 修改类名及部分方法
+ *
  * @version 1.0.0
  */
 public interface IOrganizationBeanService extends IBizService<OrganizationBean> {
 
     OrganizationDTO getAllOrg();
 
-    OrganizationDTO getOrg(Long id);
+    OrganizationDTO getOrganizationDTO(Long id);
 
-    OrganizationDTO getOrgByName(String name);
+    OrganizationDTO getOrganizationDTOByName(String name);
 
-    OrganizationDTO getAllByAreaId(Long id);
+    List getUsersByOrganizationId(long id);
 
-    void deleteByAreaId(Long id);
+    JsonData getUserAllAndOrganizationUsers(long orgId);
 
-    OrganizationDTO getAllByOrgId(Long orgId);
+    JsonStatus saveOrganizationUsers(long orgId, String userId);
 
-    List getUsersByDepartmentId(long id);
+//    OrganizationDTO getAllByAreaId(Long id);
 
-    JsonData getUserAllAndDepartmentUsers(long depId);
+//    void deleteByAreaId(Long id);
 
-    JsonStatus saveDepartmentUsers(long depId, String userId);
+//    OrganizationDTO getAllByOrgId(Long orgId);
 }
