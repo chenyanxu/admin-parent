@@ -8,11 +8,9 @@
 Ext.define('kalix.sys.plugin.view.PluginViewWindow', {
     extend: 'kalix.view.components.common.BaseWindow',
     requires: [
-        'kalix.sys.plugin.viewModel.PluginViewModel',
         'kalix.admin.user.store.UserStore'
     ],
     alias: 'widget.pluginViewWindow',
-    viewModel: 'pluginViewModel',
     xtype: "pluginViewWindow",
     width: 400,
     items: [{

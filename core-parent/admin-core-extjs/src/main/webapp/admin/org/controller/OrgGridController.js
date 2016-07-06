@@ -15,10 +15,7 @@ Ext.define('kalix.admin.org.controller.OrgGridController', {
     onRefersh: function () {
         var grid = this.getView();
         var store = grid.getStore();
-        store.setProxy({
-            type: 'ajax',
-            url: CONFIG.restRoot + '/camel/rest/orgs/'
-        });
+
         store.reload();
     },
     /**
@@ -32,7 +29,15 @@ Ext.define('kalix.admin.org.controller.OrgGridController', {
      * 机构收起
      */
     onOrgCollapseAll: function () {
-        this.getView().collapseAll();
+        try{
+            this.getView().collapseAll();
+        }
+        catch(e){
+            var grid = this.getView();
+            var store = grid.getStore();
+
+            store.reload();
+        }
     },
     /**
      * 打开新增操作.
@@ -60,7 +65,7 @@ Ext.define('kalix.admin.org.controller.OrgGridController', {
             border: false,
             modal: true,
             iconCls: 'iconfont icon-add',
-            title: this.getView().getViewModel().get("addTitle"),
+            title: "新增",
             items: [addFormPanel]
         });
 
@@ -89,7 +94,7 @@ Ext.define('kalix.admin.org.controller.OrgGridController', {
             border: false,
             modal: true,
             iconCls: 'iconfont icon-edit',
-            title: this.getView().getViewModel().get("editTitle"),
+            title: "编辑",
             items: [editFormPanel]
         });
         win.show();

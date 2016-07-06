@@ -14,7 +14,6 @@ Ext.define('kalix.admin.role.view.RoleGrid', {
     xtype: 'roleGridPanel',
     controller: {
         type: 'roleGridController',
-        storeId: 'roleStore',
         cfgForm: 'kalix.admin.role.view.RoleWindow',
         cfgViewForm: 'kalix.admin.role.view.RoleViewWindow',
         cfgModel: 'kalix.admin.role.model.RoleModel'

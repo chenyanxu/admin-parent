@@ -13,7 +13,6 @@ Ext.define('kalix.sys.audit.view.AuditGrid', {
     xtype: 'auditGridPanel',
     controller: {
         type: 'auditGridController',
-        storeId: 'auditStore',
         cfgViewForm: 'kalix.sys.audit.view.AuditViewWindow',
         cfgModel: 'kalix.sys.audit.model.AuditModel'
     },

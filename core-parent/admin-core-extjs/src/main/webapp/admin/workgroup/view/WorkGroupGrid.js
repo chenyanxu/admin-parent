@@ -14,7 +14,6 @@ Ext.define('kalix.admin.workgroup.view.WorkGroupGrid', {
     xtype: 'workgroupGridPanel',
     controller: {
         type: 'workgroupGridController',
-        storeId: 'workgroupStore',
         cfgForm: 'kalix.admin.workgroup.view.WorkGroupWindow',
         cfgViewForm: 'kalix.admin.workgroup.view.WorkGroupViewWindow',
         cfgModel: 'kalix.admin.workgroup.model.WorkGroupModel'

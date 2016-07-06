@@ -8,11 +8,9 @@ Ext.define('kalix.sys.plugin.Main', {
     extend: 'kalix.container.BaseContainer',
     requires: [
         'kalix.sys.plugin.view.PluginGrid',
-        'kalix.sys.plugin.view.PluginSearchForm',
-        'kalix.sys.plugin.viewModel.PluginViewModel'
+        'kalix.sys.plugin.view.PluginSearchForm'
     ],
     storeId: 'pluginStore',
-    viewModel: 'pluginViewModel',
     items: [
         {
             title: '插件查询',

@@ -24,8 +24,7 @@ Ext.define('kalix.admin.org.Main', {
         {
             xtype: 'orgGridPanel',
             title: '机构列表',
-            flex: 2,
-            store: Ext.create('kalix.admin.org.store.OrgStore')
+            flex: 2
         }
     ]
 });

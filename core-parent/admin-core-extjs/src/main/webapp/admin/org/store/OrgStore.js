@@ -10,7 +10,6 @@ Ext.define('kalix.admin.org.store.OrgStore', {
     alias: 'store.orgStore',
     xtype: 'orgStore',
     storeId: 'orgStore',
-    //model: 'kalix.admin.org.model.OrgModel',
     autoLoad:true,
     proxy:{
         type:'ajax',

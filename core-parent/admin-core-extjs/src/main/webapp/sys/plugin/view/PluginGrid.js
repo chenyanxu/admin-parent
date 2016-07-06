@@ -13,7 +13,6 @@ Ext.define('kalix.sys.plugin.view.PluginGrid', {
     xtype: 'pluginGridPanel',
     controller: {
         type: 'pluginGridController',
-        storeId: 'pluginStore',
         cfgForm: 'kalix.sys.plugin.view.PluginWindow',
         cfgViewForm: 'kalix.sys.plugin.view.PluginViewWindow',
         cfgModel: 'kalix.sys.plugin.model.PluginModel'

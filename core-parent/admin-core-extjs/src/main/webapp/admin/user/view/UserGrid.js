@@ -15,7 +15,6 @@ Ext.define('kalix.admin.user.view.UserGrid', {
     xtype: 'userGridPanel',
     controller: {
         type: 'userGridController',
-        storeId: 'userStore',
         cfgForm: 'kalix.admin.user.view.UserWindow',
         cfgViewForm: 'kalix.admin.user.view.UserViewWindow',
         cfgModel: 'kalix.admin.user.model.UserModel'

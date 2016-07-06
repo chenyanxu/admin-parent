@@ -14,7 +14,6 @@ Ext.define('kalix.sys.application.view.ApplicationGrid', {
     xtype: 'applicationGridPanel',
     controller: {
         type: 'applicationGridController',
-        storeId: 'applicationStore',
         cfgForm: 'kalix.sys.application.view.ApplicationWindow',
         cfgViewForm: 'kalix.sys.application.view.ApplicationViewWindow',
         cfgModel: 'kalix.sys.application.model.ApplicationModel'

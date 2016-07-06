@@ -17,14 +17,7 @@ Ext.define('kalix.admin.org.view.OrgTreeList', {
     viewModel: {
         type: 'orgViewModel'
     },
-    store: {
-        type: 'orgStore',
-        proxy:{
-            type:'ajax',
-            url: CONFIG.restRoot + '/camel/rest/orgs/'
-        }
-    },
-    //store:'orgStore',
+    store:  Ext.create('kalix.admin.org.store.OrgStore'),
     autoLoad:true,
     collapsible: true,
     autoScroll: true,

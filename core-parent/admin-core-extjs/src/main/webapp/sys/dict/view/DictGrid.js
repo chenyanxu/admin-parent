@@ -14,7 +14,6 @@ Ext.define('kalix.sys.dict.view.DictGrid', {
     xtype: 'dictGridPanel',
     controller: {
         type: 'dictGridController',
-        storeId: 'dictStore',
         cfgForm: 'kalix.sys.dict.view.DictWindow',
         cfgViewForm: 'kalix.sys.dict.view.DictViewWindow',
         cfgModel: 'kalix.sys.dict.model.DictModel'

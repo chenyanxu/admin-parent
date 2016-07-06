@@ -16,6 +16,7 @@ Ext.define('kalix.admin.org.view.OrgGrid', {
     viewModel: {
         type: 'orgViewModel'
     },
+    store: Ext.create('kalix.admin.org.store.OrgStore'),
     autoLoad:true,
     stripeRows: true,
     manageHeight: true,
