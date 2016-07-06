@@ -6,6 +6,7 @@ import com.kalix.framework.core.impl.dao.GenericDao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 
 /**
@@ -21,5 +22,11 @@ public class DutyBeanDaoImpl extends GenericDao<DutyBean, Long> implements IDuty
     @PersistenceContext(unitName = "admin-duty-unit")
     public void setEntityManager(EntityManager em) {
         super.setEntityManager(em);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<DutyBean> findByOrgId(Long orgId) {
+        return (List<DutyBean>) this.find("select t from DutyBean t where t.orgid = ?1 ", orgId);
     }
 }

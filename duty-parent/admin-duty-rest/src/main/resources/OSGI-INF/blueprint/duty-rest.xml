@@ -36,9 +36,9 @@
             </get>
 
             <!-- this is a rest GET to view a duty by the given id -->
-            <get uri="/dep/{id}" id="route-getDutiesByDepId" outType="java.util.List">
+            <get uri="/org/{id}" id="route-getDutiesByOrgId" outType="java.util.List">
                 <description>Find Duty by id</description>
-                <to uri="bean:dutyService?method=getDutiesByDepId(${header.id})"/>
+                <to uri="bean:dutyService?method=getDutiesByOrgId(${header.id})"/>
             </get>
 
             <!-- this is a rest PUT to update a duty -->
@@ -49,28 +49,28 @@
             </put>
 
             <!-- this is a rest DELETE to delete a duty -->
-            <delete uri="/{depId}/{id}" id="route-deleteDuty"
+            <delete uri="/{id}" id="route-deleteDuty"
                     outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Delete a Duty</description>
-                <to uri="bean:dutyService?method=deleteDuty(${header.depId},${header.id})"/>
+                <to uri="bean:dutyService?method=deleteDuty(${header.id})"/>
             </delete>
 
             <!-- this is a rest GET to view an user by the given id -->
-            <get id="route-getUsersByDutyId" uri="/dutyUsers/users/{depId}/{id}" outType="java.util.List">
-                <description>Find users by departent Id and duty id</description>
-                <to uri="bean:dutyService?method=getUsersByDutyId(${header.depId},${header.id})"/>
+            <get id="route-getUsersByDutyId" uri="/dutyUsers/users/{id}" outType="java.util.List">
+                <description>Find users by organization Id and duty id</description>
+                <to uri="bean:dutyService?method=getUsersByDutyId(${header.id})"/>
             </get>
 
             <!-- this is a rest GET to view an user by the given id -->
-            <get id="route-getUserAllAndDutyUsers" uri="/dutyUsers/users/all/{depId}/{id}" outType="java.util.List">
-                <description>Find users by department Id and duty id</description>
-                <to uri="bean:dutyService?method=getUserAllAndDutyUsers(${header.depId},${header.id})"/>
+            <get id="route-getUserAllAndDutyUsers" uri="/dutyUsers/users/all/{id}" outType="java.util.List">
+                <description>Find users by organization Id and duty id</description>
+                <to uri="bean:dutyService?method=getUserAllAndDutyUsers(${header.id})"/>
             </get>
 
             <!-- this is a rest GET to view an user by the given id -->
             <get id="route-saveDutyUsers" uri="/dutyUsers" outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>save dutyUsers</description>
-                <to uri="bean:dutyService?method=saveDutyUsers(${header.depId},${header.dutyId},${header.userIds})"/>
+                <to uri="bean:dutyService?method=saveDutyUsers(${header.id},${header.ids})"/>
             </get>
         </rest>
     </camelContext>

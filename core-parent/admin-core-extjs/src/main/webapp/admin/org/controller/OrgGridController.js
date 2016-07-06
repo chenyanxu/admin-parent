@@ -8,6 +8,9 @@
 Ext.define('kalix.admin.org.controller.OrgGridController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.orgGridController',
+    mixins: {
+        userRelation: 'kalix.admin.common.relation.UserRelation'
+    },
     /**
      * 刷新.
      * @returns {Ext.panel.Panel}

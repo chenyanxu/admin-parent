@@ -60,12 +60,11 @@
             </get>
 
         </rest>
-        <rest path="/org" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
-            <!-- this is a rest GET to view an dep by the given id -->
-            <get id="route-getDepsByOrgId" uri="/{id}/depts">
-                <description>Find dep by id</description>
-                <to uri="bean:depService?method=getAllByOrgId(${header.id})"/>
-            </get>
-        </rest>
+        <!--<rest path="/org" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">-->
+            <!--<get id="route-getDepsByOrgId" uri="/{id}/depts">-->
+                <!--<description>Find dep by id</description>-->
+                <!--<to uri="bean:depService?method=getAllByOrgId(${header.id})"/>-->
+            <!--</get>-->
+        <!--</rest>-->
     </camelContext>
 </blueprint>

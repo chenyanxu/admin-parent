@@ -10,6 +10,7 @@ Ext.define('kalix.admin.org.viewModel.OrgViewModel', {
     alias: 'viewmodel.orgViewModel',
     xtype:'orgViewModel',
     data: {
-        rec:null
+        rec:null,
+        url: CONFIG.restRoot + '/camel/rest/orgs'
     }
 });

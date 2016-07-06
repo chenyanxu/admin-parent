@@ -26,7 +26,7 @@ public interface IDepartmentBeanService extends IBizService<DepartmentBean> {
 
     JsonData getUserAll();
 
-    JsonData getUserAllAndDepartmentUsers(long depId);
+    JsonData getUserAllAndDepartmentUsers(long orgId);
 
-    JsonStatus saveDepartmentUsers(long depId, String userIds);
+    JsonStatus saveDepartmentUsers(long orgId, String userIds);
 }

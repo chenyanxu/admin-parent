@@ -2,11 +2,11 @@ package com.kalix.admin.core.biz;
 
 import com.kalix.admin.core.api.biz.IDepartmentBeanService;
 import com.kalix.admin.core.api.dao.IDepartmentBeanDao;
-import com.kalix.admin.core.api.dao.IDepartmentUserBeanDao;
+import com.kalix.admin.core.api.dao.IOrganizationUserBeanDao;
 import com.kalix.admin.core.api.dao.IUserBeanDao;
 import com.kalix.admin.core.dto.model.DepartmentDTO;
 import com.kalix.admin.core.entities.DepartmentBean;
-import com.kalix.admin.core.entities.DepartmentUserBean;
+import com.kalix.admin.core.entities.OrganizationUserBean;
 import com.kalix.admin.core.entities.UserBean;
 import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.api.persistence.JsonData;
@@ -29,13 +29,13 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
     private static final String FUNCTION_NAME = "部门";
     // private IDepartmentBeanDao dao;
     private IUserBeanDao userBeanDao;
-    private IDepartmentUserBeanDao depUserBeanDao;
+    private IOrganizationUserBeanDao depUserBeanDao;
 
     public DepartmentBeanServiceImpl() {
         super.init(DepartmentBean.class.getName());
     }
 
-    public void setDepUserBeanDao(IDepartmentUserBeanDao depUserBeanDao) {
+    public void setDepUserBeanDao(IOrganizationUserBeanDao depUserBeanDao) {
         this.depUserBeanDao = depUserBeanDao;
     }
 
@@ -266,17 +266,17 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
 
     @Override
     public void afterDeleteEntity(Long id, JsonStatus status) {
-        depUserBeanDao.deleteByDepartmentId(id);
+        depUserBeanDao.deleteByOrganizationId(id);
     }
 
     @Override
     public List getUsersByDepartmentId(long id) {
         List<String> userIds=new ArrayList<String>();
-        List<DepartmentUserBean> departmentUserBeans=depUserBeanDao.find("select ob from DepartmentUserBean ob where ob.depId = ?1", id);
-        if(departmentUserBeans!=null&&!departmentUserBeans.isEmpty()){
-            for(DepartmentUserBean departmentUserBean:departmentUserBeans){
-                if(departmentUserBean!=null&&departmentUserBean.getUserId()!=0){
-                    userIds.add(String.valueOf(departmentUserBean.getUserId()));
+        List<OrganizationUserBean> organizationUserBeen =depUserBeanDao.find("select ob from OrganizationUserBean ob where ob.orgId = ?1", id);
+        if(organizationUserBeen !=null&&!organizationUserBeen.isEmpty()){
+            for(OrganizationUserBean organizationUserBean : organizationUserBeen){
+                if(organizationUserBean !=null&& organizationUserBean.getUserId()!=0){
+                    userIds.add(String.valueOf(organizationUserBean.getUserId()));
                 }
             }
         }
@@ -286,7 +286,7 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
     @Override
     public JsonData getUserAll() {
         JsonData jsonData=new JsonData();
-        List<UserBean> users=userBeanDao.find("select u from UserBean u where u.id<>(select dub.userId from DepartmentUserBean dub)");
+        List<UserBean> users=userBeanDao.find("select u from UserBean u where u.id<>(select dub.userId from OrganizationUserBean dub)");
         List<PersistentEntity> persistentEntities=new ArrayList<PersistentEntity>();
         if(users!=null&&users.size()>0){
             for(UserBean user:users){
@@ -303,7 +303,7 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
     @Override
     public JsonData getUserAllAndDepartmentUsers(long depId) {
         JsonData jsonData=new JsonData();
-        List<UserBean> users=userBeanDao.find("select u from UserBean u where u.id not in(select dub.userId from DepartmentUserBean dub)");
+        List<UserBean> users=userBeanDao.find("select u from UserBean u where u.id not in(select dub.userId from OrganizationUserBean dub)");
         List<PersistentEntity> persistentEntities=new ArrayList<PersistentEntity>();
         if(users!=null&&users.size()>0){
             for(UserBean user:users){
@@ -312,7 +312,7 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
                 }
             }
         }
-        List<UserBean> departmentUserBeans=userBeanDao.find("select u from UserBean u where u.id in (select du.userId from DepartmentUserBean du where du.depId=?1)",depId);
+        List<UserBean> departmentUserBeans=userBeanDao.find("select u from UserBean u where u.id in (select du.userId from OrganizationUserBean du where du.orgId=?1)",depId);
         if(departmentUserBeans!=null&&departmentUserBeans.size()>0){
             for(UserBean departmentUserBean:departmentUserBeans){
                 if(departmentUserBean!=null) {
@@ -326,35 +326,35 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
     }
 
     @Override
-    public JsonStatus saveDepartmentUsers(long depId, String userId) {
+    public JsonStatus saveDepartmentUsers(long orgId, String userId) {
         JsonStatus jsonStatus=new JsonStatus();
         try {
-            depUserBeanDao.deleteByDepartmentId(depId);
-            String userName=getShiroService().getCurrentUserName();
-            if (StringUtils.isNotEmpty(userId)) {
-                if (userId.indexOf(",") != -1) {
-                    String[] userIds = userId.split(",");
-                    for (String _userId : userIds) {
-                        if (StringUtils.isNotEmpty(_userId.trim())) {
-                            DepartmentUserBean departmentUserBean = new DepartmentUserBean();
-                            departmentUserBean.setCreateBy(userName);
-                            departmentUserBean.setUpdateBy(userName);
-                            departmentUserBean.setDepId(depId);
-                            departmentUserBean.setUserId(Long.parseLong(_userId));
-                            depUserBeanDao.save(departmentUserBean);
-                        }
-                    }
-                }else{
-                    if (StringUtils.isNotEmpty(userId.trim())) {
-                        DepartmentUserBean departmentUserBean = new DepartmentUserBean();
-                        departmentUserBean.setCreateBy(userName);
-                        departmentUserBean.setUpdateBy(userName);
-                        departmentUserBean.setDepId(depId);
-                        departmentUserBean.setUserId(Long.parseLong(userId));
-                        depUserBeanDao.save(departmentUserBean);
-                    }
-                }
-            }
+//            depUserBeanDao.deleteByOrganizationId(orgId);
+//            String userName=getShiroService().getCurrentUserName();
+//            if (StringUtils.isNotEmpty(userId)) {
+//                if (userId.indexOf(",") != -1) {
+//                    String[] userIds = userId.split(",");
+//                    for (String _userId : userIds) {
+//                        if (StringUtils.isNotEmpty(_userId.trim())) {
+//                            OrganizationUserBean organizationUserBean = new OrganizationUserBean();
+//                            organizationUserBean.setCreateBy(userName);
+//                            organizationUserBean.setUpdateBy(userName);
+//                            organizationUserBean.setOrgId(orgId);
+//                            organizationUserBean.setUserId(Long.parseLong(_userId));
+//                            depUserBeanDao.save(organizationUserBean);
+//                        }
+//                    }
+//                }else{
+//                    if (StringUtils.isNotEmpty(userId.trim())) {
+//                        OrganizationUserBean organizationUserBean = new OrganizationUserBean();
+//                        organizationUserBean.setCreateBy(userName);
+//                        organizationUserBean.setUpdateBy(userName);
+//                        organizationUserBean.setOrgId(orgId);
+//                        organizationUserBean.setUserId(Long.parseLong(userId));
+//                        depUserBeanDao.save(organizationUserBean);
+//                    }
+//                }
+//            }
         }catch(Exception e){
             e.printStackTrace();
             jsonStatus.setFailure(true);

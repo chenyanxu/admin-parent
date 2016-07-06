@@ -52,6 +52,13 @@ Ext.define('kalix.admin.org.view.OrgGrid', {
                 isDisabled: function(view, rowIdx, colIdx, item, record) {
                     return record.data.name=="根机构"?true:false;
                 }
+            }, {
+                iconCls:'iconfont icon-add-user-column',
+                tooltip: '添加用户',
+                handler: 'onAddUser',
+                isDisabled: function(view, rowIdx, colIdx, item, record) {
+                    return record.data.name=="根机构"?true:false;
+                }
             }]
         }
     ]},

@@ -30,15 +30,15 @@ Ext.define('kalix.admin.duty.view.DutyEditForm', {
     buttonAlign: "center",
     items: [
         {xtype: 'hiddenfield', name: 'id',bind:'{rec.id}'},
-        {xtype: 'hiddenfield', name: 'depid',bind:'{rec.depid}'},
+        {xtype: 'hiddenfield', name: 'orgid',bind:'{rec.orgid}'},
         {
-            fieldLabel: '所属部门',
+            fieldLabel: '所属机构',
             editable:false,
             beforeLabelTpl: [
                 '<span style="color:red;font-weight:bold" data-qtip="必填选项">*</span>'
             ],
             bind:{
-                value:'{rec.depName}'
+                value:'{rec.orgName}'
             }
         },
         {

@@ -4,6 +4,8 @@ import com.kalix.admin.core.entities.UserBean;
 import com.kalix.framework.core.api.dao.IGenericDao;
 import com.kalix.framework.core.api.persistence.JsonData;
 
+import java.util.List;
+
 /**
  * Created by dell on 14-1-16.
  */
@@ -42,4 +44,13 @@ public interface IUserBeanDao extends IGenericDao<UserBean, Long> {
     UserBean getUser(String username);
 
     void updateUserLoginInfo(long id, String loginIp);
+
+    /**
+     * 查询包含（不包含）用户id集合的用户信息 20106-07-01 by p
+     *
+     * @param userId
+     * @param contain true 包含、false不包含
+     * @return
+     */
+    List<UserBean> findByUserId(List<Long> userId, boolean contain);
 }

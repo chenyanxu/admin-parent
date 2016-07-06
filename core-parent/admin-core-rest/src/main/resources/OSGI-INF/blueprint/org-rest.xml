@@ -51,6 +51,22 @@
                 <description>Find all orgs</description>
                 <to uri="bean:orgService?method=getAllOrg"/>
             </get>
+
+            <get id="route-getUsersByOrganizationId" uri="/orgUsers/users/{id}" outType="java.util.List">
+                <description>Find users by department Id</description>
+                <to uri="bean:orgService?method=getUsersByOrganizationId(${header.id})"/>
+            </get>
+
+            <!-- this is a rest GET to view an user by the given id -->
+            <get id="route-getUserAllAndOrganizationUsers" uri="/orgUsers/users/all/{id}" outType="java.util.List">
+                <description>Find users by department Id</description>
+                <to uri="bean:orgService?method=getUserAllAndOrganizationUsers(${header.id})"/>
+            </get>
+
+            <get id="route-saveOrganizationUsers" uri="/orgUsers" outType="com.kalix.framework.core.api.persistence.JsonStatus">
+                <description>save departmentUsers</description>
+                <to uri="bean:orgService?method=saveOrganizationUsers(${header.id},${header.ids})"/>
+            </get>
         </rest>
 
     </camelContext>

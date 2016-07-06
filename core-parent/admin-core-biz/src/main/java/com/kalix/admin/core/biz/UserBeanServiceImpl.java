@@ -29,7 +29,7 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
     private IRoleBeanDao roleBeanDao;
     private IRoleUserBeanDao roleUserBeanDao;
     private IWorkGroupUserBeanDao workGroupUserBeanDao;
-    private IDepartmentUserBeanDao departmentUserBeanDao;
+    private IOrganizationUserBeanDao departmentUserBeanDao;
 
     public UserBeanServiceImpl() {
         super.init(UserBean.class.getName());
@@ -39,7 +39,7 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         this.workGroupUserBeanDao = workGroupUserBeanDao;
     }
 
-    public void setDepartmentUserBeanDao(IDepartmentUserBeanDao departmentUserBeanDao) {
+    public void setDepartmentUserBeanDao(IOrganizationUserBeanDao departmentUserBeanDao) {
         this.departmentUserBeanDao = departmentUserBeanDao;
     }
 
@@ -50,7 +50,7 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
     @Override
     public void afterDeleteEntity(Long id, JsonStatus status) {
         roleUserBeanDao.update("delete from RoleUserBean ru where ru.userId=?1",id);
-        departmentUserBeanDao.update("delete from DepartmentUserBean du where du.userId=?1", id);
+        departmentUserBeanDao.update("delete from OrganizationUserBean du where du.userId=?1", id);
         workGroupUserBeanDao.update("delete from WorkGroupUserBean wu where wu.userId=?1", id);
     }
 

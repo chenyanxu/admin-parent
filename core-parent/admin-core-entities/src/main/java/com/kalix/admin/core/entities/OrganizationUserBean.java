@@ -14,18 +14,25 @@ import javax.persistence.Table;
  * @version 1.0.0
  */
 @Entity
-@Table(name = "sys_department_user")
+@Table(name = "sys_organization_user")
 @Inheritance(strategy = InheritanceType.JOINED)
 //@XmlRootElement
-public class DepartmentUserBean extends PersistentEntity {
+public class OrganizationUserBean extends PersistentEntity {
     /**
      * 用户.
      */
     private long userId;
     /**
-     * 部门.
+     * 机构.
      */
-    private long depId;
+    private long orgId;
+
+    public OrganizationUserBean(long userId, long orgId, String createBy, String updateBy)  {
+        this.userId = userId;
+        this.orgId = orgId;
+        this.setCreateBy(createBy);
+        this.setUpdateBy(updateBy);
+    }
 
     public long getUserId() {
         return userId;
@@ -35,11 +42,11 @@ public class DepartmentUserBean extends PersistentEntity {
         this.userId = userId;
     }
 
-    public long getDepId() {
-        return depId;
+    public long getOrgId() {
+        return orgId;
     }
 
-    public void setDepId(long depId) {
-        this.depId = depId;
+    public void setOrgId(long orgId) {
+        this.orgId = orgId;
     }
 }

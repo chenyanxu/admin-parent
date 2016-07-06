@@ -5,7 +5,7 @@ import com.kalix.admin.core.api.biz.IOrganizationBeanService;
 import com.kalix.admin.core.api.dao.IAboutBeanDao;
 import com.kalix.admin.core.api.dao.IAreaBeanDao;
 import com.kalix.admin.core.api.dao.IDepartmentBeanDao;
-import com.kalix.admin.core.api.dao.IDepartmentUserBeanDao;
+import com.kalix.admin.core.api.dao.IOrganizationUserBeanDao;
 import com.kalix.admin.core.dto.model.AreaDTO;
 import com.kalix.admin.core.entities.AboutBean;
 import com.kalix.admin.core.entities.AreaBean;
@@ -31,14 +31,14 @@ public class AreaBeanServiceImpl extends ShiroGenericBizServiceImpl<IAreaBeanDao
     private static final String FUNCTION_NAME = "区域";
     private IOrganizationBeanService orgService;
     private IAboutBeanDao aboutBeanDao;
-    private IDepartmentUserBeanDao depUserBeanDao;
+    private IOrganizationUserBeanDao depUserBeanDao;
     private IDepartmentBeanDao depBeanDao;
 
     public AreaBeanServiceImpl() {
         super.init(AreaBean.class.getName());
     }
 
-    public void setDepUserBeanDao(IDepartmentUserBeanDao depUserBeanDao) {
+    public void setDepUserBeanDao(IOrganizationUserBeanDao depUserBeanDao) {
         this.depUserBeanDao = depUserBeanDao;
     }
 
@@ -125,7 +125,7 @@ public class AreaBeanServiceImpl extends ShiroGenericBizServiceImpl<IAreaBeanDao
                     removeChildren(entityId);
                     AreaBean org=AreaBeans.get(0);
                     dao.remove(entityId);
-                    orgService.deleteByAreaId(entityId);
+                    //orgService.deleteByAreaId(entityId);
                     //departmentBeanService.deleteByOrgId(id);
                     updateParent(org.getParentId());
                     jsonStatus.setSuccess(true);
@@ -227,7 +227,7 @@ public class AreaBeanServiceImpl extends ShiroGenericBizServiceImpl<IAreaBeanDao
                     removeChildren(org.getId());
                 }
                 dao.remove(org.getId());
-                orgService.deleteByAreaId(org.getId());
+                //orgService.deleteByAreaId(org.getId());
                 //departmentBeanService.deleteByOrgId(org.getId());
             }
         }

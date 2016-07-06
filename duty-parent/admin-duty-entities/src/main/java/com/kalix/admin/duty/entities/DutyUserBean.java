@@ -12,7 +12,10 @@ import javax.persistence.Table;
  *
  * @author zangyanming <br/>
  *         date:2016-3-15
- * @version 1.0.0
+ *
+ * @修改人： p
+ * @修改时间： 2016-07-05
+ * @修改备注： depid修改为orgid
  */
 @Entity
 @Table(name = "sys_duty_user")
@@ -28,9 +31,9 @@ public class DutyUserBean extends PersistentEntity {
      */
     private long dutyId;
     /**
-     * 部门.
+     * 机构.
      */
-    private long depId;
+    private long orgId;
 
     public long getUserId() {
         return userId;
@@ -48,11 +51,11 @@ public class DutyUserBean extends PersistentEntity {
         this.dutyId = dutyId;
     }
 
-    public long getDepId() {
-        return depId;
+    public long getOrgId() {
+        return orgId;
     }
 
-    public void setDepId(long depId) {
-        this.depId = depId;
+    public void setOrgId(long orgId) {
+        this.orgId = orgId;
     }
 }

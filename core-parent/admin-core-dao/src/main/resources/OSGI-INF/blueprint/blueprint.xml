@@ -101,10 +101,10 @@
     </bean>
 
     <!--部门用户dao-->
-    <service id="depUserBeanDao" interface="com.kalix.admin.core.api.dao.IDepartmentUserBeanDao"
-             ref="departmentUserBeanDaoImpl"/>
+    <service id="orgUserBeanDao" interface="com.kalix.admin.core.api.dao.IOrganizationUserBeanDao"
+             ref="organizationUserBeanDaoImpl"/>
 
-    <bean id="departmentUserBeanDaoImpl" class="com.kalix.admin.core.dao.DepartmentUserBeanDaoImpl">
+    <bean id="organizationUserBeanDaoImpl" class="com.kalix.admin.core.dao.OrganizationUserBeanDaoImpl">
         <tx:transaction method="*" value="Required"/>
     </bean>
 

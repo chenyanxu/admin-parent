@@ -11,6 +11,6 @@ Ext.define('kalix.admin.duty.model.DutyModel', {
         {name: 'id', type: 'string'},
         {name: 'name', type: 'string'},
         {name: 'comment', type: 'string'},
-        {name: 'depid', type: 'long'}
+        {name: 'orgid', type: 'long'}
     ]
 });

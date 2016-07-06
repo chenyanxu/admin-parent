@@ -5,7 +5,9 @@ import com.kalix.admin.core.entities.UserBean;
 import com.kalix.framework.core.api.persistence.JsonData;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by dell on 14-1-16.
@@ -50,6 +52,27 @@ public class UserBeanDaoImpl extends BaseAdminDao<UserBean, Long> implements IUs
     @Override
     public void updateUserLoginInfo(long id, String loginIp) {
         this.update("update UserBean u set u.loginIp=?1, u.loginDate=?2 where u.id = ?3", loginIp, new Date(), id);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<UserBean> findByUserId(List<Long> userId, boolean contain) {
+        if (userId != null && !userId.isEmpty()) {
+            String s = userId.toString();
+            String sql = s.substring(1, s.length() - 1);
+
+            if (contain) {
+                return this.find("select t from UserBean t where t.id in (" + sql + ") order by t.name");
+            } else {
+                return this.find("select t from UserBean t where t.id not in (" + sql + ") order by t.name");
+            }
+        } else {
+            if (contain) {
+                return new ArrayList<>();
+            } else {
+                return this.getAll();
+            }
+        }
     }
 
     /*@Override

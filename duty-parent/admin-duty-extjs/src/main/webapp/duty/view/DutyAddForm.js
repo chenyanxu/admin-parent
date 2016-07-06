@@ -29,24 +29,24 @@ Ext.define('kalix.admin.duty.view.DutyAddForm', {
     url: CONFIG.restRoot + '/camel/rest/dutys',
     items: [
         {
-            fieldLabel: '部门编号',
-            name: "depid",
+            fieldLabel: '机构编号',
+            name: "orgid",
             editable:false,
             beforeLabelTpl: [
                 '<span style="color:red;font-weight:bold" data-qtip="必填选项">*</span>'
             ],
             bind:{
-                value:'{rec.depid}'
+                value:'{rec.orgid}'
             }
         },
         {
-            fieldLabel: '所属部门',
+            fieldLabel: '所属机构',
             editble:false,
             beforeLabelTpl: [
                 '<span style="color:red;font-weight:bold" data-qtip="必填选项">*</span>'
             ],
             bind:{
-                value:'{rec.depName}'
+                value:'{rec.orgName}'
             }
         },
         {

@@ -19,17 +19,23 @@ public class DutyUserBeanDaoImpl extends GenericDao<DutyUserBean, Long> implemen
     }
 
     @Override
-    public void deleteByDutyId(long depId, long id) {
-        super.updateNativeQuery("delete from sys_duty_user where depId = " + depId + " and dutyId=" + id);
+    public void deleteByDutyId(long id) {
+        super.updateNativeQuery("delete from sys_duty_user where dutyId=" + id);
     }
 
     @Override
 
-    public long findDutyIdByUserId(long depId, long userId) {
+    public long findDutyIdByUserId(long userId) {
         List<DutyUserBean> dutyUserBeanList = findByNativeSql("select * from sys_duty_user where userId=" + userId, DutyUserBean.class, null);
         if (dutyUserBeanList != null && dutyUserBeanList.size() > 0) {
             return dutyUserBeanList.get(0).getDutyId();
         }
         return 0;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<DutyUserBean> findByDutyId(Long dutyId) {
+        return (List<DutyUserBean>) this.find("select t from DutyUserBean t where t.dutyId = ?1", dutyId);
     }
 }

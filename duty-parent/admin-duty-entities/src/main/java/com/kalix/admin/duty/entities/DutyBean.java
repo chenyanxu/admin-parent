@@ -9,16 +9,17 @@ import javax.persistence.Table;
  * @类描述：职位管理
  * @创建人：zangyanming
  * @创建时间：2016-01-07
- * @修改人：
- * @修改时间：
- * @修改备注：
+ *
+ * @修改人： p
+ * @修改时间： 2016-07-05
+ * @修改备注： depid修改为orgid
  */
  //todo 修改模型定义
 @Entity
 @Table(name = "sys_duty")
 public class DutyBean extends PersistentEntity {
     private String name;//职位名称
-    private long depid;   //所在部门
+    private long orgid;   //所在机构
     private String comment; //职位描述
 
     public String getName() {
@@ -29,12 +30,12 @@ public class DutyBean extends PersistentEntity {
         this.name = name;
     }
 
-    public long getDepid() {
-        return depid;
+    public long getOrgid() {
+        return orgid;
     }
 
-    public void setDepid(long depid) {
-        this.depid = depid;
+    public void setOrgid(long orgid) {
+        this.orgid = orgid;
     }
 
     public String getComment() {

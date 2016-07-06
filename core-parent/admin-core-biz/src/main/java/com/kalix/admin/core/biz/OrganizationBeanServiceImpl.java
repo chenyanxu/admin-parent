@@ -1,23 +1,27 @@
 package com.kalix.admin.core.biz;
 
 import com.kalix.admin.core.api.biz.IOrganizationBeanService;
-import com.kalix.admin.core.api.dao.IDepartmentUserBeanDao;
 import com.kalix.admin.core.api.dao.IOrganizationBeanDao;
+import com.kalix.admin.core.api.dao.IOrganizationUserBeanDao;
+import com.kalix.admin.core.api.dao.IUserBeanDao;
 import com.kalix.admin.core.dto.model.OrganizationDTO;
-import com.kalix.admin.core.entities.DepartmentUserBean;
 import com.kalix.admin.core.entities.OrganizationBean;
-import com.kalix.admin.core.entities.UserBean;
-import com.kalix.framework.core.api.persistence.JsonStatus;
+import com.kalix.admin.core.entities.OrganizationUserBean;
+import com.kalix.admin.core.util.Compare;
 import com.kalix.framework.core.api.persistence.JsonData;
+import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.api.persistence.PersistentEntity;
-import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
+import com.kalix.framework.core.api.security.IShiroService;
+import com.kalix.framework.core.impl.biz.GenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
 import org.apache.commons.lang.StringUtils;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 机构管理服务实现
@@ -25,27 +29,48 @@ import java.util.List;
  *         date:2015-7-21
  * @version 1.0.0
  */
-public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrganizationBeanDao, OrganizationBean> implements IOrganizationBeanService {
+public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganizationBeanDao, OrganizationBean> implements IOrganizationBeanService {
     private static final String FUNCTION_NAME = "机构";
-    private IDepartmentUserBeanDao depUserBeanDao;
+    private IOrganizationUserBeanDao organizationUserDao;
+    private IUserBeanDao userDao;
+    private IShiroService shiroService;
 
     public OrganizationBeanServiceImpl() {
         super.init(OrganizationBean.class.getName());
     }
 
-    public void setDepUserBeanDao(IDepartmentUserBeanDao depUserBeanDao) {
-        this.depUserBeanDao = depUserBeanDao;
+    public void setOrganizationUserDao(IOrganizationUserBeanDao organizationUserDao) {
+        this.organizationUserDao = organizationUserDao;
+    }
+
+    public void setUserDao(IUserBeanDao userDao) {
+        this.userDao = userDao;
+    }
+
+    public void setShiroService(IShiroService shiroService) {
+        this.shiroService = shiroService;
+    }
+
+    @Override
+    public void beforeSaveEntity(OrganizationBean entity, JsonStatus status) {
+        Assert.notNull(entity, "实体不能为空.");
+
+        String userName = shiroService.getCurrentUserName();
+        if (userName != null) {
+            entity.setCreateBy(userName);
+            entity.setUpdateBy(userName);
+        }
     }
 
     @Override
     public void afterSaveEntity(OrganizationBean entity, JsonStatus status) {
         Assert.notNull(entity, "实体不能为空.");
-        OrganizationBean bean=(OrganizationBean)entity;
-        if(bean.getParentId()!=-1){
-            OrganizationBean parentOrganizationBean = dao.getOrg(bean.getParentId());
-            if(parentOrganizationBean!=null&&parentOrganizationBean.getIsLeaf()==1){
+
+        if(entity.getParentId() != -1) {
+            OrganizationBean parentOrganizationBean = dao.get(entity.getParentId());
+            if(parentOrganizationBean != null && parentOrganizationBean.getIsLeaf() == 1) {
                 parentOrganizationBean.setIsLeaf(0);
-                dao.saveOrg(parentOrganizationBean);
+                dao.save(parentOrganizationBean);
             }
         }
     }
@@ -53,15 +78,20 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
     @Override
     public boolean isUpdate(OrganizationBean entity, JsonStatus status) {
         Assert.notNull(entity, "实体不能为空.");
-        OrganizationBean bean=(OrganizationBean)entity;
-        List<OrganizationBean> beans = dao.find("select ob from OrganizationBean ob where ob.name = ?1", bean.getName());
-        if(beans!=null&&beans.size()>0){
-            OrganizationBean _org=beans.get(0);
-            if(_org.getId()!=entity.getId()) {
-                status.setFailure(true);
-                status.setMsg(FUNCTION_NAME + "已经存在！");
-                return false;
-            }
+
+        // 校验机构名称
+        List<OrganizationBean> beans = dao.findByName(entity.getId(), entity.getName());
+        if(beans != null && beans.size() > 0) {
+            status.setFailure(true);
+            status.setMsg(FUNCTION_NAME + "名称已经存在！");
+            return false;
+        }
+        // 校验机构代码
+        beans = dao.findByCode(entity.getId(), entity.getCode());
+        if(beans != null && beans.size() > 0) {
+            status.setFailure(true);
+            status.setMsg(FUNCTION_NAME + "代码已经存在！");
+            return false;
         }
         return true;
     }
@@ -69,11 +99,19 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
     @Override
     public boolean isSave(OrganizationBean entity, JsonStatus status) {
         Assert.notNull(entity, "实体不能为空.");
-        OrganizationBean bean=(OrganizationBean)entity;
-        List<OrganizationBean> beans = dao.find("select ob from OrganizationBean ob where ob.name = ?1 and ob.areaId=?2", bean.getName(), bean.getAreaId());
-        if(beans!=null&&beans.size()>0){
+
+        // 校验机构名称
+        List<OrganizationBean> beans = dao.findByName(0L, entity.getName());
+        if(beans != null && beans.size() > 0) {
             status.setSuccess(false);
-            status.setMsg(FUNCTION_NAME + "已经存在！");
+            status.setMsg(FUNCTION_NAME + "名称已经存在！");
+            return false;
+        }
+        // 校验机构代码
+        beans = dao.findByCode(0L, entity.getCode());
+        if(beans != null && beans.size() > 0) {
+            status.setSuccess(false);
+            status.setMsg(FUNCTION_NAME + "代码已经存在！");
             return false;
         }
         return true;
@@ -89,64 +127,59 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
         return true;
     }
 
-
     @Override
     public JsonStatus deleteEntity(long id) {
         JsonStatus jsonStatus = new JsonStatus();
         try {
-            if (dao.getOrg(id) == null) {
-                jsonStatus.setFailure(true);
-                jsonStatus.setMsg(FUNCTION_NAME + "{" + id + "}不存在！");
-            } else {
-                List<OrganizationBean> organizationBeans = dao.find("select ob from OrganizationBean ob where ob.id = ?1", id);
-                if(organizationBeans!=null&&!organizationBeans.isEmpty()) {
-                    removeChildren(id);
-                    OrganizationBean org=organizationBeans.get(0);
-                    dao.removeOrg(id);
-                    updateParent(org.getParentId());
-                    jsonStatus.setSuccess(true);
-                    jsonStatus.setMsg("删除" + FUNCTION_NAME + "成功！");
-                }else{
-                    jsonStatus.setSuccess(true);
-                    jsonStatus.setMsg(FUNCTION_NAME + "已经被删除！");
-                }
-            }
+            OrganizationBean bean = dao.get(id);
+            if (bean != null) {
+                // 删除子节点
+                removeChildren(id);
+                // 删除自己
+                dao.remove(id);
+                // 更新父节点
+                updateParent(bean.getParentId());
 
+                jsonStatus.setSuccess(true);
+                jsonStatus.setMsg("删除" + FUNCTION_NAME + "成功！");
+            } else {
+                jsonStatus.setFailure(true);
+                jsonStatus.setMsg(FUNCTION_NAME + "不存在或已被删除！");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             jsonStatus.setFailure(true);
-            jsonStatus.setMsg("删除" + FUNCTION_NAME + "失败！");
+            jsonStatus.setMsg(FUNCTION_NAME + "删除失败！");
         }
         return jsonStatus;
-
     }
-
 
     /**
      * 如果父节点下再没有子节点,将更新父节点状态
+     *
      * @param parentId
      */
     public void updateParent(Long parentId){
-        List<OrganizationBean> organizationBeans = dao.find("select ob from OrganizationBean ob where ob.id = ?1", parentId); //获得父节点
-        if(organizationBeans!=null&&organizationBeans.size()>0){
-            List<OrganizationBean> children = dao.find("select ob from OrganizationBean ob where ob.parentId = ?1", parentId); //获得父节点
-            if(children==null||children.isEmpty()) {
-                OrganizationBean parent = organizationBeans.get(0);
-                parent.setIsLeaf(1);
-                dao.save(parent);
+        // 获取父节点
+        OrganizationBean parentBean = dao.get(parentId);
+        if (parentBean != null) {
+            // 获取父节点下的所有子节点
+            List<OrganizationBean> children = dao.findByParentId(parentId);
+            if (children == null || children.isEmpty()) {
+                parentBean.setIsLeaf(1);
+                dao.save(parentBean);
             }
         }
     }
 
     public void removeChildren(Long id){
-        List<OrganizationBean> organizationBeans = dao.find("select ob from OrganizationBean ob where ob.parentId = ?1", id);
-        if(organizationBeans!=null&&organizationBeans.size()>0){
-            for(OrganizationBean org:organizationBeans){
-                if(org.getIsLeaf()==0){ //存在子节点
-                    removeChildren(org.getId());
-                }
-                dao.removeOrg(org.getId());
-            }
+        List<OrganizationBean> children = dao.findByParentId(id);
+        if(children != null && !children.isEmpty()) {
+            children.stream()
+                    .forEach(n -> {
+                        removeChildren(n.getId());
+                        dao.remove(n.getId());
+                    });
         }
     }
 
@@ -157,16 +190,15 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
 
     @Override
     public JsonStatus updateEntity(OrganizationBean entity) {
-        OrganizationBean org=(OrganizationBean)entity;
         JsonStatus jsonStatus = new JsonStatus();
         try {
-            if(isUpdate(org,jsonStatus)) {
-                OrganizationBean oldOrg = dao.getOrg(org.getId());
-                oldOrg.setName(org.getName());
-                oldOrg.setCode(org.getCode());
-                oldOrg.setCenterCode(org.getCenterCode());
-                oldOrg.setUpdateBy(getShiroService().getCurrentUserName());
-                dao.saveOrg(oldOrg);
+            if(isUpdate(entity, jsonStatus)) {
+                OrganizationBean oldOrg = dao.get(entity.getId());
+                oldOrg.setName(entity.getName());
+                oldOrg.setCode(entity.getCode());
+                oldOrg.setCenterCode(entity.getCenterCode());
+                oldOrg.setUpdateBy(shiroService.getCurrentUserName());
+                dao.save(oldOrg);
                 jsonStatus.setSuccess(true);
                 jsonStatus.setMsg("更新" + FUNCTION_NAME + "成功！");
             }
@@ -186,76 +218,55 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
      * @param elements
      */
     private void getChilden(OrganizationDTO root, List<OrganizationBean> elements, Mapper mapper) {
-        List<OrganizationDTO> children = new ArrayList<OrganizationDTO>();
+        List<OrganizationDTO> children = new ArrayList<>();
 
-        for (OrganizationBean organizationBean : elements) {
-            if (root.getId() != -1 && (root.getId() == organizationBean.getParentId())) {
-                OrganizationDTO organizationDTO = mapper.map(organizationBean, OrganizationDTO.class);
-                organizationDTO.setLeaf(organizationBean.getIsLeaf() == 0 ? false : true);
-                organizationDTO.setParentName(root.getName());
-                organizationDTO.setText(organizationBean.getName());
-                children.add(organizationDTO);
-                if(organizationBean.getIsLeaf()==0) {
-                    getChilden(organizationDTO, elements, mapper);
-                }
-            }
-        }
+        elements.stream().filter(n -> root.getId() != -1 && (root.getId() == n.getParentId()))
+                .forEach(n -> {
+                    OrganizationDTO organizationDTO = mapper.map(n, OrganizationDTO.class);
+                    organizationDTO.setLeaf(n.getIsLeaf() != 0);
+                    organizationDTO.setParentName(root.getName());
+                    organizationDTO.setText(n.getName());
+                    children.add(organizationDTO);
+                    if (n.getIsLeaf() == 0) {
+                        getChilden(organizationDTO, elements, mapper);
+                    }
+                });
         root.setChildren(children);
     }
 
-    public OrganizationDTO getAllByAreaId(Long id) {
-        List<OrganizationBean> beans = dao.find("select ob from OrganizationBean ob where ob.areaId = ?1", id);
-
-        return generateRoot(beans,-1L);
-    }
-
-    public OrganizationDTO getOrg(Long id){
+    public OrganizationDTO getOrganizationDTO(Long id) {
         OrganizationBean bean = dao.get(id);
 
-        List<OrganizationBean> beans=null;
-
-        if(bean!=null) {
-            beans = dao.find("select ob from OrganizationBean ob where ob.code like ?1", bean.getCode() + "%");
+        if (bean != null) {
+            return generateRoot(dao.findByCode(bean.getCode()), id);
+        } else {
+            return null;
         }
-
-        return generateRoot(beans,id);
     }
 
-    public OrganizationDTO getOrgByName(String name){
-        List<OrganizationBean> beans1 = dao.find("select ob from OrganizationBean ob where ob.name = ?1",name);
-        List<OrganizationBean> beans2=null;
-
-        if(beans1!=null&&beans1.size()>0) {
-            beans2 = dao.find("select ob from OrganizationBean ob where ob.code like ?1", beans1.get(0).getCode() + "%");
-
-            return generateRoot(beans2,beans1.get(0).getId());
+    public OrganizationDTO getOrganizationDTOByName(String name) {
+        List<OrganizationBean> beans = dao.findByName(0L, name);
+        if (beans != null && !beans.isEmpty()) {
+            OrganizationBean bean = beans.get(0);
+            return generateRoot(dao.findByCode(bean.getCode()), bean.getId());
+        } else {
+            return null;
         }
-
-
-        return generateRoot(null,0L);
     }
 
+    /**
+     * 查询全部 机构
+     * 不在关联到部门 2016-06-29
+     *
+     * @return
+     */
     public OrganizationDTO getAllOrg() {
-        //List<OrganizationBean> orgs = dao.getAll();
-        List<OrganizationBean> orgs = dao.find("select ob from OrganizationBean ob where ob.dept=false order by ob.code");
+        List<OrganizationBean> orgs = dao.getAll().stream()
+                .sorted(Compare.<OrganizationBean>compare()
+                        .thenComparing((a, b) -> a.getCode().compareTo(b.getCode())))
+                .collect(Collectors.toList());
 
-        return generateRoot(orgs,-1L);
-    }
-
-    @Override
-    public void deleteByAreaId(Long id) {
-        try {
-            List<OrganizationBean> orgs = dao.find("select ob from OrganizationBean ob where ob.areaId = ?1", id);
-            if(orgs!=null&&!orgs.isEmpty()){
-                for(OrganizationBean org:orgs){
-                    if(org!=null) {
-                        dao.removeOrg(org.getId());
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        return generateRoot(orgs, -1L);
     }
 
     /**
@@ -263,18 +274,22 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
      * @param elements
      * @return
      */
-    private List<OrganizationBean> getRootElements(List<OrganizationBean> elements,Long id) {
-        List<OrganizationBean> roots=new ArrayList<OrganizationBean>();
-        for (OrganizationBean element : elements) {
-            if (element.getParentId() == id) {
-                roots.add(element);
-            }
-        }
-        return roots;
+    private List<OrganizationBean> getRootElements(List<OrganizationBean> elements, Long id) {
+        return elements.stream().filter(n -> n.getParentId() == id)
+                .collect(Collectors.toList());
     }
 
-    private OrganizationDTO generateRoot(List<OrganizationBean> beans,Long id){
-        OrganizationDTO root=null;
+    private OrganizationDTO generateRoot(List<OrganizationBean> beans, Long id) {
+//        OrganizationDTO root = null;
+//        if (id == -1) {
+//            OrganizationBean bean = beans.stream().filter(n -> n.getParentId() == id)
+//                    .findFirst().get();
+//            if (bean != null) {
+//
+//            }
+//        }
+
+        OrganizationDTO root;
         Mapper mapper = new DozerBeanMapper();
         String parentName="根机构";
 
@@ -296,7 +311,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
             if(rootElements!=null&&rootElements.size()>0) {
                 for(OrganizationBean rootElement:rootElements){
                     OrganizationDTO organizationDTO = mapper.map(rootElement, OrganizationDTO.class);
-                    organizationDTO.setLeaf(rootElement.getIsLeaf() == 0 ? false : true);
+                    organizationDTO.setLeaf(rootElement.getIsLeaf() != 0);
                     organizationDTO.setParentName(parentName);
                     organizationDTO.setText(rootElement.getName());
                     getChilden(organizationDTO, beans, mapper);
@@ -308,92 +323,80 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
         return root;
     }
 
-
-    // 以下方法提供给部门管理时使用
     @Override
-    public OrganizationDTO getAllByOrgId(Long orgId) {
-        List<OrganizationBean> beans = dao.find("select ob from OrganizationBean ob where ob.dept=true order by ob.code");
-        return generateRoot(beans, orgId);
+    public List getUsersByOrganizationId(long id) {
+        return organizationUserDao.findByOrgId(id).stream()
+                .filter(n -> n.getUserId() != 0)
+                .map(n -> String.valueOf(n.getUserId()))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List getUsersByDepartmentId(long id) {
-        List<String> userIds = new ArrayList<String>();
-        List<DepartmentUserBean> departmentUserBeans = depUserBeanDao.find("select ob from DepartmentUserBean ob where ob.depId = ?1", id);
-        if (departmentUserBeans != null && !departmentUserBeans.isEmpty()) {
-            for (DepartmentUserBean departmentUserBean : departmentUserBeans) {
-                if (departmentUserBean != null && departmentUserBean.getUserId() != 0) {
-                    userIds.add(String.valueOf(departmentUserBean.getUserId()));
-                }
-            }
-        }
-        return userIds;
-    }
-
-    @Override
-    public JsonData getUserAllAndDepartmentUsers(long depId) {
+    public JsonData getUserAllAndOrganizationUsers(long orgId) {
         JsonData jsonData = new JsonData();
-        List<UserBean> users = dao.find("select u from UserBean u where u.id not in (select dub.userId from DepartmentUserBean dub) order by u.name asc");
-        List<PersistentEntity> persistentEntities = new ArrayList<PersistentEntity>();
-        if (users != null && users.size() > 0) {
-            for (UserBean user : users) {
-                if (user != null) {
-                    persistentEntities.add(user);
-                }
-            }
-        }
-        List<UserBean> departmentUserBeans = dao.find("select u from UserBean u where u.id in (select du.userId from DepartmentUserBean du where du.depId=?1) order by u.name asc", depId);
-        if (departmentUserBeans != null && departmentUserBeans.size() > 0) {
-            for (UserBean departmentUserBean : departmentUserBeans) {
-                if (departmentUserBean != null) {
-                    persistentEntities.add(departmentUserBean);
-                }
-            }
-        }
-        jsonData.setData(persistentEntities);
-        jsonData.setTotalCount((long) persistentEntities.size());
+        List<PersistentEntity> list = userDao.findByUserId(organizationUserDao.findByNotOrgId(orgId).stream()
+                .map(OrganizationUserBean::getUserId)
+                .distinct().collect(Collectors.toList()), false).stream()
+                .map(n -> (PersistentEntity) n).collect(Collectors.toList());
+
+        jsonData.setData(list);
+        jsonData.setTotalCount((long) list.size());
         return jsonData;
     }
 
     @Override
-    public JsonStatus saveDepartmentUsers(long depId, String userId) {
+    public JsonStatus saveOrganizationUsers(long orgId, String userId) {
         JsonStatus jsonStatus = new JsonStatus();
-
         try {
-            depUserBeanDao.deleteByDepartmentId(depId);
-            String userName = getShiroService().getCurrentUserName();
+            String userName = shiroService.getCurrentUserName();
+            // 删除原有机构人员对应关系
+            organizationUserDao.deleteByOrganizationId(orgId);
+
+            // 重新添加机构人员对应关系
             if (StringUtils.isNotEmpty(userId)) {
-                if (userId.indexOf(",") != -1) {
-                    String[] userIds = userId.split(",");
-                    for (String _userId : userIds) {
-                        if (StringUtils.isNotEmpty(_userId.trim())) {
-                            DepartmentUserBean departmentUserBean = new DepartmentUserBean();
-                            departmentUserBean.setCreateBy(userName);
-                            departmentUserBean.setUpdateBy(userName);
-                            departmentUserBean.setDepId(depId);
-                            departmentUserBean.setUserId(Long.parseLong(_userId));
-                            depUserBeanDao.save(departmentUserBean);
-                        }
-                    }
-                } else {
-                    if (StringUtils.isNotEmpty(userId.trim())) {
-                        DepartmentUserBean departmentUserBean = new DepartmentUserBean();
-                        departmentUserBean.setCreateBy(userName);
-                        departmentUserBean.setUpdateBy(userName);
-                        departmentUserBean.setDepId(depId);
-                        departmentUserBean.setUserId(Long.parseLong(userId));
-                        depUserBeanDao.save(departmentUserBean);
+                Arrays.asList(userId.split(",")).stream()
+                        .filter(n -> StringUtils.isNotEmpty(n.trim()))
+                        .forEach(n -> organizationUserDao.save(new OrganizationUserBean(Long.parseLong(n), orgId, userName, userName)));
+            }
+
+            jsonStatus.setSuccess(true);
+            jsonStatus.setMsg("保存成功!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            jsonStatus.setFailure(true);
+            jsonStatus.setMsg("保存失败!");
+        }
+
+        return jsonStatus;
+    }
+
+
+/*
+    public OrganizationDTO getAllByAreaId(Long id) {
+        List<OrganizationBean> beans = dao.find("select ob from OrganizationBean ob where ob.areaId = ?1", id);
+
+        return generateRoot(beans,-1L);
+    }
+
+    @Override
+    public void deleteByAreaId(Long id) {
+        try {
+            List<OrganizationBean> orgs = dao.find("select ob from OrganizationBean ob where ob.areaId = ?1", id);
+            if(orgs!=null&&!orgs.isEmpty()){
+                for(OrganizationBean org:orgs){
+                    if(org!=null) {
+                        dao.remove(org.getId());
                     }
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            jsonStatus.setFailure(true);
-            jsonStatus.setMsg("保存失败!");
-            return jsonStatus;
         }
-        jsonStatus.setSuccess(true);
-        jsonStatus.setMsg("保存成功!");
-        return jsonStatus;
     }
+
+    @Override
+    public OrganizationDTO getAllByOrgId(Long orgId) {
+        List<OrganizationBean> beans = dao.find("select ob from OrganizationBean ob where ob.dept=true order by ob.code");
+        return generateRoot(beans, orgId);
+    }*/
 }
