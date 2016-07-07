@@ -16,13 +16,33 @@ Ext.define('kalix.admin.org.view.OrgGrid', {
     viewModel: {
         type: 'orgViewModel'
     },
+    expandId: -1,
+    isLoad: true,
     store: Ext.create('kalix.admin.org.store.OrgStore'),
     autoLoad:true,
     stripeRows: true,
+    singleExpand: true,
     manageHeight: true,
     rootVisible : false,
     title: '机构列表',
     iconCls: 'iconfont icon-organization-management',
+    listeners:{
+        'load': function(root) {
+            var node = root.getNodeById(this.expandId);
+            if (node) {
+                this.isLoad = false;
+                node.expand(node);
+            }
+        },
+        'afteritemexpand': function(root) {
+            if (this.isLoad) {
+                this.expandId = root.id;
+                //alert(root.id);
+            } else {
+                this.isLoad = true;
+            }
+        }
+    },
     columns: {
         defaults: {flex: 1},
         items:
