@@ -75,12 +75,9 @@ Ext.define('kalix.admin.common.components.AuthorizationWindow', {
                 });
                 Ext.Ajax.request({
                     url: authorizationUrl,
-                    paramsAsJson: true,
-                    params: {
-                        "roleId": roleId,
-                        "authorizationIds": ids.join(',')
-                    },
-                    method: "GET",
+                    method: "POST",
+                    defaultPostHeader : 'application/json;charset=utf-8',
+                    params:Ext.encode([roleId.toString(),ids.join(',')]),
                     callback: function (options, success, response) {
                         var resp = Ext.JSON.decode(response.responseText);
                         if (resp != null && resp.success) {
