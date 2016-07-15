@@ -28,104 +28,108 @@ import java.util.stream.Collectors;
 public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao, DutyBean> implements IDutyBeanService {
     private JsonStatus jsonStatus = new JsonStatus();
     private IDutyUserBeanDao dutyUserBeanDao;
-    private IOrganizationUserBeanDao organizationUserDao;
-    private IUserBeanDao userDao;
+//    private IOrganizationUserBeanDao organizationUserDao;
+//    private IUserBeanDao userDao;
 
     public void setDutyUserBeanDao(IDutyUserBeanDao dutyUserBeanDao) {
         this.dutyUserBeanDao = dutyUserBeanDao;
     }
 
-    public void setOrganizationUserDao(IOrganizationUserBeanDao organizationUserDao) {
-        this.organizationUserDao = organizationUserDao;
-    }
-
-    public void setUserDao(IUserBeanDao userDao) {
-        this.userDao = userDao;
-    }
+//    public void setOrganizationUserDao(IOrganizationUserBeanDao organizationUserDao) {
+//        this.organizationUserDao = organizationUserDao;
+//    }
+//
+//    public void setUserDao(IUserBeanDao userDao) {
+//        this.userDao = userDao;
+//    }
 
     public DutyBeanServiceImpl() {
         super.init(DutyBean.class.getName());
     }
 
     @Override
-    public List<DutyBean> getDutiesByOrgId(long orgId) {
-        return this.dao.findByOrgId(orgId);
+    public JsonData getDutiesByOrgId(long orgId) {
+        JsonData jsonData = new JsonData();
+        List list=this.dao.findByOrgId(orgId);
+
+        jsonData.setData(list);
+        jsonData.setTotalCount((long) list.size());
+
+        return jsonData;
     }
 
     @Override
-    public List getUsersByDutyId(long dutyId) {
+    public List getUserIdsByDutyId(long dutyId) {
         return dutyUserBeanDao.findByDutyId(dutyId).stream()
                 .filter(n -> n.getUserId() != 0)
                 .map(n -> n.getUserId())
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public JsonData getUserAll(long orgId) {
-        JsonData jsonData = new JsonData();
-        List<PersistentEntity> list = userDao.findByUserId(organizationUserDao.findByOrgId(orgId).stream()
-                .map(OrganizationUserBean::getUserId)
-                .collect(Collectors.toList()), true).stream()
-                .map(n -> (PersistentEntity) n).collect(Collectors.toList());
+//    @Override
+//    public JsonData getUserAll(long orgId) {
+//        JsonData jsonData = new JsonData();
+//        List<PersistentEntity> list = userDao.findByUserId(organizationUserDao.findByOrgId(orgId).stream()
+//                .map(OrganizationUserBean::getUserId)
+//                .collect(Collectors.toList()), true).stream()
+//                .map(n -> (PersistentEntity) n).collect(Collectors.toList());
+//
+//        jsonData.setData(list);
+//        jsonData.setTotalCount((long) list.size());
+//        return jsonData;
+//    }
 
-        jsonData.setData(list);
-        jsonData.setTotalCount((long) list.size());
-        return jsonData;
-    }
-
-    @Override
-    public JsonData getUserAllAndDutyUsers(long dutyId) {
-        JsonData jsonData = new JsonData();
-        DutyBean bean = dao.get(dutyId);
-        if (bean != null) {
-            List<PersistentEntity> list = userDao.findByUserId(organizationUserDao.findByOrgId(bean.getOrgid()).stream()
-                    .map(OrganizationUserBean::getUserId)
-                    .collect(Collectors.toList()), true).stream()
-                    .map(n -> (PersistentEntity) n).collect(Collectors.toList());
-
-            list.addAll(userDao.findByUserId(dutyUserBeanDao.findByDutyId(dutyId).stream()
-                    .map(n -> n.getUserId())
-                    .collect(Collectors.toList()), true).stream()
-                    .map(n -> (PersistentEntity) n).collect(Collectors.toList()));
-
-
-//        List<UserBean> dutyUserBeans = dutyUserBeanDao.findByNativeSql("select a.* from sys_user a where a.id in (select du.userId from sys_duty_user du where du.orgId=\" + orgId + \" and du.dutyId=\" + dutyId + \") order by a.name asc", UserBean.class, null);
-//        if (dutyUserBeans != null && dutyUserBeans.size() > 0) {
-//            for (UserBean dutyUserBean : dutyUserBeans) {
-//                if (dutyUserBean != null) {
-//                    list.add(dutyUserBean);
-//                }
-//            }
+//    @Override
+//    public JsonData getUserAllAndDutyUsers(long dutyId) {
+//        JsonData jsonData = new JsonData();
+//        DutyBean bean = dao.get(dutyId);
+//        if (bean != null) {
+//            List<PersistentEntity> list = userDao.findByUserId(organizationUserDao.findByOrgId(bean.getOrgid()).stream()
+//                    .map(OrganizationUserBean::getUserId)
+//                    .collect(Collectors.toList()), true).stream()
+//                    .map(n -> (PersistentEntity) n).collect(Collectors.toList());
+//
+//            list.addAll(userDao.findByUserId(dutyUserBeanDao.findByDutyId(dutyId).stream()
+//                    .map(n -> n.getUserId())
+//                    .collect(Collectors.toList()), true).stream()
+//                    .map(n -> (PersistentEntity) n).collect(Collectors.toList()));
+//            jsonData.setData(list);
+//            jsonData.setTotalCount((long) list.size());
 //        }
-            jsonData.setData(list);
-            jsonData.setTotalCount((long) list.size());
-        }
-        return jsonData;
-    }
+//        return jsonData;
+//    }
 
     @Override
-    public JsonStatus saveDutyUsers(long dutyId, String userId) {
-        try {
-            dutyUserBeanDao.deleteByDutyId(dutyId);
-            DutyBean bean = dao.get(dutyId);
-            String userName = getShiroService().getCurrentUserName();
-            if (StringUtils.isNotEmpty(userId)) {
-                String[] userIds = userId.split(",");
-                for (String _userId : userIds) {
-                    if (StringUtils.isNotEmpty(_userId.trim())) {
-                        DutyUserBean dutyUserBean = new DutyUserBean();
-                        dutyUserBean.setCreateBy(userName);
-                        dutyUserBean.setUpdateBy(userName);
-                        dutyUserBean.setOrgId(bean.getOrgid());
-                        dutyUserBean.setDutyId(dutyId);
-                        dutyUserBean.setUserId(Long.parseLong(_userId));
-                        dutyUserBeanDao.save(dutyUserBean);
+    public JsonStatus saveDutyUsers(List ids) {
+        if(ids==null || ids.size()!=2){
+            return JsonStatus.failureResult("保存失败!");
+        }
+        else {
+            try {
+                long dutyId=Long.valueOf(ids.get(0).toString());
+                String userId=ids.get(1).toString();
+
+                dutyUserBeanDao.deleteByDutyId(dutyId);
+                DutyBean bean = dao.get(dutyId);
+                String userName = getShiroService().getCurrentUserName();
+                if (StringUtils.isNotEmpty(userId)) {
+                    String[] userIds = userId.split(",");
+                    for (String _userId : userIds) {
+                        if (StringUtils.isNotEmpty(_userId.trim())) {
+                            DutyUserBean dutyUserBean = new DutyUserBean();
+                            dutyUserBean.setCreateBy(userName);
+                            dutyUserBean.setUpdateBy(userName);
+                            dutyUserBean.setOrgId(bean.getOrgid());
+                            dutyUserBean.setDutyId(dutyId);
+                            dutyUserBean.setUserId(Long.parseLong(_userId));
+                            dutyUserBeanDao.save(dutyUserBean);
+                        }
                     }
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return JsonStatus.failureResult("保存失败!");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return JsonStatus.failureResult("保存失败!");
         }
         return JsonStatus.successResult("保存成功!");
     }

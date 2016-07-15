@@ -1,18 +1,14 @@
 /**
- * 部门数据仓库
+ * 职位数据仓库
  *
- * @author zangyanming <br/>
- *         date:2016-3-10
+ * @author
  * @version 1.0.0
  */
 Ext.define('kalix.admin.duty.store.DutyStore', {
-    extend: 'Ext.data.TreeStore',
+    extend: 'kalix.store.BaseStore',
+    model: 'kalix.admin.duty.model.DutyModel',
     alias: 'store.dutyStore',
     xtype: 'dutyStore',
     storeId: 'dutyStore',
-    autoLoad: true,
-    proxy:{
-        type:'ajax',
-        url: CONFIG.restRoot + '/camel/rest/orgs/'
-    }
+    proxyUrl: CONFIG.restRoot + '/camel/rest/orgs/-1/dutys'
 });

@@ -1,67 +1,83 @@
 /**
- * 部门表格
- * @author zangyanming <br/>
- *         date:2016-3-10
+ * 角色表格
+ * @author majian <br/>
+ *         date:2015-7-10
  * @version 1.0.0
  */
 Ext.define('kalix.admin.duty.view.DutyGrid', {
-    extend: 'Ext.tree.Panel',
-    requires: [
-        'kalix.admin.duty.viewModel.DutyViewModel',
-        'kalix.admin.duty.controller.DutyGridController'
-    ],
-    alias: 'widget.dutyGrid',
-    xtype: 'dutyGridPanel',
-    controller: 'dutyGridController',
-    viewModel: {
-        type: 'dutyViewModel'
-    },
-    title: '职位列表',
-    iconCls: 'x-fa fa-university',
-    stripeRows: true,
-    manageHeight: true,
-    rootVisible: false,
-    defaults: {
-        flex: 1
-    },
-    columns: {
-        defaults: {flex: 1},
-        items:[
-        {text: '编号', dataIndex: 'id'},
-        {text: '职位名称', dataIndex: 'name'},
-        {text: '职位描述', dataIndex: 'comment'},
-        {text: '所属机构', dataIndex: 'orgid'},
-        {text: '创建人', dataIndex: 'createBy'},
-        {
-            text: '创建日期', dataIndex: 'creationDate'
-        },
-        {
-            header: '操作',
-            xtype: "actioncolumn",
-            items: [{
-                iconCls:'iconfont icon-edit-column',
-                tooltip: '编辑',
-                handler: 'onEdit'
-            }, {
-                iconCls:'iconfont icon-delete',
-                tooltip: '删除',
-                handler: 'onDelete'
-            }, {
-                iconCls:'iconfont icon-add-user-column',
-                tooltip: '添加用户',
-                handler: 'onAddUser'
-            }]
-        }
-    ]},
-    tbar: [
-        {
-            text: '添加',
-            iconCls:'iconfont icon-add',
-            handler: 'onAdd'
-        }, {
-            text: '刷新',
-            iconCls:'iconfont icon-refresh',
-            handler: 'onRefersh'
-        }]
+  extend: 'kalix.view.components.common.BaseGrid',
+  requires: [
+    'kalix.admin.duty.store.DutyStore',
+    'kalix.admin.duty.controller.DutyGridController'
+  ],
+  alias: 'widget.dutyGrid',
+  xtype: 'dutyGridPanel',
+  store: {
+    type: 'dutyStore'
+  },
+  controller: {
+    type: 'dutyGridController',
+    cfgForm: 'kalix.admin.duty.view.DutyWindow',
+    cfgModel: 'kalix.admin.duty.model.DutyModel'
+  },
+  autoLoad: true,
+  columns: {
+    defaults: {flex: 1, renderer: 'addTooltip'},
+    items: [
+      {
+        xtype: 'rownumberer',
+        text: "行号",
+        width: 50,
+        align: 'center',
+        flex: 0,
+        renderer: this.update
+      },
+      {text: '编号', dataIndex: 'id', hidden: true},
+      {text: '职务名称', dataIndex: 'name'},
+      {text: '职务描述', dataIndex: 'comment'},
+      {
+        text: '所属机构', xtype: 'templatecolumn',
+        tpl:'',
+        renderer: this.update
+      },
+      {text: '创建人', dataIndex: 'createBy'},
+      {
+        text: '创建日期', dataIndex: 'creationDate'
+      },
+      {
+        xtype: 'securityGridColumnCommon',
+        items: [
+          {
+            iconCls: 'iconfont icon-edit-column',
+            permission: 'admin:permissionModule:roleMenu:edit',
+            tooltip: '编辑',
+            handler: 'onEdit'
+          }, {
+            iconCls: 'iconfont icon-delete',
+            permission: 'admin:permissionModule:roleMenu:delete',
+            tooltip: '删除',
+            handler: 'onDelete'
+          }, {
+            iconCls: 'iconfont icon-add-user-column',
+            permission: 'admin:permissionModule:roleMenu:addUser',
+            tooltip: '添加用户',
+            handler: 'onAddUser'
+          }
+        ]
+      }]
+  },
+  tbar: {
+    xtype: 'securityToolbar',
+    verifyItems: [
+      {
+        text: '添加',
+        tooltip: '添加职务',
+        xtype: 'button',
+        permission: 'admin:permissionModule:roleMenu:add',
+        iconCls: 'iconfont icon-add',
+        handler: 'onAdd'
+      }
+    ]
+  }
 
 });
