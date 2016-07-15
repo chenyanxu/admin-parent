@@ -7,9 +7,6 @@
 
 Ext.define('kalix.admin.role.view.RoleViewWindow', {
     extend: 'kalix.view.components.common.BaseWindow',
-    requires: [
-        'kalix.admin.user.store.UserStore'
-    ],
     alias: 'widget.roleViewWindow',
     xtype: "roleViewWindow",
     width: 400,

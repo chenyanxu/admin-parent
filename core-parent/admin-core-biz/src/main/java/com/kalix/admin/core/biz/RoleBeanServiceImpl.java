@@ -161,57 +161,67 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
     }
 
     @Override
-    public JsonStatus saveAuthorization(String roleId, String authorizationIds) {
+    public JsonStatus saveAuthorization(List ids) {
+        String roleId=null;
+        String authorizationIds=null;
+
+        if(ids!=null && ids.size()==2){
+            roleId=ids.get(0).toString();
+            authorizationIds=ids.get(1).toString();
+        }
+
         Assert.notNull(roleId, "角色编号不能为空.");
         Assert.notNull(authorizationIds, "授权编号不能为空.");
         JsonStatus jsonStatus = new JsonStatus();
+
         try {
             //清除关联关系
             roleApplicationBeanDao.deleteByRoleId(Long.parseLong(roleId));
             roleFunctionBeanDao.deleteByRoleId(Long.parseLong(roleId));
             String userName = getShiroService().getCurrentUserName();
-            if (authorizationIds.indexOf(",") != -1) {
-                String[] _authorizationIds = authorizationIds.split(",");
-                for (String _authorizationId : _authorizationIds) {
-                    if (_authorizationId.indexOf("root") != -1)
-                        continue;
-                    if (_authorizationId.startsWith("app:")) {
-                        RoleApplicationBean roleApplicationBean = new RoleApplicationBean();
-                        roleApplicationBean.setCreateBy(userName);
-                        roleApplicationBean.setUpdateBy(userName);
-                        roleApplicationBean.setRoleId(Long.parseLong(roleId));
-                        String applicationId = _authorizationId.substring("app:".length(), _authorizationId.length());
-                        roleApplicationBean.setApplicationId(Long.parseLong(applicationId));
-                        roleApplicationBeanDao.save(roleApplicationBean);
-                    } else if (_authorizationId.startsWith("fun:")) {
-                        RoleFunctionBean roleFunctionBean = new RoleFunctionBean();
-                        roleFunctionBean.setCreateBy(userName);
-                        roleFunctionBean.setUpdateBy(userName);
-                        roleFunctionBean.setRoleId(Long.parseLong(roleId));
-                        String functionId = _authorizationId.substring("fun:".length(), _authorizationId.length());
-                        roleFunctionBean.setFunctionId(Long.parseLong(functionId));
-                        roleFunctionBeanDao.save(roleFunctionBean);
-                    }
-                }
-            } else {
-                if (authorizationIds.startsWith("app:") && authorizationIds.indexOf("root") == -1) {
+//            if (authorizationIds.indexOf(",") != -1) {
+            String[] _authorizationIds = authorizationIds.split(",");
+
+            for (String _authorizationId : _authorizationIds) {
+                if (_authorizationId.indexOf("root") != -1)
+                    continue;
+                if (_authorizationId.startsWith("app:")) {
                     RoleApplicationBean roleApplicationBean = new RoleApplicationBean();
                     roleApplicationBean.setCreateBy(userName);
                     roleApplicationBean.setUpdateBy(userName);
                     roleApplicationBean.setRoleId(Long.parseLong(roleId));
-                    String applicationId = authorizationIds.substring("app:".length(), authorizationIds.length());
+                    String applicationId = _authorizationId.substring("app:".length(), _authorizationId.length());
                     roleApplicationBean.setApplicationId(Long.parseLong(applicationId));
                     roleApplicationBeanDao.save(roleApplicationBean);
-                } else if (authorizationIds.startsWith("fun:") && authorizationIds.indexOf("root") == -1) {
+                } else if (_authorizationId.startsWith("fun:")) {
                     RoleFunctionBean roleFunctionBean = new RoleFunctionBean();
                     roleFunctionBean.setCreateBy(userName);
                     roleFunctionBean.setUpdateBy(userName);
                     roleFunctionBean.setRoleId(Long.parseLong(roleId));
-                    String functionId = authorizationIds.substring("fun:".length(), authorizationIds.length());
+                    String functionId = _authorizationId.substring("fun:".length(), _authorizationId.length());
                     roleFunctionBean.setFunctionId(Long.parseLong(functionId));
                     roleFunctionBeanDao.save(roleFunctionBean);
                 }
             }
+//            } else {
+//                if (authorizationIds.startsWith("app:") && authorizationIds.indexOf("root") == -1) {
+//                    RoleApplicationBean roleApplicationBean = new RoleApplicationBean();
+//                    roleApplicationBean.setCreateBy(userName);
+//                    roleApplicationBean.setUpdateBy(userName);
+//                    roleApplicationBean.setRoleId(Long.parseLong(roleId));
+//                    String applicationId = authorizationIds.substring("app:".length(), authorizationIds.length());
+//                    roleApplicationBean.setApplicationId(Long.parseLong(applicationId));
+//                    roleApplicationBeanDao.save(roleApplicationBean);
+//                } else if (authorizationIds.startsWith("fun:") && authorizationIds.indexOf("root") == -1) {
+//                    RoleFunctionBean roleFunctionBean = new RoleFunctionBean();
+//                    roleFunctionBean.setCreateBy(userName);
+//                    roleFunctionBean.setUpdateBy(userName);
+//                    roleFunctionBean.setRoleId(Long.parseLong(roleId));
+//                    String functionId = authorizationIds.substring("fun:".length(), authorizationIds.length());
+//                    roleFunctionBean.setFunctionId(Long.parseLong(functionId));
+//                    roleFunctionBeanDao.save(roleFunctionBean);
+//                }
+//            }
         } catch (Exception e) {
             e.printStackTrace();
             jsonStatus.setFailure(true);
@@ -300,9 +310,10 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
     }
 
     @Override
-    public List getUsersByRoleId(long id) {
+    public List getUserIdsByRoleId(long id) {
         List userIds = new ArrayList();
         List<RoleUserBean> roleUserBeans = roleUserBeanDao.find("select ob from RoleUserBean ob where ob.roleId = ?1", id);
+
         if (roleUserBeans != null && !roleUserBeans.isEmpty()) {
             for (RoleUserBean roleUserBean : roleUserBeans) {
                 if (roleUserBean != null && roleUserBean.getUserId() != 0) {
@@ -310,6 +321,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
                 }
             }
         }
+
         return userIds;
     }
 
@@ -322,14 +334,24 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
     }
 
     @Override
-    public JsonStatus saveRoleUsers(long roleId, String userId) {
+    public JsonStatus saveRoleUsers(List ids) {
         JsonStatus jsonStatus = new JsonStatus();
-        try {
-            roleUserBeanDao.deleteByRoleId(roleId);
-            String userName = getShiroService().getCurrentUserName();
-            if (StringUtils.isNotEmpty(userId)) {
-                if (userId.indexOf(",") != -1) {
+
+        if (ids == null || ids.size() != 2) {
+            jsonStatus.setFailure(true);
+            jsonStatus.setMsg("保存失败!");
+            return jsonStatus;
+        } else {
+            try {
+                long roleId = Long.valueOf(ids.get(0).toString());
+                String userId = ids.get(1).toString();
+
+                roleUserBeanDao.deleteByRoleId(roleId);
+
+                String userName = getShiroService().getCurrentUserName();
+                if (StringUtils.isNotEmpty(userId)) {
                     String[] userIds = userId.split(",");
+
                     for (String _userId : userIds) {
                         if (StringUtils.isNotEmpty(_userId.trim())) {
                             RoleUserBean roleUserBean = new RoleUserBean();
@@ -340,25 +362,18 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
                             roleUserBeanDao.save(roleUserBean);
                         }
                     }
-                } else {
-                    if (StringUtils.isNotEmpty(userId.trim())) {
-                        RoleUserBean roleUserBean = new RoleUserBean();
-                        roleUserBean.setCreateBy(userName);
-                        roleUserBean.setUpdateBy(userName);
-                        roleUserBean.setRoleId(roleId);
-                        roleUserBean.setUserId(Long.parseLong(userId));
-                        roleUserBeanDao.save(roleUserBean);
-                    }
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+                jsonStatus.setFailure(true);
+                jsonStatus.setMsg("保存失败!");
+                return jsonStatus;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            jsonStatus.setFailure(true);
-            jsonStatus.setMsg("保存失败!");
-            return jsonStatus;
         }
+
         jsonStatus.setSuccess(true);
         jsonStatus.setMsg("保存成功!");
+
         return jsonStatus;
     }
 

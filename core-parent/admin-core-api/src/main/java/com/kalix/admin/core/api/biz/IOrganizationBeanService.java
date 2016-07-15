@@ -22,19 +22,21 @@ public interface IOrganizationBeanService extends IBizService<OrganizationBean> 
 
     OrganizationDTO getAllOrg();
 
-    OrganizationDTO getOrganizationDTO(Long id);
+    //OrganizationDTO getOrganizationDTO(Long id);
 
-    OrganizationDTO getOrganizationDTOByName(String name);
+    //OrganizationDTO getOrganizationDTOByName(String name);
 
-    List getUsersByOrganizationId(long id);
+    List getUserIdsByOrganizationId(long orgId);
 
-    JsonData getUserAllAndOrganizationUsers(long orgId);
+    JsonData getOrganizationUsers(long orgId);
 
-    JsonStatus saveOrganizationUsers(long orgId, String userId);
-
-//    OrganizationDTO getAllByAreaId(Long id);
-
-//    void deleteByAreaId(Long id);
-
-//    OrganizationDTO getAllByOrgId(Long orgId);
+    /**
+     *
+     * @param ids
+     * ids is a list has tow elements
+     * ids[0] the orgId
+     * ids[1] the user ids join with ','
+     * @return
+     */
+    JsonStatus saveOrganizationUsers(List ids);
 }

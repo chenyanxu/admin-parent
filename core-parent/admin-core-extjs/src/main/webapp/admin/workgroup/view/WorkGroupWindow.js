@@ -7,15 +7,13 @@
 Ext.define('kalix.admin.workgroup.view.WorkGroupWindow', {
   extend: 'kalix.view.components.common.BaseWindow',
   requires: [
-    'kalix.controller.BaseWindowController',
-    'kalix.admin.user.store.UserStore'
+    'kalix.controller.BaseWindowController'
   ],
   alias: 'widget.workgroupWindow',
   controller: {
-    type: 'baseWindowController',
-    storeId: 'workgroupStore'
+    type: 'baseWindowController'
   },
-  xtype: "workgroupWindow",
+  xtype: 'workgroupWindow',
   width: 400,
   items: [{
     xtype: 'baseForm',

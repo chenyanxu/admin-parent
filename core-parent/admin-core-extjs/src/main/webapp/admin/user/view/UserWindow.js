@@ -9,13 +9,11 @@
 Ext.define('kalix.admin.user.view.UserWindow', {
     extend: 'kalix.view.components.common.BaseWindow',
     requires: [
-        'kalix.controller.BaseWindowController',
-        'kalix.admin.user.store.UserStore'
+        'kalix.controller.BaseWindowController'
     ],
     alias: 'widget.userWindow',
     controller: {
-        type: 'baseWindowController',
-        storeId: 'userStore'
+        type: 'baseWindowController'
     },
     xtype: "userWindow",
     width: 400,

@@ -11,7 +11,6 @@ Ext.define('kalix.admin.role.Main', {
         'kalix.admin.role.view.RoleGrid',
         'kalix.admin.role.view.RoleSearchForm'
     ],
-    storeId: 'roleStore',
     items: [
         {
             title: '角色查询',

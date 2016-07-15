@@ -8,21 +8,16 @@
 Ext.define('kalix.admin.org.Main', {
     extend: 'Ext.panel.Panel',
     requires: [
-        'kalix.admin.org.viewModel.OrgViewModel',
-        'kalix.admin.org.controller.OrgController'
+        'kalix.admin.org.view.OrgTree'
     ],
-    controller: 'orgController',
     xtype: 'orgPanel',
-    viewModel: {
-        type: 'orgViewModel'
-    },
     layout: {
         type: 'hbox',
         align: 'stretch'
     },
     items: [
         {
-            xtype: 'orgGridPanel',
+            xtype: 'orgTree',
             title: '机构列表',
             flex: 2
         }

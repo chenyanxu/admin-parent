@@ -13,6 +13,6 @@ Ext.define('kalix.admin.org.store.OrgStore', {
     autoLoad:true,
     proxy:{
         type:'ajax',
-        url: CONFIG.restRoot + '/camel/rest/orgs/'
+        url: CONFIG.restRoot + '/camel/rest/orgs'
     }
 });

@@ -9,8 +9,7 @@
 Ext.define('kalix.admin.user.view.UserEditWindow', {
     extend: 'kalix.view.components.common.BaseWindow',
     requires: [
-        'kalix.controller.BaseWindowController',
-        'kalix.admin.user.store.UserStore'
+        'kalix.controller.BaseWindowController'
     ],
     alias: 'widget.userWindow',
     controller: {

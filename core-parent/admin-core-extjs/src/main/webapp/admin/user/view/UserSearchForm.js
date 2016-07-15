@@ -6,7 +6,6 @@ Ext.define('kalix.admin.user.view.UserSearchForm', {
     extend: 'kalix.view.components.common.BaseSearchForm',
     alias: 'widget.userSearchForm',
     xtype: 'userSearchForm',
-    storeId: 'userStore',
     items: [
         {
                 xtype: 'textfield',

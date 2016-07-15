@@ -7,7 +7,6 @@ Ext.define('kalix.admin.role.view.RoleSearchForm', {
     extend: 'kalix.view.components.common.BaseSearchForm',
     alias: 'widget.roleSearchForm',
     xtype: 'roleSearchForm',
-    storeId: 'roleStore',
     items: [
         {
             xtype: 'textfield',

@@ -7,9 +7,6 @@
 
 Ext.define('kalix.admin.workgroup.view.WorkGroupViewWindow', {
   extend: 'kalix.view.components.common.BaseWindow',
-  requires: [
-    'kalix.admin.user.store.UserStore'
-  ],
   alias: 'widget.workgroupViewWindow',
   xtype: "workgroupViewWindow",
   width: 400,

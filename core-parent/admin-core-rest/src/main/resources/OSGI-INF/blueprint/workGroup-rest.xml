@@ -26,57 +26,55 @@
                 <description>Create a WorkGroup</description>
                 <to uri="bean:workgroupService?method=saveEntity"/>
             </post>
-
+            </rest>
+        <rest path="/workGroups/{id}" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
             <!-- this is a rest GET to view a workgroup by the given id -->
-            <get uri="/{id}" id="route-getWorkGroup" outType="com.kalix.admin.core.entities.WorkGroupBean">
+            <get  id="route-getWorkGroup" outType="com.kalix.admin.core.entities.WorkGroupBean">
                 <description>Find WorkGroup by id</description>
                 <to uri="bean:workgroupService?method=getEntity(${header.id})"/>
             </get>
-
             <!-- this is a rest PUT to update a workgroup -->
-            <put uri="/{id}" id="route-updateWorkGroup" type="com.kalix.admin.core.entities.WorkGroupBean"
+            <put  id="route-updateWorkGroup" type="com.kalix.admin.core.entities.WorkGroupBean"
                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Updates a WorkGroup</description>
                 <to uri="bean:workgroupService?method=updateEntity"/>
             </put>
-
             <!-- this is a rest DELETE to delete a workgroup -->
-            <delete uri="/{id}" id="route-deleteWorkGroup"
+            <delete  id="route-deleteWorkGroup"
                     outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Delete a WorkGroup</description>
                 <to uri="bean:workgroupService?method=deleteEntity(${header.id})"/>
             </delete>
-
-            <get uri="/all" id="route-getAllWorkGroup" outType="com.kalix.framework.core.api.persistence.JsonData">
-                <description>Find all users for WorkGroup</description>
-                <to uri="bean:workgroupService?method=getAllEntityforReport(${header.jsonStr})"/>
-            </get>
-
-            <!-- this is a rest GET to view an user by the given id -->
-            <get id="route-getUsersByWorkGroupId" uri="/workGroupUsers/users/{id}" outType="java.util.List">
-                <description>Find users by WorkGroup Id</description>
-                <to uri="bean:workgroupService?method=getUsersByWorkGroupId(${header.id})"/>
-            </get>
-
-            <!-- this is a rest GET to view an user by the given id -->
-            <get id="route-getRolesByWorkGroupId" uri="/workGroupRoles/roles/{id}" outType="java.util.List">
-                <description>Find users by WorkGroup Id</description>
-                <to uri="bean:workgroupService?method=getRolesByWorkGroupId(${header.id})"/>
-            </get>
-
-            <!-- this is a rest GET to view an user by the given id -->
-            <get id="route-saveWorkGroupUsers" uri="/workGroupUsers"   outType="com.kalix.framework.core.api.persistence.JsonStatus">
-                <description>save WorkGroupUsers</description>
-                <to uri="bean:workgroupService?method=saveWorkGroupUsers(${header.id},${header.ids})"/>
-            </get>
-
-            <!-- this is a rest GET to view an user by the given id -->
-            <get id="route-saveWorkGroupRoles" uri="/workGroupRoles"   outType="com.kalix.framework.core.api.persistence.JsonStatus">
-                <description>save WorkGroupUsers</description>
-                <to uri="bean:workgroupService?method=saveWorkGroupRoles(${header.id},${header.ids})"/>
-            </get>
-
+            <!--<get uri="/all" id="route-getAllWorkGroup" outType="com.kalix.framework.core.api.persistence.JsonData">-->
+                <!--<description>Find all users for WorkGroup</description>-->
+                <!--<to uri="bean:workgroupService?method=getAllEntityforReport(${header.jsonStr})"/>-->
+            <!--</get>-->
         </rest>
-        
+        <!--rest urls for operation on workgroup - user relation -->
+        <rest path="/workGroups/{id}/users" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+            <post id="route-saveWorkGroupUsers" type="java.util.List"    outType="com.kalix.framework.core.api.persistence.JsonStatus">
+                <description>save WorkGroupUsers</description>
+                <to uri="bean:workgroupService?method=saveWorkGroupUsers"/>
+            </post>
+        </rest>
+        <rest path="/workGroups/{id}/users/ids" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+            <get id="route-getUserIdsByWorkGroupId"  outType="java.util.List">
+                <description>Find users by WorkGroup Id</description>
+                <to uri="bean:workgroupService?method=getUserIdsByWorkGroupId(${header.id})"/>
+            </get>
+        </rest>
+        <!--rest urls for operation on workgroup - role relation -->
+        <rest path="/workGroups/{id}/roles" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+            <post id="route-saveWorkGroupRoles" type="java.util.List"  outType="com.kalix.framework.core.api.persistence.JsonStatus">
+                <description>save WorkGroupUsers</description>
+                <to uri="bean:workgroupService?method=saveWorkGroupRoles"/>
+            </post>
+        </rest>
+        <rest path="/workGroups/{id}/roles/ids" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+            <get id="route-getRoleIdsByWorkGroupId" uri="/roles/{id}" outType="java.util.List">
+                <description>Find users by WorkGroup Id</description>
+                <to uri="bean:workgroupService?method=getRoleIdsByWorkGroupId(${header.id})"/>
+            </get>
+        </rest>
     </camelContext>
 </blueprint>

@@ -24,13 +24,14 @@ Ext.define('kalix.admin.role.controller.RoleGridController', {
         var authorizationWindow = Ext.create('kalix.admin.common.components.AuthorizationWindow');
         var rec = grid.getStore().getAt(rowIndex);
         authorizationWindow.roleId = rec.data.id;
-        authorizationWindow.authorizationUrl = CONFIG.restRoot + '/camel/rest/roles/authorizations';
+        authorizationWindow.authorizationUrl = CONFIG.restRoot + '/camel/rest/roles/' + rec.data.id + '/authorizations';
         authorizationWindow.show();
         var store = authorizationWindow.down('#authorizationTree').getStore();
         store.setProxy({
             type: 'ajax',
             url: CONFIG.restRoot + '/camel/rest/roles/' + rec.data.id + '/authorizations'
         });
+
         store.reload();
     }
 

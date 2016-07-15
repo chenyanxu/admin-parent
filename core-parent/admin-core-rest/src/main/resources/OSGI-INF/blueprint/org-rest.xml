@@ -4,6 +4,7 @@
            xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
        http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
     <reference id="orgService" interface="com.kalix.admin.core.api.biz.IOrganizationBeanService"/>
+
     <camelContext id="orgCamel" xmlns="http://camel.apache.org/schema/blueprint">
 
         <restConfiguration component="servlet" bindingMode="json">
@@ -14,18 +15,11 @@
         <rest path="/orgs" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
             <description>org rest service</description>
 
-            <!-- this is a rest GET to view an org by the given id -->
-            <get id="route-getOrg" uri="/{id}">
-                <description>Find org by id</description>
-                <to uri="bean:orgService?method=getOrg(${header.id})"/>
+            <!-- this is a rest GET to find all orgs -->
+            <get id="route-getAllOrg">
+                <description>Find all orgs</description>
+                <to uri="bean:orgService?method=getAllOrg"/>
             </get>
-
-            <!-- this is a rest GET to view an org by the given name -->
-            <get id="route-getOrgByName" uri="/name">
-                <description>Find org by id</description>
-                <to uri="bean:orgService?method=getOrgByName(${header.name})"/>
-            </get>
-
             <!-- this is a rest PUT to create an org -->
             <post id="route-addOrg" type="com.kalix.admin.core.entities.OrganizationBean"
                   outType="com.kalix.framework.core.api.persistence.JsonStatus">
@@ -39,35 +33,42 @@
                 <description>Updates a org</description>
                 <to uri="bean:orgService?method=updateEntity"/>
             </put>
-
+            <!--&lt;!&ndash; this is a rest GET to view an org by the given name &ndash;&gt;-->
+            <!--<get id="route-getOrgByName" uri="/name">-->
+                <!--<description>Find org by id</description>-->
+                <!--<to uri="bean:orgService?method=getOrgByName(${header.name})"/>-->
+            <!--</get>-->
+        </rest>
+        <rest path="/orgs/{id}" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+            <!-- this is a rest GET to view an org by the given id -->
+            <get id="route-getOrg">
+                <description>Find org by id</description>
+                <to uri="bean:orgService?method=getOrg(${header.id})"/>
+            </get>
             <!-- this is a rest DELETE to delete an org -->
             <delete id="route-deleteOrg" outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Delete a org</description>
                 <to uri="bean:orgService?method=deleteEntity(${header.id})"/>
             </delete>
-
-            <!-- this is a rest GET to find all orgs -->
-            <get id="route-getAllOrg">
-                <description>Find all orgs</description>
-                <to uri="bean:orgService?method=getAllOrg"/>
-            </get>
-
-            <get id="route-getUsersByOrganizationId" uri="/orgUsers/users/{id}" outType="java.util.List">
+        </rest>
+        <!--rest url for the user-org-relation-->
+        <rest path="/orgs/{id}/users" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+            <!--get the ids that has been selected into org-->
+            <get id="route-getUserByOrganizationId"  outType="java.util.List">
                 <description>Find users by department Id</description>
-                <to uri="bean:orgService?method=getUsersByOrganizationId(${header.id})"/>
+                <to uri="bean:orgService?method=getOrganizationUsers(${header.id})"/>
             </get>
-
-            <!-- this is a rest GET to view an user by the given id -->
-            <get id="route-getUserAllAndOrganizationUsers" uri="/orgUsers/users/all/{id}" outType="java.util.List">
-                <description>Find users by department Id</description>
-                <to uri="bean:orgService?method=getUserAllAndOrganizationUsers(${header.id})"/>
-            </get>
-
-            <get id="route-saveOrganizationUsers" uri="/orgUsers" outType="com.kalix.framework.core.api.persistence.JsonStatus">
+            <post id="route-saveOrganizationUsers" type="java.util.List" outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>save departmentUsers</description>
-                <to uri="bean:orgService?method=saveOrganizationUsers(${header.id},${header.ids})"/>
+                <to uri="bean:orgService?method=saveOrganizationUsers"/>
+            </post>
+        </rest>
+        <rest path="/orgs/{id}/users/ids" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+            <!--get the ids that has been selected into org-->
+            <get id="route-getUserIdsByOrganizationId"  outType="java.util.List">
+                <description>Find users by department Id</description>
+                <to uri="bean:orgService?method=getUserIdsByOrganizationId(${header.id})"/>
             </get>
         </rest>
-
     </camelContext>
 </blueprint>

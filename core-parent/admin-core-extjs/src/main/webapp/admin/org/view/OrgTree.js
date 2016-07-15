@@ -4,45 +4,17 @@
  *         date:2016-3-10
  * @version 1.0.0
  */
-Ext.define('kalix.admin.org.view.OrgGrid', {
-    extend: 'Ext.tree.Panel',
+Ext.define('kalix.admin.org.view.OrgTree', {
+    extend: 'kalix.view.components.common.BaseTree',
     requires: [
-        'kalix.admin.org.viewModel.OrgViewModel',
         'kalix.admin.org.controller.OrgGridController'
     ],
-    alias: 'widget.orgGrid',
-    xtype: 'orgGridPanel',
+    alias: 'widget.orgTree',
+    xtype: 'orgTree',
     controller: 'orgGridController',
-    viewModel: {
-        type: 'orgViewModel'
-    },
-    expandId: -1,
-    isLoad: true,
     store: Ext.create('kalix.admin.org.store.OrgStore'),
-    autoLoad:true,
-    stripeRows: true,
-    singleExpand: true,
-    manageHeight: true,
-    rootVisible : false,
     title: '机构列表',
     iconCls: 'iconfont icon-organization-management',
-    listeners:{
-        'load': function(root) {
-            var node = root.getNodeById(this.expandId);
-            if (node) {
-                this.isLoad = false;
-                node.expand(node);
-            }
-        },
-        'afteritemexpand': function(root) {
-            if (this.isLoad) {
-                this.expandId = root.id;
-                //alert(root.id);
-            } else {
-                this.isLoad = true;
-            }
-        }
-    },
     columns: {
         defaults: {flex: 1},
         items:
@@ -56,8 +28,7 @@ Ext.define('kalix.admin.org.view.OrgGrid', {
         },
         {
             header: '操作',
-            //width: 60,
-            xtype: "actioncolumn",
+            xtype: 'actioncolumn',
             items: [{
                 iconCls:'iconfont icon-edit-column',
                 tooltip: '编辑',

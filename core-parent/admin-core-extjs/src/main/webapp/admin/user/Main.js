@@ -10,7 +10,6 @@ Ext.define('kalix.admin.user.Main', {
         'kalix.admin.user.view.UserGrid',
         'kalix.admin.user.view.UserSearchForm',
     ],
-    storeId: 'userStore',
     items: [
         {
             title: '用户查询',

@@ -38,10 +38,8 @@ public interface IRoleBeanService extends IBizService<RoleBean> {
 
     /**
      * 保存授权信息
-     * @param roleId
-     * @param authorizationIds
      */
-    JsonStatus saveAuthorization(String roleId, String authorizationIds);
+    JsonStatus saveAuthorization(List ids);
 
     /**
      * 根据用户获得角色名称列表
@@ -92,11 +90,9 @@ public interface IRoleBeanService extends IBizService<RoleBean> {
 
     /**
      * 保存角色与用户关联
-     * @param roleId
-     * @param userId
      * @return
      */
-    JsonStatus saveRoleUsers(long roleId, String userId);
+    JsonStatus saveRoleUsers(List ids);
 
 
     /**
@@ -104,7 +100,5 @@ public interface IRoleBeanService extends IBizService<RoleBean> {
      * @param id
      * @return
      */
-    List getUsersByRoleId(long id);
-
-
+    List getUserIdsByRoleId(long id);
 }

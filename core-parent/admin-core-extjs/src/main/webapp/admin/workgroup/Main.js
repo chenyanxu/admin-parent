@@ -11,7 +11,6 @@ Ext.define('kalix.admin.workgroup.Main', {
         'kalix.admin.workgroup.view.WorkGroupGrid',
         'kalix.admin.workgroup.view.WorkGroupSearchForm'
     ],
-    storeId: 'workgroupStore',
     items: [
         {
             title: '工作组查询',

@@ -7,7 +7,6 @@ Ext.define('kalix.admin.workgroup.view.WorkGroupSearchForm', {
     extend: 'kalix.view.components.common.BaseSearchForm',
     alias: 'widget.workgroupSearchForm',
     xtype: 'workgroupSearchForm',
-    storeId: 'workgroupStore',
     items: [
         {
             xtype: 'textfield',
