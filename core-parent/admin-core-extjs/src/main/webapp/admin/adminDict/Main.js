@@ -1,9 +1,7 @@
 /**
- * 用户组件
  *
- * @author majian <br/>
- *         date:2015-6-18
- * @version 1.0.0
+ * Dict extJs use new base dict components
+ * @author
  */
 Ext.define('kalix.admin.adminDict.Main', {
     extend: 'kalix.dict.Main',
