@@ -5,10 +5,10 @@
  *         date:2015-7-21
  * @version 1.0.0
  */
-Ext.define('kalix.sys.function.viewModel.FunctionViewModel', {
+Ext.define('kalix.admin.function.viewModel.FunctionViewModel', {
     extend: 'Ext.app.ViewModel',
     requires: [
-        'kalix.sys.function.store.FunctionStore'
+        'kalix.admin.function.store.FunctionStore'
     ],
     alias: 'viewmodel.functionViewModel',
     data: {

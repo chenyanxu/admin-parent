@@ -5,7 +5,7 @@
  *         date:2015-7-21
  * @version 1.0.0
  */
-Ext.define('kalix.sys.function.controller.FunctionGridController', {
+Ext.define('kalix.admin.function.controller.FunctionGridController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.functionGridController',
     /**
@@ -28,7 +28,7 @@ Ext.define('kalix.sys.function.controller.FunctionGridController', {
             return;
         }
         var rows = this.getView().getSelectionModel().getSelection();
-        var addFormPanel = Ext.create('kalix.sys.function.view.FunctionAddForm', {
+        var addFormPanel = Ext.create('kalix.admin.function.view.FunctionAddForm', {
             url: this.getView().getViewModel().get("url")
         });
         addFormPanel.parentPermission = this.getView().applicationCode;
@@ -64,7 +64,7 @@ Ext.define('kalix.sys.function.controller.FunctionGridController', {
      */
     onEdit: function (grid, rowIndex, colIndex) {
         var rec = grid.getStore().getAt(rowIndex);
-        var editFormPanel = Ext.create('kalix.sys.function.view.FunctionEditForm', {
+        var editFormPanel = Ext.create('kalix.admin.function.view.FunctionEditForm', {
             url: this.getView().getViewModel().get("url")
         });
         editFormPanel.getComponent("applicationIdId").setValue(this.getView().applicationId);

@@ -5,11 +5,11 @@
  *         date:2015-7-21
  * @version 1.0.0
  */
-Ext.define('kalix.sys.function.view.FunctionAddForm', {
+Ext.define('kalix.admin.function.view.FunctionAddForm', {
     extend: 'Ext.FormPanel',
     requires: [
-        'kalix.sys.function.viewModel.FunctionViewModel',
-        'kalix.sys.function.controller.FunctionFormController'
+        'kalix.admin.function.viewModel.FunctionViewModel',
+        'kalix.admin.function.controller.FunctionFormController'
     ],
     alias: 'widget.functionAddForm',
     viewModel: {

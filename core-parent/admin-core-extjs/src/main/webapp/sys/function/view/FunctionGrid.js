@@ -4,11 +4,11 @@
  *         date:2015-7-21
  * @version 1.0.0
  */
-Ext.define('kalix.sys.function.view.FunctionGrid', {
+Ext.define('kalix.admin.function.view.FunctionGrid', {
     extend: 'Ext.tree.Panel',
     requires: [
-        'kalix.sys.function.viewModel.FunctionViewModel',
-        'kalix.sys.function.controller.FunctionGridController'
+        'kalix.admin.function.viewModel.FunctionViewModel',
+        'kalix.admin.function.controller.FunctionGridController'
     ],
     alias: 'widget.functionGrid',
     xtype: 'functionGridPanel',

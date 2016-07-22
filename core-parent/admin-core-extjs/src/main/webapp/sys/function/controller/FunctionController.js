@@ -5,12 +5,12 @@
  *         date:2015-7-31
  * @version 1.0.0
  */
-Ext.define('kalix.sys.function.controller.FunctionController', {
+Ext.define('kalix.admin.function.controller.FunctionController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.functionController',
     requires: [
-        'kalix.sys.application.view.ApplicationTreeList',
-        'kalix.sys.function.view.FunctionGrid'
+        'kalix.admin.application.view.ApplicationTreeList',
+        'kalix.admin.function.view.FunctionGrid'
     ],
     /**
      * 初始化面板.
@@ -72,8 +72,8 @@ Ext.define('kalix.sys.function.controller.FunctionController', {
      * @returns {Ext.panel.Panel}
      */
     onInitApplicationList: function () {
-        var applicationListPanel = Ext.create('kalix.sys.application.view.ApplicationTreeList', {
-            store: Ext.create('kalix.sys.application.store.ApplicationTreeListStore'),
+        var applicationListPanel = Ext.create('kalix.admin.application.view.ApplicationTreeList', {
+            store: Ext.create('kalix.admin.application.store.ApplicationTreeListStore'),
             region: 'west',
             itemId: 'applicationList',
             title: '应用列表',
@@ -95,8 +95,8 @@ Ext.define('kalix.sys.function.controller.FunctionController', {
      * @returns {Ext.panel.Panel}
      */
     onInitDataGrid: function () {
-        var dataGird = Ext.create('kalix.sys.function.view.FunctionGrid', {
-            store: Ext.create('kalix.sys.function.store.FunctionStore')
+        var dataGird = Ext.create('kalix.admin.function.view.FunctionGrid', {
+            store: Ext.create('kalix.admin.function.store.FunctionStore')
         });
         return dataGird;
     }

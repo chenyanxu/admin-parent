@@ -5,7 +5,7 @@
  *         date:2015-7-31
  * @version 1.0.0
  */
-Ext.define('kalix.sys.function.model.FunctionModel', {
+Ext.define('kalix.admin.function.model.FunctionModel', {
     extend: 'Ext.data.TreeModel',
     xtype:'functionModel',
     fields: [

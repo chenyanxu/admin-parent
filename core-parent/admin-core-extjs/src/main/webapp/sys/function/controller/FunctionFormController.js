@@ -5,7 +5,7 @@
  *         date:2015-7-21
  * @version 1.0.0
  */
-Ext.define('kalix.sys.function.controller.FunctionFormController', {
+Ext.define('kalix.admin.function.controller.FunctionFormController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.functionFormController',
 

@@ -5,10 +5,10 @@
  *         date:2015-7-31
  * @version 1.0.0
  */
-Ext.define('kalix.sys.function.store.FunctionStore', {
+Ext.define('kalix.admin.function.store.FunctionStore', {
     extend: 'Ext.data.TreeStore',
-    /*model: 'kalix.sys.function.model.FunctionModel',
-    require:'kalix.sys.function.model.FunctionModel',*/
+    /*model: 'kalix.admin.function.model.FunctionModel',
+    require:'kalix.admin.function.model.FunctionModel',*/
     alias: 'store.functionStore',
     xtype: 'functionStore',
     storeId: 'functionStore'
