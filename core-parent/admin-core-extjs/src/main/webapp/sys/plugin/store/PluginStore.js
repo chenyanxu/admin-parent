@@ -4,9 +4,9 @@
  * @author
  * @version 1.0.0
  */
-Ext.define('kalix.sys.plugin.store.PluginStore', {
+Ext.define('kalix.admin.plugin.store.PluginStore', {
     extend: 'kalix.store.BaseStore',
-    model: 'kalix.sys.plugin.model.PluginModel',
+    model: 'kalix.admin.plugin.model.PluginModel',
     alias: 'store.pluginStore',
     xtype: 'pluginStore',
     storeId: "pluginStore",

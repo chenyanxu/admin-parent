@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-Ext.define('kalix.sys.plugin.model.PluginModel', {
+Ext.define('kalix.admin.plugin.model.PluginModel', {
     extend: 'kalix.model.BaseModel',
 
     fields: [{

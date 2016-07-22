@@ -4,7 +4,7 @@
  * @author
  * @version 1.0.0
  */
-Ext.define('kalix.sys.plugin.view.PluginWindow', {
+Ext.define('kalix.admin.plugin.view.PluginWindow', {
     extend: 'kalix.view.components.common.BaseWindow',
     requires: [
         'kalix.controller.BaseWindowController',

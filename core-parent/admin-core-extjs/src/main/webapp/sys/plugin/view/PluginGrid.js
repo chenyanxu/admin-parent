@@ -3,19 +3,19 @@
  * @author
  * @version 1.0.0
  */
-Ext.define('kalix.sys.plugin.view.PluginGrid', {
+Ext.define('kalix.admin.plugin.view.PluginGrid', {
     extend: 'kalix.view.components.common.BaseGrid',
     requires: [
-        'kalix.sys.plugin.controller.PluginGridController',
-        'kalix.sys.plugin.store.PluginStore',
+        'kalix.admin.plugin.controller.PluginGridController',
+        'kalix.admin.plugin.store.PluginStore',
     ],
     alias: 'widget.pluginGrid',
     xtype: 'pluginGridPanel',
     controller: {
         type: 'pluginGridController',
-        cfgForm: 'kalix.sys.plugin.view.PluginWindow',
-        cfgViewForm: 'kalix.sys.plugin.view.PluginViewWindow',
-        cfgModel: 'kalix.sys.plugin.model.PluginModel'
+        cfgForm: 'kalix.admin.plugin.view.PluginWindow',
+        cfgViewForm: 'kalix.admin.plugin.view.PluginViewWindow',
+        cfgModel: 'kalix.admin.plugin.model.PluginModel'
     },
     store: {
         type: 'pluginStore'

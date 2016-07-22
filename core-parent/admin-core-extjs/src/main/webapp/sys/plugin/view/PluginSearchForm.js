@@ -3,7 +3,7 @@
  * @author
  * @version 1.0.0
  */
-Ext.define('kalix.sys.plugin.view.PluginSearchForm', {
+Ext.define('kalix.admin.plugin.view.PluginSearchForm', {
     extend: 'kalix.view.components.common.BaseSearchForm',
     alias: 'widget.pluginSearchForm',
     xtype: 'pluginSearchForm',

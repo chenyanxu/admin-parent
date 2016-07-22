@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-Ext.define('kalix.sys.plugin.view.PluginViewWindow', {
+Ext.define('kalix.admin.plugin.view.PluginViewWindow', {
     extend: 'kalix.view.components.common.BaseWindow',
     requires: [
         'kalix.admin.user.store.UserStore'
