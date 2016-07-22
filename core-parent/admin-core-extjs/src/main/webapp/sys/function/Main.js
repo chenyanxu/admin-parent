@@ -5,11 +5,11 @@
  *         date:2015-6-18
  * @version 1.0.0
  */
-Ext.define('kalix.sys.function.Main', {
+Ext.define('kalix.admin.function.Main', {
     extend: 'Ext.panel.Panel',
     requires: [
-        'kalix.sys.function.viewModel.FunctionViewModel',
-        'kalix.sys.function.controller.FunctionController'
+        'kalix.admin.function.viewModel.FunctionViewModel',
+        'kalix.admin.function.controller.FunctionController'
     ],
     controller: 'functionController',
     xtype: 'functionPanel',

@@ -4,11 +4,11 @@
  * @author
  * @version 1.0.0
  */
-Ext.define('kalix.sys.plugin.Main', {
+Ext.define('kalix.admin.plugin.Main', {
     extend: 'kalix.container.BaseContainer',
     requires: [
-        'kalix.sys.plugin.view.PluginGrid',
-        'kalix.sys.plugin.view.PluginSearchForm'
+        'kalix.admin.plugin.view.PluginGrid',
+        'kalix.admin.plugin.view.PluginSearchForm'
     ],
     storeId: 'pluginStore',
     items: [

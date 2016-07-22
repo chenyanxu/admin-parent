@@ -4,11 +4,11 @@
  * @author
  * @version 1.0.0
  */
-Ext.define('kalix.sys.application.Main', {
+Ext.define('kalix.admin.application.Main', {
     extend: 'kalix.container.BaseContainer',
     requires: [
-        'kalix.sys.application.view.ApplicationGrid',
-        'kalix.sys.application.view.ApplicationSearchForm'
+        'kalix.admin.application.view.ApplicationGrid',
+        'kalix.admin.application.view.ApplicationSearchForm'
     ],
     storeId: 'applicationStore',
     items: [

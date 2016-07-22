@@ -5,4 +5,4 @@
 Bundle-Activator: ${bundle.namespace}.internal.InitActivator
 #Import-Package:com.kalix.framework.core.api.biz,com.kalix.framework.core.api.persistence,cn.com.rexen.admin.entities,*
 Import-Package:*
-Bundle-Category: Rexen Kalix DTO
+Bundle-Category:Kalix Admin DTO

@@ -58,6 +58,6 @@
     </service>
     <!--字典管理-->
     <service interface="com.kalix.framework.core.api.web.IMenu">
-        <bean class="com.kalix.admin.core.web.impl.menu.DictMenuImpl"/>
+        <bean class="com.kalix.admin.core.web.impl.menu.AdminDictMenuImpl"/>
     </service>
 </blueprint>

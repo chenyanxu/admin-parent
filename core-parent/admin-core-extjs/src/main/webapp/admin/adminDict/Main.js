@@ -1,7 +1,7 @@
 /**
  *
  * Dict extJs use new base dict components
- * @author
+ * @author chenyanxu
  */
 Ext.define('kalix.admin.adminDict.Main', {
     extend: 'kalix.dict.Main',

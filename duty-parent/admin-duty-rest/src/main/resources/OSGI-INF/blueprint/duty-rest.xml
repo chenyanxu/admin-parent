@@ -57,6 +57,5 @@
                 <to uri="bean:dutyService?method=getUserIdsByDutyId(${header.id})"/>
             </get>
         </rest>
-
     </camelContext>
 </blueprint>

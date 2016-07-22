@@ -12,44 +12,41 @@
         <!-- defines the rest services using the context-path /audit -->
         <rest path="/audits" consumes="application/json" produces="application/json">
             <description>audit rest service</description>
-
             <!-- this is a rest GET to find all audit -->
             <get id="route-getAllAudit" outType="com.kalix.framework.core.api.persistence.JsonData">
                 <description>Find all Audits</description>
                 <to uri="bean:auditService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr})"/>
             </get>
-
             <!-- this is a rest POST to create a audit -->
             <post id="route-addAudit" type="com.kalix.admin.audit.entities.AuditBean"
                   outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Create a Audit</description>
                 <to uri="bean:auditService?method=saveEntity"/>
             </post>
-
-            <!-- this is a rest GET to view a audit by the given id -->
-            <get uri="/{id}" id="route-getAudit" outType="com.kalix.admin.audit.entities.AuditBean">
-                <description>Find Audit by id</description>
-                <to uri="bean:auditService?method=getEntity(${header.id})"/>
-            </get>
-
-            <!-- this is a rest PUT to update a audit -->
-            <put uri="/{id}" id="route-updateAudit" type="com.kalix.admin.audit.entities.AuditBean"
-                 outType="com.kalix.framework.core.api.persistence.JsonStatus">
-                <description>Updates a Audit</description>
-                <to uri="bean:auditService?method=updateEntity"/>
-            </put>
-
-            <!-- this is a rest DELETE to delete a audit -->
-            <delete uri="/{id}" id="route-deleteAudit"
-                    outType="com.kalix.framework.core.api.persistence.JsonStatus">
-                <description>Delete a Audit</description>
-                <to uri="bean:auditService?method=deleteEntity(${header.id})"/>
-            </delete>
             <!-- this is a rest DELETE to batch delete  audits -->
             <delete uri="/remove" id="route-batchDeleteAudit"
                     outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Batch Delete Audits</description>
                 <to uri="bean:auditService?method=batchDeleteEntity(${header.ids})"/>
+            </delete>
+        </rest>
+        <rest path="/audits/{id}" consumes="application/json" produces="application/json">
+            <!-- this is a rest GET to view a audit by the given id -->
+            <get  id="route-getAudit" outType="com.kalix.admin.audit.entities.AuditBean">
+                <description>Find Audit by id</description>
+                <to uri="bean:auditService?method=getEntity(${header.id})"/>
+            </get>
+            <!-- this is a rest PUT to update a audit -->
+            <put  id="route-updateAudit" type="com.kalix.admin.audit.entities.AuditBean"
+                 outType="com.kalix.framework.core.api.persistence.JsonStatus">
+                <description>Updates a Audit</description>
+                <to uri="bean:auditService?method=updateEntity"/>
+            </put>
+            <!-- this is a rest DELETE to delete a audit -->
+            <delete  id="route-deleteAudit"
+                    outType="com.kalix.framework.core.api.persistence.JsonStatus">
+                <description>Delete a Audit</description>
+                <to uri="bean:auditService?method=deleteEntity(${header.id})"/>
             </delete>
         </rest>
     </camelContext>
