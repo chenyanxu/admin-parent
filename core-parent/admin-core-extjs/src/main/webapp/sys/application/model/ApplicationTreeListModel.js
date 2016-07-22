@@ -5,7 +5,7 @@
  *         date:2015-7-3
  * @version 1.0.0
  */
-Ext.define('kalix.sys.application.model.ApplicationTreeListModel', {
+Ext.define('kalix.admin.application.model.ApplicationTreeListModel', {
     extend: 'Ext.data.TreeModel',
     fields: [
         {name: 'id', type: 'string'},

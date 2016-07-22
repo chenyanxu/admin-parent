@@ -4,19 +4,19 @@
  *         date:2015-7-3
  * @version 1.0.0
  */
-Ext.define('kalix.sys.application.view.ApplicationGrid', {
+Ext.define('kalix.admin.application.view.ApplicationGrid', {
     extend: 'kalix.view.components.common.BaseGrid',
     requires: [
-        'kalix.sys.application.controller.ApplicationGridController',
-        'kalix.sys.application.store.ApplicationStore'
+        'kalix.admin.application.controller.ApplicationGridController',
+        'kalix.admin.application.store.ApplicationStore'
     ],
     alias: 'widget.applicationGrid',
     xtype: 'applicationGridPanel',
     controller: {
         type: 'applicationGridController',
-        cfgForm: 'kalix.sys.application.view.ApplicationWindow',
-        cfgViewForm: 'kalix.sys.application.view.ApplicationViewWindow',
-        cfgModel: 'kalix.sys.application.model.ApplicationModel'
+        cfgForm: 'kalix.admin.application.view.ApplicationWindow',
+        cfgViewForm: 'kalix.admin.application.view.ApplicationViewWindow',
+        cfgModel: 'kalix.admin.application.model.ApplicationModel'
     },
     store: {
         type: 'applicationStore'

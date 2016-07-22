@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-Ext.define('kalix.sys.application.view.ApplicationViewWindow', {
+Ext.define('kalix.admin.application.view.ApplicationViewWindow', {
   extend: 'kalix.view.components.common.BaseWindow',
 
   alias: 'widget.applicationViewWindow',

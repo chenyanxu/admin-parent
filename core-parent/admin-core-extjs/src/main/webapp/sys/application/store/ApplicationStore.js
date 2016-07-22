@@ -4,9 +4,9 @@
  * @author
  * @version 1.0.0
  */
-Ext.define('kalix.sys.application.store.ApplicationStore', {
+Ext.define('kalix.admin.application.store.ApplicationStore', {
     extend: 'kalix.store.BaseStore',
-    model: 'kalix.sys.application.model.ApplicationModel',
+    model: 'kalix.admin.application.model.ApplicationModel',
     alias: 'store.applicationStore',
     xtype: 'applicationStore',
     storeId: "applicationStore",

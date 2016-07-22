@@ -4,7 +4,7 @@
  * @author
  * @version 1.0.0
  */
-Ext.define('kalix.sys.application.controller.ApplicationGridController', {
+Ext.define('kalix.admin.application.controller.ApplicationGridController', {
     extend: 'kalix.controller.BaseGridController',
     alias: 'controller.applicationGridController',
     onAppStartStop: function () {

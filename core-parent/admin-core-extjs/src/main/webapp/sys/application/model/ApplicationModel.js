@@ -5,7 +5,7 @@
  *         date:2015-7-3
  * @version 1.0.0
  */
-Ext.define('kalix.sys.application.model.ApplicationModel', {
+Ext.define('kalix.admin.application.model.ApplicationModel', {
     extend: 'kalix.model.BaseModel',
     fields: [
         {name: 'name', type: 'string'},
