@@ -13,8 +13,8 @@ import javax.persistence.Table;
  *         date:2015-7-23
  * @version 1.0.0
  */
-@Entity
-@Table(name = "sys_department")
+//@Entity
+//@Table(name = "sys_department")
 @Inheritance(strategy = InheritanceType.JOINED)
 //@XmlRootElement
 public class DepartmentBean extends PersistentEntity {

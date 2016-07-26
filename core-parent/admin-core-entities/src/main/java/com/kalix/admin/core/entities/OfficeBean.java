@@ -14,8 +14,8 @@ import java.util.List;
  * @修改时间：
  * @修改备注：
  */
-@Entity
-@Table(name = "sys_office")
+//@Entity
+//@Table(name = "sys_office")
 @Inheritance(strategy = InheritanceType.JOINED)
 //@XmlRootElement
 public class OfficeBean extends PersistentEntity {

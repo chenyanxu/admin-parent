@@ -18,26 +18,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "sys_dict")
 @Inheritance(strategy = InheritanceType.JOINED)
-//@XmlRootElement
 public class DictBean extends PersistentEntity {
-    private String dictName;//字典中文名称
-    //    @NotNull(message = "'标签名'是必填项")
     private String label;    // 标签名
-    //    @NotNull(message = "'数据值'是必填项")
     private String value;    // 数据值
-    //    @NotNull(message = "'类型'是必填项")
     private String type;    // 类型
     private String description;// 描述
-    //    @NotNull(message = "'排序'是必填项")
-    private long sort;    // 排序
-
-    public String getDictName() {
-        return dictName;
-    }
-
-    public void setDictName(String dictName) {
-        this.dictName = dictName;
-    }
 
     public String getLabel() {
         return label;
@@ -69,13 +54,5 @@ public class DictBean extends PersistentEntity {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public long getSort() {
-        return sort;
-    }
-
-    public void setSort(long sort) {
-        this.sort = sort;
     }
 }

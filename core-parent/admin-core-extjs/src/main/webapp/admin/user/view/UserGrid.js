@@ -119,8 +119,9 @@ Ext.define('kalix.admin.user.view.UserGrid', {
                         iconCls:'iconfont icon-password-reset',
                         permission: 'admin:permissionModule:userMenu:key',
                         tooltip: '重置密码',
-                        handler: 'onKey',
-                    }]
+                        handler: 'onKey'
+                    }
+                ]
             }
     ]},
     tbar: {

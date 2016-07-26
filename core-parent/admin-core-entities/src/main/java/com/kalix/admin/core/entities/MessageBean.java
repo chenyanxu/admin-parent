@@ -15,8 +15,8 @@ import javax.persistence.Table;
  * @修改时间：
  * @修改备注：
  */
-@Entity
-@Table(name = "sys_message")
+//@Entity
+//@Table(name = "sys_message")
 @Inheritance(strategy = InheritanceType.JOINED)
 //@XmlRootElement
 public class MessageBean extends PersistentEntity {

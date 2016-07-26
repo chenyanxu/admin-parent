@@ -20,42 +20,42 @@
                 <description>Find all Dicts</description>
                 <to uri="bean:dictService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr})"/>
             </get>
-
-            <get id="route-getDictListByType" uri="/list/{type}" outType="com.kalix.admin.core.entities.DictBean">
-                <to uri="bean:dictService?method=getDictList(${header.type})"></to>
-            </get>
-
             <!-- this is a rest POST to create an dict -->
             <post id="route-addDict" type="com.kalix.admin.core.entities.DictBean"
                   outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Create a Dict</description>
                 <to uri="bean:dictService?method=saveEntity"/>
             </post>
-
+        </rest>
+        <rest path="/dicts/{id}" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
             <!-- this is a rest GET to view a dict by the given id -->
-            <get uri="/{id}" id="route-getDict" outType="com.kalix.admin.core.entities.DictBean">
+            <get id="route-getDict" outType="com.kalix.admin.core.entities.DictBean">
                 <description>Find Dict by id</description>
                 <to uri="bean:dictService?method=getEntity(${header.id})"/>
             </get>
-
             <!-- this is a rest PUT to update a dict -->
-            <put uri="/{id}" id="route-updateDict" type="com.kalix.admin.core.entities.DictBean"
+            <put  id="route-updateDict" type="com.kalix.admin.core.entities.DictBean"
                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Updates a Dict</description>
                 <to uri="bean:dictService?method=updateEntity"/>
             </put>
-
             <!-- this is a rest DELETE to delete a dict -->
-            <delete uri="/{id}" id="route-deleteDict"
+            <delete  id="route-deleteDict"
                     outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Delete a Dict</description>
                 <to uri="bean:dictService?method=deleteEntity(${header.id})"/>
             </delete>
-
-
-            <get id="route-getAllDictNoPage" uri="/list" outType="com.kalix.framework.core.api.persistence.JsonData">
+        </rest>
+        <rest path="/dicts/cache/list" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+            <get id="route-getAllDictNoPage">
                 <description>Find all dicts</description>
                 <to uri="bean:dictService?method=getAllEntity()"/>
+            </get>
+        </rest>
+        <rest path="/dicts/types/list" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+            <get id="route-getAllDictTypes">
+                <description>Find all dicts</description>
+                <to uri="bean:dictService?method=getDictTypes(${header.query})"/>
             </get>
         </rest>
     </camelContext>

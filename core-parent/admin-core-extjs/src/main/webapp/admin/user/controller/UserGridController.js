@@ -7,7 +7,6 @@
 Ext.define('kalix.admin.user.controller.UserGridController', {
     extend: 'kalix.controller.BaseGridController',
     alias: 'controller.userGridController',
-
     onEdit: function (grid, rowIndex, colIndex) {
         var oldView=this.cfgForm;
         this.cfgForm='kalix.admin.user.view.UserEditWindow';

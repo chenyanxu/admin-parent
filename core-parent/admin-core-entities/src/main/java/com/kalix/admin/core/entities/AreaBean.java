@@ -18,8 +18,8 @@ import java.util.List;
  * @修改时间：
  * @修改备注：
  */
-@Entity
-@Table(name = "sys_area")
+//@Entity
+//@Table(name = "sys_area")
 @Inheritance(strategy = InheritanceType.JOINED)
 //@XmlRootElement
 public class AreaBean extends PersistentEntity {

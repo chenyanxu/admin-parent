@@ -8,7 +8,7 @@ Ext.define('kalix.admin.user.Main', {
     extend: 'kalix.container.BaseContainer',
     requires: [
         'kalix.admin.user.view.UserGrid',
-        'kalix.admin.user.view.UserSearchForm',
+        'kalix.admin.user.view.UserSearchForm'
     ],
     items: [
         {

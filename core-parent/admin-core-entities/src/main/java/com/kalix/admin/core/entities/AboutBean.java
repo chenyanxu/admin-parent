@@ -16,8 +16,8 @@ import javax.persistence.Table;
  * 修改时间:  2014/8/11 8:51
  * 修改备注:  [说明本次修改内容]
  */
-@Entity
-@Table(name = "sys_about")
+//@Entity
+//@Table(name = "sys_about")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class AboutBean extends PersistentEntity {
     private static final long serialVersionUID = 1L;

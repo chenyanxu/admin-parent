@@ -15,8 +15,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  *         date:2015-7-21
  * @version 1.0.0
  */
-@Entity
-@Table(name = "sys_plugin")
+//@Entity
+//@Table(name = "sys_plugin")
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
 public class PluginBean extends PersistentEntity {

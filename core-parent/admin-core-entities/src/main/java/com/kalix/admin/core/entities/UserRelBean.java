@@ -15,8 +15,8 @@ import javax.persistence.Table;
  * @修改时间：
  * @修改备注：
  */
-@Entity
-@Table(name = "sys_user_rel")
+//@Entity
+//@Table(name = "sys_user_rel")
 @Inheritance(strategy = InheritanceType.JOINED)
 //@XmlRootElement
 public class UserRelBean extends PersistentEntity {
