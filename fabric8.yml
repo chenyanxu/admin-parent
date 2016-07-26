@@ -1,0 +1,11 @@
+---
+pipeline: "workflows/maven/Deploy/Jenkinsfile"
+buildName: "admin-parent"
+codeReview: false
+links:
+  Current: "http://172.30.221.109:80/kubernetes/pods?namespace=develop"
+  Git: "https://github.com/chenyanxu/admin-parent.git"
+  Job: "http://jenkins.apps.kalix.com/job/admin-parent"
+environments:
+  Current: "develop"
+useLocalFlow: true
