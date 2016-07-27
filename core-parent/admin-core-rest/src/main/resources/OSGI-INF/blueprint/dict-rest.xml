@@ -12,7 +12,7 @@
         </restConfiguration>
 
         <!-- defines the rest services using the context-path /dict -->
-        <rest path="/dicts" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+        <rest path="/admin/dicts" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
             <description>dict rest service</description>
 
             <!-- this is a rest GET to find all dict -->
@@ -27,7 +27,7 @@
                 <to uri="bean:dictService?method=saveEntity"/>
             </post>
         </rest>
-        <rest path="/dicts/{id}" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+        <rest path="/admin/dicts/{id}" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
             <!-- this is a rest GET to view a dict by the given id -->
             <get id="route-getDict" outType="com.kalix.admin.core.entities.DictBean">
                 <description>Find Dict by id</description>
@@ -46,13 +46,13 @@
                 <to uri="bean:dictService?method=deleteEntity(${header.id})"/>
             </delete>
         </rest>
-        <rest path="/dicts/cache/list" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+        <rest path="/admin/dicts/cache/list" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
             <get id="route-getAllDictNoPage">
                 <description>Find all dicts</description>
                 <to uri="bean:dictService?method=getAllEntity()"/>
             </get>
         </rest>
-        <rest path="/dicts/types/list" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+        <rest path="/admin/dicts/types/list" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
             <get id="route-getAllDictTypes">
                 <description>Find all dicts</description>
                 <to uri="bean:dictService?method=getDictTypes(${header.query})"/>

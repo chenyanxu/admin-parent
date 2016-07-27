@@ -9,5 +9,5 @@ Ext.define('kalix.admin.adminDict.store.AdminDictStore', {
     alias: 'store.adminDictStore',
     xtype: 'adminDictStore',
     storeId: 'adminDictStore',
-    proxyUrl: CONFIG.restRoot + '/camel/rest/dicts'
+    proxyUrl: CONFIG.restRoot + '/camel/rest/admin/dicts'
 });

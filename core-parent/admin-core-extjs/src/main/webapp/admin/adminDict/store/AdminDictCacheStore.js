@@ -9,7 +9,8 @@ Ext.define('kalix.admin.adminDict.store.AdminDictCacheStore', {
     alias: 'store.adminDictCacheStore',
     xtype: 'adminDictCacheStore',
     storeId: 'adminDictCacheStore',
+    autoLoad:true,
     pageSize:0,
     singleton: true,
-    proxyUrl: CONFIG.restRoot + '/camel/rest/dicts/cache/list'
+    proxyUrl: CONFIG.restRoot + '/camel/rest/admin/dicts/cache/list'
 });
