@@ -27,6 +27,10 @@ public class OrganizationUserBean extends PersistentEntity {
      */
     private long orgId;
 
+    public OrganizationUserBean(){
+
+    }
+
     public OrganizationUserBean(long userId, long orgId, String createBy, String updateBy)  {
         this.userId = userId;
         this.orgId = orgId;
