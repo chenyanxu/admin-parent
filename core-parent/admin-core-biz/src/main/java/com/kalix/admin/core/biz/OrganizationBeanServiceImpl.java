@@ -275,7 +275,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
     public List getUserIdsByOrganizationId(long id) {
         return organizationUserDao.findByOrgId(id).stream()
                 .filter(n -> n.getUserId() != 0)
-                .map(n -> String.valueOf(n.getUserId()))
+                .map(n -> n.getUserId())
                 .collect(Collectors.toList());
     }
 
