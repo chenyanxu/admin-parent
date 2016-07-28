@@ -26,6 +26,6 @@ Ext.define('kalix.admin.common.relation.UserRelation', {
         win.show();
     },
     createItemSelectorUserStore:function(){
-      return Ext.create('kalix.admin.user.store.UserStore',{pageSize:0});
+      return Ext.create('kalix.admin.user.store.UserStore',{pageSize:0,autoLoad:true});
     }
 });
