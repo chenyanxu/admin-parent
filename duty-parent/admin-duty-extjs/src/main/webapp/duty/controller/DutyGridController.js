@@ -32,7 +32,8 @@ Ext.define('kalix.admin.duty.controller.DutyGridController', {
   createItemSelectorUserStore: function (data) {
     return Ext.create('kalix.admin.user.store.UserStore', {
         pageSize: 0,
-        proxyUrl: CONFIG.restRoot + '/camel/rest/orgs/'+data.orgid+'/users'
+        proxyUrl: CONFIG.restRoot + '/camel/rest/orgs/'+data.orgid+'/users',
+        autoLoad:true
       }
     );
   }
