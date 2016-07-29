@@ -4,54 +4,46 @@
            xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
        http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
     <reference id="userService" interface="com.kalix.admin.core.api.biz.IUserBeanService"/>
+
     <camelContext id="userCamel" xmlns="http://camel.apache.org/schema/blueprint">
 
         <restConfiguration component="servlet" bindingMode="json">
             <dataFormatProperty key="prettyPrint" value="true"/>
         </restConfiguration>
-
         <!-- defines the rest services using the context-path /user -->
-        <rest path="/users" consumes="application/json" produces="application/json">
+        <rest path="/users" consumes="application/json;charset=utf-8" produces="application/json">
             <description>user rest service</description>
-
             <!-- this is a rest GET to find all user -->
             <get id="route-getAllUserbyPage" outType="com.kalix.framework.core.api.persistence.JsonData">
                 <description>Find all Users</description>
                 <to uri="bean:userService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr})"/>
             </get>
-
-            <get uri="/all" id="route-getAllUser" outType="com.kalix.framework.core.api.persistence.JsonData">
-                <description>Find all users for report</description>
-                <to uri="bean:userService?method=getAllEntityforReport(${header.jsonStr})"/>
-            </get>
-
             <!-- this is a rest POST to create a user -->
             <post id="route-addUser" type="com.kalix.admin.core.entities.UserBean"
                   outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Create a User</description>
                 <to uri="bean:userService?method=saveEntity"/>
             </post>
-
+        </rest>
+        <rest path="/users/{id}" consumes="application/json;charset=utf-8" produces="application/json">
             <!-- this is a rest GET to view a user by the given id -->
-            <get uri="/{id}" id="route-getUser" outType="com.kalix.admin.core.entities.UserBean">
+            <get id="route-getUser" outType="com.kalix.admin.core.entities.UserBean">
                 <description>Find User by id</description>
                 <to uri="bean:userService?method=getEntity(${header.id})"/>
             </get>
 
             <!-- this is a rest PUT to update a user -->
-            <put uri="/{id}" id="route-updateUser" type="com.kalix.admin.core.entities.UserBean"
+            <put  id="route-updateUser" type="com.kalix.admin.core.entities.UserBean"
                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Updates a User</description>
                 <to uri="bean:userService?method=updateEntity"/>
             </put>
-
             <!-- this is a rest DELETE to delete a user -->
-            <delete uri="/{id}" id="route-deleteUser"
+            <delete  id="route-deleteUser"
                     outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Delete a User</description>
                 <to uri="bean:userService?method=deleteEntity(${header.id})"/>
             </delete>
-
         </rest>
     </camelContext>
 </blueprint>
