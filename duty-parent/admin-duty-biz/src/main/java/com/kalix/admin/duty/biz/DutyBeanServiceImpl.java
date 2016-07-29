@@ -1,5 +1,7 @@
 package com.kalix.admin.duty.biz;
 
+import com.kalix.admin.core.api.dao.IUserBeanDao;
+import com.kalix.admin.core.entities.UserBean;
 import com.kalix.admin.duty.api.biz.IDutyBeanService;
 import com.kalix.admin.duty.api.dao.IDutyBeanDao;
 import com.kalix.admin.duty.api.dao.IDutyUserBeanDao;
@@ -7,9 +9,13 @@ import com.kalix.admin.duty.entities.DutyBean;
 import com.kalix.admin.duty.entities.DutyUserBean;
 import com.kalix.framework.core.api.persistence.JsonData;
 import com.kalix.framework.core.api.persistence.JsonStatus;
+import com.kalix.framework.core.api.security.IUserLoginService;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
+import com.kalix.framework.core.util.HttpClientUtil;
 import com.kalix.framework.core.util.StringUtils;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,10 +30,21 @@ import java.util.stream.Collectors;
 public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao, DutyBean> implements IDutyBeanService {
     private JsonStatus jsonStatus = new JsonStatus();
     private IDutyUserBeanDao dutyUserBeanDao;
+    private IUserBeanDao userBeanDao;
+    private IUserLoginService userLoginService;
 
     public void setDutyUserBeanDao(IDutyUserBeanDao dutyUserBeanDao) {
         this.dutyUserBeanDao = dutyUserBeanDao;
     }
+
+    public void setUserBeanDao(IUserBeanDao userBeanDao) {
+        this.userBeanDao = userBeanDao;
+    }
+
+    public void setUserLoginService(IUserLoginService userLoginService) {
+        this.userLoginService = userLoginService;
+    }
+
     public DutyBeanServiceImpl() {
         super.init(DutyBean.class.getName());
     }
@@ -98,36 +115,21 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
         return JsonStatus.successResult("删除成功!");
     }
 
-    //    @Override
-//    public JsonData getUserAll(long orgId) {
-//        JsonData jsonData = new JsonData();
-//        List<PersistentEntity> list = userDao.findByUserId(organizationUserDao.findByOrgId(orgId).stream()
-//                .map(OrganizationUserBean::getUserId)
-//                .collect(Collectors.toList()), true).stream()
-//                .map(n -> (PersistentEntity) n).collect(Collectors.toList());
-//
-//        jsonData.setData(list);
-//        jsonData.setTotalCount((long) list.size());
-//        return jsonData;
-//    }
+    @Override
+    public List<String> getUserDutyNameList(){
+        String loginName=userLoginService.getLoginName();
+        UserBean userBean= userBeanDao.getUser(loginName);
+        List<String> dutyNameList=new ArrayList<>();
+        List<DutyUserBean> dutyUserBeenList=dutyUserBeanDao.find("select rub from DutyUserBean rub where rub.userId=?1", userBean.getId());
 
-//    @Override
-//    public JsonData getUserAllAndDutyUsers(long dutyId) {
-//        JsonData jsonData = new JsonData();
-//        DutyBean bean = dao.get(dutyId);
-//        if (bean != null) {
-//            List<PersistentEntity> list = userDao.findByUserId(organizationUserDao.findByOrgId(bean.getOrgid()).stream()
-//                    .map(OrganizationUserBean::getUserId)
-//                    .collect(Collectors.toList()), true).stream()
-//                    .map(n -> (PersistentEntity) n).collect(Collectors.toList());
-//
-//            list.addAll(userDao.findByUserId(dutyUserBeanDao.findByDutyId(dutyId).stream()
-//                    .map(n -> n.getUserId())
-//                    .collect(Collectors.toList()), true).stream()
-//                    .map(n -> (PersistentEntity) n).collect(Collectors.toList()));
-//            jsonData.setData(list);
-//            jsonData.setTotalCount((long) list.size());
-//        }
-//        return jsonData;
-//    }
+        if(dutyUserBeenList!=null && dutyUserBeenList.size()>0){
+            for(DutyUserBean dutyUserBean :dutyUserBeenList){
+                DutyBean dutyBean=dao.get(dutyUserBean.getDutyId());
+
+                dutyNameList.add(dutyBean.getName());
+            }
+        }
+
+        return dutyNameList;
+    }
 }
