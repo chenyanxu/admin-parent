@@ -130,19 +130,19 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
         return dao.getRoleNameList(userBean);
     }
 
-    @Override
-    public List<String> getRoleNameListByLoginName(String loginName) {
-        UserBean userBean = userBeanDao.getUser(loginName);
-        List<String> stringList = new ArrayList<>();
-        List<RoleUserBean> roleUserBeans = roleUserBeanDao.find("select rub from RoleUserBean rub where rub.userId=?1", userBean.getId());
-        if (roleUserBeans != null && !roleUserBeans.isEmpty()) {
-            for (RoleUserBean roleUserBean : roleUserBeans) {
-                RoleBean roleBean = dao.get(roleUserBean.getRoleId());
-                stringList.add(roleBean.getName());
-            }
-        }
-        return stringList;
-    }
+//    @Override
+//    public List<String> getRoleNameListByLoginName(String loginName) {
+//        UserBean userBean = userBeanDao.getUser(loginName);
+//        List<String> stringList = new ArrayList<>();
+//        List<RoleUserBean> roleUserBeans = roleUserBeanDao.find("select rub from RoleUserBean rub where rub.userId=?1", userBean.getId());
+//        if (roleUserBeans != null && !roleUserBeans.isEmpty()) {
+//            for (RoleUserBean roleUserBean : roleUserBeans) {
+//                RoleBean roleBean = dao.get(roleUserBean.getRoleId());
+//                stringList.add(roleBean.getName());
+//            }
+//        }
+//        return stringList;
+//    }
 
 
     @Override
