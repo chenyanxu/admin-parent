@@ -11,7 +11,7 @@
         </restConfiguration>
 
         <!-- defines the rest services using the context-path /application -->
-        <rest path="/applications" consumes="application/json" produces="application/json">
+        <rest path="/applications" consumes="application/json;charset=utf-8" produces="application/json">
             <description>application rest service</description>
 
             <!-- this is a rest GET to find all application -->

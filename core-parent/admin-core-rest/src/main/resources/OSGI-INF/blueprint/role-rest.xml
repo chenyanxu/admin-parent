@@ -11,7 +11,7 @@
         </restConfiguration>
 
         <!-- defines the rest services using the context-path /role -->
-        <rest path="/roles" consumes="application/json" produces="application/json">
+        <rest path="/roles" consumes="application/json;charset=utf-8" produces="application/json">
 
             <description>role rest service</description>
 
@@ -33,7 +33,7 @@
                 <to uri="bean:roleService?method=saveEntity"/>
             </post>
         </rest>
-        <rest path="/roles/{id}" consumes="application/json" produces="application/json">
+        <rest path="/roles/{id}" consumes="application/json;charset=utf-8" produces="application/json">
             <!-- this is a rest GET to view a role by the given id -->
             <get  id="route-getRole" outType="com.kalix.admin.core.entities.RoleBean">
                 <description>Find Role by id</description>
@@ -54,7 +54,7 @@
                 <to uri="bean:roleService?method=deleteEntity(${header.id})"/>
             </delete>
         </rest>
-        <rest path="/roles/{id}/users" consumes="application/json" produces="application/json">
+        <rest path="/roles/{id}/users" consumes="application/json;charset=utf-8" produces="application/json">
             <!-- this is a rest GET to view an user by the given id -->
             <post id="route-saveRoleUsers"   outType="com.kalix.framework.core.api.persistence.JsonStatus"
                    type="java.util.List">
@@ -62,14 +62,14 @@
                 <to uri="bean:roleService?method=saveRoleUsers"/>
             </post>
         </rest>
-        <rest path="/roles/{id}/users/ids" consumes="application/json" produces="application/json">
+        <rest path="/roles/{id}/users/ids" consumes="application/json;charset=utf-8" produces="application/json">
             <!-- this is a rest GET to view an user by the given id -->
             <get id="route-getUserIdsByRoleId"  outType="java.util.List">
                 <description>Find users by WorkGroup Id</description>
                 <to uri="bean:roleService?method=getUserIdsByRoleId(${header.id})"/>
             </get>
         </rest>
-        <rest path="/roles/{id}/authorizations" consumes="application/json" produces="application/json">
+        <rest path="/roles/{id}/authorizations" consumes="application/json;charset=utf-8" produces="application/json">
             <!-- this is a rest GET to view an user by the given id -->
             <get id="route-getAuthorizationTree" >
                 <description>find Authorizaition by RoleId</description>
