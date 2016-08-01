@@ -9,6 +9,9 @@
 Ext.define('kalix.admin.user.view.UserViewWindow', {
     extend: 'kalix.view.components.common.BaseWindow',
     alias: 'widget.userViewWindow',
+    requires: [
+        'kalix.admin.adminDict.component.AdminDictCombobox'
+    ],
     xtype: "userViewWindow",
     width: 400,
     items : [{
@@ -24,10 +27,16 @@ Ext.define('kalix.admin.user.view.UserViewWindow', {
             bind : {
                 value : '{rec.name}'
             }
+        }, {
+            fieldLabel : '岗位名称',
+            xtype: 'adminDictCombobox',
+            dictType: '岗位名称',
+            bind : {
+                value : '{rec.position}'
+            }
         },  {
             fieldLabel : '邮箱',
             bind : {
-                activeError : '{validation.email}',
                 value : '{rec.email}'
             }
         }, {
