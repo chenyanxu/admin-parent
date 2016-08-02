@@ -1,5 +1,4 @@
 ---
-pipeline: "workflows/maven/Deploy/Jenkinsfile"
 buildName: "admin-parent"
 codeReview: false
 links:
