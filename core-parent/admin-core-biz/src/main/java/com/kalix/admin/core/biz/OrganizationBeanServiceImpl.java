@@ -10,7 +10,6 @@ import com.kalix.admin.core.entities.OrganizationUserBean;
 import com.kalix.admin.core.util.Compare;
 import com.kalix.framework.core.api.persistence.JsonData;
 import com.kalix.framework.core.api.persistence.JsonStatus;
-import com.kalix.framework.core.api.persistence.PersistentEntity;
 import com.kalix.framework.core.api.security.IShiroService;
 import com.kalix.framework.core.impl.biz.GenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
