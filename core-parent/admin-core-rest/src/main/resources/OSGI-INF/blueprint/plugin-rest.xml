@@ -4,69 +4,69 @@
            xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
        http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
 
-    <reference id="pluginService" interface="com.kalix.admin.core.api.biz.IPluginBeanService"/>
+    <!--<reference id="pluginService" interface="com.kalix.admin.core.api.biz.IPluginBeanService"/>-->
 
-    <camelContext id="pluginCamel" xmlns="http://camel.apache.org/schema/blueprint">
+    <!--<camelContext id="pluginCamel" xmlns="http://camel.apache.org/schema/blueprint">-->
 
-        <restConfiguration component="servlet" bindingMode="json">
-            <dataFormatProperty key="prettyPrint" value="true"/>
-        </restConfiguration>
+        <!--<restConfiguration component="servlet" bindingMode="json">-->
+            <!--<dataFormatProperty key="prettyPrint" value="true"/>-->
+        <!--</restConfiguration>-->
 
-        <!-- defines the rest services using the context-path /plugin -->
-        <rest path="/plugins" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
-            <description>plugin rest service</description>
+        <!--&lt;!&ndash; defines the rest services using the context-path /plugin &ndash;&gt;-->
+        <!--<rest path="/plugins" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">-->
+            <!--<description>plugin rest service</description>-->
 
-            <!-- this is a rest GET to find all plugin -->
-            <get id="route-getAllPlugin" outType="com.kalix.framework.core.api.persistence.JsonData">
-                <description>Find all Plugins</description>
-                <to uri="bean:pluginService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr})"/>
-            </get>
+            <!--&lt;!&ndash; this is a rest GET to find all plugin &ndash;&gt;-->
+            <!--<get id="route-getAllPlugin" outType="com.kalix.framework.core.api.persistence.JsonData">-->
+                <!--<description>Find all Plugins</description>-->
+                <!--<to uri="bean:pluginService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr})"/>-->
+            <!--</get>-->
 
-            <!-- this is a rest POST to create a plugin -->
-            <post id="route-addPlugin" type="com.kalix.admin.core.entities.PluginBean"
-                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
-                <description>Create a Plugin</description>
-                <to uri="bean:pluginService?method=saveEntity"/>
-            </post>
+            <!--&lt;!&ndash; this is a rest POST to create a plugin &ndash;&gt;-->
+            <!--<post id="route-addPlugin" type="com.kalix.admin.core.entities.PluginBean"-->
+                  <!--outType="com.kalix.framework.core.api.persistence.JsonStatus">-->
+                <!--<description>Create a Plugin</description>-->
+                <!--<to uri="bean:pluginService?method=saveEntity"/>-->
+            <!--</post>-->
 
-            <!-- this is a rest GET to view a plugin by the given id -->
-            <get uri="/{id}" id="route-getPlugin" outType="com.kalix.admin.core.entities.PluginBean">
-                <description>Find Plugin by id</description>
-                <to uri="bean:pluginService?method=getEntity(${header.id})"/>
-            </get>
+            <!--&lt;!&ndash; this is a rest GET to view a plugin by the given id &ndash;&gt;-->
+            <!--<get uri="/{id}" id="route-getPlugin" outType="com.kalix.admin.core.entities.PluginBean">-->
+                <!--<description>Find Plugin by id</description>-->
+                <!--<to uri="bean:pluginService?method=getEntity(${header.id})"/>-->
+            <!--</get>-->
 
-            <!-- this is a rest PUT to update a plugin -->
-            <put uri="/{id}" id="route-updatePlugin" type="com.kalix.admin.core.entities.PluginBean"
-                 outType="com.kalix.framework.core.api.persistence.JsonStatus">
-                <description>Updates a Plugin</description>
-                <to uri="bean:pluginService?method=updateEntity"/>
-            </put>
+            <!--&lt;!&ndash; this is a rest PUT to update a plugin &ndash;&gt;-->
+            <!--<put uri="/{id}" id="route-updatePlugin" type="com.kalix.admin.core.entities.PluginBean"-->
+                 <!--outType="com.kalix.framework.core.api.persistence.JsonStatus">-->
+                <!--<description>Updates a Plugin</description>-->
+                <!--<to uri="bean:pluginService?method=updateEntity"/>-->
+            <!--</put>-->
 
-            <!-- this is a rest DELETE to delete a plugin -->
-            <delete uri="/{id}" id="route-deletePlugin"
-                    outType="com.kalix.framework.core.api.persistence.JsonStatus">
-                <description>Delete a Plugin</description>
-                <to uri="bean:pluginService?method=deleteEntity(${header.id})"/>
-            </delete>
+            <!--&lt;!&ndash; this is a rest DELETE to delete a plugin &ndash;&gt;-->
+            <!--<delete uri="/{id}" id="route-deletePlugin"-->
+                    <!--outType="com.kalix.framework.core.api.persistence.JsonStatus">-->
+                <!--<description>Delete a Plugin</description>-->
+                <!--<to uri="bean:pluginService?method=deleteEntity(${header.id})"/>-->
+            <!--</delete>-->
 
-            <!--start a plugin-->
-            <get id="route-startPlugin" uri="/start" outType="com.kalix.framework.core.api.persistence.JsonStatus">
-                <description>Start a plugin</description>
-                <to uri="bean:pluginService?method=startPlugin(${header.key})"/>
-            </get>
+            <!--&lt;!&ndash;start a plugin&ndash;&gt;-->
+            <!--<get id="route-startPlugin" uri="/start" outType="com.kalix.framework.core.api.persistence.JsonStatus">-->
+                <!--<description>Start a plugin</description>-->
+                <!--<to uri="bean:pluginService?method=startPlugin(${header.key})"/>-->
+            <!--</get>-->
 
-            <!--stop a plugin-->
-            <get id="route-stopPlugin" uri="/stop" outType="com.kalix.framework.core.api.persistence.JsonStatus">
-                <description>Stop a plugin</description>
-                <to uri="bean:pluginService?method=stopPlugin(${header.key})"/>
-            </get>
+            <!--&lt;!&ndash;stop a plugin&ndash;&gt;-->
+            <!--<get id="route-stopPlugin" uri="/stop" outType="com.kalix.framework.core.api.persistence.JsonStatus">-->
+                <!--<description>Stop a plugin</description>-->
+                <!--<to uri="bean:pluginService?method=stopPlugin(${header.key})"/>-->
+            <!--</get>-->
 
-            <!--stop a plugin-->
-            <get id="route-statusPlugin" uri="/status" outType="com.kalix.framework.core.api.persistence.JsonStatus">
-                <description>Stop a plugin</description>
-                <to uri="bean:pluginService?method=getPluginStatus(${header.pluginIds})"/>
-            </get>
+            <!--&lt;!&ndash;stop a plugin&ndash;&gt;-->
+            <!--<get id="route-statusPlugin" uri="/status" outType="com.kalix.framework.core.api.persistence.JsonStatus">-->
+                <!--<description>Stop a plugin</description>-->
+                <!--<to uri="bean:pluginService?method=getPluginStatus(${header.pluginIds})"/>-->
+            <!--</get>-->
 
-        </rest>
-    </camelContext>
+        <!--</rest>-->
+    <!--</camelContext>-->
 </blueprint>
