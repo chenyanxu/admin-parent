@@ -1,7 +1,5 @@
 package com.kalix.admin.duty.biz;
 
-import com.kalix.admin.core.api.dao.IUserBeanDao;
-import com.kalix.admin.core.entities.UserBean;
 import com.kalix.admin.duty.api.biz.IDutyBeanService;
 import com.kalix.admin.duty.api.dao.IDutyBeanDao;
 import com.kalix.admin.duty.api.dao.IDutyUserBeanDao;
@@ -9,12 +7,9 @@ import com.kalix.admin.duty.entities.DutyBean;
 import com.kalix.admin.duty.entities.DutyUserBean;
 import com.kalix.framework.core.api.persistence.JsonData;
 import com.kalix.framework.core.api.persistence.JsonStatus;
-import com.kalix.framework.core.api.security.IUserLoginService;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
-import com.kalix.framework.core.util.HttpClientUtil;
 import com.kalix.framework.core.util.StringUtils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +26,6 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
     private JsonStatus jsonStatus = new JsonStatus();
     private IDutyUserBeanDao dutyUserBeanDao;
     //private IUserBeanDao userBeanDao;
-    private IUserLoginService userLoginService;
 
     public void setDutyUserBeanDao(IDutyUserBeanDao dutyUserBeanDao) {
         this.dutyUserBeanDao = dutyUserBeanDao;
@@ -41,9 +35,6 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
 //        this.userBeanDao = userBeanDao;
 //    }
 
-    public void setUserLoginService(IUserLoginService userLoginService) {
-        this.userLoginService = userLoginService;
-    }
 
     public DutyBeanServiceImpl() {
         super.init(DutyBean.class.getName());
