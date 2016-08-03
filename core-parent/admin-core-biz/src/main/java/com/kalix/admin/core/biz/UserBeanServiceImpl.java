@@ -132,7 +132,7 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
 //
 //    }
 
-    public void init() {
+   // public void init() {
         /*UserBeanImpl user = new UserBeanImpl();
         user.setName("test");
         user.setPassword("hello");
@@ -140,42 +140,42 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         List<UserBeanImpl> list = this.getAllUser();
 
         System.out.print("system is called " + list.size());*/
-    }
+   // }
 
 
 
-    public JsonData getAllUser() {
-        JsonData jsonData=new JsonData();
-        List<PersistentEntity> users = dao.findByNativeSql("select * from sys_user order by name asc", UserBean.class, null);
-        /*List<PersistentEntity> persistentEntities=new ArrayList<PersistentEntity>();
-        if(users!=null&&users.size()>0){
-            for(UserBean user:users){
-                if(user!=null) {
-                    persistentEntities.add(user);
-                }
-            }
-        }*/
-        jsonData.setData(users);
-        jsonData.setTotalCount((long) users.size());
-       return jsonData;
-    }
+//    public JsonData getAllUser() {
+//        JsonData jsonData=new JsonData();
+//        List<PersistentEntity> users = dao.findByNativeSql("select * from sys_user order by name asc", UserBean.class, null);
+//        /*List<PersistentEntity> persistentEntities=new ArrayList<PersistentEntity>();
+//        if(users!=null&&users.size()>0){
+//            for(UserBean user:users){
+//                if(user!=null) {
+//                    persistentEntities.add(user);
+//                }
+//            }
+//        }*/
+//        jsonData.setData(users);
+//        jsonData.setTotalCount((long) users.size());
+//       return jsonData;
+//    }
 
-    @Override
-    public List<UserBean> queryUser(UserBean userBean, int is_ent) {
-
-        return dao.find("select a from UserBean a where a.is_ent_user =?1 and a.name LIKE ?2", is_ent, "%" + userBean.getName() + "%");
-    }
-
-    @Override
-    public List<UserBean> queryUser(String userName, int pageNumber, int pageSize) {
-
-        return dao.findbyPage("select a from UserBean a where a.name LIKE ?1", pageNumber, pageSize, "%" + userName + "%");
-    }
-
-    @Override
-    public List<UserBean> query(UserBean userBean, int is_ent) {
-        return queryUser(userBean, is_ent);
-    }
+//    @Override
+//    public List<UserBean> queryUser(UserBean userBean, int is_ent) {
+//
+//        return dao.find("select a from UserBean a where a.is_ent_user =?1 and a.name LIKE ?2", is_ent, "%" + userBean.getName() + "%");
+//    }
+//
+//    @Override
+//    public List<UserBean> queryUser(String userName, int pageNumber, int pageSize) {
+//
+//        return dao.findbyPage("select a from UserBean a where a.name LIKE ?1", pageNumber, pageSize, "%" + userName + "%");
+//    }
+//
+//    @Override
+//    public List<UserBean> query(UserBean userBean, int is_ent) {
+//        return queryUser(userBean, is_ent);
+//    }
 
     /**
      * 生成roleList列表，以逗号分隔
@@ -246,90 +246,90 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         }
     }
 
-    @Override
-    public String getCurrentUserName() {
-        Session session = SecurityUtils.getSubject().getSession();
-        UserBean userBean = (UserBean) session.getAttribute(PermissionConstant.SYS_CURRENT_USER);
-        if (userBean == null) {
-            SecurityUtils.getSubject().logout();
-        }
-        return userBean.getName();
-    }
+//    @Override
+//    public String getCurrentUserLoginName() {
+//        Session session = SecurityUtils.getSubject().getSession();
+//        UserBean userBean = (UserBean) session.getAttribute(PermissionConstant.SYS_CURRENT_USER);
+//        if (userBean == null) {
+//            SecurityUtils.getSubject().logout();
+//        }
+//        return userBean.getName();
+//    }
+
+//    @Override
+//    public String getCurrentUserLoginName() {
+//        Session session = SecurityUtils.getSubject().getSession();
+//        UserBean userBean = (UserBean) session.getAttribute(PermissionConstant.SYS_CURRENT_USER);
+//        if (userBean == null) {
+//            SecurityUtils.getSubject().logout();
+//        }
+//        return userBean.getLoginName();
+//    }
+
+//    @Override
+//    public UserBean getCurrentUser() {
+//        try {
+//            SecurityUtils.setSecurityManager((WebSecurityManager) JNDIHelper.getJNDIServiceForName(WebSecurityManager.class.getName()));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        Session session = SecurityUtils.getSubject().getSession();
+//        UserBean userBean = (UserBean) session.getAttribute(PermissionConstant.SYS_CURRENT_USER);
+//        if (userBean == null) {
+//            SecurityUtils.getSubject().logout();
+//        }
+//        return userBean;
+//    }
+
+//    @Override
+//    public String getCurrUserInQhdm() {
+//        UserBean userBean = getCurrentUser();
+//        if (userBean != null) {
+//            List<String> qhdmList = dao.findByNativeSql("select t.xzqh_dm " +
+//                    "from urg_ent_organization t where t.jgdm=" + userBean.getJgdm(), String.class);
+//            if (qhdmList != null && qhdmList.size() > 0) {
+//                return qhdmList.get(0);
+//            }
+//        }
+//        return "";
+//
+//    }
+
+
+//    @Override
+//    public List getUserTokenListByIds(Long id) {
+//        return dao.findByNativeSql("select s.token from sys_user_rel s where s.token is not null and s.user_id in (" + id + ")", String.class);
+//    }
+
+//    @Override
+//    public List getUserTokenListJgdm(String jgdm, long user_id) {
+//        String jgdmStr = jgdm.replaceAll("(0+)$", "");
+//        return dao.findByNativeSql("select sur.token from sys_user s " +
+//                " left join sys_user_rel sur on sur.user_id=s.id where s.id!=" + user_id +
+//                " and sur.token is not null and s.jgdm like '" + jgdmStr + "%'", String.class);
+//    }
+
+//    @Override
+//    public List getUserTokenListByNoticeId(Long notice_id, int reply_type, long user_id) {
+//        return dao.findByNativeSql("select s.token from sys_user_rel s where s.token is not null and s.user_id in " +
+//                "(select c.user_id from coop_notice_user_rel c " +
+//                "where c.user_id != " + user_id + " and c.notice_id=" + notice_id + " and c.reply_type=" + reply_type + ")", String.class);
+//    }
+
+//    @Override
+//    public List getUseridListByGgdm(String jgdm, long user_id) {
+//        String jgdmStr = jgdm.replaceAll("(0+)$", "");
+//        return dao.findByNativeSql("select s.id from sys_user s " +
+//                " where s.id!=" + user_id + " and s.jgdm like '" + jgdmStr + "%'", Long.class);
+//    }
+
+//    @Override
+//    public List<UserBean> getUserListByCond(int is_ent_user) {
+//        return dao.findByNativeSql("select * from sys_user u where u.is_ent_user=" + is_ent_user, UserBean.class);
+//    }
 
     @Override
-    public String getCurrentUserLoginName() {
-        Session session = SecurityUtils.getSubject().getSession();
-        UserBean userBean = (UserBean) session.getAttribute(PermissionConstant.SYS_CURRENT_USER);
-        if (userBean == null) {
-            SecurityUtils.getSubject().logout();
-        }
-        return userBean.getLoginName();
-    }
-
-    @Override
-    public UserBean getCurrentUser() {
-        try {
-            SecurityUtils.setSecurityManager((WebSecurityManager) JNDIHelper.getJNDIServiceForName(WebSecurityManager.class.getName()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Session session = SecurityUtils.getSubject().getSession();
-        UserBean userBean = (UserBean) session.getAttribute(PermissionConstant.SYS_CURRENT_USER);
-        if (userBean == null) {
-            SecurityUtils.getSubject().logout();
-        }
-        return userBean;
-    }
-
-    @Override
-    public String getCurrUserInQhdm() {
-        UserBean userBean = getCurrentUser();
-        if (userBean != null) {
-            List<String> qhdmList = dao.findByNativeSql("select t.xzqh_dm " +
-                    "from urg_ent_organization t where t.jgdm=" + userBean.getJgdm(), String.class);
-            if (qhdmList != null && qhdmList.size() > 0) {
-                return qhdmList.get(0);
-            }
-        }
-        return "";
-
-    }
-
-
-    @Override
-    public List getUserTokenListByIds(Long id) {
-        return dao.findByNativeSql("select s.token from sys_user_rel s where s.token is not null and s.user_id in (" + id + ")", String.class);
-    }
-
-    @Override
-    public List getUserTokenListJgdm(String jgdm, long user_id) {
-        String jgdmStr = jgdm.replaceAll("(0+)$", "");
-        return dao.findByNativeSql("select sur.token from sys_user s " +
-                " left join sys_user_rel sur on sur.user_id=s.id where s.id!=" + user_id +
-                " and sur.token is not null and s.jgdm like '" + jgdmStr + "%'", String.class);
-    }
-
-    @Override
-    public List getUserTokenListByNoticeId(Long notice_id, int reply_type, long user_id) {
-        return dao.findByNativeSql("select s.token from sys_user_rel s where s.token is not null and s.user_id in " +
-                "(select c.user_id from coop_notice_user_rel c " +
-                "where c.user_id != " + user_id + " and c.notice_id=" + notice_id + " and c.reply_type=" + reply_type + ")", String.class);
-    }
-
-    @Override
-    public List getUseridListByGgdm(String jgdm, long user_id) {
-        String jgdmStr = jgdm.replaceAll("(0+)$", "");
-        return dao.findByNativeSql("select s.id from sys_user s " +
-                " where s.id!=" + user_id + " and s.jgdm like '" + jgdmStr + "%'", Long.class);
-    }
-
-    @Override
-    public List<UserBean> getUserListByCond(int is_ent_user) {
-        return dao.findByNativeSql("select * from sys_user u where u.is_ent_user=" + is_ent_user, UserBean.class);
-    }
-
-    @Override
-    public UserBean getUserBeanByUsername(String username) {
+    public UserBean getUserBeanByLoginName(String username) {
         return dao.findUnique("select a from UserBean a where a.loginName = ?1", username);
     }
 
@@ -338,8 +338,8 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         dao.update("update sys_user set available=0 where relateId=" + relateId);
     }
 
-    @Override
-    public UserBean getUserByRelateId(String relateId) {
-        return dao.findUnique("select a from UserBean a where a.relateId = ?1", relateId);
-    }
+//    @Override
+//    public UserBean getUserByRelateId(String relateId) {
+//        return dao.findUnique("select a from UserBean a where a.relateId = ?1", relateId);
+//    }
 }

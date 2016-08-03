@@ -118,12 +118,12 @@ public class UserLoginServiceImpl implements IUserLoginService {
      *
      * @return
      */
-    @Override
-    public String getLoginName() {
-        Subject subject = SecurityUtils.getSubject();
-        String userName = (String) subject.getPrincipal();
-        return userName;
-    }
+//    @Override
+//    public String getLoginName() {
+//        Subject subject = SecurityUtils.getSubject();
+//        String userName = (String) subject.getPrincipal();
+//        return userName;
+//    }
 
     private String encrypt(String text) {
         return MD5Util.encode(text);

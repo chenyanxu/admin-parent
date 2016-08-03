@@ -13,7 +13,7 @@
         <property name="dutyUserBeanDao" ref="dutyUserBeanDao"/>
         <property name="shiroService" ref="shiroService"/>
         <property name="userLoginService" ref="userLoginService"/>
-        <property name="userBeanDao" ref="userBeanDao"/>
+        <!--<property name="userBeanDao" ref="userBeanDao"/>-->
     </bean>
     <service id="dutyBeanService" interface="com.kalix.admin.duty.api.biz.IDutyBeanService"
              ref="dutyBeanServiceImpl">

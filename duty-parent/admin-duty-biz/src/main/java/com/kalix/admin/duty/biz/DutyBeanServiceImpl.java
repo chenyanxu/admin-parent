@@ -30,16 +30,16 @@ import java.util.stream.Collectors;
 public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao, DutyBean> implements IDutyBeanService {
     private JsonStatus jsonStatus = new JsonStatus();
     private IDutyUserBeanDao dutyUserBeanDao;
-    private IUserBeanDao userBeanDao;
+    //private IUserBeanDao userBeanDao;
     private IUserLoginService userLoginService;
 
     public void setDutyUserBeanDao(IDutyUserBeanDao dutyUserBeanDao) {
         this.dutyUserBeanDao = dutyUserBeanDao;
     }
 
-    public void setUserBeanDao(IUserBeanDao userBeanDao) {
-        this.userBeanDao = userBeanDao;
-    }
+//    public void setUserBeanDao(IUserBeanDao userBeanDao) {
+//        this.userBeanDao = userBeanDao;
+//    }
 
     public void setUserLoginService(IUserLoginService userLoginService) {
         this.userLoginService = userLoginService;
@@ -80,7 +80,7 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
 
                 dutyUserBeanDao.deleteByDutyId(dutyId);
                 DutyBean bean = dao.get(dutyId);
-                String userName = getShiroService().getCurrentUserName();
+                String userName = getShiroService().getCurrentUserLoginName();
                 if (StringUtils.isNotEmpty(userId)) {
                     String[] userIds = userId.split(",");
                     for (String _userId : userIds) {
@@ -117,10 +117,11 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
 
     @Override
     public List<String> getUserDutyNameList(){
-        String loginName=userLoginService.getLoginName();
-        UserBean userBean= userBeanDao.getUser(loginName);
+//        String loginName=userLoginService.getLoginName();
+//        UserBean userBean= userBeanDao.getUser(loginName);
+        Long userId=this.getShiroService().getCurrentUserId();
         List<String> dutyNameList=new ArrayList<>();
-        List<DutyUserBean> dutyUserBeenList=dutyUserBeanDao.find("select rub from DutyUserBean rub where rub.userId=?1", userBean.getId());
+        List<DutyUserBean> dutyUserBeenList=dutyUserBeanDao.find("select rub from DutyUserBean rub where rub.userId=?1", userId);
 
         if(dutyUserBeenList!=null && dutyUserBeenList.size()>0){
             for(DutyUserBean dutyUserBean :dutyUserBeenList){
