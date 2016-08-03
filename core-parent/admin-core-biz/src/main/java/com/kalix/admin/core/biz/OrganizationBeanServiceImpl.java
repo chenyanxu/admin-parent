@@ -10,7 +10,6 @@ import com.kalix.admin.core.entities.OrganizationUserBean;
 import com.kalix.admin.core.util.Compare;
 import com.kalix.framework.core.api.persistence.JsonData;
 import com.kalix.framework.core.api.persistence.JsonStatus;
-import com.kalix.framework.core.api.persistence.PersistentEntity;
 import com.kalix.framework.core.api.security.IShiroService;
 import com.kalix.framework.core.impl.biz.GenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
@@ -56,7 +55,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
     public void beforeSaveEntity(OrganizationBean entity, JsonStatus status) {
         Assert.notNull(entity, "实体不能为空.");
 
-        String userName = shiroService.getCurrentUserName();
+        String userName = shiroService.getCurrentUserRealName();
         if (userName != null) {
             entity.setCreateBy(userName);
             entity.setUpdateBy(userName);
@@ -198,7 +197,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
                 oldOrg.setName(entity.getName());
                 oldOrg.setCode(entity.getCode());
                 oldOrg.setCenterCode(entity.getCenterCode());
-                oldOrg.setUpdateBy(shiroService.getCurrentUserName());
+                oldOrg.setUpdateBy(shiroService.getCurrentUserRealName());
                 dao.save(oldOrg);
                 jsonStatus.setSuccess(true);
                 jsonStatus.setMsg("更新" + FUNCTION_NAME + "成功！");
@@ -301,7 +300,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
             String userId=ids.get(1).toString();
 
             try {
-                String userName = shiroService.getCurrentUserName();
+                String userName = shiroService.getCurrentUserRealName();
                 // 删除原有机构人员对应关系
                 organizationUserDao.deleteByOrganizationId(orgId);
 
