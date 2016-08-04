@@ -33,4 +33,4 @@ Ext.define('kalix.admin.user.component.UserComboBox', {
 
         return params;
     }
-})
+});
