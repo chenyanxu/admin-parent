@@ -3,7 +3,6 @@ package com.kalix.admin.core.biz;
 import com.kalix.admin.core.api.biz.IMessageBeanService;
 import com.kalix.admin.core.api.dao.IMessageBeanDao;
 import com.kalix.admin.core.entities.MessageBean;
-import com.kalix.framework.core.api.dao.IGenericDao;
 import com.kalix.framework.core.impl.biz.GenericBizServiceImpl;
 
 import java.util.List;
