@@ -178,7 +178,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
             //清除关联关系
             roleApplicationBeanDao.deleteByRoleId(Long.parseLong(roleId));
             roleFunctionBeanDao.deleteByRoleId(Long.parseLong(roleId));
-            String userName = getShiroService().getCurrentUserName();
+            String userName = getShiroService().getCurrentUserLoginName();
 //            if (authorizationIds.indexOf(",") != -1) {
             String[] _authorizationIds = authorizationIds.split(",");
 
@@ -348,7 +348,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
 
                 roleUserBeanDao.deleteByRoleId(roleId);
 
-                String userName = getShiroService().getCurrentUserName();
+                String userName = getShiroService().getCurrentUserLoginName();
                 if (StringUtils.isNotEmpty(userId)) {
                     String[] userIds = userId.split(",");
 

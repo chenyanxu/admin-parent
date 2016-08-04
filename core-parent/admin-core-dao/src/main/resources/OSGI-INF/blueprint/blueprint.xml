@@ -80,11 +80,11 @@
     </bean>
 
     <!--区域dao-->
-    <service id="areaBeanDao" interface="com.kalix.admin.core.api.dao.IAreaBeanDao" ref="areaBeanDaoImpl"/>
+    <!--<service id="areaBeanDao" interface="com.kalix.admin.core.api.dao.IAreaBeanDao" ref="areaBeanDaoImpl"/>-->
 
-    <bean id="areaBeanDaoImpl" class="com.kalix.admin.core.dao.AreaBeanDaoImpl">
-        <tx:transaction method="*" value="Required"/>
-    </bean>
+    <!--<bean id="areaBeanDaoImpl" class="com.kalix.admin.core.dao.AreaBeanDaoImpl">-->
+        <!--<tx:transaction method="*" value="Required"/>-->
+    <!--</bean>-->
 
     <!--机构dao-->
     <service id="orgBeanDao" interface="com.kalix.admin.core.api.dao.IOrganizationBeanDao" ref="organizationBeanDaoImpl"/>
@@ -94,11 +94,11 @@
     </bean>
 
     <!--部门dao-->
-    <service id="depBeanDao" interface="com.kalix.admin.core.api.dao.IDepartmentBeanDao" ref="departmentBeanDaoImpl"/>
+    <!--<service id="depBeanDao" interface="com.kalix.admin.core.api.dao.IDepartmentBeanDao" ref="departmentBeanDaoImpl"/>-->
 
-    <bean id="departmentBeanDaoImpl" class="com.kalix.admin.core.dao.DepartmentBeanDaoImpl">
-        <tx:transaction method="*" value="Required"/>
-    </bean>
+    <!--<bean id="departmentBeanDaoImpl" class="com.kalix.admin.core.dao.DepartmentBeanDaoImpl">-->
+        <!--<tx:transaction method="*" value="Required"/>-->
+    <!--</bean>-->
 
     <!--部门用户dao-->
     <service id="orgUserBeanDao" interface="com.kalix.admin.core.api.dao.IOrganizationUserBeanDao"
@@ -108,26 +108,26 @@
         <tx:transaction method="*" value="Required"/>
     </bean>
 
-    <service id="officeBeanDao" interface="com.kalix.admin.core.api.dao.IOfficeBeanDao" ref="officeBeanDaoImpl"/>
+    <!--<service id="officeBeanDao" interface="com.kalix.admin.core.api.dao.IOfficeBeanDao" ref="officeBeanDaoImpl"/>-->
 
-    <bean id="officeBeanDaoImpl" class="com.kalix.admin.core.dao.OfficeBeanDaoImpl">
-        <tx:transaction method="*" value="Required"/>
-    </bean>
+    <!--<bean id="officeBeanDaoImpl" class="com.kalix.admin.core.dao.OfficeBeanDaoImpl">-->
+        <!--<tx:transaction method="*" value="Required"/>-->
+    <!--</bean>-->
 
     <!--系统版本dao-->
-    <service id="aboutBeanDao" interface="com.kalix.admin.core.api.dao.IAboutBeanDao" ref="aboutBeanDaoImpl"/>
+    <!--<service id="aboutBeanDao" interface="com.kalix.admin.core.api.dao.IAboutBeanDao" ref="aboutBeanDaoImpl"/>-->
 
-    <bean id="aboutBeanDaoImpl" class="com.kalix.admin.core.dao.AboutBeanDaoImpl">
-        <tx:transaction method="*" value="Required"/>
-    </bean>
+    <!--<bean id="aboutBeanDaoImpl" class="com.kalix.admin.core.dao.AboutBeanDaoImpl">-->
+        <!--<tx:transaction method="*" value="Required"/>-->
+    <!--</bean>-->
 
     <!--系统消息dao-->
-    <service id="messageBeanDao" interface="com.kalix.admin.core.api.dao.IMessageBeanDao" ref="messageBeanDaoImpl"/>
+    <!--<service id="messageBeanDao" interface="com.kalix.admin.core.api.dao.IMessageBeanDao" ref="messageBeanDaoImpl"/>-->
 
-    <bean id="messageBeanDaoImpl"
-          class="com.kalix.admin.core.dao.MessageBeanDaoImpl"> <!--init-method="init">-->
-        <tx:transaction method="*" value="Required"/>
-    </bean>
+    <!--<bean id="messageBeanDaoImpl"-->
+          <!--class="com.kalix.admin.core.dao.MessageBeanDaoImpl"> &lt;!&ndash;init-method="init">&ndash;&gt;-->
+        <!--<tx:transaction method="*" value="Required"/>-->
+    <!--</bean>-->
 
 
     <!--应用dao-->
@@ -147,10 +147,10 @@
     </bean>
 
     <!--插件dao-->
-    <service id="pluginBeanDao" interface="com.kalix.admin.core.api.dao.IPluginBeanDao" ref="pluginBeanDaoImpl"/>
+    <!--<service id="pluginBeanDao" interface="com.kalix.admin.core.api.dao.IPluginBeanDao" ref="pluginBeanDaoImpl"/>-->
 
-    <bean id="pluginBeanDaoImpl" class="com.kalix.admin.core.dao.PluginBeanDaoImpl">
-        <tx:transaction method="*" value="Required"/>
-    </bean>
+    <!--<bean id="pluginBeanDaoImpl" class="com.kalix.admin.core.dao.PluginBeanDaoImpl">-->
+        <!--<tx:transaction method="*" value="Required"/>-->
+    <!--</bean>-->
 </blueprint>
 

@@ -10,7 +10,6 @@ import com.kalix.admin.core.entities.OrganizationUserBean;
 import com.kalix.admin.core.util.Compare;
 import com.kalix.framework.core.api.persistence.JsonData;
 import com.kalix.framework.core.api.persistence.JsonStatus;
-import com.kalix.framework.core.api.persistence.PersistentEntity;
 import com.kalix.framework.core.api.security.IShiroService;
 import com.kalix.framework.core.impl.biz.GenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
@@ -56,7 +55,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
     public void beforeSaveEntity(OrganizationBean entity, JsonStatus status) {
         Assert.notNull(entity, "实体不能为空.");
 
-        String userName = shiroService.getCurrentUserName();
+        String userName = shiroService.getCurrentUserLoginName();
         if (userName != null) {
             entity.setCreateBy(userName);
             entity.setUpdateBy(userName);
@@ -198,7 +197,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
                 oldOrg.setName(entity.getName());
                 oldOrg.setCode(entity.getCode());
                 oldOrg.setCenterCode(entity.getCenterCode());
-                oldOrg.setUpdateBy(shiroService.getCurrentUserName());
+                oldOrg.setUpdateBy(shiroService.getCurrentUserLoginName());
                 dao.save(oldOrg);
                 jsonStatus.setSuccess(true);
                 jsonStatus.setMsg("更新" + FUNCTION_NAME + "成功！");
@@ -301,7 +300,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
             String userId=ids.get(1).toString();
 
             try {
-                String userName = shiroService.getCurrentUserName();
+                String userName = shiroService.getCurrentUserLoginName();
                 // 删除原有机构人员对应关系
                 organizationUserDao.deleteByOrganizationId(orgId);
 
@@ -368,5 +367,20 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
         }
 
         return root;
+    }
+
+    /**
+     * 查找当前登录用户拥有的组织机构 2016-08-03 by p
+     *
+     * @return
+     */
+    @Override
+    public List<OrganizationDTO> getByUserId() {
+        Mapper mapper = new DozerBeanMapper();
+        return dao.findById(organizationUserDao.findByUserId(shiroService.getCurrentUserId())
+                .stream().map(OrganizationUserBean::getOrgId)
+                .collect(Collectors.toList()))
+                .stream().map(n -> mapper.map(n, OrganizationDTO.class))
+                .collect(Collectors.toList());
     }
 }

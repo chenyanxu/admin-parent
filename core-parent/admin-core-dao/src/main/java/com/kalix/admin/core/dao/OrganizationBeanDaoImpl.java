@@ -3,7 +3,7 @@ package com.kalix.admin.core.dao;
 import com.kalix.admin.core.api.dao.IOrganizationBeanDao;
 import com.kalix.admin.core.entities.OrganizationBean;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * 机构管理DAO实现
@@ -39,5 +39,15 @@ public class OrganizationBeanDaoImpl extends BaseAdminDao<OrganizationBean, Long
     @SuppressWarnings("unchecked")
     public List<OrganizationBean> findByParentId(Long parentId) {
         return (List<OrganizationBean>) this.find("select ob from OrganizationBean ob where ob.parentId = ?1 order by ob.code", parentId);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<OrganizationBean> findById(List<Long> id) {
+        if (id != null && !id.isEmpty()) {
+            return (List<OrganizationBean>) this.find("select ob from OrganizationBean ob where ob.id in (?1) order by ob.code", id);
+        } else {
+            return new ArrayList<>();
+        }
     }
 }

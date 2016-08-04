@@ -59,7 +59,7 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
                 jsonStatus.setMsg(FUNCTION_NAME + "已经存在！");
                 return jsonStatus;
             }
-            String userName = getShiroService().getCurrentUserName();
+            String userName = getShiroService().getCurrentUserLoginName();
             if(StringUtils.isNotEmpty(userName)){
                 bean.setCreateBy(userName);
                 bean.setUpdateBy(userName);
@@ -171,7 +171,7 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
             oldDep.setName(_department.getName());
             oldDep.setCode(_department.getCode());
             oldDep.setCenterCode(_department.getCenterCode());
-            oldDep.setUpdateBy(getShiroService().getCurrentUserName());
+            oldDep.setUpdateBy(getShiroService().getCurrentUserLoginName());
             dao.save(oldDep);
             jsonStatus.setSuccess(true);
             jsonStatus.setMsg("更新" + FUNCTION_NAME + "成功！");
@@ -330,7 +330,7 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
         JsonStatus jsonStatus=new JsonStatus();
         try {
 //            depUserBeanDao.deleteByOrganizationId(orgId);
-//            String userName=getShiroService().getCurrentUserName();
+//            String userName=getShiroService().getCurrentUserLoginName();
 //            if (StringUtils.isNotEmpty(userId)) {
 //                if (userId.indexOf(",") != -1) {
 //                    String[] userIds = userId.split(",");

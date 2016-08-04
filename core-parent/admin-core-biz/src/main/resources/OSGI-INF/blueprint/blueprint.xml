@@ -15,18 +15,18 @@
     <reference id="roleUserBeanDao" interface="com.kalix.admin.core.api.dao.IRoleUserBeanDao"/>
     <reference id="permissionBeanDao" interface="com.kalix.admin.core.api.dao.IPermissionBeanDao"/>
     <reference id="dictBeanDao" interface="com.kalix.admin.core.api.dao.IDictBeanDao"/>
-    <reference id="areaBeanDao" interface="com.kalix.admin.core.api.dao.IAreaBeanDao"/>
-    <reference id="depBeanDao" interface="com.kalix.admin.core.api.dao.IDepartmentBeanDao"/>
+    <!--<reference id="areaBeanDao" interface="com.kalix.admin.core.api.dao.IAreaBeanDao"/>-->
+    <!--<reference id="depBeanDao" interface="com.kalix.admin.core.api.dao.IDepartmentBeanDao"/>-->
     <reference id="orgUserBeanDao" interface="com.kalix.admin.core.api.dao.IOrganizationUserBeanDao"/>
     <reference id="orgBeanDao" interface="com.kalix.admin.core.api.dao.IOrganizationBeanDao"/>
-    <reference id="aboutBeanDao" interface="com.kalix.admin.core.api.dao.IAboutBeanDao"/>
+    <!--<reference id="aboutBeanDao" interface="com.kalix.admin.core.api.dao.IAboutBeanDao"/>-->
     <reference id="roleApplicationBeanDao" interface="com.kalix.admin.core.api.dao.IRoleApplicationBeanDao"/>
     <reference id="roleFunctionBeanDao" interface="com.kalix.admin.core.api.dao.IRoleFunctionBeanDao"/>
     <reference id="applicationBeanDao" interface="com.kalix.admin.core.api.dao.IApplicationBeanDao"/>
     <reference id="functionBeanDao" interface="com.kalix.admin.core.api.dao.IFunctionBeanDao"/>
     <!--<reference id="functionBeanService" interface="com.kalix.framework.app.api.biz.IFunctionBeanService"/>-->
-    <reference id="messageBeanDao" interface="com.kalix.admin.core.api.dao.IMessageBeanDao"/>
-    <reference id="pluginBeanDao" interface="com.kalix.admin.core.api.dao.IPluginBeanDao"/>
+    <!--<reference id="messageBeanDao" interface="com.kalix.admin.core.api.dao.IMessageBeanDao"/>-->
+    <!--<reference id="pluginBeanDao" interface="com.kalix.admin.core.api.dao.IPluginBeanDao"/>-->
 
 
     <bean id="userBeanServiceImpl" class="com.kalix.admin.core.biz.UserBeanServiceImpl">
@@ -35,7 +35,6 @@
         <property name="roleUserBeanDao" ref="roleUserBeanDao"/>
         <property name="departmentUserBeanDao" ref="orgUserBeanDao"/>
         <property name="workGroupUserBeanDao" ref="workGroupUserBeanDao"/>
-        <property name="shiroService" ref="shiroService"/>
     </bean>
     <service id="userBeanService" ref="userBeanServiceImpl" interface="com.kalix.admin.core.api.biz.IUserBeanService"/>
 
@@ -50,7 +49,6 @@
     <bean id="roleBeanServiceImpl" class="com.kalix.admin.core.biz.RoleBeanServiceImpl">
         <property name="dao" ref="roleBeanDao"/>
         <property name="userBeanDao" ref="userBeanDao"/>
-        <property name="shiroService" ref="shiroService"/>
         <property name="roleUserBeanDao" ref="roleUserBeanDao"/>
         <property name="roleApplicationBeanDao" ref="roleApplicationBeanDao"/>
         <property name="roleFunctionBeanDao" ref="roleFunctionBeanDao"/>
@@ -79,7 +77,6 @@
     <!--字典服务注册-->
     <bean id="dictBeanServiceImpl" class="com.kalix.admin.core.biz.DictBeanServiceImpl">
         <property name="dao" ref="dictBeanDao"/>
-        <property name="shiroService" ref="shiroService"/>
         <property name="cacheManager" ref="cacheManager"/>
     </bean>
     <service id="dictBeanService" ref="dictBeanServiceImpl"
@@ -88,7 +85,6 @@
     <!--工作组服务注册-->
     <bean id="workGroupBeanServiceImpl" class="com.kalix.admin.core.biz.WorkGroupBeanServiceImpl">
         <property name="dao" ref="workGroupBeanDao"/>
-        <property name="shiroService" ref="shiroService"/>
         <property name="workGroupUserBeanDao" ref="workGroupUserBeanDao"/>
         <property name="workGroupRoleBeanDao" ref="workGroupRoleBeanDao"/>
     </bean>
@@ -96,28 +92,28 @@
              interface="com.kalix.admin.core.api.biz.IWorkGroupBeanService"/>
 
 
-    <!--区域服务注册-->
-    <bean id="areaBeanServiceImpl" class="com.kalix.admin.core.biz.AreaBeanServiceImpl">
-        <property name="dao" ref="areaBeanDao"/>
-        <property name="aboutBeanDao" ref="aboutBeanDao"/>
-        <property name="shiroService" ref="shiroService"/>
-        <property name="orgService" ref="orgBeanServiceImpl"/>
-        <property name="depUserBeanDao" ref="orgUserBeanDao"/>
-        <property name="depBeanDao" ref="depBeanDao"/>
-    </bean>
-    <service id="areaBeanService" ref="areaBeanServiceImpl"
-             interface="com.kalix.admin.core.api.biz.IAreaBeanService"/>
+    <!--&lt;!&ndash;区域服务注册&ndash;&gt;-->
+    <!--<bean id="areaBeanServiceImpl" class="com.kalix.admin.core.biz.AreaBeanServiceImpl">-->
+        <!--<property name="dao" ref="areaBeanDao"/>-->
+        <!--<property name="aboutBeanDao" ref="aboutBeanDao"/>-->
+        <!--<property name="shiroService" ref="shiroService"/>-->
+        <!--<property name="orgService" ref="orgBeanServiceImpl"/>-->
+        <!--<property name="depUserBeanDao" ref="orgUserBeanDao"/>-->
+        <!--<property name="depBeanDao" ref="depBeanDao"/>-->
+    <!--</bean>-->
+    <!--<service id="areaBeanService" ref="areaBeanServiceImpl"-->
+             <!--interface="com.kalix.admin.core.api.biz.IAreaBeanService"/>-->
 
 
-    <!--部门服务注册-->
-    <bean id="depBeanServiceImpl" class="com.kalix.admin.core.biz.DepartmentBeanServiceImpl">
-        <property name="dao" ref="depBeanDao"/>
-        <property name="userBeanDao" ref="userBeanDao"/>
-        <property name="shiroService" ref="shiroService"/>
-        <property name="depUserBeanDao" ref="orgUserBeanDao"/>
-    </bean>
-    <service id="depBeanService" ref="depBeanServiceImpl"
-             interface="com.kalix.admin.core.api.biz.IDepartmentBeanService"/>
+    <!--&lt;!&ndash;部门服务注册&ndash;&gt;-->
+    <!--<bean id="depBeanServiceImpl" class="com.kalix.admin.core.biz.DepartmentBeanServiceImpl">-->
+        <!--<property name="dao" ref="depBeanDao"/>-->
+        <!--<property name="userBeanDao" ref="userBeanDao"/>-->
+        <!--<property name="shiroService" ref="shiroService"/>-->
+        <!--<property name="depUserBeanDao" ref="orgUserBeanDao"/>-->
+    <!--</bean>-->
+    <!--<service id="depBeanService" ref="depBeanServiceImpl"-->
+             <!--interface="com.kalix.admin.core.api.biz.IDepartmentBeanService"/>-->
 
     <!--机构服务注册-->
     <bean id="orgBeanServiceImpl" class="com.kalix.admin.core.biz.OrganizationBeanServiceImpl">
@@ -131,31 +127,31 @@
 
 
     <!--机构服务注册-->
-    <bean id="officeBeanServiceImpl" class="com.kalix.admin.core.biz.OfficeBeanServiceImpl">
-        <property name="dao" ref="officeBeanDao"/>
-    </bean>
-    <service id="officeBeanService" ref="officeBeanServiceImpl"
-             interface="com.kalix.admin.core.api.biz.IOfficeBeanService"/>
-    <reference id="officeBeanDao" interface="com.kalix.admin.core.api.dao.IOfficeBeanDao"/>
+    <!--<bean id="officeBeanServiceImpl" class="com.kalix.admin.core.biz.OfficeBeanServiceImpl">-->
+        <!--<property name="dao" ref="officeBeanDao"/>-->
+    <!--</bean>-->
+    <!--<service id="officeBeanService" ref="officeBeanServiceImpl"-->
+             <!--interface="com.kalix.admin.core.api.biz.IOfficeBeanService"/>-->
+    <!--<reference id="officeBeanDao" interface="com.kalix.admin.core.api.dao.IOfficeBeanDao"/>-->
+
     <!--系统版本服务注册-->
-    <bean id="aboutBeanServiceImpl" class="com.kalix.admin.core.biz.AboutBeanServiceImpl">
-        <property name="dao" ref="aboutBeanDao"/>
-    </bean>
-    <service id="aboutBeanService" ref="aboutBeanServiceImpl"
-             interface="com.kalix.admin.core.api.biz.IAboutBeanService"/>
+    <!--<bean id="aboutBeanServiceImpl" class="com.kalix.admin.core.biz.AboutBeanServiceImpl">-->
+        <!--<property name="dao" ref="aboutBeanDao"/>-->
+    <!--</bean>-->
+    <!--<service id="aboutBeanService" ref="aboutBeanServiceImpl"-->
+             <!--interface="com.kalix.admin.core.api.biz.IAboutBeanService"/>-->
 
 
-    <bean id="messageBeanServiceImpl" class="com.kalix.admin.core.biz.MessageBeanServiceImpl">
-        <property name="dao" ref="messageBeanDao"/>
-    </bean>
+    <!--<bean id="messageBeanServiceImpl" class="com.kalix.admin.core.biz.MessageBeanServiceImpl">-->
+        <!--<property name="dao" ref="messageBeanDao"/>-->
+    <!--</bean>-->
     <!--注册系统消息服务类-->
-    <service id="messageBeanService" interface="com.kalix.admin.core.api.biz.IMessageBeanService"
-             ref="messageBeanServiceImpl">
+    <!--<service id="messageBeanService" interface="com.kalix.admin.core.api.biz.IMessageBeanService"-->
+             <!--ref="messageBeanServiceImpl">-->
 
-    </service>
+    <!--</service>-->
 
     <bean id="functionBeanService" class="com.kalix.admin.core.biz.FunctionBeanServiceImpl">
-        <property name="dao" ref="functionBeanDao"/>
         <property name="shiroService" ref="shiroService"/>
     </bean>
 
@@ -165,7 +161,6 @@
         <property name="dao" ref="applicationBeanDao"/>
         <property name="functionBeanService" ref="functionBeanService"/>
         <property name="functionBeanDao" ref="functionBeanDao"/>
-        <property name="shiroService" ref="shiroService"/>
     </bean>
 
     <!--应用服务-->
@@ -174,12 +169,12 @@
     </service>
 
     <!--插件服务-->
-    <bean id="pluginBeanServiceImpl" class="com.kalix.admin.core.biz.PluginBeanServiceImpl">
-        <property name="dao" ref="pluginBeanDao"/>
-    </bean>
+    <!--<bean id="pluginBeanServiceImpl" class="com.kalix.admin.core.biz.PluginBeanServiceImpl">-->
+        <!--<property name="dao" ref="pluginBeanDao"/>-->
+    <!--</bean>-->
 
-    <service id="pluginBeanService" interface="com.kalix.admin.core.api.biz.IPluginBeanService"
-             ref="pluginBeanServiceImpl">
-    </service>
+    <!--<service id="pluginBeanService" interface="com.kalix.admin.core.api.biz.IPluginBeanService"-->
+             <!--ref="pluginBeanServiceImpl">-->
+    <!--</service>-->
 </blueprint>
 
