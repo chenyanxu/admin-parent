@@ -4,20 +4,12 @@ import com.kalix.admin.core.api.biz.IUserBeanService;
 import com.kalix.admin.core.api.dao.*;
 import com.kalix.admin.core.entities.RoleBean;
 import com.kalix.admin.core.entities.UserBean;
-import com.kalix.framework.core.api.PermissionConstant;
 import com.kalix.framework.core.api.persistence.JsonStatus;
-import com.kalix.framework.core.api.persistence.JsonData;
-import com.kalix.framework.core.api.persistence.PersistentEntity;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
-import com.kalix.framework.core.util.JNDIHelper;
 import com.kalix.framework.core.util.MD5Util;
 import org.apache.commons.lang.StringUtils;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.web.mgt.WebSecurityManager;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
