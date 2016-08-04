@@ -45,5 +45,12 @@
                 <to uri="bean:userService?method=deleteEntity(${header.id})"/>
             </delete>
         </rest>
+        <rest path="/users/{id}/orgs" consumes="application/json;charset=utf-8" produces="application/json">
+            <!-- this is a rest GET to view a user by the given id -->
+            <get id="route-getOrgsByUserId" outType="com.kalix.framework.core.api.persistence.JsonData">
+                <description>Find User's Orgs by UserId</description>
+                <to uri="bean:userService?method=getOrgsByUserId(${header.id})"/>
+            </get>
+        </rest>
     </camelContext>
 </blueprint>

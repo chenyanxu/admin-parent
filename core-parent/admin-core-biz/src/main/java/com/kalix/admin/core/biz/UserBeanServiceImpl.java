@@ -2,6 +2,8 @@ package com.kalix.admin.core.biz;
 
 import com.kalix.admin.core.api.biz.IUserBeanService;
 import com.kalix.admin.core.api.dao.*;
+import com.kalix.admin.core.dto.model.OrganizationUserDTO;
+import com.kalix.admin.core.entities.OrganizationUserBean;
 import com.kalix.admin.core.entities.RoleBean;
 import com.kalix.admin.core.entities.UserBean;
 import com.kalix.framework.core.api.PermissionConstant;
@@ -342,4 +344,19 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
 //    public UserBean getUserByRelateId(String relateId) {
 //        return dao.findUnique("select a from UserBean a where a.relateId = ?1", relateId);
 //    }
+
+    /**
+     * 根据UserId，在用户与部门的关联表中查询部门信息。
+     * @param userId
+     * @return
+     */
+    public JsonData getOrgsByUserId(long userId){
+        JsonData jsonData = new JsonData();
+
+        List<OrganizationUserDTO> list = dao.findByNativeSql("select a.userid, (select name from sys_user b where b.id = a.userid) as username, a.orgid as departmentid,(select name from sys_organization c where c.id = a.orgid) as departmentname from sys_organization_user a where a.userid=" + userId,OrganizationUserDTO.class);
+
+        jsonData.setData(list);
+        jsonData.setTotalCount(Long.valueOf(list.size()));
+        return jsonData;
+    }
 }
