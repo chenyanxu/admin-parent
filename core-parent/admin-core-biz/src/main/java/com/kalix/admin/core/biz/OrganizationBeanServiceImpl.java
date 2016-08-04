@@ -55,7 +55,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
     public void beforeSaveEntity(OrganizationBean entity, JsonStatus status) {
         Assert.notNull(entity, "实体不能为空.");
 
-        String userName = shiroService.getCurrentUserRealName();
+        String userName = shiroService.getCurrentUserLoginName();
         if (userName != null) {
             entity.setCreateBy(userName);
             entity.setUpdateBy(userName);
@@ -197,7 +197,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
                 oldOrg.setName(entity.getName());
                 oldOrg.setCode(entity.getCode());
                 oldOrg.setCenterCode(entity.getCenterCode());
-                oldOrg.setUpdateBy(shiroService.getCurrentUserRealName());
+                oldOrg.setUpdateBy(shiroService.getCurrentUserLoginName());
                 dao.save(oldOrg);
                 jsonStatus.setSuccess(true);
                 jsonStatus.setMsg("更新" + FUNCTION_NAME + "成功！");
@@ -300,7 +300,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
             String userId=ids.get(1).toString();
 
             try {
-                String userName = shiroService.getCurrentUserRealName();
+                String userName = shiroService.getCurrentUserLoginName();
                 // 删除原有机构人员对应关系
                 organizationUserDao.deleteByOrganizationId(orgId);
 

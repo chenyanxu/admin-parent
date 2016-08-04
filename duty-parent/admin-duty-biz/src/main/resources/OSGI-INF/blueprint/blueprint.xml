@@ -4,16 +4,10 @@
 ">
     <reference id="dutyBeanDao" interface="com.kalix.admin.duty.api.dao.IDutyBeanDao"/>
     <reference id="dutyUserBeanDao" interface="com.kalix.admin.duty.api.dao.IDutyUserBeanDao"/>
-    <reference id="shiroService" interface="com.kalix.framework.core.api.security.IShiroService"/>
-    <reference id="userBeanDao" interface="com.kalix.admin.core.api.dao.IUserBeanDao"/>
-    <reference id="userLoginService" interface="com.kalix.framework.core.api.security.IUserLoginService"/>
 
     <bean id="dutyBeanServiceImpl" class="com.kalix.admin.duty.biz.DutyBeanServiceImpl">
         <property name="dao" ref="dutyBeanDao"/>
         <property name="dutyUserBeanDao" ref="dutyUserBeanDao"/>
-        <property name="shiroService" ref="shiroService"/>
-        <property name="userLoginService" ref="userLoginService"/>
-        <property name="userBeanDao" ref="userBeanDao"/>
     </bean>
     <service id="dutyBeanService" interface="com.kalix.admin.duty.api.biz.IDutyBeanService"
              ref="dutyBeanServiceImpl">

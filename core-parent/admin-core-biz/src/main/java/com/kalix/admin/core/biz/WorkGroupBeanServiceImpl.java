@@ -136,7 +136,7 @@ public class WorkGroupBeanServiceImpl extends ShiroGenericBizServiceImpl<IWorkGr
                 String userId = ids.get(1).toString();
 
                 workGroupUserBeanDao.deleteByWorkGroupId(workGroupId);
-                String userName = getShiroService().getCurrentUserName();
+                String userName = getShiroService().getCurrentUserLoginName();
                 if (StringUtils.isNotEmpty(userId)) {
                     String[] userIds = userId.split(",");
                     for (String _userId : userIds) {
@@ -178,7 +178,7 @@ public class WorkGroupBeanServiceImpl extends ShiroGenericBizServiceImpl<IWorkGr
                 String roleId = ids.get(1).toString();
 
                 workGroupRoleBeanDao.deleteByWorkGroupId(workGroupId);
-                String userName = getShiroService().getCurrentUserName();
+                String userName = getShiroService().getCurrentUserLoginName();
                 if (StringUtils.isNotEmpty(roleId)) {
                     String[] roleIds = roleId.split(",");
                     for (String _roleId : roleIds) {
