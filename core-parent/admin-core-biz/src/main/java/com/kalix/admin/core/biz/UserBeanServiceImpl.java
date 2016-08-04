@@ -297,7 +297,6 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
 //
 //    }
 
-
 //    @Override
 //    public List getUserTokenListByIds(Long id) {
 //        return dao.findByNativeSql("select s.token from sys_user_rel s where s.token is not null and s.user_id in (" + id + ")", String.class);

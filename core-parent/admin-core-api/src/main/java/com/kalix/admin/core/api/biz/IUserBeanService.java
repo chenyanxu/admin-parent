@@ -130,4 +130,5 @@ public interface IUserBeanService extends IBizService<UserBean> {
      * @return
      */
     JsonData getOrgsByUserId(long userId);
+
 }

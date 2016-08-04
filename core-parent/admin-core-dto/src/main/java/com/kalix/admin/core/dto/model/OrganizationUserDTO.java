@@ -48,4 +48,6 @@ public class OrganizationUserDTO extends BaseDTO {
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
     }
+
+
 }
