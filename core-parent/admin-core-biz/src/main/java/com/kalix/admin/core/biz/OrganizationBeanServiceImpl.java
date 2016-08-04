@@ -368,4 +368,19 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
 
         return root;
     }
+
+    /**
+     * 查找当前登录用户拥有的组织机构 2016-08-03 by p
+     *
+     * @return
+     */
+    @Override
+    public List<OrganizationDTO> getByUserId() {
+        Mapper mapper = new DozerBeanMapper();
+        return dao.findById(organizationUserDao.findByUserId(shiroService.getCurrentUserId())
+                .stream().map(OrganizationUserBean::getOrgId)
+                .collect(Collectors.toList()))
+                .stream().map(n -> mapper.map(n, OrganizationDTO.class))
+                .collect(Collectors.toList());
+    }
 }

@@ -50,4 +50,12 @@ public interface IOrganizationBeanDao extends IGenericDao<OrganizationBean, Long
      * @return
      */
     List<OrganizationBean> findByParentId(Long parentId);
+
+    /**
+     * 查询所有id集合中的机构 2016-08-03 by p
+     *
+     * @param id
+     * @return
+     */
+    List<OrganizationBean> findById(List<Long> id);
 }

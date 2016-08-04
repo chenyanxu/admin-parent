@@ -39,4 +39,6 @@ public interface IOrganizationBeanService extends IBizService<OrganizationBean> 
      * @return
      */
     JsonStatus saveOrganizationUsers(List ids);
+
+    List<OrganizationDTO> getByUserId();
 }
