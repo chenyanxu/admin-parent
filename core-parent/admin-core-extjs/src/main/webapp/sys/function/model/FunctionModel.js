@@ -6,7 +6,8 @@
  * @version 1.0.0
  */
 Ext.define('kalix.admin.function.model.FunctionModel', {
-    extend: 'Ext.data.TreeModel',
+    //extend: 'Ext.data.TreeModel',
+    extend: 'kalix.model.BaseModel',
     xtype:'functionModel',
     fields: [
         {name: 'id', type: 'string'},
@@ -17,10 +18,6 @@ Ext.define('kalix.admin.function.model.FunctionModel', {
         {name: 'leaf', type: 'boolean'},
         {name: 'parentId', type: 'int'},
         {name: 'parentName', type: 'string'},
-        {name: 'areaId', type: 'int'},
-        {name: 'createBy', type: 'string'},
-        {name: 'creationDate'},
-        {name: 'updateBy', type: 'string'},
-        {name: 'updateDate', type: 'int'}
+        {name: 'areaId', type: 'int'}
     ]
 });
