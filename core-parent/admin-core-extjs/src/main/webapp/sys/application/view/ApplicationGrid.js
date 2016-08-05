@@ -55,23 +55,23 @@ Ext.define('kalix.admin.application.view.ApplicationGrid', {
                             }
                             return '启动';
                         },
-                        permission: 'admin:appModule:applicationMenu:control',
+                        permission: 'admin:sysModule:applicationMenu:control',
                         handler: 'onAppStartStop'
                     },
                     {
                         iconCls: 'iconfont icon-view-column',
-                        permission: 'admin:appModule:applicationMenu:view',
+                        permission: 'admin:sysModule:applicationMenu:view',
                         tooltip: '查看',
                         handler: 'onView'
                     },
                     {
                         iconCls: 'iconfont icon-edit-column',
-                        permission: 'admin:appModule:applicationMenu:edit',
+                        permission: 'admin:sysModule:applicationMenu:edit',
                         tooltip: '编辑',
                         handler: 'onEdit'
                     }, {
                         iconCls: 'iconfont icon-delete',
-                        permission: 'admin:appModule:applicationMenu:delete',
+                        permission: 'admin:sysModule:applicationMenu:delete',
                         tooltip: '删除',
                         handler: 'onDelete'
                     }
@@ -85,7 +85,7 @@ Ext.define('kalix.admin.application.view.ApplicationGrid', {
             {
                 text: '添加',
                 xtype: 'button',
-                permission: 'admin:appModule:applicationMenu:add',
+                permission: 'admin:sysModule:applicationMenu:add',
                 iconCls: 'iconfont icon-add',
                 handler: 'onAdd'
             }
