@@ -40,6 +40,7 @@ public class UserBean extends PersistentEntity {
     private Date loginDate;    // 最后登陆日期
     private long is_ent_user;   //是否是企业用户：0-否；1-是
     private long available = 1;     //用户是否有效：0-无效；1-有效
+    private String position;    // 岗位123
     //    @XmlTransient
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "sys_user_role", joinColumns = @JoinColumn(name = "user_id"),
@@ -179,4 +180,11 @@ public class UserBean extends PersistentEntity {
         this.roleList = roleList;
     }
 
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
 }

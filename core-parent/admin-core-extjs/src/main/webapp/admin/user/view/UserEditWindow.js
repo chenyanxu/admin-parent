@@ -9,7 +9,8 @@
 Ext.define('kalix.admin.user.view.UserEditWindow', {
     extend: 'kalix.view.components.common.BaseWindow',
     requires: [
-        'kalix.controller.BaseWindowController'
+        'kalix.controller.BaseWindowController',
+        'kalix.admin.adminDict.component.AdminDictCombobox'
     ],
     alias: 'widget.userWindow',
     controller: {
@@ -24,34 +25,37 @@ Ext.define('kalix.admin.user.view.UserEditWindow', {
             fieldLabel: '登录名',
             allowBlank: false,
             bind: {
-                activeError: '{validation.loginName}',
                 value: '{rec.loginName}'
             }
         }, {
             fieldLabel: '姓名',
             allowBlank: false,
             bind: {
-                activeError: '{validation.name}',
                 value: '{rec.name}'
+            }
+        },{
+            fieldLabel: '岗位名称',
+            xtype: 'adminDictCombobox',
+            dictType: '岗位名称',
+            allowBlank: false,
+            bind: {
+                value: '{rec.position}'
             }
         }, {
             fieldLabel: '邮箱',
             allowBlank: false,
             bind: {
-                activeError: '{validation.email}',
                 value: '{rec.email}'
             }
         }, {
             fieldLabel: '电话号',
             bind: {
-                //activeError: '{validation.phone}',
                 value: '{rec.phone}'
             }
         }, {
             fieldLabel: '手机号',
             allowBlank: false,
             bind: {
-                activeError : '{validation.mobile}',
                 value: '{rec.mobile}'
             }
         }, {
