@@ -23,10 +23,6 @@ public class FunctionDTO extends BaseDTO {
     private String parentName; //父节点名称
     private String permission; //权限路径
     private List<FunctionDTO> children=new ArrayList<FunctionDTO>();
-    private Date creationDate;// 创建日期
-    private String createBy;    // 创建者
-    private String updateBy;    // 更新者
-    private Date updateDate; //更新日期
 
     public String getPermission() {
         return permission;

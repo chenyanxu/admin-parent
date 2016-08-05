@@ -28,11 +28,12 @@ Ext.define('kalix.admin.org.view.OrgTree', {
         },
         {
             header: '操作',
-            xtype: 'actioncolumn',
+            xtype: 'securityGridColumnCommon',
             items: [{
                 iconCls:'iconfont icon-edit-column',
                 tooltip: '编辑',
                 handler: 'onEdit',
+                permission: 'admin:constructModule:organizationMenu:edit',
                 isDisabled: function(view, rowIdx, colIdx, item, record) {
                     return record.data.name=="根机构"?true:false;
                 }
@@ -40,6 +41,7 @@ Ext.define('kalix.admin.org.view.OrgTree', {
                 iconCls:'iconfont icon-delete',
                 tooltip: '删除',
                 handler: 'onDelete',
+                permission: 'admin:constructModule:organizationMenu:delete',
                 isDisabled: function(view, rowIdx, colIdx, item, record) {
                     return record.data.name=="根机构"?true:false;
                 }
@@ -47,6 +49,7 @@ Ext.define('kalix.admin.org.view.OrgTree', {
                 iconCls:'iconfont icon-add-user-column',
                 tooltip: '添加用户',
                 handler: 'onAddUser',
+                permission: 'admin:constructModule:organizationMenu:addUser',
                 isDisabled: function(view, rowIdx, colIdx, item, record) {
                     return record.data.name=="根机构"?true:false;
                 }
@@ -57,6 +60,7 @@ Ext.define('kalix.admin.org.view.OrgTree', {
         {
             text: '添加',
             iconCls:'iconfont icon-add',
+            permission: 'admin:constructModule:organizationMenu:add',
             handler: 'onAdd'
         }, {
             text: '刷新',
