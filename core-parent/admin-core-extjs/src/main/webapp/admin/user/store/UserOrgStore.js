@@ -12,6 +12,6 @@ Ext.define('kalix.admin.user.store.UserOrgStore', {
     xtype: 'userOrgStore',
     storeId: 'userOrgStore',
     autoLoad:true,
-    proxyUrl: CONFIG.restRoot + '/camel/rest/users/25/orgs'
-    //url: CONFIG.restRoot + '/camel/rest/users/'+ Ext.util.Cookies.get('currentUserId') +'/orgs'
+    //proxyUrl: CONFIG.restRoot + '/camel/rest/users/25/orgs'
+    proxyUrl: CONFIG.restRoot + '/camel/rest/users/'+ Ext.util.Cookies.get('currentUserId') +'/orgs',
 });

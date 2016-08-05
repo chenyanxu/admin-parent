@@ -49,17 +49,17 @@ Ext.define('kalix.admin.duty.view.DutyGrid', {
         items: [
           {
             iconCls: 'iconfont icon-edit-column',
-            permission: 'admin:permissionModule:roleMenu:edit',
+            permission: 'admin:permissionModule:dutyMenu:edit',
             tooltip: '编辑',
             handler: 'onEdit'
           }, {
             iconCls: 'iconfont icon-delete',
-            permission: 'admin:permissionModule:roleMenu:delete',
+            permission: 'admin:permissionModule:dutyMenu:delete',
             tooltip: '删除',
             handler: 'onDelete'
           }, {
             iconCls: 'iconfont icon-add-user-column',
-            permission: 'admin:permissionModule:roleMenu:addUser',
+            permission: 'admin:permissionModule:dutyMenu:addUser',
             tooltip: '添加用户',
             handler: 'onAddUser'
           }
@@ -73,7 +73,7 @@ Ext.define('kalix.admin.duty.view.DutyGrid', {
         text: '添加',
         tooltip: '添加职务',
         xtype: 'button',
-        permission: 'admin:permissionModule:roleMenu:add',
+        permission: 'admin:permissionModule:dutyMenu:add',
         iconCls: 'iconfont icon-add',
         handler: 'onAdd'
       }
