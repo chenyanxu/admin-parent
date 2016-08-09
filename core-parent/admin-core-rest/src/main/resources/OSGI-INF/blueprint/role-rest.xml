@@ -72,7 +72,7 @@
         <rest path="/roles/{id}/authorizations" consumes="application/json;charset=utf-8" produces="application/json">
             <!-- this is a rest GET to view an user by the given id -->
             <get id="route-getAuthorizationTree" >
-                <description>find Authorizaition by RoleId</description>
+                <description>find Authorization by RoleId</description>
                 <to uri="bean:roleService?method=getAuthorizationTree(${header.id})"/>
             </get>
             <!-- this is a rest GET to view an user by the given id -->
