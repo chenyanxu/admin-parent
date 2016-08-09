@@ -71,7 +71,7 @@
             </post>
         </rest>
         <rest path="/workGroups/{id}/roles/ids" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
-            <get id="route-getRoleIdsByWorkGroupId" uri="/roles/{id}" outType="java.util.List">
+            <get id="route-getRoleIdsByWorkGroupId" outType="java.util.List">
                 <description>Find users by WorkGroup Id</description>
                 <to uri="bean:workgroupService?method=getRoleIdsByWorkGroupId(${header.id})"/>
             </get>
