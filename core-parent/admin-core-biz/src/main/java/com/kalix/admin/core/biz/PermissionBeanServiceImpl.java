@@ -109,11 +109,11 @@ public class PermissionBeanServiceImpl extends GenericBizServiceImpl<IPermission
      */
     @Override
     public void assignPermission(RoleBean roleBean, Set<PermissionBean> checkedNodes) {
-        roleBean.getPermissionList().clear();
-        for (PermissionBean bean : checkedNodes) {
-            roleBean.getPermissionList().add(bean);
-        }
-        roleBeanDao.save(roleBean);
+//        roleBean.getPermissionList().clear();
+//        for (PermissionBean bean : checkedNodes) {
+//            roleBean.getPermissionList().add(bean);
+//        }
+//        roleBeanDao.save(roleBean);
     }
 
     @Override
