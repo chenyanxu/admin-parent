@@ -19,15 +19,15 @@ public interface IUserBeanService extends IBizService<UserBean> {
      */
     String getRoleList(UserBean userBean);
 
-    /**
-     * 保存用户以及相关的角色
-     *
-     * @param userBean
-     * @param roleSelect
-     */
-    void saveUserRole(UserBean userBean, List<String> roleSelect);
+//    /**
+//     * 保存用户以及相关的角色
+//     *
+//     * @param userBean
+//     * @param roleSelect
+//     */
+    //void saveUserRole(UserBean userBean, List<String> roleSelect);
 
-    void saveUserRoleNew(UserBean userBean, List<String> roleSelect);
+    //void saveUserRoleNew(UserBean userBean, List<String> roleSelect);
 
     UserBean getUserBeanByLoginName(String username);
 

@@ -84,7 +84,7 @@ Ext.define('kalix.admin.dep.view.DepGrid', {
         {
             text: '添加', icon: 'admin/resources/images/building_add.png', handler: 'onAdd'
         }, {
-            text: '刷新', icon: 'admin/resources/images/arrow_refresh.png', handler: 'onRefersh'
+            text: '刷新', icon: 'admin/resources/images/arrow_refresh.png', handler: 'onRefresh'
         }]
 
 });

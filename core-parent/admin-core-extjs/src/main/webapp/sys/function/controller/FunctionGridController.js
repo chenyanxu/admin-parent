@@ -12,7 +12,7 @@ Ext.define('kalix.admin.function.controller.FunctionGridController', {
      * 刷新.
      * @returns {Ext.panel.Panel}
      */
-    onRefersh: function () {
+    onRefresh: function () {
         var grid = this.getView();
         var store = grid.getStore();
         store.reload();

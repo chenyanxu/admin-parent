@@ -65,7 +65,7 @@ Ext.define('kalix.sys.audit.view.AuditGrid', {
             {
                 text: '批量删除',
                 xtype: 'button',
-                permission: '',
+                permission: 'admin:sysModule:auditMenu:batchDelete',
                 iconCls: 'iconfont icon-delete',
                 handler: 'onBatchDelete'
             }
