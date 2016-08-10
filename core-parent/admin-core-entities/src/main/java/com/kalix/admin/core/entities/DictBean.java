@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class DictBean extends PersistentEntity {
     private String label;    // 标签名
-    private String value;    // 数据值
+    private Integer value;    // 数据值
     private String type;    // 类型
     private String description;// 描述
 
@@ -32,11 +32,11 @@ public class DictBean extends PersistentEntity {
         this.label = label;
     }
 
-    public String getValue() {
+    public Integer getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(Integer value) {
         this.value = value;
     }
 
