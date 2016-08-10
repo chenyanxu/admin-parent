@@ -117,7 +117,7 @@ Ext.define('kalix.admin.area.view.AreaGrid', {
                 text: '刷新',
                 permission: '',
                 iconCls: 'iconfont icon-refresh',
-                handler: 'onRefersh'
+                handler: 'onRefresh'
             }]
     }
 })

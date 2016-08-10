@@ -28,7 +28,7 @@ Ext.define('kalix.admin.depNoArea.view.DepNoAreaTreeList', {
         {
             tooltip: '刷新',
             iconCls:'iconfont icon-refresh',
-            handler: 'onRefersh'
+            handler: 'onRefresh'
         },
         {
             tooltip: '展开',
