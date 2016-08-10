@@ -73,7 +73,7 @@ Ext.define('kalix.admin.depNoArea.view.DepNoAreaGrid', {
         }, {
             text: '刷新',
             iconCls:'iconfont icon-refresh',
-            handler: 'onRefersh'
+            handler: 'onRefresh'
         }
     ]
 });
