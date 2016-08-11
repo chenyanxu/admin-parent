@@ -70,12 +70,5 @@
                 <to uri="bean:orgService?method=getUserIdsByOrganizationId(${header.id})"/>
             </get>
         </rest>
-        <rest path="/orgs/users/own" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
-            <!--get the ids that has been selected into org-->
-            <get id="route-getByUserId"  outType="java.util.List">
-                <description>Find department by current login user</description>
-                <to uri="bean:orgService?method=getByUserId()"/>
-            </get>
-        </rest>
     </camelContext>
 </blueprint>
