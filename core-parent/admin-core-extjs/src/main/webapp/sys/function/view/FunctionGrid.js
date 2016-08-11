@@ -56,6 +56,7 @@ Ext.define('kalix.admin.function.view.FunctionGrid', {
             xtype: "actioncolumn",
             items: [{
                 iconCls: 'iconfont icon-edit-column',
+                permission: 'admin:sysModule:functionMenu:edit',
                 tooltip: '编辑',
                 handler: 'onEdit',
                 isDisabled: function (view, rowIdx, colIdx, item, record) {
@@ -63,6 +64,7 @@ Ext.define('kalix.admin.function.view.FunctionGrid', {
                 }
             }, {
                 iconCls: 'iconfont icon-delete',
+                permission: 'admin:sysModule:functionMenu:delete',
                 tooltip: '删除',
                 handler: 'onDelete',
                 isDisabled: function (view, rowIdx, colIdx, item, record) {
@@ -76,11 +78,13 @@ Ext.define('kalix.admin.function.view.FunctionGrid', {
         {
             text: '添加',
             iconCls: 'iconfont icon-add',
+            permission: 'admin:sysModule:functionMenu:add',
             handler: 'onAdd'
         }, {
             text: '刷新',
             iconCls:'iconfont icon-refresh',
-            handler: 'onRefersh'
+            permission: 'admin:sysModule:functionMenu:refresh',
+            handler: 'onRefresh'
         }]
 
 });

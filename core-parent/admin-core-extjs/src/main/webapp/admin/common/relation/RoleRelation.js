@@ -10,7 +10,7 @@ Ext.define('kalix.admin.common.relation.RoleRelation', {
     var rec = grid.getStore().getAt(rowIndex);
     var baseUrl = CONFIG.restRoot + '/camel/rest/'+relationTo+'s';
     var me = this;
-    var roleStore=Ext.create('kalix.admin.role.store.RoleStore',{pageSize:0});
+    var roleStore=Ext.create('kalix.admin.role.store.RoleStore',{pageSize:0,autoLoad:true});
     var win = Ext.create('kalix.view.components.common.BaseItemSelectorWindow',
       {
         title: '添加角色 - ' + rec.data.name,

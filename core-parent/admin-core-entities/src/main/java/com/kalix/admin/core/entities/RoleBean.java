@@ -19,18 +19,17 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 //@XmlRootElement
 public class RoleBean extends PersistentEntity {
-    //    @NotNull(message = "'角色名称'是必填项")
     private String name;    // 角色名称
     private String remark;  //角色备注
     private String app; //所属应用
-    //    @XmlTransient
-    @ManyToMany(mappedBy = "roleList", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @OrderBy("id")
-    private List<UserBean> userList = new ArrayList<>(); // 拥有用户列表
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "sys_role_permission", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id"))
-    @OrderBy("id")
-    private List<PermissionBean> permissionList = new ArrayList<>(); // 拥有菜单列表
+//    //    @XmlTransient
+//    @ManyToMany(mappedBy = "roleList", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @OrderBy("id")
+//    private List<UserBean> userList = new ArrayList<>(); // 拥有用户列表
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name = "sys_role_permission", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id"))
+//    @OrderBy("id")
+//    private List<PermissionBean> permissionList = new ArrayList<>(); // 拥有菜单列表
 
     public RoleBean() {
     }
@@ -55,24 +54,24 @@ public class RoleBean extends PersistentEntity {
     }
 
 
-    public List<UserBean> getUserList() {
-        return userList;
-    }
-
-
-    public void setUserList(List<UserBean> userList) {
-        this.userList = userList;
-    }
-
-
-    public List<PermissionBean> getPermissionList() {
-        return permissionList;
-    }
-
-
-    public void setPermissionList(List<PermissionBean> permissionList) {
-        this.permissionList = permissionList;
-    }
+//    public List<UserBean> getUserList() {
+//        return userList;
+//    }
+//
+//
+//    public void setUserList(List<UserBean> userList) {
+//        this.userList = userList;
+//    }
+//
+//
+//    public List<PermissionBean> getPermissionList() {
+//        return permissionList;
+//    }
+//
+//
+//    public void setPermissionList(List<PermissionBean> permissionList) {
+//        this.permissionList = permissionList;
+//    }
 
     public String getApp() {
         return app;

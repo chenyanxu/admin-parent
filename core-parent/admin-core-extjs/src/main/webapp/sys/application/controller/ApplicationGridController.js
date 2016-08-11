@@ -26,12 +26,12 @@ Ext.define('kalix.admin.application.controller.ApplicationGridController', {
                 var obj = Ext.decode(response.responseText);
 
                 store.load();
-                Ext.MessageBox.alert(CONFIG.ALTER_TITLE_SUCCESS, obj.msg);
+                kalix.Notify.success(obj.msg, CONFIG.ALTER_TITLE_SUCCESS);
             },
             failure: function (response, opts) {
                 var obj = Ext.decode(response.responseText);
 
-                Ext.MessageBox.alert(CONFIG.ALTER_TITLE_ERROR, obj.msg);
+                kalix.Notify.alert(obj.msg,CONFIG.ALTER_TITLE_ERROR );
             }
         });
     }

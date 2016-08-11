@@ -24,6 +24,7 @@ public class InitActivator extends KalixBundleActivator {
         httpService.registerResources(contextPath + "/app/admin", "/admin", null);
         httpService.registerResources(contextPath + "/app/admin/application", "/sys/application", null);
         httpService.registerResources(contextPath + "/app/admin/function", "/sys/function", null);
+        httpService.registerResources(contextPath + "/admin/resources/images", "/resources/images", null);
     }
 
     @Override

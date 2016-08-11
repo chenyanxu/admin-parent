@@ -9,7 +9,8 @@
 Ext.define('kalix.admin.user.view.UserWindow', {
     extend: 'kalix.view.components.common.BaseWindow',
     requires: [
-        'kalix.controller.BaseWindowController'
+        'kalix.controller.BaseWindowController',
+        'kalix.admin.adminDict.component.AdminDictCombobox'
     ],
     alias: 'widget.userWindow',
     controller: {
@@ -23,14 +24,12 @@ Ext.define('kalix.admin.user.view.UserWindow', {
             fieldLabel: '登录名',
             allowBlank: false,
             bind: {
-                activeError: '{validation.loginName}',
                 value: '{rec.loginName}'
             }
         }, {
             fieldLabel: '姓名',
             allowBlank: false,
             bind: {
-                activeError: '{validation.name}',
                 value: '{rec.name}'
             }
         }, {
@@ -39,7 +38,6 @@ Ext.define('kalix.admin.user.view.UserWindow', {
             allowBlank: false,
             name: 'password',
             bind: {
-                activeError: '{validation.password}',
                 value: '{rec.password}'
             },
             blankText: '密码不能为空!'
@@ -48,7 +46,6 @@ Ext.define('kalix.admin.user.view.UserWindow', {
             fieldLabel: '确认密码',
             allowBlank: false,
             bind: {
-                activeError: '{validation.confirmPassword}',
                 value: '{rec.confirmPassword}'
             },
             vtype: 'password',
@@ -58,20 +55,25 @@ Ext.define('kalix.admin.user.view.UserWindow', {
             fieldLabel: '邮箱',
             //allowBlank: false,
             bind: {
-                activeError: '{validation.email}',
                 value: '{rec.email}'
             }
         }, {
+            fieldLabel: '岗位名称',
+            xtype: 'adminDictCombobox',
+            dictType: '岗位名称',
+            bind: {
+                value: '{rec.position}'
+            },
+            render: null
+        }, {
             fieldLabel: '电话号',
             bind: {
-                //activeError: '{validation.phone}',
                 value: '{rec.phone}'
             }
         }, {
             fieldLabel: '手机号',
             //allowBlank: false,
             bind: {
-                activeError : '{validation.mobile}',
                 value: '{rec.mobile}'
             }
         }, {

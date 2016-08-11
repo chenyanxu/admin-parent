@@ -6,7 +6,6 @@
     <reference id="userService" interface="com.kalix.admin.core.api.biz.IUserBeanService"/>
 
     <camelContext id="userCamel" xmlns="http://camel.apache.org/schema/blueprint">
-
         <restConfiguration component="servlet" bindingMode="json">
             <dataFormatProperty key="prettyPrint" value="true"/>
         </restConfiguration>

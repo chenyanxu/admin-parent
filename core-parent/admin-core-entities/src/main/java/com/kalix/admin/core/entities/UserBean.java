@@ -19,35 +19,29 @@ import java.util.List;
 @Entity
 @Table(name = "sys_user")
 @Inheritance(strategy = InheritanceType.JOINED)
-//@XmlRootElement
 public class UserBean extends PersistentEntity {
 
     private String relateId;      //关联隐患排查id
     private String jgdm;          //机构代码
     private String qyid = "";       //企业id
-    //    @NotNull(message = "'登录名'是必填项")
     private String loginName;   // 登录名
-    //    @NotNull(message = "'姓名'是必填项")
     private String name;        // 姓名
-    //    @NotNull(message = "'密码'是必填项")
     private String password;    // 密码
-    //    @NotNull(message = "'邮箱'是必填项")
     private String email;       // 邮箱
     private String phone;       // 电话
-    //    @NotNull(message = "'手机'是必填项")
     private String mobile;      // 手机
     private String loginIp;    // 最后登陆IP
     private Date loginDate;    // 最后登陆日期
     private long is_ent_user;   //是否是企业用户：0-否；1-是
     private long available = 1;     //用户是否有效：0-无效；1-有效
-    //    @XmlTransient
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "sys_user_role", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"),
-            uniqueConstraints = {@UniqueConstraint(columnNames = {
-                    "user_id", "role_id"})})
-    @OrderBy("id")
-    private List<RoleBean> roleList = new ArrayList<>(); // 拥有角色列表
+    private Integer position;    // 岗位
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name = "sys_user_role", joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id"),
+//            uniqueConstraints = {@UniqueConstraint(columnNames = {
+//                    "user_id", "role_id"})})
+//    @OrderBy("id")
+//    private List<RoleBean> roleList = new ArrayList<>(); // 拥有角色列表
 
     public UserBean() {
 
@@ -170,13 +164,20 @@ public class UserBean extends PersistentEntity {
     }
 
 
-    public List<RoleBean> getRoleList() {
-        return roleList;
+//    public List<RoleBean> getRoleList() {
+//        return roleList;
+//    }
+//
+//
+//    public void setRoleList(List<RoleBean> roleList) {
+//        this.roleList = roleList;
+//    }
+
+    public Integer getPosition() {
+        return position;
     }
 
-
-    public void setRoleList(List<RoleBean> roleList) {
-        this.roleList = roleList;
+    public void setPosition(Integer position) {
+        this.position = position;
     }
-
 }

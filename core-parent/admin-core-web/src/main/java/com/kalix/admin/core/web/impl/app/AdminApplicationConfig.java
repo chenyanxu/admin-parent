@@ -6,6 +6,7 @@ import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 
 import java.util.Dictionary;
+import java.util.Hashtable;
 
 /**
  * Created by Administrator on 2016-08-04.
@@ -16,7 +17,11 @@ public class AdminApplicationConfig implements ManagedService{
     @Override
     public void updated(Dictionary<String, ?> dictionary) throws ConfigurationException {
         if(application==null){
-            bundleContext.registerService(IApplication.class.getName(),new AdminApplicationImpl(),null);
+            Dictionary<String,String> propertys=new Hashtable<>();
+
+            propertys.put("appId","admin");
+
+            bundleContext.registerService(IApplication.class.getName(),new AdminApplicationImpl(),propertys);
         }
 // try {
 //            ServiceReference[] refs = bundleContext.getServiceReferences(IApplication.class.getName(), null);

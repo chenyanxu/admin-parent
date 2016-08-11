@@ -20,8 +20,18 @@ Ext.define('kalix.admin.user.component.UserOrgComboBox', {
     queryParam: 'jsonStr',
     minChars: 0,
     typeAhead:true,
+    editable:false,
     store: {
         type: 'userOrgStore'
+    },
+    constructor:function(){
+        this.callParent(arguments);
+
+        this.store.on('load',function(target,records){
+            if(records.length==1){
+                this.select(records[0]);
+            }
+        },this);
     },
     getParams: function (queryString) {
         var params = {},

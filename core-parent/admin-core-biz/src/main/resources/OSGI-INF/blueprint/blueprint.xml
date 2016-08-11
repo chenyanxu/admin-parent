@@ -152,6 +152,7 @@
     <!--</service>-->
 
     <bean id="functionBeanService" class="com.kalix.admin.core.biz.FunctionBeanServiceImpl">
+        <property name="dao" ref="functionBeanDao"/>
         <property name="shiroService" ref="shiroService"/>
     </bean>
 

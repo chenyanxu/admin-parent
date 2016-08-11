@@ -28,7 +28,7 @@ Ext.define('kalix.admin.org.view.OrgTree', {
         },
         {
             header: '操作',
-            xtype: 'securityGridColumnCommon',
+            xtype: 'actioncolumn',
             items: [{
                 iconCls:'iconfont icon-edit-column',
                 tooltip: '编辑',
@@ -65,7 +65,7 @@ Ext.define('kalix.admin.org.view.OrgTree', {
         }, {
             text: '刷新',
             iconCls:'iconfont icon-refresh',
-            handler: 'onRefersh'
+            handler: 'onRefresh'
         }]
 
 });
