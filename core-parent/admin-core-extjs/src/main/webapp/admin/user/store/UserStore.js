@@ -10,6 +10,5 @@ Ext.define('kalix.admin.user.store.UserStore', {
     alias: 'store.userStore',
     xtype: 'userStore',
     storeId: "userStore",
-    autoLoad:true,
     proxyUrl: CONFIG.restRoot + '/camel/rest/users'
 });

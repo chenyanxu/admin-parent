@@ -23,16 +23,9 @@ Ext.define('kalix.admin.user.view.UserGrid', {
     store: {
         type: 'userStore'
     },
-    columns: {
-        defaults: {flex: 1, renderer: 'addTooltip'},
-        items: [
+    columns: [
             {
-                xtype: "rownumberer",
-                text: "行号",
-                width: 50,
-                flex: 0,
-                align: 'center',
-                renderer: this.update
+                xtype: "rownumberer"
             },
             {
                 text: '编号',
@@ -51,8 +44,7 @@ Ext.define('kalix.admin.user.view.UserGrid', {
                 text: '岗位名称',
                 xtype: 'adminDictGridColumn',
                 dictType: '岗位名称',
-                dataIndex: 'position',
-                renderer: null
+                dataIndex: 'position'
             },
             {
                 text: '邮箱',
@@ -114,39 +106,40 @@ Ext.define('kalix.admin.user.view.UserGrid', {
             },
             {
                 xtype: 'securityGridColumnCommon',
-                items: [{
+                verifyItems: [{
                     iconCls: 'iconfont icon-view-column',
-                    permission: 'admin:permissionModule:userMenu:view',
+                    permission: 'view',
                     tooltip: '查看',
                     handler: 'onView'
                 },
                     {
                         iconCls: 'iconfont icon-edit-column',
-                        permission: 'admin:permissionModule:userMenu:edit',
+                        permission: 'edit',
                         tooltip: '编辑',
                         handler: 'onEdit'
                     }, {
                         iconCls: 'iconfont icon-delete',
-                        permission: 'admin:permissionModule:userMenu:delete',
+                        permission: 'delete',
                         tooltip: '删除',
                         handler: 'onDelete'
                     }, {
                         iconCls: 'iconfont icon-password-reset',
-                        permission: 'admin:permissionModule:userMenu:key',
+                        permission: 'key',
                         tooltip: '重置密码',
                         handler: 'onKey'
                     }
                 ]
             }
         ]
-    },
+    //}
+    ,
     tbar: {
         xtype: 'securityToolbar',
         verifyItems: [
             {
                 text: '添加',
                 xtype: 'button',
-                permission: 'admin:permissionModule:userMenu:add',
+                permission: 'add',
                 iconCls: 'iconfont icon-add',
                 handler: 'onAdd'
             }

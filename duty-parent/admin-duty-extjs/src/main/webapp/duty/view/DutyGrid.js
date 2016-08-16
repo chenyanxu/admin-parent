@@ -20,7 +20,7 @@ Ext.define('kalix.admin.duty.view.DutyGrid', {
     cfgForm: 'kalix.admin.duty.view.DutyWindow',
     cfgModel: 'kalix.admin.duty.model.DutyModel'
   },
-  autoLoad: true,
+  autoLoad: false,
   columns: {
     defaults: {flex: 1, renderer: 'addTooltip'},
     items: [
@@ -46,20 +46,20 @@ Ext.define('kalix.admin.duty.view.DutyGrid', {
       },
       {
         xtype: 'securityGridColumnCommon',
-        items: [
+        verifyItems: [
           {
             iconCls: 'iconfont icon-edit-column',
-            permission: 'admin:constructModule:dutyMenu:edit',
+            permission: 'edit',
             tooltip: '编辑',
             handler: 'onEdit'
           }, {
             iconCls: 'iconfont icon-delete',
-            permission: 'admin:constructModule:dutyMenu:delete',
+            permission: 'delete',
             tooltip: '删除',
             handler: 'onDelete'
           }, {
             iconCls: 'iconfont icon-add-user-column',
-            permission: 'admin:constructModule:dutyMenu:addUser',
+            permission: 'addUser',
             tooltip: '添加用户',
             handler: 'onAddUser'
           }
@@ -73,7 +73,7 @@ Ext.define('kalix.admin.duty.view.DutyGrid', {
         text: '添加',
         tooltip: '添加职务',
         xtype: 'button',
-        permission: 'admin:constructModule:dutyMenu:add',
+        permission: 'add',
         iconCls: 'iconfont icon-add',
         handler: 'onAdd'
       }
