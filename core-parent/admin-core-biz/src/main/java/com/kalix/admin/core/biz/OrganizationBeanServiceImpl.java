@@ -283,7 +283,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
     public List getUserIdsByOrganizationId(long id) {
         return organizationUserDao.findByOrgId(id).stream()
                 .filter(n -> n.getUserId() != 0)
-                .map(n -> n.getUserId())
+                .map(OrganizationUserBean::getUserId)
                 .collect(Collectors.toList());
     }
 
@@ -401,18 +401,27 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
      * @return
      */
     public List<OrganizationDTO> getOrgsTreeByUserId(long userId) {
-        // 用户拥有的机构列表
+        List<OrganizationDTO> orgsTree = new ArrayList<>();
+
+        // 用户拥有的机构用户列表
         List<OrganizationUserDTO> list = dao.findByNativeSql("select a.id, a.userid, (select name from sys_user b where b.id = a.userid) as username, a.orgid as departmentid,(select name from sys_organization c where c.id = a.orgid) as departmentname from sys_organization_user a where a.userid=" + userId,OrganizationUserDTO.class);
 
-        // 过滤重复隶属关系
-        list = list.stream().distinct().collect(Collectors.toList());
+        // 全部组织机构列表
+        List<OrganizationBean> orgs = dao.getAll();
 
-        // TODO 暂时先直接写SQL语句
-        // 生成机构树
-        List<OrganizationBean> orgs = dao.findByNativeSql("select * from sys_organization order by code", OrganizationBean.class);
+        // 用户拥有的机构列表，并过滤不存在的和重复的机构
+        List<OrganizationBean> self = orgs.stream()
+                .filter(n -> list.stream().map(m -> m.getDepartmentId()).collect(Collectors.toList()).contains(n.getId()))
+                .distinct()
+                .collect(Collectors.toList());
 
-        List<OrganizationDTO> orgsTree = new ArrayList<>();
-        list.stream().forEach(n -> orgsTree.add(generateRoot(orgs, n.getDepartmentId())));
+        self.stream()
+                .forEach(n -> {
+                    // 处理用户拥有的机构存在隶属关系
+                    if (self.stream().filter(m -> !m.getCode().equals(n.getCode()) && n.getCode().indexOf(m.getCode()) == 0).count() == 0) {
+                        orgsTree.add(generateRoot(orgs, n.getId()));
+                    }
+                });
 
         return orgsTree;
     }
