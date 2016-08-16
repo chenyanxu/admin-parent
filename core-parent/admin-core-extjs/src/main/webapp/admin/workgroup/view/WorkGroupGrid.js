@@ -42,31 +42,31 @@ Ext.define('kalix.admin.workgroup.view.WorkGroupGrid', {
             },
             {
                 xtype: 'securityGridColumnCommon',
-                items: [
+                verifyItems: [
                     {
                         iconCls:'iconfont icon-view-column',
-                        permission: 'admin:permissionModule:workGroupMenu:view',
+                        permission: 'view',
                         tooltip: '查看',
                         handler: 'onView'
                     },
                     {
                         iconCls:'iconfont icon-edit-column',
-                        permission: 'admin:permissionModule:workGroupMenu:edit',
+                        permission: 'edit',
                         tooltip: '编辑',
                         handler: 'onEdit'
                     }, {
                         iconCls:'iconfont icon-delete',
-                        permission: 'admin:permissionModule:workGroupMenu:delete',
+                        permission: 'delete',
                         tooltip: '删除',
                         handler: 'onDelete'
                     }, {
                         iconCls:'iconfont icon-add-user-column',
-                        permission: 'admin:permissionModule:workGroupMenu:addUser',
+                        permission: 'addUser',
                         tooltip: '添加用户',
                         handler: 'onAddUser'
                     }, {
                         iconCls:'iconfont icon-role-management-column',
-                        permission: 'admin:permissionModule:workGroupMenu:addRole',
+                        permission: 'addRole',
                         tooltip: '添加角色',
                         handler: 'onAddRole'
                     }]
@@ -80,7 +80,7 @@ Ext.define('kalix.admin.workgroup.view.WorkGroupGrid', {
                 text: '添加',
                 tooltip: '添加工作组',
                 xtype: 'button',
-                permission: 'admin:permissionModule:workGroupMenu:add',
+                permission: 'add',
                 iconCls:'iconfont icon-add',
                 handler: 'onAdd'
             }

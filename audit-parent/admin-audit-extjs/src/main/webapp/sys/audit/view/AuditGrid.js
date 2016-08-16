@@ -44,15 +44,15 @@ Ext.define('kalix.sys.audit.view.AuditGrid', {
             },
             {
                 xtype: 'securityGridColumnCommon',
-                items: [
+                verifyItems: [
                     {
                         iconCls: 'iconfont icon-view-column',
-                        permission: 'admin:sysModule:auditMenu:view',
+                        permission: 'view',
                         tooltip: '查看',
                         handler: 'onView'
                     }, {
                         iconCls: 'iconfont icon-delete',
-                        permission: 'admin:sysModule:auditMenu:delete',
+                        permission: 'delete',
                         tooltip: '删除',
                         handler: 'onDelete'
                     }]
@@ -65,7 +65,7 @@ Ext.define('kalix.sys.audit.view.AuditGrid', {
             {
                 text: '批量删除',
                 xtype: 'button',
-                permission: 'admin:sysModule:auditMenu:batchDelete',
+                permission: 'batchDelete',
                 iconCls: 'iconfont icon-delete',
                 handler: 'onBatchDelete'
             }
