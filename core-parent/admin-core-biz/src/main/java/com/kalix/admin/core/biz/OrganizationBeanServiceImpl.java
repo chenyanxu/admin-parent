@@ -1,12 +1,15 @@
 package com.kalix.admin.core.biz;
 
 import com.kalix.admin.core.api.biz.IOrganizationBeanService;
+import com.kalix.admin.core.api.biz.IUserBeanService;
 import com.kalix.admin.core.api.dao.IOrganizationBeanDao;
 import com.kalix.admin.core.api.dao.IOrganizationUserBeanDao;
 import com.kalix.admin.core.api.dao.IUserBeanDao;
 import com.kalix.admin.core.dto.model.OrganizationDTO;
+import com.kalix.admin.core.dto.model.OrganizationUserDTO;
 import com.kalix.admin.core.entities.OrganizationBean;
 import com.kalix.admin.core.entities.OrganizationUserBean;
+import com.kalix.admin.core.entities.UserBean;
 import com.kalix.admin.core.util.Compare;
 import com.kalix.framework.core.api.persistence.JsonData;
 import com.kalix.framework.core.api.persistence.JsonStatus;
@@ -32,6 +35,7 @@ import java.util.stream.Collectors;
 public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganizationBeanDao, OrganizationBean> implements IOrganizationBeanService {
     private static final String FUNCTION_NAME = "机构";
     private IOrganizationUserBeanDao organizationUserDao;
+    private IUserBeanService userService;
     private IUserBeanDao userDao;
     private IShiroService shiroService;
 
@@ -41,6 +45,10 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
 
     public void setOrganizationUserDao(IOrganizationUserBeanDao organizationUserDao) {
         this.organizationUserDao = organizationUserDao;
+    }
+
+    public void setUserService(IUserBeanService userService) {
+        this.userService = userService;
     }
 
     public void setUserDao(IUserBeanDao userDao) {
@@ -344,6 +352,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
         for (OrganizationBean bean : beans) {
             if (bean.getId() == id) {
                 root = mapper.map(bean, OrganizationDTO.class);
+                root.setText(bean.getName());
                 parentName = bean.getName();
                 break;
             }
@@ -369,4 +378,73 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
         return root;
     }
 
+    /**
+     * 根据UserId，在用户与部门的关联表中查询部门信息。
+     * @param userId
+     * @return
+     */
+    public JsonData getOrgsByUserId(long userId){
+        JsonData jsonData = new JsonData();
+
+        List<OrganizationDTO> list = dao.findByNativeSql("select id, id as orgId, code as orgCode, name as orgName from sys_organization where id in (select orgid from sys_organization_user where userid = " + userId + ")", OrganizationDTO.class);
+
+        jsonData.setData(list);
+        jsonData.setTotalCount(Long.valueOf(list.size()));
+        return jsonData;
+    }
+
+    /**
+     * 根据用户id获取指定用户的机构列表
+     *
+     * @param userId
+     * @return
+     */
+    public List<OrganizationDTO> getOrgsTreeByUserId(long userId) {
+        // 用户拥有的机构列表
+        List<OrganizationUserDTO> list = dao.findByNativeSql("select a.id, a.userid, (select name from sys_user b where b.id = a.userid) as username, a.orgid as departmentid,(select name from sys_organization c where c.id = a.orgid) as departmentname from sys_organization_user a where a.userid=" + userId,OrganizationUserDTO.class);
+
+        // 过滤重复隶属关系
+        list = list.stream().distinct().collect(Collectors.toList());
+
+        // TODO 暂时先直接写SQL语句
+        // 生成机构树
+        List<OrganizationBean> orgs = dao.findByNativeSql("select * from sys_organization order by code", OrganizationBean.class);
+
+        List<OrganizationDTO> orgsTree = new ArrayList<>();
+        list.stream().forEach(n -> orgsTree.add(generateRoot(orgs, n.getDepartmentId())));
+
+        return orgsTree;
+    }
+
+    /**
+     * 根据用户名获取指定用户的父机构列表
+     *
+     * @param name
+     * @return
+     */
+    public JsonData getOrgsParentByUserName(String name) {
+        List<Long> list = new ArrayList<>();
+        JsonData jsonData = new JsonData();
+
+        UserBean userBean = userService.getUserBeanByLoginName(name);
+        // 用户实体不能为空
+        if (userBean != null) {
+            organizationUserDao.findByUserId(userBean.getId()).stream()
+                    .forEach(n -> {
+                        OrganizationBean bean = dao.get(n.getOrgId());
+                        // 用户所属机构不能为空，父机构不能为-1
+                        if (bean != null && bean.getParentId() != -1L) {
+                            list.add(bean.getParentId());
+                            //list.add(mapper.map(dao.get(bean.getParentId()), OrganizationDTO.class));
+                        }
+                    });
+        }
+
+        // 过滤重复父机构
+        List<Long> returnList = list.stream().distinct().collect(Collectors.toList());
+
+        jsonData.setData(returnList);
+        jsonData.setTotalCount((long) returnList.size());
+        return jsonData;
+    }
 }

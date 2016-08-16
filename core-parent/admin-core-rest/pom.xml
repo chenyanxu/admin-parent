@@ -17,4 +17,11 @@
     <properties>
         <bundle.symbolicName>com.kalix.admin.core.rest</bundle.symbolicName>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.kalix.admin.core</groupId>
+            <artifactId>admin-core-api</artifactId>
+        </dependency>
+    </dependencies>
 </project>
