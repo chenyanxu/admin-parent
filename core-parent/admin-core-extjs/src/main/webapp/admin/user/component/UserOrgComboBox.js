@@ -22,7 +22,7 @@ Ext.define('kalix.admin.user.component.UserOrgComboBox', {
     typeAhead:true,
     editable:false,
     store: {
-        type: 'userOrgStore',
+        type: 'userOrgStore'
     },
     constructor:function(){
         this.callParent(arguments);
