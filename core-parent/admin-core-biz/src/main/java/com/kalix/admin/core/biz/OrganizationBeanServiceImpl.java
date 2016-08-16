@@ -243,6 +243,19 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
         root.setChildren(children);
     }
 
+    private void getChilden(OrganizationDTO root, List<OrganizationBean> elements, Mapper mapper) {
+        List<OrganizationDTO> children = new ArrayList<>();
+
+        elements.stream().filter(n -> root.getId() == n.getParentId())
+                .forEach(n -> {
+                    OrganizationDTO organizationDTO = mapper.map(n, OrganizationDTO.class);
+                    organizationDTO.setLeaf(n.getIsLeaf() != 0);
+                    organizationDTO.setParentName(root.getName());
+                    organizationDTO.setText(n.getName());
+                    children.add(organizationDTO);
+                });
+        root.setChildren(children);
+    }
 //    public OrganizationDTO getOrganizationDTO(Long id) {
 //        OrganizationBean bean = dao.get(id);
 //
@@ -283,7 +296,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
     public List getUserIdsByOrganizationId(long id) {
         return organizationUserDao.findByOrgId(id).stream()
                 .filter(n -> n.getUserId() != 0)
-                .map(n -> n.getUserId())
+                .map(OrganizationUserBean::getUserId)
                 .collect(Collectors.toList());
     }
 
@@ -401,18 +414,27 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
      * @return
      */
     public List<OrganizationDTO> getOrgsTreeByUserId(long userId) {
-        // 用户拥有的机构列表
+        List<OrganizationDTO> orgsTree = new ArrayList<>();
+
+        // 用户拥有的机构用户列表
         List<OrganizationUserDTO> list = dao.findByNativeSql("select a.id, a.userid, (select name from sys_user b where b.id = a.userid) as username, a.orgid as departmentid,(select name from sys_organization c where c.id = a.orgid) as departmentname from sys_organization_user a where a.userid=" + userId,OrganizationUserDTO.class);
 
-        // 过滤重复隶属关系
-        list = list.stream().distinct().collect(Collectors.toList());
+        // 全部组织机构列表
+        List<OrganizationBean> orgs = dao.getAll();
 
-        // TODO 暂时先直接写SQL语句
-        // 生成机构树
-        List<OrganizationBean> orgs = dao.findByNativeSql("select * from sys_organization order by code", OrganizationBean.class);
+        // 用户拥有的机构列表，并过滤不存在的和重复的机构
+        List<OrganizationBean> self = orgs.stream()
+                .filter(n -> list.stream().map(m -> m.getDepartmentId()).collect(Collectors.toList()).contains(n.getId()))
+                .distinct()
+                .collect(Collectors.toList());
 
-        List<OrganizationDTO> orgsTree = new ArrayList<>();
-        list.stream().forEach(n -> orgsTree.add(generateRoot(orgs, n.getDepartmentId())));
+        self.stream()
+                .forEach(n -> {
+                    // 处理用户拥有的机构存在隶属关系
+                    if (self.stream().filter(m -> !m.getCode().equals(n.getCode()) && n.getCode().indexOf(m.getCode()) == 0).count() == 0) {
+                        orgsTree.add(generateRoot(orgs, n.getId()));
+                    }
+                });
 
         return orgsTree;
     }
@@ -435,15 +457,12 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
             organizationUserDao.findByUserId(userBean.getId()).stream()
                     .forEach(n -> {
                         OrganizationBean bean = dao.get(n.getOrgId());
-                        // 用户所属机构不能为空，父机构不能为-1
-                        if (bean != null && bean.getParentId() != -1L) {
-                            OrganizationBean parentBean = dao.get(bean.getParentId());
-                            if (parentBean != null) {
-                                OrganizationDTO dto = mapper.map(parentBean, OrganizationDTO.class);
-                                getChilden(dto, org, mapper, false);
-                                dto.getChildren().stream().forEach(m -> list.add(m.getId()));
-                            }
-                            //list.add(mapper.map(dao.get(bean.getParentId()), OrganizationDTO.class));
+                        // 用户所属机构不能为空
+                        if (bean != null) {
+                            OrganizationDTO dto = new OrganizationDTO();
+                            dto.setOrgId(bean.getParentId());
+                            getChilden(dto, org, mapper);
+                            dto.getChildren().stream().forEach(m -> list.add(m.getId()));
                         }
                     });
         }
