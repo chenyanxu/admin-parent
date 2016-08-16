@@ -20,7 +20,6 @@
         <module>admin-duty-dao</module>
         <module>admin-duty-biz</module>
         <module>admin-duty-rest</module>
-        <module>admin-duty-web</module>
         <module>admin-duty-extjs</module>
     </modules>
 
