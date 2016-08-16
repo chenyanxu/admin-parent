@@ -119,6 +119,7 @@
     <bean id="orgBeanServiceImpl" class="com.kalix.admin.core.biz.OrganizationBeanServiceImpl">
         <property name="dao" ref="orgBeanDao"/>
         <property name="userDao" ref="userBeanDao"/>
+        <property name="userService" ref="userBeanServiceImpl"/>
         <property name="shiroService" ref="shiroService"/>
         <property name="organizationUserDao" ref="orgUserBeanDao"/>
     </bean>

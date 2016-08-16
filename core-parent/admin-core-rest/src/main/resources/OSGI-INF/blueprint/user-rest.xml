@@ -48,7 +48,24 @@
             <!-- this is a rest GET to view a user by the given id -->
             <get id="route-getOrgsByUserId" outType="com.kalix.framework.core.api.persistence.JsonData">
                 <description>Find User's Orgs by UserId</description>
-                <to uri="bean:userService?method=getOrgsByUserId(${header.id})"/>
+                <to uri="bean:orgService?method=getOrgsByUserId(${header.id})"/>
+            </get>
+        </rest>
+
+        <rest path="/users/{id}/orgs/tree" consumes="application/json;charset=utf-8" produces="application/json">
+            <!-- this is a rest GET to view a user by the given id -->
+            <get id="route-getOrgsTreeByUserId"  outType="java.util.List">
+                <description>Find User's Orgs Tree by UserId</description>
+                <to uri="bean:orgService?method=getOrgsTreeByUserId(${header.id})"/>
+            </get>
+        </rest>
+
+        <!-- 根据用户名获取指定用户的兄弟机构列表 -->
+        <rest path="/users/{name}/orgs/brother" consumes="application/json;charset=utf-8" produces="application/json">
+            <!-- this is a rest GET to view a user by the given id -->
+            <get id="route-getOrgsBrotherByUserName"  outType="com.kalix.framework.core.api.persistence.JsonData">
+                <description>Find User's Orgs Tree by UserId</description>
+                <to uri="bean:orgService?method=getOrgsBrotherByUserName(${header.name})"/>
             </get>
         </rest>
     </camelContext>

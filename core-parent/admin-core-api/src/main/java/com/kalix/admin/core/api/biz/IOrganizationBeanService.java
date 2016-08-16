@@ -40,5 +40,27 @@ public interface IOrganizationBeanService extends IBizService<OrganizationBean> 
      */
     JsonStatus saveOrganizationUsers(List ids);
 
-    List<OrganizationDTO> getByUserId();
+    /**
+     * 根据UserId，在用户与部门的关联表中查询部门信息。
+     *
+     * @param userId
+     * @return
+     */
+    JsonData getOrgsByUserId(long userId);
+
+    /**
+     * 根据用户id获取指定用户的机构列表
+     *
+     * @param userId
+     * @return
+     */
+    List<OrganizationDTO> getOrgsTreeByUserId(long userId);
+
+    /**
+     * 根据用户名获取指定用户的兄弟机构列表
+     *
+     * @param name
+     * @return
+     */
+    JsonData getOrgsBrotherByUserName(String name);
 }
