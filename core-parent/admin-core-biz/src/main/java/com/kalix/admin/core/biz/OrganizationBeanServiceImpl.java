@@ -225,7 +225,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
      * @param root
      * @param elements
      */
-    private void getChilden(OrganizationDTO root, List<OrganizationBean> elements, Mapper mapper) {
+    private void getChilden(OrganizationDTO root, List<OrganizationBean> elements, Mapper mapper, boolean isRecursion) {
         List<OrganizationDTO> children = new ArrayList<>();
 
         elements.stream().filter(n -> root.getId() != -1 && (root.getId() == n.getParentId()))
@@ -235,8 +235,9 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
                     organizationDTO.setParentName(root.getName());
                     organizationDTO.setText(n.getName());
                     children.add(organizationDTO);
-                    if (n.getIsLeaf() == 0) {
-                        getChilden(organizationDTO, elements, mapper);
+
+                    if (isRecursion && n.getIsLeaf() == 0) {
+                        getChilden(organizationDTO, elements, mapper, isRecursion);
                     }
                 });
         root.setChildren(children);
@@ -369,7 +370,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
                     organizationDTO.setLeaf(rootElement.getIsLeaf() != 0);
                     organizationDTO.setParentName(parentName);
                     organizationDTO.setText(rootElement.getName());
-                    getChilden(organizationDTO, beans, mapper);
+                    getChilden(organizationDTO, beans, mapper, true);
                     root.getChildren().add(organizationDTO);
                 }
             }
@@ -417,30 +418,37 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
     }
 
     /**
-     * 根据用户名获取指定用户的父机构列表
+     * 根据用户名获取指定用户的兄弟机构列表
      *
      * @param name
      * @return
      */
-    public JsonData getOrgsParentByUserName(String name) {
+    public JsonData getOrgsBrotherByUserName(String name) {
         List<Long> list = new ArrayList<>();
         JsonData jsonData = new JsonData();
+        Mapper mapper = new DozerBeanMapper();
 
         UserBean userBean = userService.getUserBeanByLoginName(name);
         // 用户实体不能为空
         if (userBean != null) {
+            List<OrganizationBean> org = dao.getAll();
             organizationUserDao.findByUserId(userBean.getId()).stream()
                     .forEach(n -> {
                         OrganizationBean bean = dao.get(n.getOrgId());
                         // 用户所属机构不能为空，父机构不能为-1
                         if (bean != null && bean.getParentId() != -1L) {
-                            list.add(bean.getParentId());
+                            OrganizationBean parentBean = dao.get(bean.getParentId());
+                            if (parentBean != null) {
+                                OrganizationDTO dto = mapper.map(parentBean, OrganizationDTO.class);
+                                getChilden(dto, org, mapper, false);
+                                dto.getChildren().stream().forEach(m -> list.add(m.getId()));
+                            }
                             //list.add(mapper.map(dao.get(bean.getParentId()), OrganizationDTO.class));
                         }
                     });
         }
 
-        // 过滤重复父机构
+        // 过滤重复兄弟机构
         List<Long> returnList = list.stream().distinct().collect(Collectors.toList());
 
         jsonData.setData(returnList);

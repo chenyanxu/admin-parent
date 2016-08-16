@@ -60,12 +60,12 @@
             </get>
         </rest>
 
-        <!-- 根据用户名获取指定用户的父机构列表 -->
-        <rest path="/users/{name}/orgs/parent" consumes="application/json;charset=utf-8" produces="application/json">
+        <!-- 根据用户名获取指定用户的兄弟机构列表 -->
+        <rest path="/users/{name}/orgs/brother" consumes="application/json;charset=utf-8" produces="application/json">
             <!-- this is a rest GET to view a user by the given id -->
-            <get id="route-getOrgsParentByUserName"  outType="com.kalix.framework.core.api.persistence.JsonData">
+            <get id="route-getOrgsBrotherByUserName"  outType="com.kalix.framework.core.api.persistence.JsonData">
                 <description>Find User's Orgs Tree by UserId</description>
-                <to uri="bean:orgService?method=getOrgsParentByUserName(${header.name})"/>
+                <to uri="bean:orgService?method=getOrgsBrotherByUserName(${header.name})"/>
             </get>
         </rest>
     </camelContext>

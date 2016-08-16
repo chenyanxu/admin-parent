@@ -57,10 +57,10 @@ public interface IOrganizationBeanService extends IBizService<OrganizationBean> 
     List<OrganizationDTO> getOrgsTreeByUserId(long userId);
 
     /**
-     * 根据用户名获取指定用户的父机构列表
+     * 根据用户名获取指定用户的兄弟机构列表
      *
      * @param name
      * @return
      */
-    JsonData getOrgsParentByUserName(String name);
+    JsonData getOrgsBrotherByUserName(String name);
 }
