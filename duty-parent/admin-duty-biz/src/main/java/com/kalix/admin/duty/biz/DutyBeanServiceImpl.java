@@ -1,5 +1,7 @@
 package com.kalix.admin.duty.biz;
 
+import com.kalix.admin.core.api.dao.IUserBeanDao;
+import com.kalix.admin.core.entities.UserBean;
 import com.kalix.admin.duty.api.biz.IDutyBeanService;
 import com.kalix.admin.duty.api.dao.IDutyBeanDao;
 import com.kalix.admin.duty.api.dao.IDutyUserBeanDao;
@@ -25,16 +27,20 @@ import java.util.stream.Collectors;
 public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao, DutyBean> implements IDutyBeanService {
     private JsonStatus jsonStatus = new JsonStatus();
     private IDutyUserBeanDao dutyUserBeanDao;
-    //private IUserBeanDao userBeanDao;
+    private IDutyBeanDao dutyBeanDao;
+    private IUserBeanDao userBeanDao;
 
     public void setDutyUserBeanDao(IDutyUserBeanDao dutyUserBeanDao) {
         this.dutyUserBeanDao = dutyUserBeanDao;
     }
 
-//    public void setUserBeanDao(IUserBeanDao userBeanDao) {
-//        this.userBeanDao = userBeanDao;
-//    }
+    public void setUserBeanDao(IUserBeanDao userBeanDao) {
+        this.userBeanDao = userBeanDao;
+    }
 
+    public void setDutyBeanDao(IDutyBeanDao dutyBeanDao) {
+        this.dutyBeanDao = dutyBeanDao;
+    }
 
     public DutyBeanServiceImpl() {
         super.init(DutyBean.class.getName());
@@ -108,8 +114,6 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
 
     @Override
     public List<String> getUserDutyNameList(){
-//        String loginName=userLoginService.getLoginName();
-//        UserBean userBean= userBeanDao.getUser(loginName);
         Long userId=this.getShiroService().getCurrentUserId();
         List<String> dutyNameList=new ArrayList<>();
         List<DutyUserBean> dutyUserBeenList=dutyUserBeanDao.find("select rub from DutyUserBean rub where rub.userId=?1", userId);
@@ -124,4 +128,33 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
 
         return dutyNameList;
     }
+
+    /**
+     * 根据组织id，获得名称为“上级领导”的职务下全部的用户名字
+     * 用于工作流
+     * @return
+     */
+    @Override
+    public List<String> getUserListByOrg(long orgId, String dutyName){
+
+        List<String> userNameList=new ArrayList<>();
+        //获得dutybean列表
+        List<DutyBean> dutyBeanList=dutyBeanDao.find("select rub from DutyBean rub where rub.orgid=?1 and rub.name=?2", orgId,dutyName);
+
+        if(dutyBeanList!=null && dutyBeanList.size()>0){
+            for(DutyBean dutyBean :dutyBeanList){
+                List<DutyUserBean> dutyUserBeanList=dutyUserBeanDao.findByDutyId(dutyBean.getId());
+                if(dutyUserBeanList!=null && dutyUserBeanList.size()>0){
+                    for(DutyUserBean dutyUserBean:dutyUserBeanList){
+                        String userLoginName=userBeanDao.getUser(dutyUserBean.getUserId()).getLoginName();
+                        userNameList.add(userLoginName);
+                    }
+                }
+            }
+        }
+
+        return userNameList;
+    }
+
+
 }

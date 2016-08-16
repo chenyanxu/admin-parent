@@ -31,4 +31,6 @@ public interface IDutyBeanService extends IBizService<DutyBean> {
     JsonStatus deleteDuty(long dutyId);
 
     List<String> getUserDutyNameList();
+
+    List<String> getUserListByOrg(long orgId, String dutyName);
 }
