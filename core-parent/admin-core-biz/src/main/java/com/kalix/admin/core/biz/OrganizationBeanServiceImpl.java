@@ -243,6 +243,19 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
         root.setChildren(children);
     }
 
+    private void getChilden(OrganizationDTO root, List<OrganizationBean> elements, Mapper mapper) {
+        List<OrganizationDTO> children = new ArrayList<>();
+
+        elements.stream().filter(n -> root.getId() == n.getParentId())
+                .forEach(n -> {
+                    OrganizationDTO organizationDTO = mapper.map(n, OrganizationDTO.class);
+                    organizationDTO.setLeaf(n.getIsLeaf() != 0);
+                    organizationDTO.setParentName(root.getName());
+                    organizationDTO.setText(n.getName());
+                    children.add(organizationDTO);
+                });
+        root.setChildren(children);
+    }
 //    public OrganizationDTO getOrganizationDTO(Long id) {
 //        OrganizationBean bean = dao.get(id);
 //
@@ -444,15 +457,12 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
             organizationUserDao.findByUserId(userBean.getId()).stream()
                     .forEach(n -> {
                         OrganizationBean bean = dao.get(n.getOrgId());
-                        // 用户所属机构不能为空，父机构不能为-1
-                        if (bean != null && bean.getParentId() != -1L) {
-                            OrganizationBean parentBean = dao.get(bean.getParentId());
-                            if (parentBean != null) {
-                                OrganizationDTO dto = mapper.map(parentBean, OrganizationDTO.class);
-                                getChilden(dto, org, mapper, false);
-                                dto.getChildren().stream().forEach(m -> list.add(m.getId()));
-                            }
-                            //list.add(mapper.map(dao.get(bean.getParentId()), OrganizationDTO.class));
+                        // 用户所属机构不能为空
+                        if (bean != null) {
+                            OrganizationDTO dto = new OrganizationDTO();
+                            dto.setOrgId(bean.getParentId());
+                            getChilden(dto, org, mapper);
+                            dto.getChildren().stream().forEach(m -> list.add(m.getId()));
                         }
                     });
         }
