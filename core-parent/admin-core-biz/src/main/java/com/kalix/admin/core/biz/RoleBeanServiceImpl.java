@@ -234,29 +234,29 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
         return jsonStatus;
     }
 
-    @Override
-    public void saveRoleUser(RoleBean roleBean, List<UserBean> userSelect) {
-        List<UserBean> userBeanList = new ArrayList<UserBean>();
-        //为新对象
-        if (roleBean.getId() == 0L) {
-            roleBean = dao.save(roleBean);
-        } else {
-            userBeanList = dao.get(roleBean.getId()).getUserList();
-        }
-
-        //删除全部该角色下的用户
-        removeRole(roleBean, userBeanList);
-        if (userSelect.size() > 0) {
-            //添加角色到用户
-            for (UserBean userBean : userSelect) {
-                UserBean user = userBeanDao.getUser(userBean.getId());
-                if (!user.getRoleList().contains(roleBean)) {
-                    user.getRoleList().add(roleBean);
-                    userBeanDao.save(user);
-                }
-            }
-        }
-    }
+//    @Override
+//    public void saveRoleUser(RoleBean roleBean, List<UserBean> userSelect) {
+//        List<UserBean> userBeanList = new ArrayList<UserBean>();
+//        //为新对象
+//        if (roleBean.getId() == 0L) {
+//            roleBean = dao.save(roleBean);
+//        } else {
+//            userBeanList = dao.get(roleBean.getId()).getUserList();
+//        }
+//
+//        //删除全部该角色下的用户
+//        removeRole(roleBean, userBeanList);
+//        if (userSelect.size() > 0) {
+//            //添加角色到用户
+//            for (UserBean userBean : userSelect) {
+//                UserBean user = userBeanDao.getUser(userBean.getId());
+//                if (!user.getRoleList().contains(roleBean)) {
+//                    user.getRoleList().add(roleBean);
+//                    userBeanDao.save(user);
+//                }
+//            }
+//        }
+//    }
 
     @Override
     public List<RoleBean> query(RoleBean roleBean) {
@@ -303,12 +303,12 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
         return roleBeans;
     }
 
-    private void removeRole(RoleBean roleBean, List<UserBean> userBeanList) {
-        for (UserBean userBean : userBeanList) {
-            userBean.getRoleList().remove(roleBean);
-            userBeanDao.save(userBean);
-        }
-    }
+//    private void removeRole(RoleBean roleBean, List<UserBean> userBeanList) {
+//        for (UserBean userBean : userBeanList) {
+//            userBean.getRoleList().remove(roleBean);
+//            userBeanDao.save(userBean);
+//        }
+//    }
 
     @Override
     public List getUserIdsByRoleId(long id) {

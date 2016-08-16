@@ -15,7 +15,6 @@
         <module>admin-audit-dao</module>
         <module>admin-audit-biz</module>
         <module>admin-audit-rest</module>
-        <module>admin-audit-web</module>
         <module>admin-audit-extjs</module>
     </modules>
 

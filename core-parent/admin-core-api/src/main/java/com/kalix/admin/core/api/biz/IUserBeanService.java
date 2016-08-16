@@ -3,9 +3,6 @@ package com.kalix.admin.core.api.biz;
 
 import com.kalix.admin.core.entities.UserBean;
 import com.kalix.framework.core.api.biz.IBizService;
-import com.kalix.framework.core.api.persistence.JsonData;
-
-import java.util.List;
 
 /**
  * Created by dell on 14-1-17.
@@ -19,15 +16,15 @@ public interface IUserBeanService extends IBizService<UserBean> {
      */
     String getRoleList(UserBean userBean);
 
-    /**
-     * 保存用户以及相关的角色
-     *
-     * @param userBean
-     * @param roleSelect
-     */
-    void saveUserRole(UserBean userBean, List<String> roleSelect);
+//    /**
+//     * 保存用户以及相关的角色
+//     *
+//     * @param userBean
+//     * @param roleSelect
+//     */
+    //void saveUserRole(UserBean userBean, List<String> roleSelect);
 
-    void saveUserRoleNew(UserBean userBean, List<String> roleSelect);
+    //void saveUserRoleNew(UserBean userBean, List<String> roleSelect);
 
     UserBean getUserBeanByLoginName(String username);
 
@@ -123,11 +120,4 @@ public interface IUserBeanService extends IBizService<UserBean> {
      * @return
      */
     //UserBean getUserByRelateId(String relateId);
-
-    /**
-     * 根据UserId，在用户与部门的关联表中查询部门信息。
-     * @param userId
-     * @return
-     */
-    JsonData getOrgsByUserId(long userId);
 }

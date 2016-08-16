@@ -15,20 +15,20 @@ Ext.define('kalix.admin.user.component.UserOrgComboBox', {
     labelAlign: 'right',
     xtype: 'userOrgComboBox',
     queryMode: 'remote',
-    valueField: 'name',
-    displayField: 'name',
+    valueField: 'orgId',
+    displayField: 'orgName',
     queryParam: 'jsonStr',
     minChars: 0,
-    typeAhead:true,
-    editable:false,
+    typeAhead:false,
+    editable: false,
     store: {
-        type: 'userOrgStore',
+        type: 'userOrgStore'
     },
     constructor:function(){
         this.callParent(arguments);
 
         this.store.on('load',function(target,records){
-            if(records.length==1){
+            if(records.length > 0){
                 this.select(records[0]);
             }
         },this);
