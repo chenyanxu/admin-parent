@@ -21,16 +21,16 @@ Ext.define('kalix.admin.role.view.RoleGrid', {
     store: {
         type: 'roleStore'
     },
-    columns: {
-        defaults: {flex: 1, renderer: 'addTooltip'},
-        items: [
+    //columns: {
+        //defaults: {flex: 1, renderer: 'addTooltip'},
+        columns: [
             {
                 xtype: "rownumberer",
-                text: "行号",
-                width: 50,
-                align: 'center',
-                flex:0,
-                renderer: this.update
+                // text: "行号",
+                // width: 50,
+                // align: 'center',
+                // flex:0,
+                // renderer: this.update
             },
             {text: '编号', dataIndex: 'id', hidden: true},
             {text: '所属应用', dataIndex: 'app',flex:0.5},
@@ -43,36 +43,36 @@ Ext.define('kalix.admin.role.view.RoleGrid', {
 
             {
                 xtype: 'securityGridColumnCommon',
-                items: [
+                verifyItems: [
                     {
                         iconCls:'iconfont icon-view-column',
-                        permission: 'admin:permissionModule:roleMenu:view',
+                        permission: 'view',
                         tooltip: '查看',
                         handler: 'onView'
                     },
                     {
                         iconCls:'iconfont icon-edit-column',
-                        permission: 'admin:permissionModule:roleMenu:edit',
+                        permission: 'edit',
                         tooltip: '编辑',
                         handler: 'onEdit'
                     }, {
                         iconCls:'iconfont icon-delete',
-                        permission: 'admin:permissionModule:roleMenu:delete',
+                        permission: 'delete',
                         tooltip: '删除',
                         handler: 'onDelete'
                     }, {
                         iconCls:'iconfont icon-add-user-column',
-                        permission: 'admin:permissionModule:roleMenu:addUser',
+                        permission: 'addUser',
                         tooltip: '添加用户',
                         handler: 'onAddUser'
                     }, {
                         iconCls:'iconfont icon-permission-column',
-                        permission: 'admin:permissionModule:roleMenu:auth',
+                        permission: 'auth',
                         tooltip: '权限分配',
                         handler: 'onAuthorization'
                     }]
-            }]
-    },
+            }],
+    //},
     tbar: {
         xtype: 'securityToolbar',
         verifyItems: [
@@ -80,7 +80,7 @@ Ext.define('kalix.admin.role.view.RoleGrid', {
                 text: '添加',
                 tooltip: '添加角色',
                 xtype: 'button',
-                permission: 'admin:permissionModule:roleMenu:add',
+                permission: 'add',
                 iconCls:'iconfont icon-add',
                 handler: 'onAdd'
             }
