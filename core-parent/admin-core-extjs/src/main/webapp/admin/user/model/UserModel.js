@@ -60,6 +60,14 @@ Ext.define('kalix.admin.user.model.UserModel', {
             name: 'available',
             type: 'string',
             defaultValue: '1'
+        },
+        {
+            name: 'org',
+            type: 'string',
+        },
+        {
+            name: 'duty',
+            type: 'string',
         }, {
             name: 'availableText',
             calculate: function (data) {

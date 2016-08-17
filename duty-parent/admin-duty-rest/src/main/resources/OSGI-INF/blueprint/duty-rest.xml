@@ -70,5 +70,12 @@
                 <to uri="bean:dutyService?method=getUserListByOrg(${header.orgId},${header.dutyName})"/>
             </get>
         </rest>
+
+        <rest path="/users/user/{userId}/dutys" consumes="application/json;charset=utf-8" produces="application/json">
+            <get id="route-getDutysByUserId" outType="java.util.List">
+                <description>Find User Dutys By userId</description>
+                <to uri="bean:dutyService?method=getDutyByUserId(${header.userId})"/>
+            </get>
+        </rest>
     </camelContext>
 </blueprint>
