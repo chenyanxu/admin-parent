@@ -445,7 +445,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
      * @param name
      * @return
      */
-    public JsonData getOrgsBrotherByUserName(String name) {
+    public List<Long> getOrgsBrotherByUserName(String name) {
         List<Long> list = new ArrayList<>();
         JsonData jsonData = new JsonData();
         Mapper mapper = new DozerBeanMapper();
@@ -470,8 +470,8 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
         // 过滤重复兄弟机构
         List<Long> returnList = list.stream().distinct().collect(Collectors.toList());
 
-        jsonData.setData(returnList);
-        jsonData.setTotalCount((long) returnList.size());
-        return jsonData;
+        /*jsonData.setData(returnList);
+        jsonData.setTotalCount((long) returnList.size());*/
+        return returnList;
     }
 }

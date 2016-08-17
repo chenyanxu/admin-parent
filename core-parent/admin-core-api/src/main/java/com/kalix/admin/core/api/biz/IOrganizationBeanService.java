@@ -62,5 +62,5 @@ public interface IOrganizationBeanService extends IBizService<OrganizationBean> 
      * @param name
      * @return
      */
-    JsonData getOrgsBrotherByUserName(String name);
+    List<Long> getOrgsBrotherByUserName(String name);
 }

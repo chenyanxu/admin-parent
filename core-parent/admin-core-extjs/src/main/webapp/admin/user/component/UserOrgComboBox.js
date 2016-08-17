@@ -31,6 +31,9 @@ Ext.define('kalix.admin.user.component.UserOrgComboBox', {
             if(records.length > 0){
                 this.select(records[0]);
             }
+            else{
+                kalix.Notify.warning(CONFIG.ALTER_TITLE_FAILURE, "未找到该用户的部门，请为该用户选择部门！");
+            }
         },this);
     },
     getParams: function (queryString) {
