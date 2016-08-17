@@ -21,7 +21,8 @@ Ext.define('kalix.admin.user.component.UserComboBox', {
     minChars: 0,
     typeAhead:true,
     store: {
-        type: 'userStore'
+        type: 'userStore',
+        autoLoad: true
     },
     getParams: function (queryString) {
         var params = {},
