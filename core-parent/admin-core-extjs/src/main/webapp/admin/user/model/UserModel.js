@@ -36,16 +36,20 @@ Ext.define('kalix.admin.user.model.UserModel', {
     },
     {
       name: 'mobile',
-      type: 'string',
       validators: [{type: 'presence'},{type: 'mobile'}]
     },
     {
-      name: 'loginIp',
-      type: 'string'
+      name: 'loginIp'
     },
     {
       name: 'is_ent_user',
       type: 'int'
+    },
+    {
+      name: 'org'
+    },
+    {
+      name: 'duty'
     },
     {
       name: 'availableOptions',
@@ -56,7 +60,7 @@ Ext.define('kalix.admin.user.model.UserModel', {
     },
     {
       name: 'available',
-      type: 'string',
+      type:'string',
       defaultValue: '1'
     }, {
       name: 'availableText',
