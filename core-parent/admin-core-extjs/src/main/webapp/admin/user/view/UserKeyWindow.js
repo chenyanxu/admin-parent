@@ -9,14 +9,11 @@
 Ext.define('kalix.admin.user.view.UserKeyWindow', {
     extend: 'kalix.view.components.common.BaseWindow',
     requires: [
-        'kalix.admin.user.viewModel.UserViewModel',
-        'kalix.controller.BaseWindowController'
+        'kalix.admin.user.controller.UserKeyWindowController'
     ],
     alias: 'widget.userWindow',
-    viewModel: 'userViewModel',
     controller: {
-        type: 'baseWindowController',
-        storeId: 'userStore'
+        type: 'userKeyWindowController'
     },
     xtype: "userWindow",
     width: 400,
@@ -25,24 +22,22 @@ Ext.define('kalix.admin.user.view.UserKeyWindow', {
         items: [{
             inputType: 'password',
             fieldLabel: '密码',
-            allowBlank: false,
             name: 'password',
             bind: {
-                activeError: '{validation.password}',
                 value: '{rec.password}'
             },
-            blankText: '密码不能为空!'
+            listeners:{
+                change:'change'
+            }
         }, {
             inputType: 'password',
             fieldLabel: '确认密码',
-            allowBlank: false,
             bind: {
-                activeError: '{validation.confirmPassword}',
                 value: '{rec.confirmPassword}'
             },
-            vtype: 'password',
-            firstPasswordFieldName: 'password',
-            blankText: '确认密码不能为空!'
+            listeners:{
+                change:'change'
+            }
         }]
     }]
 });
