@@ -470,8 +470,8 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
         // 过滤重复兄弟机构
         List<Long> returnList = list.stream().distinct().collect(Collectors.toList());
 
-        /*jsonData.setData(returnList);
-        jsonData.setTotalCount((long) returnList.size());*/
+        jsonData.setData(returnList);
+        jsonData.setTotalCount((long) returnList.size());
         return returnList;
     }
 }
