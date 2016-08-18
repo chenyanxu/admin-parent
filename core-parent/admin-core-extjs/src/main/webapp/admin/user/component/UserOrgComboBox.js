@@ -14,10 +14,10 @@ Ext.define('kalix.admin.user.component.UserOrgComboBox', {
     allowBlank: false,
     labelAlign: 'right',
     xtype: 'userOrgComboBox',
-    queryMode: 'remote',
+    queryMode: 'local',
     valueField: 'orgId',
     displayField: 'orgName',
-    queryParam: 'jsonStr',
+    queryParam: false,
     minChars: 0,
     typeAhead:false,
     editable: false,
@@ -28,22 +28,25 @@ Ext.define('kalix.admin.user.component.UserOrgComboBox', {
         this.callParent(arguments);
 
         this.store.on('load',function(target,records){
-            if(records.length > 0){
-                this.select(records[0]);
+            if(records.length > 0) {
+                if (records.length == 1) {
+                    this.select(records[0]);
+                }
             }
             else{
                 kalix.Notify.warning(CONFIG.ALTER_TITLE_FAILURE, "未找到该用户的部门，请为该用户选择部门！");
             }
         },this);
-    },
-    getParams: function (queryString) {
-        var params = {},
-            param = this.queryParam;
-
-        if (param) {
-            params[param] = '{' + this.displayField + ':"' + queryString + '"}';
-        }
-
-        return params;
     }
+    //,
+    //getParams: function (queryString) {
+    //    var params = {},
+    //        param = this.queryParam;
+    //
+    //    if (param) {
+    //        params[param] = '{' + this.displayField + ':"' + queryString + '"}';
+    //    }
+    //
+    //    return params;
+    //}
 });
