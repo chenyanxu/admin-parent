@@ -7,83 +7,79 @@
  */
 
 Ext.define('kalix.admin.user.view.UserWindow', {
-    extend: 'kalix.view.components.common.BaseWindow',
-    requires: [
-        'kalix.controller.BaseWindowController',
-        'kalix.admin.adminDict.component.AdminDictCombobox'
-    ],
-    alias: 'widget.userWindow',
-    controller: {
-        type: 'baseWindowController'
-    },
-    xtype: "userWindow",
-    width: 400,
+  extend: 'kalix.view.components.common.BaseWindow',
+  requires: [
+    'kalix.admin.user.controller.UserWindowController',
+    'kalix.admin.adminDict.component.AdminDictCombobox'
+  ],
+  alias: 'widget.userWindow',
+  controller: {
+    type: 'userWindowController'
+  },
+  xtype: "userWindow",
+  width: 400,
+  items: [{
+    xtype: 'baseForm',
     items: [{
-        xtype: 'baseForm',
-        items: [{
-            fieldLabel: '登录名',
-            allowBlank: false,
-            bind: {
-                value: '{rec.loginName}'
-            }
-        }, {
-            fieldLabel: '姓名',
-            allowBlank: false,
-            bind: {
-                value: '{rec.name}'
-            }
-        }, {
-            inputType: 'password',
-            fieldLabel: '密码',
-            allowBlank: false,
-            name: 'password',
-            bind: {
-                value: '{rec.password}'
-            },
-            blankText: '密码不能为空!'
-        }, {
-            inputType: 'password',
-            fieldLabel: '确认密码',
-            allowBlank: false,
-            bind: {
-                value: '{rec.confirmPassword}'
-            },
-            vtype: 'password',
-            firstPasswordFieldName: 'password',
-            blankText: '确认密码不能为空!'
-        }, {
-            fieldLabel: '邮箱',
-            //allowBlank: false,
-            bind: {
-                value: '{rec.email}'
-            }
-        }, {
-            fieldLabel: '岗位名称',
-            xtype: 'adminDictCombobox',
-            dictType: '岗位名称',
-            bind: {
-                value: '{rec.position}'
-            },
-            render: null
-        }, {
-            fieldLabel: '电话号',
-            bind: {
-                value: '{rec.phone}'
-            }
-        }, {
-            fieldLabel: '手机号',
-            //allowBlank: false,
-            bind: {
-                value: '{rec.mobile}'
-            }
-        }, {
-            xtype: 'combobox',
-            fieldLabel: '状态',
-            editable: false,
-            bind: {
-                store: '{rec.availableOptions}',
-                value: '{rec.available}'
-            }
-        }]
+      fieldLabel: '登录名',
+      bind: {
+        value: '{rec.loginName}'
+      }
+    }, {
+      fieldLabel: '姓名',
+      bind: {
+        value: '{rec.name}'
+      }
+    }, {
+      inputType: 'password',
+      fieldLabel: '密码',
+      name: 'password',
+      bind: {
+        value: '{rec.password}'
+      },
+      listeners:{
+        change:'change'
+      }
+    }, {
+      inputType: 'password',
+      fieldLabel: '确认密码',
+      bind: {
+        value: '{rec.confirmPassword}'
+      },
+      listeners:{
+        change:'change'
+      }
+    }, {
+      fieldLabel: '邮箱',
+      bind: {
+        value: '{rec.email}'
+      }
+    }, {
+      fieldLabel: '岗位名称',
+      xtype: 'adminDictCombobox',
+      dictType: '岗位名称',
+      bind: {
+        value: '{rec.position}'
+      },
+      render: null
+    }, {
+      fieldLabel: '电话号',
+      bind: {
+        value: '{rec.phone}'
+      }
+    }, {
+      fieldLabel: '手机号',
+      bind: {
+        value: '{rec.mobile}'
+      }
+    }, {
+      xtype: 'combobox',
+      fieldLabel: '状态',
+      editable: false,
+      bind: {
+        store: '{rec.availableOptions}',
+        value: '{rec.available}'
+      }
     }]
+  }]
 });
