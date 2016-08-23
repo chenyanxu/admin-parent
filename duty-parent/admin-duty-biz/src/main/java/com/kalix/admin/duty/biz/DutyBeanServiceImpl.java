@@ -1,7 +1,6 @@
 package com.kalix.admin.duty.biz;
 
 import com.kalix.admin.core.api.dao.IUserBeanDao;
-import com.kalix.admin.core.entities.UserBean;
 import com.kalix.admin.duty.api.biz.IDutyBeanService;
 import com.kalix.admin.duty.api.dao.IDutyBeanDao;
 import com.kalix.admin.duty.api.dao.IDutyUserBeanDao;

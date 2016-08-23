@@ -4,9 +4,9 @@
         <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
         <jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/ds)</jta-data-source>
         <class>com.kalix.framework.core.api.persistence.PersistentEntity</class>
-        <class>com.kalix.admin.core.entities.UserBean</class>
+       <!-- <class>com.kalix.admin.core.entities.UserBean</class>
         <class>com.kalix.admin.core.entities.RoleBean</class>
-        <class>com.kalix.admin.core.entities.PermissionBean</class>
+        <class>com.kalix.admin.core.entities.PermissionBean</class>-->
 
         <properties>
             <property name="openjpa.BrokerImpl" value="non-finalizing"/>
