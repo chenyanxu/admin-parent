@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 这里的name代表工种名称，可任意
+	default代表默认的target名称，这个参数是必填的 -->
+<project name="UpdatePom">
+    <taskdef name="mytask" classname="com.kalix.framework.core.util.ETCAntTask" classpath="${user.home}\.m2\repository\com\kalix\framework\core\framework-core-util\1.0.0-SNAPSHOT\framework-core-util-1.0.0-SNAPSHOT.jar"></taskdef>
+    <mytask pomDir="${basedir}"/>
+</project>
