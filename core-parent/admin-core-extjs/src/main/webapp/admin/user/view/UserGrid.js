@@ -71,7 +71,7 @@ Ext.define('kalix.admin.user.view.UserGrid', {
             dataIndex: 'org'
         },
         {
-            text: '职位',
+            text: '职务',
             dataIndex: 'duty'
         }, {
             text: '用户状态',

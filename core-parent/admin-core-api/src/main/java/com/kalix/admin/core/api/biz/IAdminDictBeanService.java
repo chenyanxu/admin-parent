@@ -1,11 +1,7 @@
 package com.kalix.admin.core.api.biz;
 
 import com.kalix.admin.core.entities.DictBean;
-import com.kalix.framework.core.api.biz.IBizService;
-
-import java.util.List;
-import java.util.Map;
-
+import com.kalix.framework.core.api.system.IDictBeanService;
 
 /**
  * @类描述：字典服务接口类
@@ -16,6 +12,5 @@ import java.util.Map;
  * @修改备注：
  */
 
-public interface IDictBeanService extends IBizService<DictBean> {
-    List<Map> getDictTypes(String query);
+public interface IAdminDictBeanService extends IDictBeanService<DictBean> {
 }

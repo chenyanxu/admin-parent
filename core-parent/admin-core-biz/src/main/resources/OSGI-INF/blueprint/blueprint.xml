@@ -75,12 +75,12 @@
              interface="com.kalix.admin.core.api.biz.IPermissionBeanService"/>
 
     <!--字典服务注册-->
-    <bean id="dictBeanServiceImpl" class="com.kalix.admin.core.biz.DictBeanServiceImpl">
+    <bean id="dictBeanServiceImpl" class="com.kalix.admin.core.biz.AdminDictBeanServiceImpl">
         <property name="dao" ref="dictBeanDao"/>
         <property name="cacheManager" ref="cacheManager"/>
     </bean>
     <service id="dictBeanService" ref="dictBeanServiceImpl"
-             interface="com.kalix.admin.core.api.biz.IDictBeanService"/>
+             interface="com.kalix.admin.core.api.biz.IAdminDictBeanService"/>
 
     <!--工作组服务注册-->
     <bean id="workGroupBeanServiceImpl" class="com.kalix.admin.core.biz.WorkGroupBeanServiceImpl">
