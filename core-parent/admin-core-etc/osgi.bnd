@@ -1,0 +1,2 @@
+Bundle-Activator: ${bundle.namespace}.internal.InitActivator
+Bundle-Category: Kalix Admin Core

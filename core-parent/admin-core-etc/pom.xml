@@ -13,5 +13,9 @@
     <artifactId>admin-core-etc</artifactId>
     <name>Kalix Admin Core ETC</name>
     <description>ETC</description>
-    <packaging>pom</packaging>
+    <packaging>bundle</packaging>
+
+    <properties>
+        <bundle.symbolicName>com.kalix.admin.core.etc</bundle.symbolicName>
+    </properties>
 </project>

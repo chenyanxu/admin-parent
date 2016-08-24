@@ -3,7 +3,6 @@ package com.kalix.admin.core.api.dao;
 import com.kalix.admin.core.entities.DictBean;
 import com.kalix.framework.core.api.dao.IGenericDao;
 
-import java.util.List;
 
 /**
  * @类描述：字典dao接口类
@@ -15,5 +14,4 @@ import java.util.List;
  */
 
 public interface IDictBeanDao extends IGenericDao<DictBean, Long> {
-    List<DictBean> getDictList(String type);
 }

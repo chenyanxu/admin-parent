@@ -22,7 +22,6 @@
         <module>admin-core-dao</module>
         <module>admin-core-biz</module>
         <module>admin-core-rest</module>
-        <module>admin-core-web</module>
         <module>admin-core-extjs</module>
         <module>admin-core-etc</module>
     </modules>
