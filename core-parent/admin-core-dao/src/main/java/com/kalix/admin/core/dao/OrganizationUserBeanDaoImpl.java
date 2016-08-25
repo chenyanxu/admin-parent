@@ -3,6 +3,7 @@ package com.kalix.admin.core.dao;
 import com.kalix.admin.core.api.dao.IOrganizationUserBeanDao;
 import com.kalix.admin.core.entities.OrganizationUserBean;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,5 +53,16 @@ public class OrganizationUserBeanDaoImpl extends BaseAdminDao<OrganizationUserBe
     @SuppressWarnings("unchecked")
     public List<OrganizationUserBean> findByUserId(long userId) {
         return (List<OrganizationUserBean>) this.find("select t from OrganizationUserBean t where t.userId = ?1", userId);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<OrganizationUserBean> findByUserIds(List<Long> userId) {
+        if (userId != null && !userId.isEmpty()) {
+            return (List<OrganizationUserBean>) this.find("select t from OrganizationUserBean t where t.userId in (?1) order by t.userId", userId);
+        }
+        else {
+            return new ArrayList<>();
+        }
     }
 }

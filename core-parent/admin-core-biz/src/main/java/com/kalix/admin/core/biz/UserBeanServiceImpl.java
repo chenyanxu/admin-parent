@@ -5,11 +5,18 @@ import com.kalix.admin.core.api.biz.IUserBeanService;
 import com.kalix.admin.core.api.dao.*;
 import com.kalix.admin.core.dto.model.OrganizationDTO;
 import com.kalix.admin.core.dto.model.UserDTO;
+import com.kalix.admin.core.entities.OrganizationBean;
+import com.kalix.admin.core.entities.OrganizationUserBean;
 import com.kalix.admin.core.entities.RoleBean;
 import com.kalix.admin.core.entities.UserBean;
+import com.kalix.admin.duty.api.dao.IDutyBeanDao;
+import com.kalix.admin.duty.api.dao.IDutyUserBeanDao;
+import com.kalix.admin.duty.entities.DutyBean;
+import com.kalix.admin.duty.entities.DutyUserBean;
 import com.kalix.framework.core.api.persistence.GenericJsonData;
 import com.kalix.framework.core.api.persistence.JsonData;
 import com.kalix.framework.core.api.persistence.JsonStatus;
+import com.kalix.framework.core.api.web.model.BaseDTO;
 import com.kalix.framework.core.api.web.model.QueryDTO;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
@@ -24,7 +31,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by dell on 14-1-17.
@@ -34,28 +41,47 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
     private IRoleBeanDao roleBeanDao;
     private IRoleUserBeanDao roleUserBeanDao;
     private IWorkGroupUserBeanDao workGroupUserBeanDao;
-    private IOrganizationUserBeanDao departmentUserBeanDao;
+    private IOrganizationBeanDao organizationBeanDao;
+    private IOrganizationUserBeanDao organizationUserBeanDao;
+    private IDutyBeanDao dutyBeanDao;
+    private IDutyUserBeanDao dutyUserBeanDao;
 
     public UserBeanServiceImpl() {
         super.init(UserBean.class.getName());
     }
 
-    public void setWorkGroupUserBeanDao(IWorkGroupUserBeanDao workGroupUserBeanDao) {
-        this.workGroupUserBeanDao = workGroupUserBeanDao;
-    }
-
-    public void setDepartmentUserBeanDao(IOrganizationUserBeanDao departmentUserBeanDao) {
-        this.departmentUserBeanDao = departmentUserBeanDao;
+    public void setRoleBeanDao(IRoleBeanDao roleBeanDao) {
+        this.roleBeanDao = roleBeanDao;
     }
 
     public void setRoleUserBeanDao(IRoleUserBeanDao roleUserBeanDao) {
         this.roleUserBeanDao = roleUserBeanDao;
     }
 
+    public void setWorkGroupUserBeanDao(IWorkGroupUserBeanDao workGroupUserBeanDao) {
+        this.workGroupUserBeanDao = workGroupUserBeanDao;
+    }
+
+    public void setOrganizationBeanDao(IOrganizationBeanDao organizationBeanDao) {
+        this.organizationBeanDao = organizationBeanDao;
+    }
+
+    public void setOrganizationUserBeanDao(IOrganizationUserBeanDao organizationUserBeanDao) {
+        this.organizationUserBeanDao = organizationUserBeanDao;
+    }
+
+    public void setDutyBeanDao(IDutyBeanDao dutyBeanDao) {
+        this.dutyBeanDao = dutyBeanDao;
+    }
+
+    public void setDutyUserBeanDao(IDutyUserBeanDao dutyUserBeanDao) {
+        this.dutyUserBeanDao = dutyUserBeanDao;
+    }
+
     @Override
     public void afterDeleteEntity(Long id, JsonStatus status) {
         roleUserBeanDao.update("delete from RoleUserBean ru where ru.userId=?1", id);
-        departmentUserBeanDao.update("delete from OrganizationUserBean du where du.userId=?1", id);
+        organizationUserBeanDao.update("delete from OrganizationUserBean du where du.userId=?1", id);
         workGroupUserBeanDao.update("delete from WorkGroupUserBean wu where wu.userId=?1", id);
     }
 
@@ -118,18 +144,6 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
             return false;
         }
         return true;
-    }
-
-    public IRoleBeanDao getRoleBeanDao() {
-        return roleBeanDao;
-    }
-
-    public void setRoleBeanDao(IRoleBeanDao roleBeanDao) {
-        this.roleBeanDao = roleBeanDao;
-    }
-
-    public IUserBeanDao getUserBeanDao() {
-        return dao;
     }
 
     /**
@@ -213,17 +227,42 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
 
     @Override
     public JsonData getAllEntityByQuery(QueryDTO queryDTO) {
+        long bTime = System.currentTimeMillis();
         Mapper mapper = new DozerBeanMapper();
         JsonData jsonData = super.getAllEntityByQuery(queryDTO);
         List userList = jsonData.getData();
         List<UserDTO> userDTOList = new ArrayList<>();
         for (Object user : userList) {
             UserDTO userDTO = mapper.map(user, UserDTO.class);
-            userDTO.setOrg(getUserOrg(userDTO.getId()));
-            userDTO.setDuty(getUserDuty(userDTO.getId()));
+            //userDTO.setOrg(getUserOrg(userDTO.getId()));
+            //userDTO.setDuty(getUserDuty(userDTO.getId()));
             userDTOList.add(userDTO);
         }
-        jsonData.setData(userDTOList);
+
+        // 全部组织机构
+        List<OrganizationBean> orgList = organizationBeanDao.getAll();
+        // 部分机构人员对应关系
+        List<OrganizationUserBean> orgUserList = organizationUserBeanDao.findByUserIds(userDTOList.stream().map(BaseDTO::getId).collect(Collectors.toList()));
+        // 全部职务
+        List<DutyBean> dutyList = dutyBeanDao.getAll();
+        // 部分职务人员对应关系
+        List<DutyUserBean> dutyUserList = dutyUserBeanDao.findByUserIds(userDTOList.stream().map(BaseDTO::getId).collect(Collectors.toList()));
+
+        userList = userDTOList.stream().peek(n -> {
+            orgUserList.stream().filter(m -> n.getId() == m.getUserId())
+                    .forEach(m -> orgList.stream().filter(org -> org.getId() == m.getOrgId())
+                            .forEach(org -> n.setOrg(n.getOrg() == null ? org.getName() : n.getOrg() + "," + org.getName())));
+
+            dutyUserList.stream().filter(m -> n.getId() == m.getUserId())
+                    .forEach(m -> dutyList.stream().filter(duty -> duty.getId() == m.getDutyId())
+                            .forEach(duty -> n.setDuty(n.getDuty() == null ? duty.getName() : n.getDuty() + "," + duty.getName())));
+        }).collect(Collectors.toList());
+
+        jsonData.setData(userList);
+
+        long eTime = System.currentTimeMillis();
+
+        System.out.println("运行时间：" + (eTime - bTime));
         return jsonData;
     }
 

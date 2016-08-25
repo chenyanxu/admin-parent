@@ -7,6 +7,7 @@ import com.kalix.admin.core.api.dao.IOrganizationUserBeanDao;
 import com.kalix.admin.core.api.dao.IUserBeanDao;
 import com.kalix.admin.core.dto.model.OrganizationDTO;
 import com.kalix.admin.core.dto.model.OrganizationUserDTO;
+import com.kalix.admin.core.dto.model.UserDTO;
 import com.kalix.admin.core.entities.OrganizationBean;
 import com.kalix.admin.core.entities.OrganizationUserBean;
 import com.kalix.admin.core.entities.UserBean;
@@ -398,13 +399,9 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
      * @return
      */
     public JsonData getOrgsByUserId(long userId){
-        JsonData jsonData = new JsonData();
+        List list = dao.findByNativeSql("select id, id as orgId, code as orgCode, name as orgName from sys_organization where id in (select orgid from sys_organization_user where userid = " + userId + ")", OrganizationDTO.class);
 
-        List<OrganizationDTO> list = dao.findByNativeSql("select id, id as orgId, code as orgCode, name as orgName from sys_organization where id in (select orgid from sys_organization_user where userid = " + userId + ")", OrganizationDTO.class);
-
-        jsonData.setData(list);
-        jsonData.setTotalCount(Long.valueOf(list.size()));
-        return jsonData;
+        return JsonData.toJsonData(list);
     }
 
     /**
