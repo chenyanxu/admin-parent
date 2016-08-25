@@ -256,15 +256,16 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
                 });
         root.setChildren(children);
     }
-//    public OrganizationDTO getOrganizationDTO(Long id) {
-//        OrganizationBean bean = dao.get(id);
-//
-//        if (bean != null) {
-//            return generateRoot(dao.findByCode(bean.getCode()), id);
-//        } else {
-//            return null;
-//        }
-//    }
+
+    public OrganizationDTO getOrganizationDTO(Long id) {
+        OrganizationBean bean = dao.get(id);
+
+        if (bean != null) {
+            return generateRoot(dao.findByCode(bean.getCode()), id);
+        } else {
+            return null;
+        }
+    }
 //
 //    public OrganizationDTO getOrganizationDTOByName(String name) {
 //        List<OrganizationBean> beans = dao.findByName(0L, name);

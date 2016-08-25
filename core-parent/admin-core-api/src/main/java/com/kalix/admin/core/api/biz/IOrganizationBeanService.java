@@ -22,7 +22,7 @@ public interface IOrganizationBeanService extends IBizService<OrganizationBean> 
 
     OrganizationDTO getAllOrg();
 
-    //OrganizationDTO getOrganizationDTO(Long id);
+    OrganizationDTO getOrganizationDTO(Long id);
 
     //OrganizationDTO getOrganizationDTOByName(String name);
 

@@ -43,7 +43,7 @@
             <!-- this is a rest GET to view an org by the given id -->
             <get id="route-getOrg">
                 <description>Find org by id</description>
-                <to uri="bean:orgService?method=getOrg(${header.id})"/>
+                <to uri="bean:orgService?method=getOrganizationDTO(${header.id})"/>
             </get>
             <!-- this is a rest DELETE to delete an org -->
             <delete id="route-deleteOrg" outType="com.kalix.framework.core.api.persistence.JsonStatus">
