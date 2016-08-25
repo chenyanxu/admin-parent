@@ -21,4 +21,12 @@ public interface IDutyUserBeanDao extends IGenericDao<DutyUserBean, Long> {
      * @return
      */
     List<DutyUserBean> findByDutyId(Long dutyId);
+
+    /**
+     * 通过用户集合查找职位信息 2016-08-25 by p
+     *
+     * @param userId
+     * @return
+     */
+    List<DutyUserBean> findByUserIds(List<Long> userId);
 }

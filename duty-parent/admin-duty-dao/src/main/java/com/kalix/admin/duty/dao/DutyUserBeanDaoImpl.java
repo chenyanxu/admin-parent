@@ -6,6 +6,7 @@ import com.kalix.framework.core.impl.dao.GenericDao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,5 +38,16 @@ public class DutyUserBeanDaoImpl extends GenericDao<DutyUserBean, Long> implemen
     @SuppressWarnings("unchecked")
     public List<DutyUserBean> findByDutyId(Long dutyId) {
         return (List<DutyUserBean>) this.find("select t from DutyUserBean t where t.dutyId = ?1", dutyId);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<DutyUserBean> findByUserIds(List<Long> userId) {
+        if (userId != null && !userId.isEmpty()) {
+            return (List<DutyUserBean>) this.find("select t from DutyUserBean t where t.userId in (?1) order by t.userId", userId);
+        }
+        else {
+            return new ArrayList<>();
+        }
     }
 }

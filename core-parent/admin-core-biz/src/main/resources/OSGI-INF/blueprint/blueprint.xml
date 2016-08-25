@@ -23,17 +23,21 @@
     <reference id="roleFunctionBeanDao" interface="com.kalix.admin.core.api.dao.IRoleFunctionBeanDao"/>
     <reference id="applicationBeanDao" interface="com.kalix.admin.core.api.dao.IApplicationBeanDao"/>
     <reference id="functionBeanDao" interface="com.kalix.admin.core.api.dao.IFunctionBeanDao"/>
+    <reference id="dutyBeanDao" interface="com.kalix.admin.duty.api.dao.IDutyBeanDao" />
+    <reference id="dutyUserBeanDao" interface="com.kalix.admin.duty.api.dao.IDutyUserBeanDao" />
     <!--<reference id="functionBeanService" interface="com.kalix.framework.app.api.biz.IFunctionBeanService"/>-->
     <!--<reference id="messageBeanDao" interface="com.kalix.admin.core.api.dao.IMessageBeanDao"/>-->
     <!--<reference id="pluginBeanDao" interface="com.kalix.admin.core.api.dao.IPluginBeanDao"/>-->
-
 
     <bean id="userBeanServiceImpl" class="com.kalix.admin.core.biz.UserBeanServiceImpl">
         <property name="dao" ref="userBeanDao"/>
         <property name="roleBeanDao" ref="roleBeanDao"/>
         <property name="roleUserBeanDao" ref="roleUserBeanDao"/>
-        <property name="departmentUserBeanDao" ref="orgUserBeanDao"/>
         <property name="workGroupUserBeanDao" ref="workGroupUserBeanDao"/>
+        <property name="organizationBeanDao" ref="orgBeanDao" />
+        <property name="organizationUserBeanDao" ref="orgUserBeanDao"/>
+        <property name="dutyBeanDao" ref="dutyBeanDao" />
+        <property name="dutyUserBeanDao" ref="dutyUserBeanDao"/>
     </bean>
     <service id="userBeanService" ref="userBeanServiceImpl" interface="com.kalix.admin.core.api.biz.IUserBeanService"/>
 

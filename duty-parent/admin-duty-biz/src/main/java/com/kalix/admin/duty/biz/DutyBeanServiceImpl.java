@@ -162,13 +162,15 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
      */
     @Override
     public List<String>  getDutyByUserId(Long userId){
-        List<String> dutyList=new ArrayList<>();
+        List<String> dutyList = new ArrayList<>();
         List<DutyUserBean> dutyUserBeanList = dutyUserBeanDao.findByNativeSql("select * from sys_duty_user where userId=" + userId, DutyUserBean.class);
-        if(dutyUserBeanList!=null && dutyUserBeanList.size()>0){
+        if(dutyUserBeanList != null && dutyUserBeanList.size() > 0){
             for (DutyUserBean duty:dutyUserBeanList){
-                DutyBean dutyBean=dutyBeanDao.get(duty.getDutyId());
-                String dutyName=dutyBean.getName();
-                dutyList.add(dutyName);
+                DutyBean dutyBean = dutyBeanDao.get(duty.getDutyId());
+                if (dutyBean != null) {
+                    String dutyName = dutyBean.getName();
+                    dutyList.add(dutyName);
+                }
             }
         }
         return dutyList;

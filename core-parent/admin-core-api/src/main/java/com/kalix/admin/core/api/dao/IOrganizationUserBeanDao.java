@@ -56,4 +56,12 @@ public interface IOrganizationUserBeanDao extends IGenericDao<OrganizationUserBe
      * @return
      */
     List<OrganizationUserBean> findByUserId(long userId);
+
+    /**
+     * 查询指定用户集合的所有机构用户对应关系 2016-08-25 by p
+     *
+     * @param userId
+     * @return
+     */
+    List<OrganizationUserBean> findByUserIds(List<Long> userId);
 }
