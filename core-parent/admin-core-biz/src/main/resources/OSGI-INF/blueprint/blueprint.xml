@@ -13,7 +13,6 @@
     <reference id="userBeanDao" interface="com.kalix.admin.core.api.dao.IUserBeanDao"/>
     <reference id="roleBeanDao" interface="com.kalix.admin.core.api.dao.IRoleBeanDao"/>
     <reference id="roleUserBeanDao" interface="com.kalix.admin.core.api.dao.IRoleUserBeanDao"/>
-    <reference id="permissionBeanDao" interface="com.kalix.admin.core.api.dao.IPermissionBeanDao"/>
     <reference id="dictBeanDao" interface="com.kalix.admin.core.api.dao.IDictBeanDao"/>
     <!--<reference id="areaBeanDao" interface="com.kalix.admin.core.api.dao.IAreaBeanDao"/>-->
     <!--<reference id="depBeanDao" interface="com.kalix.admin.core.api.dao.IDepartmentBeanDao"/>-->
@@ -41,7 +40,7 @@
 
     <bean id="loginBeanServiceImpl" class="com.kalix.admin.core.biz.UserLoginServiceImpl">
         <property name="userBeanDao" ref="userBeanDao"/>
-        <property name="permissionBeanService" ref="permissionBeanServiceImpl"/>
+        <property name="permissionService" ref="permissionServiceImpl"/>
     </bean>
     <service id="userloginBeanService" ref="loginBeanServiceImpl"
              interface="com.kalix.framework.core.api.security.IUserLoginService"/>
@@ -61,9 +60,7 @@
              interface="com.kalix.admin.core.api.biz.IRoleBeanService"/>
 
     <!--权限服务注册-->
-    <bean id="permissionBeanServiceImpl" class="com.kalix.admin.core.biz.PermissionBeanServiceImpl">
-        <property name="dao" ref="permissionBeanDao"/>
-        <property name="roleBeanDao" ref="roleBeanDao"/>
+    <bean id="permissionServiceImpl" class="com.kalix.admin.core.biz.PermissionServiceImpl">
         <property name="roleBeanService" ref="roleBeanServiceImpl"/>
         <property name="roleApplicationBeanDao" ref="roleApplicationBeanDao"/>
         <property name="workGroupBeanService" ref="workGroupBeanServiceImpl"/>
@@ -71,8 +68,8 @@
         <property name="roleFunctionBeanDao" ref="roleFunctionBeanDao"/>
         <property name="functionBeanDao" ref="functionBeanDao"/>
     </bean>
-    <service id="permissionBeanService" ref="permissionBeanServiceImpl"
-             interface="com.kalix.admin.core.api.biz.IPermissionBeanService"/>
+    <service id="permissionService" ref="permissionServiceImpl"
+             interface="com.kalix.admin.core.api.biz.IPermissionService"/>
 
     <!--字典服务注册-->
     <bean id="dictBeanServiceImpl" class="com.kalix.admin.core.biz.AdminDictBeanServiceImpl">

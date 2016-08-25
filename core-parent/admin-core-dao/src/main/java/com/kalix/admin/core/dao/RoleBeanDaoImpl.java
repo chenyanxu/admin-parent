@@ -20,13 +20,6 @@ public class RoleBeanDaoImpl extends BaseAdminDao<RoleBean, Long> implements IRo
     private final String className = RoleBean.class.getName();
     @Override
     public List<String> getRoleNameList() {
-        /*List<RoleBean> roleBeanList=super.getAll(RoleBean.class.getName());
-        if(roleBeanList!=null){
-            roleNameList=new ArrayList<String>();
-            for(RoleBean roleBean:roleBeanList){
-                roleNameList.add(roleBean.getName());
-            }
-        }*/
         final Query query = entityManager.createQuery("select c.name from RoleBean c ");
         final List<String> resultList = query.getResultList();
         return resultList;
