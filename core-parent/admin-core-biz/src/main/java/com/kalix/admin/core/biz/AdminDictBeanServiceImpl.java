@@ -1,8 +1,8 @@
 package com.kalix.admin.core.biz;
 
 import com.kalix.admin.core.api.biz.IAdminDictBeanService;
-import com.kalix.admin.core.api.dao.IDictBeanDao;
-import com.kalix.admin.core.entities.DictBean;
+import com.kalix.admin.core.api.dao.IAdminDictBeanDao;
+import com.kalix.admin.core.entities.AdminDictBean;
 import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.impl.system.BaseDictServiceImpl;
 
@@ -14,9 +14,9 @@ import com.kalix.framework.core.impl.system.BaseDictServiceImpl;
  * @修改时间：
  * @修改备注：
  */
-public class AdminDictBeanServiceImpl extends BaseDictServiceImpl<IDictBeanDao, DictBean> implements IAdminDictBeanService {
+public class AdminDictBeanServiceImpl extends BaseDictServiceImpl<IAdminDictBeanDao, AdminDictBean> implements IAdminDictBeanService {
     @Override
-    public JsonStatus saveEntity(DictBean entity) {
+    public JsonStatus saveEntity(AdminDictBean entity) {
         Integer maxValue = dao.getFieldMaxValue("value","type='"+entity.getType()+"'");
 
         maxValue=maxValue+1;

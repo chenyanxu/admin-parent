@@ -13,7 +13,7 @@
     <reference id="userBeanDao" interface="com.kalix.admin.core.api.dao.IUserBeanDao"/>
     <reference id="roleBeanDao" interface="com.kalix.admin.core.api.dao.IRoleBeanDao"/>
     <reference id="roleUserBeanDao" interface="com.kalix.admin.core.api.dao.IRoleUserBeanDao"/>
-    <reference id="dictBeanDao" interface="com.kalix.admin.core.api.dao.IDictBeanDao"/>
+    <reference id="dictBeanDao" interface="com.kalix.admin.core.api.dao.IAdminDictBeanDao"/>
     <!--<reference id="areaBeanDao" interface="com.kalix.admin.core.api.dao.IAreaBeanDao"/>-->
     <!--<reference id="depBeanDao" interface="com.kalix.admin.core.api.dao.IDepartmentBeanDao"/>-->
     <reference id="orgUserBeanDao" interface="com.kalix.admin.core.api.dao.IOrganizationUserBeanDao"/>
