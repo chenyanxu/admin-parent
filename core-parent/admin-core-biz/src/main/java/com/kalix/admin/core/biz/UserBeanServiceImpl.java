@@ -227,7 +227,6 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
 
     @Override
     public JsonData getAllEntityByQuery(QueryDTO queryDTO) {
-        long bTime = System.currentTimeMillis();
         Mapper mapper = new DozerBeanMapper();
         JsonData jsonData = super.getAllEntityByQuery(queryDTO);
         List userList = jsonData.getData();
@@ -260,9 +259,6 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
 
         jsonData.setData(userList);
 
-        long eTime = System.currentTimeMillis();
-
-        System.out.println("运行时间：" + (eTime - bTime));
         return jsonData;
     }
 
