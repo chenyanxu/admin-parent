@@ -18,9 +18,10 @@ Ext.define('kalix.admin.user.component.UserTagField', {
     valueField: 'name',
     displayField: 'name',
     queryParam: 'jsonStr',
-    minChars: 0,
-    typeAhead: true,
+    minChars: 1,
+    typeAhead: false,
     filterPickList: true,
+    autoSelect:false,
     store: {
         type: 'userStore'
     },
@@ -33,5 +34,11 @@ Ext.define('kalix.admin.user.component.UserTagField', {
         }
 
         return params;
+    },
+    listeners:{
+        change:function () {
+            this.ariaEl.dom.value='';
+            this.collapse();
+        }
     }
 });
