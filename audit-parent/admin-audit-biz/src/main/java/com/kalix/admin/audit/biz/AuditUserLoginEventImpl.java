@@ -1,4 +1,4 @@
-package com.kalix.admin.audit.biz.biz;
+package com.kalix.admin.audit.biz;
 
 import com.google.gson.Gson;
 import com.kalix.admin.audit.api.dao.IAuditBeanDao;

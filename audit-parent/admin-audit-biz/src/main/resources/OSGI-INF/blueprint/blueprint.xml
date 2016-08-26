@@ -8,12 +8,12 @@
     <service id="auditBeanService" interface="com.kalix.admin.audit.api.biz.IAuditBeanService" ref="beanServiceImpl">
     </service>
 
-    <bean id="beanServiceImpl" class="com.kalix.admin.audit.biz.biz.AuditBeanServiceImpl">
+    <bean id="beanServiceImpl" class="com.kalix.admin.audit.biz.AuditBeanServiceImpl">
         <property name="dao" ref="auditBeanDao"/>
         <tx:transaction method="*" value="Required"/>
     </bean>
 
-    <bean id="auditUserLoginEventImpl" class="com.kalix.admin.audit.biz.biz.AuditUserLoginEventImpl">
+    <bean id="auditUserLoginEventImpl" class="com.kalix.admin.audit.biz.AuditUserLoginEventImpl">
         <property name="dao" ref="auditBeanDao"/>
     </bean>
 

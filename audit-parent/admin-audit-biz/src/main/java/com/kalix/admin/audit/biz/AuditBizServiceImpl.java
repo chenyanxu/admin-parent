@@ -1,4 +1,4 @@
-package com.kalix.admin.audit.biz.biz;
+package com.kalix.admin.audit.biz;
 
 import com.kalix.admin.audit.api.biz.IAuditBeanService;
 import com.kalix.admin.audit.biz.AuditUtil;
