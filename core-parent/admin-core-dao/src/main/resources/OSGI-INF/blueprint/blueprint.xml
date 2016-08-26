@@ -41,13 +41,6 @@
         <tx:transaction method="*" value="Required"/>
     </bean>
 
-    <service id="permissionBeanDao" interface="com.kalix.admin.core.api.dao.IPermissionBeanDao"
-             ref="permissionBeanDaoImpl"/>
-
-    <bean id="permissionBeanDaoImpl" class="com.kalix.admin.core.dao.PermissionBeanDaoImpl">
-        <tx:transaction method="*" value="Required"/>
-    </bean>
-
     <!--字典dao-->
     <service id="dictBeanDao" interface="com.kalix.admin.core.api.dao.IDictBeanDao" ref="dictBeanDaoImpl"/>
 

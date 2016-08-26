@@ -1,16 +1,14 @@
 package com.kalix.admin.core.biz;
 
-import com.kalix.admin.core.api.biz.IPermissionBeanService;
+import com.kalix.admin.core.api.biz.IPermissionService;
 import com.kalix.admin.core.api.dao.IUserBeanDao;
 import com.kalix.admin.core.entities.UserBean;
 import com.kalix.framework.core.api.ErrorCodeValue;
 import com.kalix.framework.core.api.security.IUserLoginService;
 import com.kalix.framework.core.util.MD5Util;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.subject.Subject;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -26,13 +24,9 @@ import java.util.Map;
  */
 
 public class UserLoginServiceImpl implements IUserLoginService {
-    //    @Named
-    /*@Inject
-    @Reference(id="userBeanDao",serviceInterface = IUserBeanDao.class)*/
     private IUserBeanDao userBeanDao;
 
-
-    private IPermissionBeanService permissionBeanService;
+    private IPermissionService permissionService;
 
     /**
      * 设置cookie
@@ -53,13 +47,8 @@ public class UserLoginServiceImpl implements IUserLoginService {
         response.addCookie(cookie);
     }
 
-    public void setPermissionBeanService(IPermissionBeanService permissionBeanService) {
-        this.permissionBeanService = permissionBeanService;
-    }
 
-    public void setUserBeanDao(IUserBeanDao userBeanDao) {
-        this.userBeanDao = userBeanDao;
-    }
+
 
     public boolean validateUserStatus(String username) {
         UserBean user = userBeanDao.getUser(username);
@@ -107,31 +96,17 @@ public class UserLoginServiceImpl implements IUserLoginService {
         List<String> stringList = new ArrayList<String>();
         UserBean userBean = userBeanDao.getUser(username);
         if (userBean != null) {
-            stringList.addAll(permissionBeanService.getApplicationCodesByUserId(userBean.getId()));
-            stringList.addAll(permissionBeanService.getFunctionCodesByUserId(userBean.getId()));
+            stringList.addAll(permissionService.getApplicationCodesByUserId(userBean.getId()));
+            stringList.addAll(permissionService.getFunctionCodesByUserId(userBean.getId()));
         }
         return stringList;
     }
-
-    /**
-     * 获得登录用户名
-     *
-     * @return
-     */
-//    @Override
-//    public String getLoginName() {
-//        Subject subject = SecurityUtils.getSubject();
-//        String userName = (String) subject.getPrincipal();
-//        return userName;
-//    }
 
     private String encrypt(String text) {
         return MD5Util.encode(text);
     }
 
     @Override
-
-//    @UserExist
     public Map loginByPhone(String username, String password, String client,
                             HttpServletRequest request, HttpServletResponse response) {
         Map map = new HashMap();
@@ -199,5 +174,13 @@ public class UserLoginServiceImpl implements IUserLoginService {
             map.put("result", result);
         }
         return map;
+    }
+
+    public void setUserBeanDao(IUserBeanDao userBeanDao) {
+        this.userBeanDao = userBeanDao;
+    }
+
+    public void setPermissionService(IPermissionService permissionService) {
+        this.permissionService = permissionService;
     }
 }
