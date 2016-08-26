@@ -1,6 +1,6 @@
 package com.kalix.admin.core.api.biz;
 
-import com.kalix.admin.core.entities.DictBean;
+import com.kalix.admin.core.entities.AdminDictBean;
 import com.kalix.framework.core.api.system.IDictBeanService;
 
 /**
@@ -12,5 +12,5 @@ import com.kalix.framework.core.api.system.IDictBeanService;
  * @修改备注：
  */
 
-public interface IAdminDictBeanService extends IDictBeanService<DictBean> {
+public interface IAdminDictBeanService extends IDictBeanService<AdminDictBean> {
 }

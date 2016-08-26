@@ -42,9 +42,9 @@
     </bean>
 
     <!--字典dao-->
-    <service id="dictBeanDao" interface="com.kalix.admin.core.api.dao.IDictBeanDao" ref="dictBeanDaoImpl"/>
+    <service id="dictBeanDao" interface="com.kalix.admin.core.api.dao.IAdminDictBeanDao" ref="dictBeanDaoImpl"/>
 
-    <bean id="dictBeanDaoImpl" class="com.kalix.admin.core.dao.DictBeanDaoImpl">
+    <bean id="dictBeanDaoImpl" class="com.kalix.admin.core.dao.AdminDictBeanDaoImpl">
         <tx:transaction method="*" value="Required"/>
     </bean>
 

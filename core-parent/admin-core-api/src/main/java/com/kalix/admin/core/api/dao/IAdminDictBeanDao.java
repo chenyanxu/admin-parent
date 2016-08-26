@@ -1,6 +1,6 @@
 package com.kalix.admin.core.api.dao;
 
-import com.kalix.admin.core.entities.DictBean;
+import com.kalix.admin.core.entities.AdminDictBean;
 import com.kalix.framework.core.api.dao.IGenericDao;
 
 
@@ -13,5 +13,5 @@ import com.kalix.framework.core.api.dao.IGenericDao;
  * @修改备注：
  */
 
-public interface IDictBeanDao extends IGenericDao<DictBean, Long> {
+public interface IAdminDictBeanDao extends IGenericDao<AdminDictBean, Long> {
 }
