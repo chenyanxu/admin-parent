@@ -21,8 +21,10 @@ public class UserDTO extends BaseDTO {
     private Date loginDate;    // 最后登陆日期
     private long available = 1;     //用户是否有效：0-无效；1-有效
     private Integer position;    // 岗位
-    private String org; //组织结构
-    private String duty; //职位
+    private String org; // 组织结构
+    private String duty; // 职位
+    private String role; // 角色
+    private String workGroup; // 工作组
 
     public String getLoginName() {
         return loginName;
@@ -118,5 +120,21 @@ public class UserDTO extends BaseDTO {
 
     public void setDuty(String duty) {
         this.duty = duty;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getWorkGroup() {
+        return workGroup;
+    }
+
+    public void setWorkGroup(String workGroup) {
+        this.workGroup = workGroup;
     }
 }

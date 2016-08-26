@@ -33,6 +33,7 @@
         <property name="dao" ref="userBeanDao"/>
         <property name="roleBeanDao" ref="roleBeanDao"/>
         <property name="roleUserBeanDao" ref="roleUserBeanDao"/>
+        <property name="workGroupBeanDao" ref="workGroupBeanDao"/>
         <property name="workGroupUserBeanDao" ref="workGroupUserBeanDao"/>
         <property name="organizationBeanDao" ref="orgBeanDao" />
         <property name="organizationUserBeanDao" ref="orgUserBeanDao"/>

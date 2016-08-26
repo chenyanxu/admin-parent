@@ -52,6 +52,12 @@ Ext.define('kalix.admin.user.model.UserModel', {
       name: 'duty'
     },
     {
+      name: 'role'
+    },
+    {
+      name: 'workGroup'
+    },
+    {
       name: 'availableOptions',
       defaultValue: [
         ['1', '启用'],
