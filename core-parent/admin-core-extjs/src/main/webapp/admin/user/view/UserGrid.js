@@ -118,7 +118,7 @@ Ext.define('kalix.admin.user.view.UserGrid', {
                 }, {
                     iconCls: 'iconfont icon-permission-column',
                     permission: 'auth',
-                    tooltip: '权限分配',
+                    tooltip: '权限查看',
                     handler: 'onAuthorization'
                 }
             ]
