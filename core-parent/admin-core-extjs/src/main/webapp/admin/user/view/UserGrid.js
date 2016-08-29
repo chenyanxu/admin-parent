@@ -115,6 +115,11 @@ Ext.define('kalix.admin.user.view.UserGrid', {
                     permission: 'key',
                     tooltip: '重置密码',
                     handler: 'onKey'
+                }, {
+                    iconCls: 'iconfont icon-permission-column',
+                    permission: 'auth',
+                    tooltip: '权限分配',
+                    handler: 'onAuthorization'
                 }
             ]
         }

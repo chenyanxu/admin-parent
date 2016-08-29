@@ -101,4 +101,12 @@ public interface IRoleBeanService extends IBizService<RoleBean> {
      * @return
      */
     List getUserIdsByRoleId(long id);
+
+    /**
+     * 根据用户id获取用户所有application、functions
+     *
+     * @param userId
+     * @return
+     */
+    AuthorizationDTO getAuthorizationTreeByUserId(long userId);
 }

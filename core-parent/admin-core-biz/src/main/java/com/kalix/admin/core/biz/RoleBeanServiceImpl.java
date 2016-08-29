@@ -1,6 +1,7 @@
 package com.kalix.admin.core.biz;
 
 import com.kalix.admin.core.api.biz.IRoleBeanService;
+import com.kalix.admin.core.api.biz.IWorkGroupBeanService;
 import com.kalix.admin.core.api.dao.*;
 import com.kalix.admin.core.entities.*;
 import com.kalix.admin.core.api.biz.IFunctionBeanService;
@@ -32,14 +33,14 @@ import java.util.List;
 
 public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao, RoleBean> implements IRoleBeanService {
     private static final String FUNCTION_NAME = "角色";
-    private IUserBeanDao userBeanDao;
     private IRoleUserBeanDao roleUserBeanDao;
-    private IWorkGroupRoleBeanDao workGroupRoleBeanDao;
     private IRoleApplicationBeanDao roleApplicationBeanDao;
     private IRoleFunctionBeanDao roleFunctionBeanDao;
     private IApplicationBeanDao applicationBeanDao;
     private IFunctionBeanDao functionBeanDao;
     private IFunctionBeanService functionBeanService;
+    private IWorkGroupBeanService workGroupBeanService;
+    private IWorkGroupRoleBeanDao workGroupRoleBeanDao;
     String parentName = "根权限";
 
     public RoleBeanServiceImpl() {
@@ -70,12 +71,12 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
         this.workGroupRoleBeanDao = workGroupRoleBeanDao;
     }
 
-    public IRoleUserBeanDao getRoleUserBeanDao() {
-        return roleUserBeanDao;
-    }
-
     public void setRoleUserBeanDao(IRoleUserBeanDao roleUserBeanDao) {
         this.roleUserBeanDao = roleUserBeanDao;
+    }
+
+    public void setWorkGroupBeanService(IWorkGroupBeanService workGroupBeanService) {
+        this.workGroupBeanService = workGroupBeanService;
     }
 
     @Override
@@ -115,10 +116,6 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
             return false;
         }
         return true;
-    }
-
-    public void setUserBeanDao(IUserBeanDao userBeanDao) {
-        this.userBeanDao = userBeanDao;
     }
 
     @Override
@@ -378,8 +375,91 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
         return jsonStatus;
     }
 
+    /**
+     * 根据用户id获取用户所有application、functions
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public AuthorizationDTO getAuthorizationTreeByUserId(long userId) {
+        AuthorizationDTO root = new AuthorizationDTO();
+        Mapper mapper = new DozerBeanMapper();
+
+        // 用户application
+        List<ApplicationBean> applicationList = new ArrayList<>();
+
+        // 用户function
+        List<FunctionBean> functionList = new ArrayList<>();
+
+        // 用户所有角色
+        List<RoleBean> roleList = getRolesByUserId(userId);
+
+        // 用户所有工作组
+        List<WorkGroupUserBean> workGroupUserList = workGroupBeanService.getWorkGroupUserBeanByUserId(userId);
+
+        // 全部application
+        List<ApplicationBean> applicationAllList = applicationBeanDao.getAll();
+
+        // 全部function
+        List<FunctionBean> functionAllList = functionBeanDao.getAll();
+
+        // 获取该用户工作组对应的角色，并添加到roleList中
+        workGroupUserList.stream().forEach(n -> {
+            List<RoleBean> roleWrokGroupList = getRolesByWorkGroupId(n.getGroupId());
+            if (roleWrokGroupList != null && !roleWrokGroupList.isEmpty()) {
+                roleList.addAll(roleWrokGroupList);
+            }
+        });
+
+        // 获取用户对应角色的application和function
+        roleList.stream().forEach(n -> {
+            roleApplicationBeanDao.getRoleApplicationsByRoleId(n.getId()).stream()
+                    .forEach(m -> {
+                        applicationAllList.stream().filter(app -> app.getId() == m.getApplicationId())
+                                .forEach(app -> {
+                                    applicationList.add(app);
+                                });
+                    });
+
+            roleFunctionBeanDao.getRoleFunctionsByRoleId(n.getId()).stream()
+                    .forEach(m -> {
+                        functionAllList.stream().filter(func -> func.getId() == m.getFunctionId())
+                                .forEach(func -> {
+                                    functionList.add(func);
+                                });
+                    });
+        });
+
+        applicationList.stream().forEach(app -> {
+            AuthorizationDTO applicationDTO = mapper.map(app, AuthorizationDTO.class);
+            applicationDTO.setParentId(-1);
+            applicationDTO.setParentName(parentName);
+            applicationDTO.setLeaf(false);
+            applicationDTO.setChecked(true);
+            applicationDTO.setExpanded(true);
+            functionBeanService.getRootElements(functionList).stream().filter(func -> func.getApplicationId() == app.getId())
+                    .forEach(func -> {
+                        AuthorizationDTO functionDTO = mapper.map(func, AuthorizationDTO.class);
+                        functionDTO.setParentId(app.getId());
+                        functionDTO.setParentName(app.getName());
+                        functionDTO.setLeaf(func.getIsLeaf() != 0);
+                        functionDTO.setText(func.getName());
+                        functionDTO.setChecked(true);
+                        functionDTO.setExpanded(true);
+                        functionBeanService.getChilden(functionDTO, functionList, mapper, null, true);
+                        applicationDTO.getChildren().add(functionDTO);
+                    });
+            applicationDTO.setText(app.getName());
+            root.getChildren().add(applicationDTO);
+        });
+
+        return root;
+    }
+
     @Override
     public AuthorizationDTO getAuthorizationTree(long roleId) {
+        long bTime = System.currentTimeMillis();
         AuthorizationDTO root = new AuthorizationDTO();
         root.setId(-1);
         root.setName(parentName);
@@ -428,7 +508,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
                                 }
                             }
                             functionDTO.setExpanded(true);
-                            functionBeanService.getChilden(functionDTO, functionBeans, mapper, roleFunctionBeans);
+                            functionBeanService.getChilden(functionDTO, functionBeans, mapper, roleFunctionBeans, false);
                             applicationDTO.getChildren().add(functionDTO);
                         }
                     }
@@ -437,6 +517,9 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
                 root.getChildren().add(applicationDTO);
             }
         }
+
+        long eTime = System.currentTimeMillis();
+        System.out.println("递归时间：" + (eTime - bTime));
         return root;
     }
 

@@ -52,14 +52,14 @@
     <!--角色dao服务注册-->
     <bean id="roleBeanServiceImpl" class="com.kalix.admin.core.biz.RoleBeanServiceImpl">
         <property name="dao" ref="roleBeanDao"/>
-        <property name="userBeanDao" ref="userBeanDao"/>
         <property name="roleUserBeanDao" ref="roleUserBeanDao"/>
         <property name="roleApplicationBeanDao" ref="roleApplicationBeanDao"/>
         <property name="roleFunctionBeanDao" ref="roleFunctionBeanDao"/>
-        <property name="workGroupRoleBeanDao" ref="workGroupRoleBeanDao"/>
         <property name="applicationBeanDao" ref="applicationBeanDao"/>
         <property name="functionBeanDao" ref="functionBeanDao"/>
         <property name="functionBeanService" ref="functionBeanService"/>
+        <property name="workGroupRoleBeanDao" ref="workGroupRoleBeanDao"/>
+        <property name="workGroupBeanService" ref="workGroupBeanServiceImpl"/>
     </bean>
     <service id="roleBeanService" ref="roleBeanServiceImpl"
              interface="com.kalix.admin.core.api.biz.IRoleBeanService"/>

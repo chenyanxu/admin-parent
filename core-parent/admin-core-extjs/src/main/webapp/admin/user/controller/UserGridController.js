@@ -27,5 +27,25 @@ Ext.define('kalix.admin.user.controller.UserGridController', {
         vm.set('store',this.getView().store);
         view.show();
         grid.setSelection(selModel);
+    },
+    /**
+     * 查看权限
+     * @param grid
+     * @param rowIndex
+     * @param colIndex
+     */
+    onAuthorization: function (grid, rowIndex, colIndex) {
+        var authorizationWindow = Ext.create('kalix.admin.common.components.AuthorizationViewWindow');
+        var rec = grid.getStore().getAt(rowIndex);
+        authorizationWindow.roleId = rec.data.id;
+        authorizationWindow.authorizationUrl = CONFIG.restRoot + '/camel/rest/users/'+ rec.data.id +'/authorizations';
+        authorizationWindow.show();
+        var store = authorizationWindow.down('#authorizationviewTree').getStore();
+        store.setProxy({
+            type: 'ajax',
+            url: CONFIG.restRoot + '/camel/rest/users/'+ rec.data.id +'/authorizations'
+        });
+
+        store.reload();
     }
 });
