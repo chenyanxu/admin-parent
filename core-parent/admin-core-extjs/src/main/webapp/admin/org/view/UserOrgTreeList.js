@@ -9,5 +9,6 @@ Ext.define('kalix.admin.org.view.UserOrgTreeList', {
     alias: 'widget.userorgtreelist',
     xtype: 'userorgtreelist',
     title: '机构列表',
+    store: Ext.create('kalix.admin.org.store.UserOrgStore'),
     iconCls: 'iconfont icon-organization-management'
 });
