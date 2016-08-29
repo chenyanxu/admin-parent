@@ -67,7 +67,7 @@ Ext.define('kalix.admin.user.view.UserGrid', {
             flex: 2
         },
         {
-            text: '所属部门',
+            text: '所属机构',
             dataIndex: 'org'
         },
         {
