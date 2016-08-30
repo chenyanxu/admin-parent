@@ -383,6 +383,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
      */
     @Override
     public AuthorizationDTO getAuthorizationTreeByUserId(long userId) {
+        long bTime = System.currentTimeMillis();
         AuthorizationDTO root = new AuthorizationDTO();
         Mapper mapper = new DozerBeanMapper();
 
@@ -400,9 +401,14 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
 
         // 全部application
         List<ApplicationBean> applicationAllList = applicationBeanDao.getAll();
+        long eTime = System.currentTimeMillis();
+        System.out.println("getAuthorizationTreeByUserId 全部application：" + (eTime - bTime));
 
         // 全部function
         List<FunctionBean> functionAllList = functionBeanDao.getAll();
+        long mTime = eTime;
+        eTime = System.currentTimeMillis();
+        System.out.println("getAuthorizationTreeByUserId 全部function：" + (eTime - mTime));
 
         // 获取该用户工作组对应的角色，并添加到roleList中
         workGroupUserList.stream().forEach(n -> {
@@ -411,25 +417,23 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
                 roleList.addAll(roleWrokGroupList);
             }
         });
+        mTime = eTime;
+        eTime = System.currentTimeMillis();
+        System.out.println("getAuthorizationTreeByUserId 合并工作组和角色：" + (eTime - mTime));
 
         // 获取用户对应角色的application和function
         roleList.stream().forEach(n -> {
             roleApplicationBeanDao.getRoleApplicationsByRoleId(n.getId()).stream()
-                    .forEach(m -> {
-                        applicationAllList.stream().filter(app -> app.getId() == m.getApplicationId())
-                                .forEach(app -> {
-                                    applicationList.add(app);
-                                });
-                    });
+                    .forEach(m -> applicationAllList.stream().filter(app -> app.getId() == m.getApplicationId())
+                            .forEach(applicationList::add));
 
             roleFunctionBeanDao.getRoleFunctionsByRoleId(n.getId()).stream()
-                    .forEach(m -> {
-                        functionAllList.stream().filter(func -> func.getId() == m.getFunctionId())
-                                .forEach(func -> {
-                                    functionList.add(func);
-                                });
-                    });
+                    .forEach(m -> functionAllList.stream().filter(func -> func.getId() == m.getFunctionId())
+                            .forEach(functionList::add));
         });
+        mTime = eTime;
+        eTime = System.currentTimeMillis();
+        System.out.println("getAuthorizationTreeByUserId 获取角色的app和func：" + (eTime - mTime));
 
         applicationList.stream().forEach(app -> {
             AuthorizationDTO applicationDTO = mapper.map(app, AuthorizationDTO.class);
@@ -453,13 +457,17 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
             applicationDTO.setText(app.getName());
             root.getChildren().add(applicationDTO);
         });
+        mTime = eTime;
+        eTime = System.currentTimeMillis();
+        System.out.println("getAuthorizationTreeByUserId 组树：" + (eTime - mTime));
 
+        eTime = System.currentTimeMillis();
+        System.out.println("getAuthorizationTreeByUserId 总体运行时间：" + (eTime - bTime));
         return root;
     }
 
     @Override
     public AuthorizationDTO getAuthorizationTree(long roleId) {
-        long bTime = System.currentTimeMillis();
         AuthorizationDTO root = new AuthorizationDTO();
         root.setId(-1);
         root.setName(parentName);
@@ -518,8 +526,6 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
             }
         }
 
-        long eTime = System.currentTimeMillis();
-        System.out.println("递归时间：" + (eTime - bTime));
         return root;
     }
 
