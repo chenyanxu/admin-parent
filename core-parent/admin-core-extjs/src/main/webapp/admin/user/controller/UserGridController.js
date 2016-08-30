@@ -46,6 +46,12 @@ Ext.define('kalix.admin.user.controller.UserGridController', {
             url: CONFIG.restRoot + '/camel/rest/users/'+ rec.data.id +'/authorizations'
         });
 
-        store.reload();
+        store.reload({
+            callback: function (records, options, success) {
+                if (records == "") {
+                    Ext.Msg.alert("提示信息", "当前用户暂无权限信息！！！");
+                }
+            }
+        });
     }
 });
