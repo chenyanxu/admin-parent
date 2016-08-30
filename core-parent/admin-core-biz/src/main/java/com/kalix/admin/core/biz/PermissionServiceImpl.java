@@ -12,6 +12,7 @@ import com.kalix.framework.core.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @类描述：权限服务实现类
@@ -31,80 +32,84 @@ public class PermissionServiceImpl  implements IPermissionService {
     private IFunctionBeanDao functionBeanDao;
 
 
+    /**
+     * 获取指定用户的applicationCodes
+     *
+     * @param userId
+     * @return
+     */
     @Override
     public List<String> getApplicationCodesByUserId(long userId) {
         Assert.notNull(userId, "用户编号不能为空.");
-        List<String> applicationCodes=new ArrayList<String>();
-        //返回用户下所有角色
-        List<RoleBean> roleBeans=roleBeanService.getRolesByUserId(userId);
-        if(roleBeans!=null&&!roleBeans.isEmpty()){
-            for(RoleBean roleBean:roleBeans){
-                List<RoleApplicationBean> roleApplicationBeans=roleApplicationBeanDao.getRoleApplicationsByRoleId(roleBean.getId());
-                fillApplicationCodeByRoles(applicationCodes, roleApplicationBeans);
+        List<String> applicationCodes = new ArrayList<>();
+
+        // 用户所有角色
+        List<RoleBean> roleList = roleBeanService.getRolesByUserId(userId);
+
+        // 用户所有工作组
+        List<WorkGroupUserBean> workGroupUserList = workGroupBeanService.getWorkGroupUserBeanByUserId(userId);
+
+        // 所以application
+        List<ApplicationBean> applicationList = applicationBeanDao.getAll();
+
+        // 获取该用户工作组对应的角色，并添加到roleList中
+        workGroupUserList.stream().forEach(n -> {
+            List<RoleBean> roleWrokGroupList = roleBeanService.getRolesByWorkGroupId(n.getGroupId());
+            if (roleWrokGroupList != null && !roleWrokGroupList.isEmpty()) {
+                roleList.addAll(roleWrokGroupList);
             }
-        }
-        //返回用户下所有工作组,根据工作组再返回工作组下所有角色
-        List<WorkGroupUserBean> workGroupUserBeans=workGroupBeanService.getWorkGroupUserBeanByUserId(userId);
-        if(workGroupUserBeans!=null&&!workGroupUserBeans.isEmpty()){
-            for(WorkGroupUserBean workGroupUserBean:workGroupUserBeans){
-                List<RoleBean> _roleBeans = roleBeanService.getRolesByWorkGroupId(workGroupUserBean.getGroupId());
-                if(_roleBeans!=null&&!_roleBeans.isEmpty()){
-                    for(RoleBean roleBean:_roleBeans){
-                        List<RoleApplicationBean> roleApplicationBeans=roleApplicationBeanDao.getRoleApplicationsByRoleId(roleBean.getId());
-                        fillApplicationCodeByRoles(applicationCodes, roleApplicationBeans);
-                    }
-                }
-            }
-        }
-        return applicationCodes;
+        });
+
+        // 过滤重复角色，并获取角色对应applicationCodes
+        roleList.stream().distinct().forEach(n -> {
+            // 角色与application对应关系
+            roleApplicationBeanDao.getRoleApplicationsByRoleId(n.getId()).stream()
+                    .forEach(m -> applicationList.stream().filter(app -> m.getApplicationId() == app.getId())
+                            .forEach(app -> applicationCodes.add(app.getCode())));
+        });
+
+        // 过滤重复applicationCodes
+        return applicationCodes.stream().distinct().collect(Collectors.toList());
     }
 
+    /**
+     * 获取指定用户的functionCodes
+     *
+     * @param userId
+     * @return
+     */
     @Override
     public List<String> getFunctionCodesByUserId(long userId) {
         Assert.notNull(userId, "用户编号不能为空.");
-        List<String> functionCodes=new ArrayList<String>();
-        //返回用户下所有角色
-        List<RoleBean> roleBeans=roleBeanService.getRolesByUserId(userId);
-        if(roleBeans!=null&&!roleBeans.isEmpty()){
-            for(RoleBean roleBean:roleBeans){
-                List<RoleFunctionBean> roleFunctionBeans=roleFunctionBeanDao.getRoleFunctionsByRoleId(roleBean.getId());
-                fillFunctionCodeByRoles(functionCodes, roleFunctionBeans);
-            }
-        }
-        //返回用户下所有工作组,根据工作组再返回工作组下所有角色
-        List<WorkGroupUserBean> workGroupUserBeans=workGroupBeanService.getWorkGroupUserBeanByUserId(userId);
-        if(workGroupUserBeans!=null&&!workGroupUserBeans.isEmpty()){
-            for(WorkGroupUserBean workGroupUserBean:workGroupUserBeans){
-                List<RoleBean> _roleBeans = roleBeanService.getRolesByWorkGroupId(workGroupUserBean.getGroupId());
-                if(_roleBeans!=null&&!_roleBeans.isEmpty()){
-                    for(RoleBean roleBean:_roleBeans){
-                        List<RoleFunctionBean> roleFunctionBeans=roleFunctionBeanDao.getRoleFunctionsByRoleId(roleBean.getId());
-                        fillFunctionCodeByRoles(functionCodes, roleFunctionBeans);
-                    }
-                }
-            }
-        }
-        return functionCodes;
-    }
+        List<String> functionCodes=new ArrayList<>();
 
-    private void fillApplicationCodeByRoles(List<String> applicationCodes, List<RoleApplicationBean> roleApplicationBeans){
-        if(roleApplicationBeans!=null&&!roleApplicationBeans.isEmpty()){
-            for(RoleApplicationBean roleApplicationBean:roleApplicationBeans){
-                ApplicationBean applicationBean = applicationBeanDao.get(roleApplicationBean.getApplicationId());
-                if(applicationBean!=null)
-                    applicationCodes.add(applicationBean.getCode());
-            }
-        }
-    }
+        // 用户所有角色
+        List<RoleBean> roleList = roleBeanService.getRolesByUserId(userId);
 
-    private void fillFunctionCodeByRoles(List<String> functionCodes, List<RoleFunctionBean> roleFunctionBeans){
-        if(roleFunctionBeans!=null&&!roleFunctionBeans.isEmpty()){
-            for(RoleFunctionBean roleFunctionBean:roleFunctionBeans){
-                FunctionBean functionBean = functionBeanDao.get(roleFunctionBean.getFunctionId());
-                if(functionBean!=null)
-                    functionCodes.add(functionBean.getPermission());
+        // 用户所有工作组
+        List<WorkGroupUserBean> workGroupUserList = workGroupBeanService.getWorkGroupUserBeanByUserId(userId);
+
+        // 所以application
+        List<FunctionBean> functionList = functionBeanDao.getAll();
+
+        // 获取该用户工作组对应的角色，并添加到roleList中
+        workGroupUserList.stream().forEach(n -> {
+            List<RoleBean> roleWrokGroupList = roleBeanService.getRolesByWorkGroupId(n.getGroupId());
+            if (roleWrokGroupList != null && !roleWrokGroupList.isEmpty()) {
+                roleList.addAll(roleWrokGroupList);
             }
-        }
+        });
+
+        // 过滤重复角色，并获取角色对应functionCodes
+        roleList.stream().distinct().forEach(n -> {
+            // 角色与function对应关系
+            roleFunctionBeanDao.getRoleFunctionsByRoleId(n.getId()).stream()
+                    .forEach(m -> functionList.stream().filter(func -> m.getFunctionId() == func.getId())
+                            .forEach(func -> functionCodes.add(func.getPermission())));
+        });
+
+        // 过滤重复functionCodes
+        return functionCodes.stream().distinct().collect(Collectors.toList());
     }
 
     public void setFunctionBeanDao(IFunctionBeanDao functionBeanDao) {

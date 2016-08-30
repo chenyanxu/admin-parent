@@ -67,13 +67,22 @@ Ext.define('kalix.admin.user.view.UserGrid', {
             flex: 2
         },
         {
-            text: '所属部门',
+            text: '所属机构',
             dataIndex: 'org'
         },
         {
             text: '职务',
             dataIndex: 'duty'
-        }, {
+        },
+        {
+            text: '角色',
+            dataIndex: 'role'
+        },
+        {
+            text: '工作组',
+            dataIndex: 'workGroup'
+        },
+        {
             text: '用户状态',
             dataIndex: 'available',
             renderer: function (value) {
@@ -106,6 +115,11 @@ Ext.define('kalix.admin.user.view.UserGrid', {
                     permission: 'key',
                     tooltip: '重置密码',
                     handler: 'onKey'
+                }, {
+                    iconCls: 'iconfont icon-permission-column',
+                    permission: 'auth',
+                    tooltip: '权限查看',
+                    handler: 'onAuthorization'
                 }
             ]
         }

@@ -50,5 +50,5 @@ public interface IFunctionBeanService extends IBizService<FunctionBean> {
      * @param elements
      * @param mapper
      */
-    void getChilden(AuthorizationDTO root, List<FunctionBean> elements, Mapper mapper, List<RoleFunctionBean> roleFunctionBeans);
+    void getChilden(AuthorizationDTO root, List<FunctionBean> elements, Mapper mapper, List<RoleFunctionBean> roleFunctionBeans, boolean defaultChecked);
 }

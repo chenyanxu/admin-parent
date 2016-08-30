@@ -5,10 +5,7 @@ import com.kalix.admin.core.api.biz.IUserBeanService;
 import com.kalix.admin.core.api.dao.*;
 import com.kalix.admin.core.dto.model.OrganizationDTO;
 import com.kalix.admin.core.dto.model.UserDTO;
-import com.kalix.admin.core.entities.OrganizationBean;
-import com.kalix.admin.core.entities.OrganizationUserBean;
-import com.kalix.admin.core.entities.RoleBean;
-import com.kalix.admin.core.entities.UserBean;
+import com.kalix.admin.core.entities.*;
 import com.kalix.admin.duty.api.dao.IDutyBeanDao;
 import com.kalix.admin.duty.api.dao.IDutyUserBeanDao;
 import com.kalix.admin.duty.entities.DutyBean;
@@ -40,6 +37,7 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
     private static final String FUNCTION_NAME = "用户";
     private IRoleBeanDao roleBeanDao;
     private IRoleUserBeanDao roleUserBeanDao;
+    private IWorkGroupBeanDao workGroupBeanDao;
     private IWorkGroupUserBeanDao workGroupUserBeanDao;
     private IOrganizationBeanDao organizationBeanDao;
     private IOrganizationUserBeanDao organizationUserBeanDao;
@@ -56,6 +54,10 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
 
     public void setRoleUserBeanDao(IRoleUserBeanDao roleUserBeanDao) {
         this.roleUserBeanDao = roleUserBeanDao;
+    }
+
+    public void setWorkGroupBeanDao(IWorkGroupBeanDao workGroupBeanDao) {
+        this.workGroupBeanDao = workGroupBeanDao;
     }
 
     public void setWorkGroupUserBeanDao(IWorkGroupUserBeanDao workGroupUserBeanDao) {
@@ -246,6 +248,14 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         List<DutyBean> dutyList = dutyBeanDao.getAll();
         // 部分职务人员对应关系
         List<DutyUserBean> dutyUserList = dutyUserBeanDao.findByUserIds(userDTOList.stream().map(BaseDTO::getId).collect(Collectors.toList()));
+        // 全部角色
+        List<RoleBean> roleList = roleBeanDao.getAll();
+        // 全部角色人员对应关系
+        List<RoleUserBean> roleUserList = roleUserBeanDao.getAll();
+        // 全部工作组
+        List<WorkGroupBean> workGroupList = workGroupBeanDao.getAll();
+        // 全部工作组人员对应关系
+        List<WorkGroupUserBean> workGroupUserList = workGroupUserBeanDao.getAll();
 
         userList = userDTOList.stream().peek(n -> {
             orgUserList.stream().filter(m -> n.getId() == m.getUserId())
@@ -255,6 +265,30 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
             dutyUserList.stream().filter(m -> n.getId() == m.getUserId())
                     .forEach(m -> dutyList.stream().filter(duty -> duty.getId() == m.getDutyId())
                             .forEach(duty -> n.setDuty(n.getDuty() == null ? duty.getName() : n.getDuty() + "," + duty.getName())));
+
+            roleUserList.stream().filter(m -> n.getId() == m.getUserId())
+                    .forEach(m -> roleList.stream().filter(role -> role.getId() == m.getRoleId())
+                            .forEach(role -> n.setRole(n.getRole() == null ? role.getName() : n.getRole() + "," + role.getName())));
+
+            workGroupUserList.stream().filter(m -> n.getId() == m.getUserId())
+                    .forEach(m -> workGroupList.stream().filter(workGroup -> workGroup.getId() == m.getGroupId())
+                            .forEach(workGroup -> n.setWorkGroup(n.getWorkGroup() == null ? workGroup.getName() : n.getWorkGroup() + "," + workGroup.getName())));
+
+            if (n.getOrg() == null || "".equals(n.getOrg())) {
+                n.setOrg("暂无所属机构");
+            }
+
+            if (n.getDuty() == null || "".equals(n.getDuty())) {
+                n.setDuty("暂无职务");
+            }
+
+            if (n.getRole() == null || "".equals(n.getRole())) {
+                n.setRole("暂无角色");
+            }
+
+            if (n.getWorkGroup() == null || "".equals(n.getWorkGroup())) {
+                n.setWorkGroup("暂无工作组");
+            }
         }).collect(Collectors.toList());
 
         jsonData.setData(userList);

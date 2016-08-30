@@ -220,31 +220,27 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
      * @param root
      * @param elements
      */
-    public void getChilden(AuthorizationDTO root, List<FunctionBean> elements, Mapper mapper,List<RoleFunctionBean> roleFunctionBeans) {
-        List<AuthorizationDTO> children = new ArrayList<AuthorizationDTO>();
+    public void getChilden(AuthorizationDTO root, List<FunctionBean> elements, Mapper mapper, List<RoleFunctionBean> roleFunctionBeans, boolean defaultChecked) {
+        List<AuthorizationDTO> children = new ArrayList<>();
 
-        for (FunctionBean functionBean : elements) {
-            if (root.getId() != -1 && (root.getId() == functionBean.getParentId())) {
-                AuthorizationDTO functionDTO = mapper.map(functionBean, AuthorizationDTO.class);
-                functionDTO.setLeaf(functionBean.getIsLeaf() == 0 ? false : true);
-                functionDTO.setParentName(root.getName());
-                functionDTO.setChecked(false);
-                if(roleFunctionBeans!=null&&!roleFunctionBeans.isEmpty()){
-                    for(RoleFunctionBean roleFunctionBean:roleFunctionBeans){
-                        if(functionBean.getId()==roleFunctionBean.getFunctionId()){
-                            functionDTO.setChecked(true);
-                            break;
-                        }
+        elements.stream().filter(func -> root.getId() != -1 && func.getParentId() == root.getId())
+                .forEach(func -> {
+                    AuthorizationDTO functionDTO = mapper.map(func, AuthorizationDTO.class);
+                    functionDTO.setLeaf(func.getIsLeaf() != 0);
+                    functionDTO.setParentName(root.getName());
+                    functionDTO.setChecked(defaultChecked);
+                    functionDTO.setExpanded(true);
+                    functionDTO.setText(func.getName());
+                    if (roleFunctionBeans != null) {
+                        roleFunctionBeans.stream().filter(self -> self.getFunctionId() == func.getId())
+                                .forEach(self -> functionDTO.setChecked(true));
                     }
-                }
-                functionDTO.setExpanded(true);
-                functionDTO.setText(functionBean.getName());
-                children.add(functionDTO);
-                if(functionBean.getIsLeaf()==0) {
-                    getChilden(functionDTO, elements, mapper,roleFunctionBeans);
-                }
-            }
-        }
+                    if (func.getIsLeaf() == 0) {
+                        getChilden(functionDTO, elements, mapper,roleFunctionBeans, defaultChecked);
+                    }
+
+                    children.add(functionDTO);
+                });
         root.setChildren(children);
     }
 
