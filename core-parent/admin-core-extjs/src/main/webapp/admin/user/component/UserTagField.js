@@ -11,7 +11,6 @@ Ext.define('kalix.admin.user.component.UserTagField', {
         'kalix.admin.user.store.UserStore'
     ],
     alias: 'widget.userTagField',
-    allowBlank: false,
     labelAlign: 'right',
     xtype: 'userTagField',
     queryMode: 'remote',

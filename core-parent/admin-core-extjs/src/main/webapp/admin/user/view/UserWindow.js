@@ -43,6 +43,7 @@ Ext.define('kalix.admin.user.view.UserWindow', {
     }, {
       inputType: 'password',
       fieldLabel: '确认密码',
+      allowBlank:false,
       bind: {
         value: '{rec.confirmPassword}'
       },
