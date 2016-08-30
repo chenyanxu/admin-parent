@@ -7,6 +7,7 @@
 Ext.define('kalix.admin.user.controller.UserGridController', {
     extend: 'kalix.controller.BaseGridController',
     alias: 'controller.userGridController',
+    requires: ['kalix.Notify'],
     onEdit: function (grid, rowIndex, colIndex) {
         var oldView=this.cfgForm;
         this.cfgForm='kalix.admin.user.view.UserEditWindow';
@@ -49,7 +50,7 @@ Ext.define('kalix.admin.user.controller.UserGridController', {
         store.reload({
             callback: function (records, options, success) {
                 if (records == "") {
-                    Ext.Msg.alert("提示信息", "当前用户暂无权限信息！！！");
+                    kalix.Notify.success("当前用户暂无权限信息！！！", "提示信息");
                 }
             }
         });
