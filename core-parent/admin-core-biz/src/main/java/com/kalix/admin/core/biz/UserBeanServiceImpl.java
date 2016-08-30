@@ -268,7 +268,7 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
 
             roleUserList.stream().filter(m -> n.getId() == m.getUserId())
                     .forEach(m -> roleList.stream().filter(role -> role.getId() == m.getRoleId())
-                            .forEach(role -> n.setRole(n.getRole() == null ? role.getApp() : n.getRole() + "," + role.getApp())));
+                            .forEach(role -> n.setRole(n.getRole() == null ? role.getName() : n.getRole() + "," + role.getName())));
 
             workGroupUserList.stream().filter(m -> n.getId() == m.getUserId())
                     .forEach(m -> workGroupList.stream().filter(workGroup -> workGroup.getId() == m.getGroupId())
