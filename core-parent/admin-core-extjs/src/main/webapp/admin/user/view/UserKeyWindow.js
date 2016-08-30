@@ -35,6 +35,7 @@ Ext.define('kalix.admin.user.view.UserKeyWindow', {
             bind: {
                 value: '{rec.confirmPassword}'
             },
+            allowBlank:false,
             listeners:{
                 change:'change'
             }
