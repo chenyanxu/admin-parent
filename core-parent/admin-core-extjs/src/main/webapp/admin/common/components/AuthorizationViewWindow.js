@@ -26,29 +26,7 @@ Ext.define('kalix.admin.common.components.AuthorizationViewWindow', {
         border: true,
         rootVisible: false,
         store: null,
-        disableSelection: true,
-        listeners: {
-            checkchange: function (node, checked, obj) {
-                node.cascadeBy(function (n) {
-                    n.set('checked', checked);
-                });
-                checkParent(node);
-                function checkParent(node) {
-                    node = node.parentNode;
-                    if (!node) return;
-                    var checkP = false;
-                    node.cascadeBy(function (n) {
-                        if (n != node) {
-                            if (n.get('checked') == true) {
-                                checkP = true;
-                            }
-                        }
-                    });
-                    node.set('checked', checkP);
-                    checkParent(node);
-                }
-            }
-        }
+        disableSelection: true
     }],
     buttons: [
         {

@@ -41,6 +41,13 @@ Ext.define('kalix.admin.user.controller.UserGridController', {
         authorizationWindow.roleId = rec.data.id;
         authorizationWindow.authorizationUrl = CONFIG.restRoot + '/camel/rest/users/'+ rec.data.id +'/authorizations';
         authorizationWindow.show();
+
+        var tree = authorizationWindow.down('#authorizationviewTree');
+
+        tree.on('checkchange', function(node , checked , eOpts) {
+            node.set('checked', true);
+        });
+
         var store = authorizationWindow.down('#authorizationviewTree').getStore();
         store.setProxy({
             type: 'ajax',
