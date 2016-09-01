@@ -6,7 +6,10 @@
 Ext.define('kalix.admin.common.relation.RoleRelation', {
   requires:['kalix.admin.role.store.RoleStore'],
   onAddRole: function (grid, rowIndex) {
-    var relationTo = this.type.split('Grid')[0];
+    //there are two type controller: TreeController (14 char) and GridController (14 char).
+    //if we name the biz controller in mod: bizName+TreeController or bizName+GridController.
+    //we can get the 'relationTo' var in the next line code:
+    var relationTo = this.type.substr(0, this.type.length - 14);
     var rec = grid.getStore().getAt(rowIndex);
     var baseUrl = CONFIG.restRoot + '/camel/rest/'+relationTo+'s';
     var me = this;
