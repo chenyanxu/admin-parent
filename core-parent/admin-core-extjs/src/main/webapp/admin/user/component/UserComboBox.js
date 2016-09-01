@@ -18,7 +18,7 @@ Ext.define('kalix.admin.user.component.UserComboBox', {
     valueField: 'name',
     displayField: 'name',
     queryParam: 'jsonStr',
-    minChars: 0,
+    minChars: 1,
     typeAhead:true,
     store: {
         type: 'userStore',

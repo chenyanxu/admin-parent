@@ -7,11 +7,11 @@
 Ext.define('kalix.admin.org.view.OrgTree', {
     extend: 'kalix.view.components.common.BaseTree',
     requires: [
-        'kalix.admin.org.controller.OrgGridController'
+        'kalix.admin.org.controller.OrgTreeController'
     ],
     alias: 'widget.orgTree',
     xtype: 'orgTree',
-    controller: 'orgGridController',
+    controller: 'orgTreeController',
     store: Ext.create('kalix.admin.org.store.OrgStore'),
     title: '机构列表',
     iconCls: 'iconfont icon-organization-management',
