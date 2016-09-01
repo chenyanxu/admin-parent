@@ -312,7 +312,10 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
     @Override
     public JsonData getOrganizationUsers(long orgId) {
         JsonData jsonData = new JsonData();
-        List list = userDao.findByUserId(this.getUserIdsByOrganizationId(orgId), true);
+        List list = userDao.findByUserId(organizationUserDao.findParentAndBrotherByOrgId(orgId).stream()
+                .filter(n -> n.getUserId() != 0)
+                .map(OrganizationUserBean::getUserId)
+                .distinct().collect(Collectors.toList()), true);
 
         jsonData.setData(list);
         jsonData.setTotalCount((long) list.size());

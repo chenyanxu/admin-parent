@@ -39,7 +39,6 @@ public class OrganizationUserBeanDaoImpl extends BaseAdminDao<OrganizationUserBe
 
     /**
      * 查询指定机构的所有机构用户对应关系 2016-07-01 by p
-     * 同时查询指定机构父机构和兄弟机构用户对应关系 2016-09-01 by p
      *
      * @param orgId
      * @return
@@ -47,6 +46,18 @@ public class OrganizationUserBeanDaoImpl extends BaseAdminDao<OrganizationUserBe
     @Override
     @SuppressWarnings("unchecked")
     public List<OrganizationUserBean> findByOrgId(long orgId) {
+        return (List<OrganizationUserBean>) this.find("select t from OrganizationUserBean t where t.orgId = ?1", orgId);
+    }
+
+    /**
+     * 同时查询指定机构父机构和兄弟机构用户对应关系 2016-09-01 by p
+     *
+     * @param orgId
+     * @return
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<OrganizationUserBean> findParentAndBrotherByOrgId(long orgId) {
         return (List<OrganizationUserBean>) this.findByNativeSql("select * from sys_organization_user where orgId in (select id from sys_organization where id = (select parentid from sys_organization where id = " + orgId + ") or parentId = (select parentid from sys_organization where id = " + orgId + "))", OrganizationUserBean.class);
     }
 
