@@ -34,13 +34,20 @@ public interface IOrganizationUserBeanDao extends IGenericDao<OrganizationUserBe
     long findOrganizationIdByUserId(long userId);
 
     /**
-     * 查询指定机构的所有机构用户对应关系 2016-07-01 by p
+     * 同时查询指定机构父机构和兄弟机构用户对应关系 2016-09-01 by p
      *
      * @param orgId
      * @return
      */
     List<OrganizationUserBean> findByOrgId(long orgId);
 
+    /**
+     * 同时查询指定机构父机构和兄弟机构用户对应关系 2016-09-01 by p
+     *
+     * @param orgId
+     * @return
+     */
+    List<OrganizationUserBean> findParentAndBrotherByOrgId(long orgId);
     /**
      * 查询不是指定机构的所有机构用户对应关系 2016-07-01 by p
      *

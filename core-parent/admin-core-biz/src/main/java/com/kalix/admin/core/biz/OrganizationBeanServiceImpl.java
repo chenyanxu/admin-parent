@@ -7,7 +7,6 @@ import com.kalix.admin.core.api.dao.IOrganizationUserBeanDao;
 import com.kalix.admin.core.api.dao.IUserBeanDao;
 import com.kalix.admin.core.dto.model.OrganizationDTO;
 import com.kalix.admin.core.dto.model.OrganizationUserDTO;
-import com.kalix.admin.core.dto.model.UserDTO;
 import com.kalix.admin.core.entities.OrganizationBean;
 import com.kalix.admin.core.entities.OrganizationUserBean;
 import com.kalix.admin.core.entities.UserBean;
@@ -294,18 +293,29 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
         return generateRoot(orgs, -1L);
     }
 
+    /**
+     * 查询指定机构的所有机构用户对应关系 2016-07-01 by p
+     * 同时查询指定机构父机构和兄弟机构用户对应关系 2016-09-01 by p
+     *
+     * @param id
+     * @return
+     */
     @Override
     public List getUserIdsByOrganizationId(long id) {
         return organizationUserDao.findByOrgId(id).stream()
                 .filter(n -> n.getUserId() != 0)
                 .map(OrganizationUserBean::getUserId)
+                .distinct()
                 .collect(Collectors.toList());
     }
 
     @Override
     public JsonData getOrganizationUsers(long orgId) {
         JsonData jsonData = new JsonData();
-        List list = userDao.findByUserId(this.getUserIdsByOrganizationId(orgId), true);
+        List list = userDao.findByUserId(organizationUserDao.findParentAndBrotherByOrgId(orgId).stream()
+                .filter(n -> n.getUserId() != 0)
+                .map(OrganizationUserBean::getUserId)
+                .distinct().collect(Collectors.toList()), true);
 
         jsonData.setData(list);
         jsonData.setTotalCount((long) list.size());
