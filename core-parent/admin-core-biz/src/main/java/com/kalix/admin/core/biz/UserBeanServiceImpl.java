@@ -315,7 +315,7 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         List<OrganizationDTO> org = jsonData.getData();
         String rtnStr = "";
         for (OrganizationDTO obj : org) {
-            rtnStr = rtnStr + "," + obj.getOrgName();
+            rtnStr = rtnStr + "," + obj.getName();
         }
         if (!rtnStr.isEmpty())
             rtnStr = rtnStr.substring(1, rtnStr.length());
