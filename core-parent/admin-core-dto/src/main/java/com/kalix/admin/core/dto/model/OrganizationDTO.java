@@ -12,10 +12,6 @@ import java.util.List;
  * @version 1.0.0
  */
 public class OrganizationDTO extends BaseDTO {
-    private long orgId;
-    private String orgCode;
-    private String orgName;
-
     private String name; //机构名称
     private String code; //机构代码
     private String text; //名称
@@ -25,30 +21,6 @@ public class OrganizationDTO extends BaseDTO {
     private int areaId;  // 归属区域
     private String parentName; //父节点名称
     private boolean dept;//是否是部门
-
-    public long getOrgId() {
-        return orgId;
-    }
-
-    public void setOrgId(long orgId) {
-        this.orgId = orgId;
-    }
-
-    public String getOrgCode() {
-        return orgCode;
-    }
-
-    public void setOrgCode(String orgCode) {
-        this.orgCode = orgCode;
-    }
-
-    public String getOrgName() {
-        return orgName;
-    }
-
-    public void setOrgName(String orgName) {
-        this.orgName = orgName;
-    }
 
     private List<OrganizationDTO> children=new ArrayList<OrganizationDTO>();
 

@@ -5,8 +5,8 @@
 Ext.define('kalix.admin.user.model.UserOrgModel', {
     extend: 'kalix.model.BaseModel',
     fields: [
-        {name: 'orgId', type: 'int'},
-        {name: 'orgCode', type: 'string'},
-        {name: 'orgName', type: 'string'}
+        {name: 'id', type: 'int'},
+        {name: 'code', type: 'string'},
+        {name: 'name', type: 'string'}
     ]
 });

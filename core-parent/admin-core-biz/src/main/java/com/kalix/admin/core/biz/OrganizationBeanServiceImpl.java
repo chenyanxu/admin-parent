@@ -410,7 +410,9 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
      * @return
      */
     public JsonData getOrgsByUserId(long userId){
-        List list = dao.findByNativeSql("select id, id as orgId, code as orgCode, name as orgName from sys_organization where id in (select orgid from sys_organization_user where userid = " + userId + ")", OrganizationDTO.class);
+
+
+        List list = dao.findByNativeSql("select id, code, name from " + dao.getTableName() + " where id in (select orgid from " + organizationUserDao.getTableName() + " where userid = " + userId + ")", OrganizationDTO.class);
 
         return JsonData.toJsonData(list);
     }
@@ -468,7 +470,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
                         // 用户所属机构不能为空
                         if (bean != null) {
                             OrganizationDTO dto = new OrganizationDTO();
-                            dto.setOrgId(bean.getParentId());
+                            dto.setId(bean.getParentId());
                             getChilden(dto, org, mapper);
                             dto.getChildren().stream().forEach(m -> list.add(m.getId()));
                         }
