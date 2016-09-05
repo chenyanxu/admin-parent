@@ -1,6 +1,8 @@
 package com.kalix.admin.duty.biz;
 
+import com.kalix.admin.core.api.dao.IOrganizationBeanDao;
 import com.kalix.admin.core.api.dao.IUserBeanDao;
+import com.kalix.admin.core.entities.OrganizationBean;
 import com.kalix.admin.duty.api.biz.IDutyBeanService;
 import com.kalix.admin.duty.api.dao.IDutyBeanDao;
 import com.kalix.admin.duty.api.dao.IDutyUserBeanDao;
@@ -28,6 +30,7 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
     private IDutyUserBeanDao dutyUserBeanDao;
     private IDutyBeanDao dutyBeanDao;
     private IUserBeanDao userBeanDao;
+    private IOrganizationBeanDao orgDao;
 
     public void setDutyUserBeanDao(IDutyUserBeanDao dutyUserBeanDao) {
         this.dutyUserBeanDao = dutyUserBeanDao;
@@ -43,6 +46,10 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
 
     public DutyBeanServiceImpl() {
         super.init(DutyBean.class.getName());
+    }
+
+    public void setOrgDao(IOrganizationBeanDao orgDao) {
+        this.orgDao = orgDao;
     }
 
     @Override
@@ -111,6 +118,10 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
         return JsonStatus.successResult("删除成功!");
     }
 
+    /**
+     * 获得用户的职位名称 职位组成标准：orgName-dutyName
+     * @return
+     */
     @Override
     public List<String> getUserDutyNameList(){
         Long userId=this.getShiroService().getCurrentUserId();
@@ -120,8 +131,8 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
         if(dutyUserBeenList!=null && dutyUserBeenList.size()>0){
             for(DutyUserBean dutyUserBean :dutyUserBeenList){
                 DutyBean dutyBean=dao.get(dutyUserBean.getDutyId());
-
-                dutyNameList.add(dutyBean.getName());
+                OrganizationBean organizationBean=orgDao.get(dutyUserBean.getOrgId());
+                dutyNameList.add(organizationBean.getName()+"-"+dutyBean.getName());
             }
         }
 
