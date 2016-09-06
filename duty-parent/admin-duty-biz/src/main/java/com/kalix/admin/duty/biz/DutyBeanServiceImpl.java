@@ -11,6 +11,7 @@ import com.kalix.admin.duty.entities.DutyUserBean;
 import com.kalix.framework.core.api.persistence.JsonData;
 import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
+import com.kalix.framework.core.util.Assert;
 import com.kalix.framework.core.util.StringUtils;
 
 import java.util.ArrayList;
@@ -150,7 +151,6 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
         List<String> userNameList=new ArrayList<>();
         //获得dutybean列表
         List<DutyBean> dutyBeanList=dutyBeanDao.find("select rub from DutyBean rub where rub.orgid=?1 and rub.name=?2", orgId,dutyName);
-
         if(dutyBeanList!=null && dutyBeanList.size()>0){
             for(DutyBean dutyBean :dutyBeanList){
                 List<DutyUserBean> dutyUserBeanList=dutyUserBeanDao.findByDutyId(dutyBean.getId());
@@ -164,6 +164,13 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
         }
 
         return userNameList;
+    }
+
+    @Override
+    public List<String> getUserListByOrgName(String orgName, String dutyName){
+        List<OrganizationBean> orgBeanList=orgDao.find("select rub from OrganizationBean rub where rub.name=?1", orgName);
+        OrganizationBean orgBean=orgBeanList.get(0);
+        return getUserListByOrg(orgBean.getId(),dutyName);
     }
 
     /**

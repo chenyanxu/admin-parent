@@ -8,7 +8,8 @@ Ext.define('kalix.admin.duty.controller.DutyGridController', {
     userRelation: 'kalix.admin.common.relation.UserRelation'
   },
   viewModelExtraInit: function (vm) {
-    var treePanel = this.getView().findParentByType('panel').items.getAt(0);
+    var treeContainer=this.getView().findParentByType('panel').items.getAt(0);
+    var treePanel = treeContainer.items.getAt(1);
     var selection = treePanel.selection;
 
     vm.set('orgName', selection.data.name);
@@ -19,7 +20,8 @@ Ext.define('kalix.admin.duty.controller.DutyGridController', {
     }
   },
   onAdd: function () {
-    var treePanel = this.getView().findParentByType('panel').items.getAt(0);
+    var treeContainer=this.getView().findParentByType('panel').items.getAt(0);
+    var treePanel = treeContainer.items.getAt(1);
     var selection = treePanel.selection;
 
     if (selection) {

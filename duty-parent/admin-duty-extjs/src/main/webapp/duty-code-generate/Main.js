@@ -22,8 +22,7 @@ Ext.define('kalix.app.duty.Main', {
             xtype: 'dutyGridPanel',
             id: 'dutyGridPanel',
             title: '职位列表',
-            iconCls: 'x-fa fa-cutlery',
-            margin: 10
+            iconCls: 'x-fa fa-cutlery'
         }
     ]
 });

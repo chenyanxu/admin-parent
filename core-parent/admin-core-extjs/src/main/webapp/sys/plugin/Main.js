@@ -20,8 +20,7 @@ Ext.define('kalix.admin.plugin.Main', {
             xtype: 'pluginGridPanel',
             id: 'pluginGridPanel',
             title: '插件列表',
-            iconCls: 'x-fa fa-wrench',
-            margin: 10
+            iconCls: 'x-fa fa-wrench'
         }
     ]
 });

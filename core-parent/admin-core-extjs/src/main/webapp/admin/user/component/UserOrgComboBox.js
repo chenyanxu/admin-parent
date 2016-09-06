@@ -31,7 +31,10 @@ Ext.define('kalix.admin.user.component.UserOrgComboBox', {
       if (records.length > 0) {
         if (records.length == 1) {
           this.select(records[0]);
-          this.lookupViewModel().get('rec').set('orgName', records[0].get('name'))
+          var recModel = this.lookupViewModel().get('rec');
+          recModel.set('orgName', records[0].get('name'));
+          recModel.modified = {};
+          recModel.dirty=false;
         }
       }
       else {
