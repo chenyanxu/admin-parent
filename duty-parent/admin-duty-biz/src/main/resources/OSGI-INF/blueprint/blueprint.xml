@@ -5,12 +5,14 @@
     <reference id="dutyBeanDao" interface="com.kalix.admin.duty.api.dao.IDutyBeanDao"/>
     <reference id="dutyUserBeanDao" interface="com.kalix.admin.duty.api.dao.IDutyUserBeanDao"/>
     <reference id="userBeanDao" interface="com.kalix.admin.core.api.dao.IUserBeanDao"/>
+    <reference id="orgBeanDao" interface="com.kalix.admin.core.api.dao.IOrganizationBeanDao"/>
 
     <bean id="dutyBeanServiceImpl" class="com.kalix.admin.duty.biz.DutyBeanServiceImpl">
         <property name="dao" ref="dutyBeanDao"/>
         <property name="dutyUserBeanDao" ref="dutyUserBeanDao"/>
         <property name="userBeanDao" ref="userBeanDao"/>
         <property name="dutyBeanDao" ref="dutyBeanDao"/>
+        <property name="orgDao" ref="orgBeanDao"/>
     </bean>
     <service id="dutyBeanService" interface="com.kalix.admin.duty.api.biz.IDutyBeanService"
              ref="dutyBeanServiceImpl">

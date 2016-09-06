@@ -21,6 +21,7 @@ import org.dozer.Mapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @类描述：角色服务类
@@ -383,7 +384,6 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
      */
     @Override
     public AuthorizationDTO getAuthorizationTreeByUserId(long userId) {
-        long bTime = System.currentTimeMillis();
         AuthorizationDTO root = new AuthorizationDTO();
         Mapper mapper = new DozerBeanMapper();
 
@@ -399,16 +399,14 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
         // 用户所有工作组
         List<WorkGroupUserBean> workGroupUserList = workGroupBeanService.getWorkGroupUserBeanByUserId(userId);
 
+        if (logger.isDebugEnabled()) {
+            logger.debug("ddd");
+        }
         // 全部application
         List<ApplicationBean> applicationAllList = applicationBeanDao.getAll();
-        long eTime = System.currentTimeMillis();
-        System.out.println("getAuthorizationTreeByUserId 全部application：" + (eTime - bTime));
 
         // 全部function
         List<FunctionBean> functionAllList = functionBeanDao.getAll();
-        long mTime = eTime;
-        eTime = System.currentTimeMillis();
-        System.out.println("getAuthorizationTreeByUserId 全部function：" + (eTime - mTime));
 
         // 获取该用户工作组对应的角色，并添加到roleList中
         workGroupUserList.stream().forEach(n -> {
@@ -417,9 +415,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
                 roleList.addAll(roleWrokGroupList);
             }
         });
-        mTime = eTime;
-        eTime = System.currentTimeMillis();
-        System.out.println("getAuthorizationTreeByUserId 合并工作组和角色：" + (eTime - mTime));
+
 
         // 获取用户对应角色的application和function
         roleList.stream().forEach(n -> {
@@ -431,18 +427,15 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
                     .forEach(m -> functionAllList.stream().filter(func -> func.getId() == m.getFunctionId())
                             .forEach(functionList::add));
         });
-        mTime = eTime;
-        eTime = System.currentTimeMillis();
-        System.out.println("getAuthorizationTreeByUserId 获取角色的app和func：" + (eTime - mTime));
 
-        applicationList.stream().forEach(app -> {
+        applicationList.stream().distinct().forEach(app -> {
             AuthorizationDTO applicationDTO = mapper.map(app, AuthorizationDTO.class);
             applicationDTO.setParentId(-1);
             applicationDTO.setParentName(parentName);
             applicationDTO.setLeaf(false);
             applicationDTO.setChecked(true);
             applicationDTO.setExpanded(true);
-            functionBeanService.getRootElements(functionList).stream().filter(func -> func.getApplicationId() == app.getId())
+            functionBeanService.getRootElements(functionList).stream().distinct().filter(func -> func.getApplicationId() == app.getId())
                     .forEach(func -> {
                         AuthorizationDTO functionDTO = mapper.map(func, AuthorizationDTO.class);
                         functionDTO.setParentId(app.getId());
@@ -451,18 +444,13 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
                         functionDTO.setText(func.getName());
                         functionDTO.setChecked(true);
                         functionDTO.setExpanded(true);
-                        functionBeanService.getChilden(functionDTO, functionList, mapper, null, true);
+                        functionBeanService.getChilden(functionDTO, functionList.stream().distinct().filter(f -> f.getApplicationId() == app.getId()).collect(Collectors.toList()), mapper, null, true);
                         applicationDTO.getChildren().add(functionDTO);
                     });
             applicationDTO.setText(app.getName());
             root.getChildren().add(applicationDTO);
         });
-        mTime = eTime;
-        eTime = System.currentTimeMillis();
-        System.out.println("getAuthorizationTreeByUserId 组树：" + (eTime - mTime));
 
-        eTime = System.currentTimeMillis();
-        System.out.println("getAuthorizationTreeByUserId 总体运行时间：" + (eTime - bTime));
         return root;
     }
 

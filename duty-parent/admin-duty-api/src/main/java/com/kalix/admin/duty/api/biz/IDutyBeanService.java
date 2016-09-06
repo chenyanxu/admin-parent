@@ -35,4 +35,6 @@ public interface IDutyBeanService extends IBizService<DutyBean> {
     List<String> getUserListByOrg(long orgId, String dutyName);
 
     List<String>  getDutyByUserId(Long userId);
+
+    List<String> getUserListByOrgName(String orgName, String dutyName);
 }
