@@ -89,11 +89,12 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
 
     @Override
     public void beforeUpdateEntity(UserBean entity, JsonStatus status) {
-        UserBean userEntity = (UserBean) entity;
         UserBean userBean = dao.get(entity.getId());
         //如果编辑时修改了密码将重新计算MD5
-        if (userBean != null && !userBean.getPassword().equals(userEntity.getPassword())) {
-            userEntity.setPassword(MD5Util.encode(userEntity.getPassword()));
+        String newPassMD5=MD5Util.encode(entity.getPassword());
+
+        if (userBean != null && !userBean.getPassword().equals(newPassMD5)) {
+            entity.setPassword(MD5Util.encode(entity.getPassword()));
         }
 
         super.beforeUpdateEntity(entity, status);

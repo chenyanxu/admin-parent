@@ -23,8 +23,8 @@ Ext.define('kalix.admin.function.controller.FunctionController', {
             autoScroll: true,
             itemId: 'mainPanel',
             items: [
-                {xtype:'container', padding:10, flex: 1, items:[this.onInitApplicationList()]},
-                {xtype:'container', padding:'10 10 10 0', flex:3, items:[this.onInitDataGrid()]}]
+                {xtype:'container', margin:'5 2 5 5', flex: 1, items:[this.onInitApplicationList()]},
+                {xtype:'container', padding:'5 5 5 2', flex:3, items:[this.onInitDataGrid()]}]
         });
 
         return panel;
@@ -33,7 +33,6 @@ Ext.define('kalix.admin.function.controller.FunctionController', {
      * 应用单击
      */
     onApplicationClick: function (view, record, item, index, e) {
-
         var grid = Ext.ComponentQuery.query('functionGridPanel')[0];
         grid.applicationId = record.data.id;
         grid.applicationCode = record.data.code;
