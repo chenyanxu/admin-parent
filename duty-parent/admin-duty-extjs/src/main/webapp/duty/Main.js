@@ -7,22 +7,27 @@ Ext.define('kalix.admin.duty.Main', {
     requires: [
         'kalix.admin.duty.controller.DutyController',
         'kalix.admin.org.view.OrgTreeList',
-        'kalix.admin.duty.view.DutyGrid'
+        'kalix.admin.duty.view.DutyGrid',
+        'kalix.container.BaseTreeContainer'
     ],
     xtype: 'dutyPanel',
     controller: 'dutyController',
     items: [
         {
-            xtype: 'orgTreeList',
-            flex: 1,
-            listeners: {
-                itemClick: 'onItemClick'
+            xtype:'baseTreeContainer',
+            width:400,
+            childItemMargin:0,
+            tree: {
+                xtype: 'orgTreeList',
+                listeners: {
+                    itemClick: 'onItemClick'
+                }
             }
         },
         {
             xtype: 'dutyGridPanel',
             title: '职位列表',
-            flex: 3
+            flex: 1
         }
     ]
 });
