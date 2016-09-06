@@ -20,8 +20,7 @@ Ext.define('kalix.sys.audit.Main', {
         }, {
             xtype: 'auditGridPanel',
             id: 'auditGridPanel',
-            title: '审计列表',
-            margin: 10
+            title: '审计列表'
         }
     ]
 });

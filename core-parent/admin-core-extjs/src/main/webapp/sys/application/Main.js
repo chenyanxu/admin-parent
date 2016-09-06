@@ -19,8 +19,7 @@ Ext.define('kalix.admin.application.Main', {
             xtype: 'applicationGridPanel',
             id: 'applicationGridPanel',
             title: '应用列表',
-            iconCls: 'iconfont icon-application-management',
-            margin: 10
+            iconCls: 'iconfont icon-application-management'
         }
     ]
 });

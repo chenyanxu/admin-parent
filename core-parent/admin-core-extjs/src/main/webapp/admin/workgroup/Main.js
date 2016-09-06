@@ -18,8 +18,7 @@ Ext.define('kalix.admin.workgroup.Main', {
         }, {
             xtype: 'workgroupGridPanel',
             id: 'workgroupGridPanel',
-            title: '工作组列表',
-            margin: 10
+            title: '工作组列表'
         }
     ]
 });

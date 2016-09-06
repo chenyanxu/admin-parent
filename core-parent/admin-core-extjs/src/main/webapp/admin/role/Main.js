@@ -18,8 +18,7 @@ Ext.define('kalix.admin.role.Main', {
         }, {
             xtype: 'roleGridPanel',
             id: 'roleGridPanel',
-            title: '角色列表',
-            margin: 10
+            title: '角色列表'
         }
     ]
 });
