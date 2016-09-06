@@ -107,7 +107,7 @@ Ext.define('kalix.admin.function.controller.FunctionGridController', {
                         method: "GET",
                         callback: function (options, success, response) {
                             var resp = Ext.JSON.decode(response.responseText);
-                            Ext.MessageBox.alert(CONFIG.ALTER_TITLE_INFO, resp.msg);
+                            kalix.Notify.success(resp.msg,CONFIG.ALTER_TITLE_INFO);
                             if (resp.success) {
                                 //var username = Ext.getCmp("username").getValue();
                                 //var name = Ext.getCmp("name").getValue();
@@ -131,7 +131,7 @@ Ext.define('kalix.admin.function.controller.FunctionGridController', {
                 }
             });
         } else {
-            Ext.Msg.alert(CONFIG.ALTER_TITLE_ERROR, "请选择要删除的记录！");
+            kalix.Notify.alert("请选择要删除的记录！",CONFIG.ALTER_TITLE_ERROR);
         }
     },
     /**
@@ -150,7 +150,7 @@ Ext.define('kalix.admin.function.controller.FunctionGridController', {
                     method: 'DELETE',
                     callback: function (options, success, response) {
                         var resp = Ext.JSON.decode(response.responseText);
-                        Ext.MessageBox.alert(CONFIG.ALTER_TITLE_INFO, resp.msg);
+                        kalix.Notify.success(resp.msg,CONFIG.ALTER_TITLE_INFO);
                         if (resp.success) {
                             var store = grid.getStore();
                             store.reload();
