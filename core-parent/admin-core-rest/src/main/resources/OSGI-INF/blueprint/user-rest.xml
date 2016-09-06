@@ -69,11 +69,19 @@
             </get>
         </rest>
 
+        <!-- 获取指定用户id的权限树 -->
         <rest path="/users/{id}/authorizations" consumes="application/json;charset=utf-8" produces="application/json">
-            <!-- this is a rest GET to view a user by the given id -->
             <get id="route-getAuthorizationTreeByUserId">
                 <description>Find User's Orgs Tree by UserId</description>
                 <to uri="bean:roleService?method=getAuthorizationTreeByUserId(${header.id})"/>
+            </get>
+        </rest>
+
+        <!-- 检查指定用户id的密码是否正确 -->
+        <rest path="/users/{id}/password/{password}" consumes="application/json;charset=utf-8" produces="application/json">
+            <get id="route-checkUserPassword" outType="com.kalix.framework.core.api.persistence.JsonStatus">
+                <description>Check User's Password by UserId</description>
+                <to uri="bean:userService?method=checkUserPassword(${header.id}, ${header.password})"/>
             </get>
         </rest>
     </camelContext>

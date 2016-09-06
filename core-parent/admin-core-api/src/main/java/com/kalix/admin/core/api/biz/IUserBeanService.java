@@ -35,6 +35,14 @@ public interface IUserBeanService extends IBizService<UserBean> {
      */
     void setUserUnavailable(String relateId);
 
+    /**
+     * 检查指定用户id的密码是否正确
+     *
+     * @param userId
+     * @param password
+     * @return
+     */
+    boolean checkUserPassword(long userId, String password);
 
 //    JsonData getAllUser();
 
