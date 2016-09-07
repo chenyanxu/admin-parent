@@ -1,7 +1,6 @@
 package com.kalix.admin.audit.biz;
 
 import com.kalix.admin.audit.api.biz.IAuditBeanService;
-import com.kalix.admin.audit.biz.AuditUtil;
 import com.kalix.admin.audit.entities.AuditBean;
 import com.kalix.framework.core.api.dao.IGenericDao;
 import com.kalix.framework.core.api.persistence.JsonStatus;
@@ -59,7 +58,7 @@ public abstract class AuditBizServiceImpl<T extends IGenericDao, TP extends Pers
             final TP oldEntity = (TP) dao.get(entity.getId());
             auditBean.setContent(AuditUtil.Match(entity, oldEntity, entityClassName));
         } else {
-            auditBean.setAction("新增");
+            auditBean.setAction("添加");
             auditBean.setContent(entity.toString());
         }
         auditBean.setActor(shiroService.getCurrentUserRealName());

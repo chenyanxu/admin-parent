@@ -8,8 +8,8 @@ import com.kalix.admin.core.dto.model.DepartmentDTO;
 import com.kalix.admin.core.entities.DepartmentBean;
 import com.kalix.admin.core.entities.OrganizationUserBean;
 import com.kalix.admin.core.entities.UserBean;
-import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.api.persistence.JsonData;
+import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.api.persistence.PersistentEntity;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import org.apache.commons.lang.StringUtils;
@@ -74,11 +74,11 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
                 }
             }
             jsonStatus.setSuccess(true);
-            jsonStatus.setMsg("新增" + FUNCTION_NAME + "成功！");
+            jsonStatus.setMsg("添加" + FUNCTION_NAME + "成功！");
         } catch (Exception e) {
             e.printStackTrace();
             jsonStatus.setFailure(true);
-            jsonStatus.setMsg("新增" + FUNCTION_NAME + "失败！");
+            jsonStatus.setMsg("添加" + FUNCTION_NAME + "失败！");
         }
         return jsonStatus;
     }

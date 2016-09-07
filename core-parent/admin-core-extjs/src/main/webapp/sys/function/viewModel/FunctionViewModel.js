@@ -12,7 +12,7 @@ Ext.define('kalix.admin.function.viewModel.FunctionViewModel', {
     ],
     alias: 'viewmodel.functionViewModel',
     data: {
-        addTitle: '新增功能',
+        addTitle: '添加功能',
         editTitle: '编辑功能',
         url: CONFIG.restRoot + '/camel/rest/functions'
     }

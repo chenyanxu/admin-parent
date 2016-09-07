@@ -34,7 +34,7 @@ Ext.define('kalix.admin.depNoArea.controller.DepNoAreaGridController', {
         this.getView().collapseAll();
     },
     /**
-     * 打开新增操作.
+     * 打开添加操作.
      * @returns {Ext.panel.Panel}
      */
     onAdd: function () {

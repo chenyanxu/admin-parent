@@ -21,7 +21,7 @@ Ext.define('kalix.admin.dep.controller.DepGridController', {
         store.reload();
     },
     /**
-     * 打开新增操作.
+     * 打开添加操作.
      * @returns {Ext.panel.Panel}
      */
     onAdd: function () {

@@ -1,5 +1,5 @@
 /**
- * 部门新增表单
+ * 部门添加表单
  *
  * @author zangyanming <br/>
  *         date:2016-3-10

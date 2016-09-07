@@ -12,7 +12,7 @@ Ext.define('kalix.admin.dep.viewModel.DepViewModel', {
     ],
     alias: 'viewmodel.depViewModel',
     data: {
-        addTitle: '新增部门',
+        addTitle: '添加部门',
         editTitle: '编辑部门',
         url: CONFIG.restRoot + '/camel/rest/deps'
     }

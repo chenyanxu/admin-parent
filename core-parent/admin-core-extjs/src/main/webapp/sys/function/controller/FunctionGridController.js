@@ -18,7 +18,7 @@ Ext.define('kalix.admin.function.controller.FunctionGridController', {
         store.reload();
     },
     /**
-     * 打开新增操作.
+     * 打开添加操作.
      * @returns {Ext.panel.Panel}
      */
     onAdd: function () {
