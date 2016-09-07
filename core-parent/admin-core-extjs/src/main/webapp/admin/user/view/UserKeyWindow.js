@@ -35,7 +35,7 @@ Ext.define('kalix.admin.user.view.UserKeyWindow', {
             bind: {
                 value: '{rec.confirmPassword}'
             },
-            allowBlank:false,
+            beforeLabelTextTpl : '<span class="field-required" data-qtip="必填选项">*</span>',
             listeners:{
                 change:'change'
             }

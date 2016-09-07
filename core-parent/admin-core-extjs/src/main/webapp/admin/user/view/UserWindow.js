@@ -1,5 +1,5 @@
 /**
- * 用户新增表单
+ * 用户添加表单
  *
  * @author majian <br/>
  *         date:2015-6-18
@@ -43,7 +43,7 @@ Ext.define('kalix.admin.user.view.UserWindow', {
     }, {
       inputType: 'password',
       fieldLabel: '确认密码',
-      allowBlank:false,
+      beforeLabelTextTpl : '<span class="field-required" data-qtip="必填选项">*</span>',
       bind: {
         value: '{rec.confirmPassword}'
       },

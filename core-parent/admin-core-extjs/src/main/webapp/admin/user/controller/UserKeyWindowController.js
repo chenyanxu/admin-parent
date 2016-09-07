@@ -5,8 +5,11 @@ Ext.define('kalix.admin.user.controller.UserKeyWindowController', {
     extend: 'kalix.admin.user.controller.UserWindowController',
     alias: 'controller.userKeyWindowController',
     onClose:function(){
-        var model=this.getView().lookupViewModel();
+        var model=this.getView().lookupViewModel().get('rec');
 
-        model.set(model.modified);
+        if(model.dirty) {
+            model.set(model.modified);
+            model.dirty = false;
+        }
     }
 });

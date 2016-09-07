@@ -21,7 +21,7 @@ Ext.define('kalix.admin.user.controller.UserGridController', {
 
         var view = Ext.create('kalix.admin.user.view.UserKeyWindow');
         var vm = view.lookupViewModel();
-        selModel.set('password','');
+
         vm.set('rec', selModel);
         vm.set('iconCls', 'iconfont icon-view');
         vm.set('title', '修改密码');

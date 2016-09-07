@@ -42,10 +42,6 @@ public class UserDTO extends BaseDTO {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }

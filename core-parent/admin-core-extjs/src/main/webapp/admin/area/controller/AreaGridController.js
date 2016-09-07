@@ -21,7 +21,7 @@ Ext.define('kalix.admin.area.controller.AreaGridController', {
         store.reload();
     },
     /**
-     * 打开新增操作.
+     * 打开添加操作.
      * @returns {Ext.panel.Panel}
      */
     onAdd: function () {
@@ -44,7 +44,7 @@ Ext.define('kalix.admin.area.controller.AreaGridController', {
             border: false,
             modal: true,
             iconCls: 'iconfont icon-add',
-            title: '新增区域',
+            title: '添加区域',
             items: [addFormPanel]
         });
 

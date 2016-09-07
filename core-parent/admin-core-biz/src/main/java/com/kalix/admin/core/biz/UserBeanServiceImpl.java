@@ -89,11 +89,12 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
 
     @Override
     public void beforeUpdateEntity(UserBean entity, JsonStatus status) {
-        UserBean userEntity = (UserBean) entity;
         UserBean userBean = dao.get(entity.getId());
         //如果编辑时修改了密码将重新计算MD5
-        if (userBean != null && !userBean.getPassword().equals(userEntity.getPassword())) {
-            userEntity.setPassword(MD5Util.encode(userEntity.getPassword()));
+        String newPassMD5=MD5Util.encode(entity.getPassword());
+
+        if (userBean != null && !userBean.getPassword().equals(newPassMD5)) {
+            entity.setPassword(MD5Util.encode(entity.getPassword()));
         }
 
         super.beforeUpdateEntity(entity, status);
@@ -309,7 +310,8 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         }
         GenericJsonData<OrganizationDTO> jsonData = new GenericJsonData();
         if (getStr != null) {
-            Type type = new TypeToken<GenericJsonData<OrganizationDTO>>() {}.getType();
+            Type type = new TypeToken<GenericJsonData<OrganizationDTO>>() {
+            }.getType();
             jsonData = SerializeUtil.unserializeJson(getStr, type);
         }
         List<OrganizationDTO> org = jsonData.getData();
@@ -336,9 +338,10 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         } catch (IOException e) {
             e.printStackTrace();
         }
-        List<String> dutyList=new ArrayList<>();
+        List<String> dutyList = new ArrayList<>();
         if (getStr != null) {
-            Type type = new TypeToken<ArrayList<String>>() {}.getType();
+            Type type = new TypeToken<ArrayList<String>>() {
+            }.getType();
             dutyList = SerializeUtil.unserializeJson(getStr, type);
         }
         String rtnStr = "";
@@ -348,5 +351,19 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         if (!rtnStr.isEmpty())
             rtnStr = rtnStr.substring(1, rtnStr.length());
         return rtnStr;
+    }
+
+
+    /**
+     * 检查指定用户id的密码是否正确
+     *
+     * @param userId
+     * @param password
+     * @return
+     */
+    @Override
+    public boolean checkUserPassword(long userId, String password) {
+        UserBean userBean = dao.get(userId);
+        return userBean != null && userBean.getPassword() != null && password != null && userBean.getPassword().equals(MD5Util.encode(password)) ? true : false;
     }
 }

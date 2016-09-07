@@ -12,7 +12,7 @@ Ext.define('kalix.admin.org.viewModel.OrgViewModel', {
     ],
     alias: 'viewmodel.orgViewModel',
     data: {
-        addTitle: '新增机构',
+        addTitle: '添加机构',
         editTitle: '编辑机构',
         url: CONFIG.restRoot + '/camel/rest/orgs'
     }
