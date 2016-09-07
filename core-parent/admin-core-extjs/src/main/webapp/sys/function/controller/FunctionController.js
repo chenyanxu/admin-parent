@@ -48,7 +48,8 @@ Ext.define('kalix.admin.function.controller.FunctionController', {
      * 应用刷新
      */
     onApplicationRefersh: function () {
-        Ext.ComponentQuery.query('functionPanel')[0].down('#mainPanel>#applicationList').getStore().reload();
+        //Ext.ComponentQuery.query('functionPanel')[0].down('#mainPanel>#applicationList').getStore().reload();
+        Ext.ComponentQuery.query('functionPanel')[0].down('#mainPanel').items.items[0].items.items[0].getStore().reload();
     },
     /**
      * 应用展开
