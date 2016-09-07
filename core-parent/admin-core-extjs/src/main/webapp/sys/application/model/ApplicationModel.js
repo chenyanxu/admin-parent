@@ -11,6 +11,7 @@ Ext.define('kalix.admin.application.model.ApplicationModel', {
         {name: 'name', type: 'string'},
         {name: 'remark', type: 'string'},
         {name: 'code', type: 'string'},
+        {name: 'iconCls', type: 'string'},
         {name: 'status', defaultValue: false}
     ]
 });

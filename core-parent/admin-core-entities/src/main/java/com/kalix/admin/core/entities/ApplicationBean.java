@@ -24,6 +24,7 @@ public class ApplicationBean extends PersistentEntity {
     private String remark;   // 备注
     private String code; //代码
     private String location; //地址
+    private String iconCls;
 
     public String getName() {
         return name;
@@ -55,6 +56,14 @@ public class ApplicationBean extends PersistentEntity {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getIconCls() {
+        return iconCls;
+    }
+
+    public void setIconCls(String iconCls) {
+        this.iconCls = iconCls;
     }
 
     public ApplicationBean() {

@@ -19,6 +19,7 @@ public class ApplicationDTO extends BaseDTO {
     private boolean leaf; //是否是叶子节点
     private long parentId; //父节点
     private String parentName; //父节点名称
+    private String iconCls;//图标
     private List<ApplicationDTO> children=new ArrayList<ApplicationDTO>();
 
     public String getText() {
@@ -69,6 +70,13 @@ public class ApplicationDTO extends BaseDTO {
         this.parentId = parentId;
     }
 
+    public String getIconCls() {
+        return iconCls;
+    }
+
+    public void setIconCls(String iconCls) {
+        this.iconCls = iconCls;
+    }
 
     public List<ApplicationDTO> getChildren() {
         return children;

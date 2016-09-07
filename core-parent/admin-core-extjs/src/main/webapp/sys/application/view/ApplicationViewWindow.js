@@ -25,6 +25,11 @@ Ext.define('kalix.admin.application.view.ApplicationViewWindow', {
         bind: {
           value: '{rec.code}'
         }
+      },{
+        fieldLabel: '应用图标',
+        bind: {
+          value: '{rec.iconCls}'
+        }
       }, {
         fieldLabel: '备注',
         xtype: 'textarea',

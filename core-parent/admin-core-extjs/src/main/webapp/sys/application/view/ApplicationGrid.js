@@ -35,6 +35,7 @@ Ext.define('kalix.admin.application.view.ApplicationGrid', {
             {text: '编号', dataIndex: 'id', hidden: true},
             {text: '名称', dataIndex: 'name'},
             {text: '应用代码', dataIndex: 'code'},
+            {text: '应用图标', dataIndex: 'iconCls'},
             {text: '创建人', dataIndex: 'createBy'},
             {
                 text: '创建日期', dataIndex: 'creationDate'

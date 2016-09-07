@@ -32,6 +32,12 @@ Ext.define('kalix.admin.application.view.ApplicationWindow', {
             bind: {
                 value: '{rec.code}'
             }
+        },{
+            fieldLabel: '应用图标',
+            allowBlank: false,
+            bind: {
+                value: '{rec.iconCls}'
+            }
         }, {
             fieldLabel: '备注',
             allowBlank: false,

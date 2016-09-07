@@ -145,6 +145,7 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
                     ApplicationDTO applicationDTO = mapper.map(applicationBean, ApplicationDTO.class);
                     applicationDTO.setLeaf(true);
                     applicationDTO.setText(applicationBean.getName());
+                    applicationDTO.setIconCls(applicationBean.getIconCls());
                     root.getChildren().add(applicationDTO);
                 }
             }
