@@ -33,12 +33,20 @@ Ext.define('kalix.admin.user.view.UserGrid', {
       hidden: true
     },
     {
+      text: '工号',
+      dataIndex: 'code'
+    },
+    {
       text: '登录名',
       dataIndex: 'loginName'
     },
     {
       text: '姓名',
       dataIndex: 'name'
+    },
+    {
+      text: '性别',
+      dataIndex: 'sex'
     },
     {
       text: '岗位名称',

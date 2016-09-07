@@ -1,6 +1,7 @@
 package com.kalix.admin.core.dto.model;
 
 import com.kalix.framework.core.api.web.model.BaseDTO;
+
 import java.util.Date;
 
 /**
@@ -25,6 +26,8 @@ public class UserDTO extends BaseDTO {
     private String duty; // 职位
     private String role; // 角色
     private String workGroup; // 工作组
+    private String sex; //性别
+    private long code; //工号
 
     public String getLoginName() {
         return loginName;
@@ -132,5 +135,21 @@ public class UserDTO extends BaseDTO {
 
     public void setWorkGroup(String workGroup) {
         this.workGroup = workGroup;
+    }
+
+    public long getCode() {
+        return code;
+    }
+
+    public void setCode(long code) {
+        this.code = code;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 }

@@ -2,10 +2,11 @@ package com.kalix.admin.core.entities;
 
 import com.kalix.framework.core.api.persistence.PersistentEntity;
 
-import javax.persistence.*;
-import java.util.ArrayList;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -21,9 +22,6 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class UserBean extends PersistentEntity {
 
-    private String relateId;      //关联隐患排查id
-    private String jgdm;          //机构代码
-    private String qyid = "";       //企业id
     private String loginName;   // 登录名
     private String name;        // 姓名
     private String password;    // 密码
@@ -32,20 +30,13 @@ public class UserBean extends PersistentEntity {
     private String mobile;      // 手机
     private String loginIp;    // 最后登陆IP
     private Date loginDate;    // 最后登陆日期
-    private long is_ent_user;   //是否是企业用户：0-否；1-是
     private long available = 1;     //用户是否有效：0-无效；1-有效
     private Integer position;    // 岗位
+    private String sex; //性别
+    private long code; //工号
 
     public UserBean() {
 
-    }
-
-    public String getRelateId() {
-        return relateId;
-    }
-
-    public void setRelateId(String relateId) {
-        this.relateId = relateId;
     }
 
     public long getAvailable() {
@@ -124,22 +115,6 @@ public class UserBean extends PersistentEntity {
         this.loginIp = loginIp;
     }
 
-    public String getJgdm() {
-        return jgdm;
-    }
-
-    public void setJgdm(String jgdm) {
-        this.jgdm = jgdm;
-    }
-
-    public String getQyid() {
-        return qyid;
-    }
-
-    public void setQyid(String qyid) {
-        this.qyid = qyid;
-    }
-
     public Date getLoginDate() {
         return loginDate;
     }
@@ -147,15 +122,6 @@ public class UserBean extends PersistentEntity {
     public void setLoginDate(Date loginDate) {
         this.loginDate = loginDate;
     }
-
-    public long getIs_ent_user() {
-        return is_ent_user;
-    }
-
-    public void setIs_ent_user(int is_ent_user) {
-        this.is_ent_user = is_ent_user;
-    }
-
 
 //    public List<RoleBean> getRoleList() {
 //        return roleList;
@@ -172,5 +138,25 @@ public class UserBean extends PersistentEntity {
 
     public void setPosition(Integer position) {
         this.position = position;
+    }
+
+    public void setAvailable(long available) {
+        this.available = available;
+    }
+
+    public long getCode() {
+        return code;
+    }
+
+    public void setCode(long code) {
+        this.code = code;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 }

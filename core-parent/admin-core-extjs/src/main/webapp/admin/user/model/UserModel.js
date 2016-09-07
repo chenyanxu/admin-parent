@@ -42,8 +42,11 @@ Ext.define('kalix.admin.user.model.UserModel', {
       name: 'loginIp'
     },
     {
-      name: 'is_ent_user',
+      name: 'code',
       type: 'int'
+    },
+    {
+      name: 'sex'
     },
     {
       name: 'org'

@@ -21,51 +21,63 @@ Ext.define('kalix.admin.user.view.UserEditWindow', {
     width: 400,
     items: [{
         xtype: 'baseForm',
-        items: [{
-            fieldLabel: '登录名',
-            allowBlank: false,
-            bind: {
-                value: '{rec.loginName}'
-            }
-        }, {
-            fieldLabel: '姓名',
-            allowBlank: false,
-            bind: {
-                value: '{rec.name}'
-            }
-        },{
-            fieldLabel: '岗位名称',
-            xtype: 'adminDictCombobox',
-            dictType: '岗位名称',
-            allowBlank: false,
-            bind: {
-                value: '{rec.position}'
-            }
-        }, {
-            fieldLabel: '邮箱',
-            allowBlank: false,
-            bind: {
-                value: '{rec.email}'
-            }
-        }, {
-            fieldLabel: '电话号',
-            bind: {
-                value: '{rec.phone}'
-            }
-        }, {
-            fieldLabel: '手机号',
-            allowBlank: false,
-            bind: {
-                value: '{rec.mobile}'
-            }
-        }, {
-            xtype: 'combobox',
-            fieldLabel: '状态',
-            editable: false,
-            bind: {
-                store: '{rec.availableOptions}',
-                value: '{rec.available}'
-            }
-        }]
+        items: [
+            {
+                fieldLabel: '工号',
+                bind: {
+                    value: '{rec.code}'
+                }
+            },
+            {
+                fieldLabel: '登录名',
+                allowBlank: false,
+                bind: {
+                    value: '{rec.loginName}'
+                }
+            }, {
+                fieldLabel: '姓名',
+                allowBlank: false,
+                bind: {
+                    value: '{rec.name}'
+                }
+            }, {
+                fieldLabel: '性别',
+                bind: {
+                    value: '{rec.sex}'
+                }
+            }, {
+                fieldLabel: '岗位名称',
+                xtype: 'adminDictCombobox',
+                dictType: '岗位名称',
+                allowBlank: false,
+                bind: {
+                    value: '{rec.position}'
+                }
+            }, {
+                fieldLabel: '邮箱',
+                allowBlank: false,
+                bind: {
+                    value: '{rec.email}'
+                }
+            }, {
+                fieldLabel: '电话号',
+                bind: {
+                    value: '{rec.phone}'
+                }
+            }, {
+                fieldLabel: '手机号',
+                allowBlank: false,
+                bind: {
+                    value: '{rec.mobile}'
+                }
+            }, {
+                xtype: 'combobox',
+                fieldLabel: '状态',
+                editable: false,
+                bind: {
+                    store: '{rec.availableOptions}',
+                    value: '{rec.available}'
+                }
+            }]
     }]
 });
