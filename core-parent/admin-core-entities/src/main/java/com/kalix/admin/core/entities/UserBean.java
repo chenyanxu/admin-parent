@@ -35,77 +35,53 @@ public class UserBean extends PersistentEntity {
     private String sex; //性别
     private long code; //工号
 
-    public UserBean() {
-
+    public String getLoginName() {
+        return loginName;
     }
 
-    public long getAvailable() {
-        return available;
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 
-    public void setAvailable(long available) {
-        this.available = available;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
         return email;
     }
 
-
     public void setEmail(String email) {
         this.email = email;
     }
-
-
-    public String getName() {
-        return name;
-    }
-
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-    public String getPassword() {
-        return password;
-    }
-
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-
-    public String getLoginName() {
-        return loginName;
-    }
-
-
-    public void setLoginName(String loginName) {
-        this.loginName = loginName;
-    }
-
 
     public String getPhone() {
         return phone;
     }
 
-
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
 
     public String getMobile() {
         return mobile;
     }
 
-
     public void setMobile(String mobile) {
         this.mobile = mobile;
     }
-
 
     public String getLoginIp() {
         return loginIp;
@@ -123,14 +99,13 @@ public class UserBean extends PersistentEntity {
         this.loginDate = loginDate;
     }
 
-//    public List<RoleBean> getRoleList() {
-//        return roleList;
-//    }
-//
-//
-//    public void setRoleList(List<RoleBean> roleList) {
-//        this.roleList = roleList;
-//    }
+    public long getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(long available) {
+        this.available = available;
+    }
 
     public Integer getPosition() {
         return position;
@@ -140,7 +115,13 @@ public class UserBean extends PersistentEntity {
         this.position = position;
     }
 
+    public String getSex() {
+        return sex;
+    }
 
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
 
     public long getCode() {
         return code;
@@ -148,13 +129,5 @@ public class UserBean extends PersistentEntity {
 
     public void setCode(long code) {
         this.code = code;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
     }
 }
