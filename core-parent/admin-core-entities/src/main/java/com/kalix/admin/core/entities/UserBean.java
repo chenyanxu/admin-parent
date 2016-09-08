@@ -43,7 +43,7 @@ public class UserBean extends PersistentEntity {
         return available;
     }
 
-    public void setAvailable(int available) {
+    public void setAvailable(long available) {
         this.available = available;
     }
 
@@ -140,9 +140,7 @@ public class UserBean extends PersistentEntity {
         this.position = position;
     }
 
-    public void setAvailable(long available) {
-        this.available = available;
-    }
+
 
     public long getCode() {
         return code;
