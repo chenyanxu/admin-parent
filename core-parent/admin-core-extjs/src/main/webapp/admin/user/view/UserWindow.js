@@ -45,6 +45,7 @@ Ext.define('kalix.admin.user.view.UserWindow', {
             }, {
                 inputType: 'password',
                 fieldLabel: '密码',
+                beforeLabelTextTpl: '<span class="field-required" data-qtip="必填选项">*</span>',
                 name: 'password',
                 bind: {
                     value: '{rec.password}'

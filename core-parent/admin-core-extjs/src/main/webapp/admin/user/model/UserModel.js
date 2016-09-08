@@ -14,8 +14,7 @@ Ext.define('kalix.admin.user.model.UserModel', {
       name: 'loginName',
       validators: [{type: 'presence'}]
     }, {
-      name: 'password',
-      validators: [{type: 'presence'}]
+      name: 'password'
     },
     {
       name: 'confirmPassword'
@@ -32,7 +31,7 @@ Ext.define('kalix.admin.user.model.UserModel', {
       validators: [{type: 'presence'}, {type: 'mail'}]
     },
     {
-      name: 'phone',
+      name: 'phone'
     },
     {
       name: 'mobile',
