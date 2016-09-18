@@ -19,7 +19,7 @@ Ext.define('kalix.admin.duty.Main', {
             childItemMargin:0,
             tree: {
                 xtype: 'orgTreeList',
-                reference:'orgTreeList',
+                reference:'dutyOrgTreeList',
                 listeners: {
                     itemClick: 'onItemClick'
                 }
