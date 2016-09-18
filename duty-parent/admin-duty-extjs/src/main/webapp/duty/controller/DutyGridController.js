@@ -38,5 +38,10 @@ Ext.define('kalix.admin.duty.controller.DutyGridController', {
         autoLoad:true
       }
     );
+  },
+  onOrgColumnRender: function() {
+    var mainPanel = Ext.app.Application.instance.getApplication()._mainView.controller.getReferences().mainCardPanel.getLayout().getActiveItem();
+    var selectTree = mainPanel.controller.getReferences().dutyOrgTreeList.getSelection();
+    return selectTree[0].data.name;
   }
 });

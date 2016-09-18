@@ -37,11 +37,7 @@ Ext.define('kalix.admin.duty.view.DutyGrid', {
       {text: '职务描述', dataIndex: 'comment'},
       {
         text: '所属机构',
-        renderer: function() {
-          var mainPanel = Ext.app.Application.instance.getApplication()._mainView.controller.getReferences().mainCardPanel.items.getAt(0);
-          var selectTree = mainPanel.controller.getReferences().dutyOrgTreeList.getSelection();
-          return selectTree[0].data.name;
-        }
+        renderer: 'onOrgColumnRender'
       },
       {text: '创建人', dataIndex: 'createBy'},
       {
