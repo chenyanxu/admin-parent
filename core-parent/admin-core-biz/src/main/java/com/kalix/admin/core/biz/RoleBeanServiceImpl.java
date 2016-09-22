@@ -1,17 +1,13 @@
 package com.kalix.admin.core.biz;
 
+import com.kalix.admin.core.api.biz.IFunctionBeanService;
 import com.kalix.admin.core.api.biz.IRoleBeanService;
 import com.kalix.admin.core.api.biz.IWorkGroupBeanService;
 import com.kalix.admin.core.api.dao.*;
-import com.kalix.admin.core.entities.*;
-import com.kalix.admin.core.api.biz.IFunctionBeanService;
-import com.kalix.admin.core.api.dao.IApplicationBeanDao;
-import com.kalix.admin.core.api.dao.IFunctionBeanDao;
 import com.kalix.admin.core.dto.model.AuthorizationDTO;
-import com.kalix.admin.core.entities.ApplicationBean;
-import com.kalix.admin.core.entities.FunctionBean;
-import com.kalix.framework.core.api.persistence.JsonStatus;
+import com.kalix.admin.core.entities.*;
 import com.kalix.framework.core.api.persistence.JsonData;
+import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.api.persistence.PersistentEntity;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
@@ -19,6 +15,7 @@ import org.apache.commons.lang.StringUtils;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -160,6 +157,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
     }
 
     @Override
+    @Transactional
     public JsonStatus saveAuthorization(List ids) {
         String roleId = null;
         String authorizationIds = null;
@@ -333,6 +331,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
     }
 
     @Override
+    @Transactional
     public JsonStatus saveRoleUsers(List ids) {
         JsonStatus jsonStatus = new JsonStatus();
 
