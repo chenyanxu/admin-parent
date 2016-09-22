@@ -6,6 +6,8 @@ import com.kalix.admin.core.entities.AdminDictBean;
 import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.impl.system.BaseDictServiceImpl;
 
+import javax.transaction.Transactional;
+
 /**
  * @类描述：字典服务实现类
  * @创建人：sunlf
@@ -16,6 +18,7 @@ import com.kalix.framework.core.impl.system.BaseDictServiceImpl;
  */
 public class AdminDictBeanServiceImpl extends BaseDictServiceImpl<IAdminDictBeanDao, AdminDictBean> implements IAdminDictBeanService {
     @Override
+    @Transactional
     public JsonStatus saveEntity(AdminDictBean entity) {
         Integer maxValue = dao.getFieldMaxValue("value","type='"+entity.getType()+"'");
 

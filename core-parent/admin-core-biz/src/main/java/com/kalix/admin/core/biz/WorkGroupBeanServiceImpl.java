@@ -7,12 +7,13 @@ import com.kalix.admin.core.api.dao.IWorkGroupUserBeanDao;
 import com.kalix.admin.core.entities.WorkGroupBean;
 import com.kalix.admin.core.entities.WorkGroupRoleBean;
 import com.kalix.admin.core.entities.WorkGroupUserBean;
-import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.api.persistence.JsonData;
+import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
 import com.kalix.framework.core.util.StringUtils;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +52,7 @@ public class WorkGroupBeanServiceImpl extends ShiroGenericBizServiceImpl<IWorkGr
     }
 
     @Override
+    @Transactional
     public boolean isDelete(Long entityId, JsonStatus status) {
         if (dao.get(entityId) == null) {
             status.setFailure(true);
@@ -61,6 +63,7 @@ public class WorkGroupBeanServiceImpl extends ShiroGenericBizServiceImpl<IWorkGr
     }
 
     @Override
+    @Transactional
     public boolean isUpdate(WorkGroupBean entity, JsonStatus status) {
         Assert.notNull(entity, "实体不能为空.");
         WorkGroupBean bean = (WorkGroupBean) entity;
@@ -77,6 +80,7 @@ public class WorkGroupBeanServiceImpl extends ShiroGenericBizServiceImpl<IWorkGr
     }
 
     @Override
+    @Transactional
     public boolean isSave(WorkGroupBean entity, JsonStatus status) {
         Assert.notNull(entity, "实体不能为空.");
         WorkGroupBean bean = (WorkGroupBean) entity;
@@ -123,6 +127,7 @@ public class WorkGroupBeanServiceImpl extends ShiroGenericBizServiceImpl<IWorkGr
     }
 
     @Override
+    @Transactional
     public JsonStatus saveWorkGroupUsers(List ids) {
         JsonStatus jsonStatus = new JsonStatus();
 
@@ -165,6 +170,7 @@ public class WorkGroupBeanServiceImpl extends ShiroGenericBizServiceImpl<IWorkGr
     }
 
     @Override
+    @Transactional
     public JsonStatus saveWorkGroupRoles(List ids) {
         JsonStatus jsonStatus = new JsonStatus();
 
@@ -205,8 +211,8 @@ public class WorkGroupBeanServiceImpl extends ShiroGenericBizServiceImpl<IWorkGr
         }
     }
 
-        @Override
-        public List<WorkGroupUserBean> getWorkGroupUserBeanByUserId ( long userId){
-            return workGroupUserBeanDao.find("select wgu from WorkGroupUserBean wgu where wgu.userId=?1", userId);
-        }
+    @Override
+    public List<WorkGroupUserBean> getWorkGroupUserBeanByUserId(long userId) {
+        return workGroupUserBeanDao.find("select wgu from WorkGroupUserBean wgu where wgu.userId=?1", userId);
     }
+}

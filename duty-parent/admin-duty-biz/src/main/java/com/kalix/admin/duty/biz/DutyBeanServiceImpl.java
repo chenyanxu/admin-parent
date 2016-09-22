@@ -11,9 +11,9 @@ import com.kalix.admin.duty.entities.DutyUserBean;
 import com.kalix.framework.core.api.persistence.JsonData;
 import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
-import com.kalix.framework.core.util.Assert;
 import com.kalix.framework.core.util.StringUtils;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -73,6 +73,7 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
     }
 
     @Override
+    @Transactional
     public JsonStatus saveDutyUsers(List ids) {
         if(ids==null || ids.size()!=2){
             return JsonStatus.failureResult("保存失败!");
@@ -104,10 +105,13 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
                 return JsonStatus.failureResult("保存失败!");
             }
         }
-        return JsonStatus.successResult("保存成功!");
+        throw new RuntimeException();
+
+//        return JsonStatus.successResult("保存成功!");
     }
 
     @Override
+    @Transactional
     public JsonStatus deleteDuty(long dutyId) {
         try {
             dutyUserBeanDao.deleteByDutyId(dutyId);
