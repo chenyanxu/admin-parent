@@ -12,6 +12,7 @@ import com.kalix.framework.core.util.Assert;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +42,7 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
     }
 
     @Override
+    @Transactional
     public void doDelete(long entityId, JsonStatus jsonStatus) {
         List<FunctionBean> functionBeans = dao.find("select ob from FunctionBean ob where ob.id = ?1", entityId);
         if(functionBeans!=null&&!functionBeans.isEmpty()) {
@@ -73,6 +75,7 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
     }
 
     @Override
+    @Transactional
     public void doUpdate(FunctionBean entity, JsonStatus jsonStatus) {
         Assert.notNull(entity, "实体不能为空.");
         FunctionBean oldBean = dao.get(entity.getId());
@@ -159,6 +162,7 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
     }
 
     @Override
+    @Transactional
     public void deleteByApplicationId(long id) {
         dao.update("delete from FunctionBean fb where fb.applicationId=?1", id);
     }

@@ -20,6 +20,7 @@ import org.apache.commons.lang.StringUtils;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -71,6 +72,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
     }
 
     @Override
+    @Transactional
     public void afterSaveEntity(OrganizationBean entity, JsonStatus status) {
         Assert.notNull(entity, "实体不能为空.");
 
@@ -136,6 +138,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
     }
 
     @Override
+    @Transactional
     public JsonStatus deleteEntity(long id) {
         JsonStatus jsonStatus = new JsonStatus();
         try {
@@ -167,6 +170,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
      *
      * @param parentId
      */
+    @Transactional
     public void updateParent(Long parentId) {
         // 获取父节点
         OrganizationBean parentBean = dao.get(parentId);
@@ -180,6 +184,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
         }
     }
 
+    @Transactional
     public void removeChildren(Long id) {
         List<OrganizationBean> children = dao.findByParentId(id);
         if (children != null && !children.isEmpty()) {
@@ -197,6 +202,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
     }
 
     @Override
+    @Transactional
     public JsonStatus updateEntity(OrganizationBean entity) {
         JsonStatus jsonStatus = new JsonStatus();
         try {
@@ -323,6 +329,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
     }
 
     @Override
+    @Transactional
     public JsonStatus saveOrganizationUsers(List ids) {
         JsonStatus jsonStatus = new JsonStatus();
 
