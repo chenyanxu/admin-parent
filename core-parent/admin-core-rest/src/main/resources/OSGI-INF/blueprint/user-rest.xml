@@ -84,5 +84,13 @@
                 <to uri="bean:userService?method=checkUserPassword(${header.id}, ${header.password})"/>
             </get>
         </rest>
+
+        <!-- 查询指定用户id所属机构（包括子机构）下所有用户 -->
+        <rest path="/users/{id}/orgs/all/users" consumes="application/json;charset=utf-8" produces="application/json">
+            <get id="route-findOrgsUserByUserId" outType="com.kalix.framework.core.api.persistence.JsonData">
+                <description>Find All Organization's User by UserId</description>
+                <to uri="bean:userService?method=findOrgsUserByUserId(${header.id})"/>
+            </get>
+        </rest>
     </camelContext>
 </blueprint>

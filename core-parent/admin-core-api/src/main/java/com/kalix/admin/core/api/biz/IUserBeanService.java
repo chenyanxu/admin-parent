@@ -3,6 +3,7 @@ package com.kalix.admin.core.api.biz;
 
 import com.kalix.admin.core.entities.UserBean;
 import com.kalix.framework.core.api.biz.IBizService;
+import com.kalix.framework.core.api.persistence.JsonData;
 
 /**
  * Created by dell on 14-1-17.
@@ -44,6 +45,13 @@ public interface IUserBeanService extends IBizService<UserBean> {
      */
     boolean checkUserPassword(long userId, String password);
 
+    /**
+     * 查询指定用户id所属机构（包括子机构）下所有用户
+     *
+     * @param userId
+     * @return
+     */
+    JsonData findOrgsUserByUserId(Long userId);
 //    JsonData getAllUser();
 
 //    List<UserBean> queryUser(UserBean userBean, int is_ent);

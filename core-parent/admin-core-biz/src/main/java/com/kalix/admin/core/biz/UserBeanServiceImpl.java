@@ -94,8 +94,7 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         if (StringUtils.isEmpty(entity.getPassword())) {
             // 密码为空，代表不修改原密码，需要从数据库中读取原密码
             entity.setPassword(userBean.getPassword());
-        }
-        else {
+        } else {
             entity.setPassword(MD5Util.encode(entity.getPassword()));
         }
         super.beforeUpdateEntity(entity, status);
@@ -366,5 +365,46 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
     public boolean checkUserPassword(long userId, String password) {
         UserBean userBean = dao.get(userId);
         return userBean != null && userBean.getPassword() != null && password != null && userBean.getPassword().equals(MD5Util.encode(password)) ? true : false;
+    }
+
+    /**
+     * 查询指定用户id所属机构（包括子机构）下所有用户
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public JsonData findOrgsUserByUserId(Long userId) {
+        List<UserBean> userList = new ArrayList<>();
+
+        // 用户拥有的机构列表
+        List<OrganizationBean> list = organizationBeanDao.findById(organizationUserBeanDao.findByUserId(userId).stream().map(OrganizationUserBean::getOrgId).collect(Collectors.toList()));
+
+        // 查找最顶层机构code长度
+        int minLength = 100;
+        for (OrganizationBean bean : list) {
+            if (bean.getCode().length() < minLength) {
+                minLength = bean.getCode().length();
+            }
+        }
+
+        // 拼接sql
+        String sql = "";
+        for (OrganizationBean bean : list) {
+            if (bean.getCode().length() == minLength) {
+                if (sql.isEmpty()) {
+                    sql = "org.code like '" + bean.getCode() + "%'";
+                } else {
+                    sql += " or org.code like '" + bean.getCode() + "%'";
+                }
+
+            }
+        }
+
+        if (!sql.isEmpty()) {
+            userList = dao.findByNativeSql("select id, name from sys_user where id in (select userid from sys_organization_user as orguser, sys_organization as org where orguser.orgid = org.id and (" + sql + "))", UserBean.class);
+        }
+
+        return JsonData.toJsonData(userList);
     }
 }
