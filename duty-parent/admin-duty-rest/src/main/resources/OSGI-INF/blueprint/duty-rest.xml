@@ -8,7 +8,7 @@
     <camelContext id="dutyCamel" xmlns="http://camel.apache.org/schema/blueprint">
 
         <restConfiguration component="servlet" bindingMode="json">
-            <dataFormatProperty key="prettyPrint" value="true"/>
+            <dataFormatProperty key="prettyPrint" value="${rest.pretty}"/>
         </restConfiguration>
 
         <!--urls for the duty operation. because the duty is belong to a org,so we config the duty url here.-->
