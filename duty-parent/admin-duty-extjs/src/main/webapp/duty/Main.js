@@ -15,14 +15,19 @@ Ext.define('kalix.admin.duty.Main', {
     items: [
         {
             xtype:'baseTreeContainer',
+            title:'机构列表',
+            iconCls: 'iconfont icon-organization-management',
             width:400,
             childItemMargin:0,
             tree: {
                 xtype: 'orgTreeList',
+                title:'',
+                iconCls:'',
                 reference:'dutyOrgTreeList',
                 listeners: {
                     itemClick: 'onItemClick'
-                }
+                },
+                tbar:null,
             }
         },
         {
