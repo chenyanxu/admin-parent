@@ -18,7 +18,7 @@
             <!-- this is a rest GET to find all dict -->
             <get id="route-getAllDict" outType="com.kalix.framework.core.api.persistence.JsonData">
                 <description>Find all Dicts</description>
-                <to uri="bean:dictService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr})"/>
+                <to uri="bean:dictService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr},${header.sort})"/>
             </get>
             <!-- this is a rest POST to create an dict -->
             <post id="route-addDict" type="com.kalix.admin.core.entities.AdminDictBean"

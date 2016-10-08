@@ -17,7 +17,7 @@
             <!-- this is a rest GET to find all workgroup -->
             <get id="route-getAllWorkGroupByPage" outType="com.kalix.framework.core.api.persistence.JsonData">
                 <description>Find all WorkGroups</description>
-                <to uri="bean:workgroupService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr})"/>
+                <to uri="bean:workgroupService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr},${header.sort})"/>
             </get>
 
             <!-- this is a rest POST to create a workgroup -->

@@ -18,7 +18,7 @@
             <!-- this is a rest GET to find all role -->
             <get id="route-getAllRolebyPage" outType="com.kalix.framework.core.api.persistence.JsonData">
                 <description>Find all Roles</description>
-                <to uri="bean:roleService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr})"/>
+                <to uri="bean:roleService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr},${header.sort})"/>
             </get>
 
             <!--<get uri="/all" id="route-getAllUser" outType="com.kalix.framework.core.api.persistence.JsonData">

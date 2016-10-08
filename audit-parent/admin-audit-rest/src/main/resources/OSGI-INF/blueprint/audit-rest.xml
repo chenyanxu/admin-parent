@@ -15,7 +15,7 @@
             <!-- this is a rest GET to find all audit -->
             <get id="route-getAllAudit" outType="com.kalix.framework.core.api.persistence.JsonData">
                 <description>Find all Audits</description>
-                <to uri="bean:auditService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr})"/>
+                <to uri="bean:auditService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr},${header.sort})"/>
             </get>
             <!-- this is a rest POST to create a audit -->
             <post id="route-addAudit" type="com.kalix.admin.audit.entities.AuditBean"

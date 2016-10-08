@@ -17,7 +17,7 @@
             <!-- this is a rest GET to find all application -->
             <get id="route-getAllApplicationByPage" outType="com.kalix.framework.core.api.persistence.JsonData">
                 <description>Find all Applications</description>
-                <to uri="bean:applicationService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr})"/>
+                <to uri="bean:applicationService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr},${header.sort})"/>
             </get>
 
             <!-- this is a rest POST to create a application -->
