@@ -28,6 +28,7 @@ public class UserDTO extends BaseDTO {
     private String workGroup; // 工作组
     private String sex; //性别
     private long code; //工号
+    private String icon; //头像
 
     public String getLoginName() {
         return loginName;
@@ -151,5 +152,13 @@ public class UserDTO extends BaseDTO {
 
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }
