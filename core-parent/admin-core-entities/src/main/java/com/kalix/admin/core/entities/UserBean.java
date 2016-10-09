@@ -22,18 +22,19 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class UserBean extends PersistentEntity {
 
-    private String loginName;   // 登录名
-    private String name;        // 姓名
-    private String password;    // 密码
-    private String email;       // 邮箱
-    private String phone;       // 电话
-    private String mobile;      // 手机
-    private String loginIp;    // 最后登陆IP
-    private Date loginDate;    // 最后登陆日期
+    private String loginName;       // 登录名
+    private String name;            // 姓名
+    private String password;        // 密码
+    private String email;           // 邮箱
+    private String phone;           // 电话
+    private String mobile;          // 手机
+    private String loginIp;         // 最后登陆IP
+    private Date loginDate;         // 最后登陆日期
     private long available = 1;     //用户是否有效：0-无效；1-有效
-    private Integer position;    // 岗位
-    private String sex; //性别
-    private long code; //工号
+    private Integer position;       // 岗位
+    private String sex;             //性别
+    private long code;              //工号
+    private String icon;            //头像地址
 
     public String getLoginName() {
         return loginName;
@@ -129,5 +130,13 @@ public class UserBean extends PersistentEntity {
 
     public void setCode(long code) {
         this.code = code;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }
