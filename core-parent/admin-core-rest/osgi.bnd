@@ -8,4 +8,5 @@ Import-Package: com.kalix.admin.core.dto.model.query,\
                 com.kalix.framework.core.api.biz,\
                 com.kalix.framework.core.api.persistence,\
                 com.kalix.admin.core.entities,*
+Include-Resource: target/classes
 Bundle-Category: Kalix Admin Core
