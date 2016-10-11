@@ -10,7 +10,8 @@ Ext.define('kalix.admin.user.view.UserGrid', {
     'kalix.admin.user.controller.UserGridController',
     'kalix.admin.user.store.UserStore',
     'kalix.view.components.common.SecurityGridColumnCommon',
-    'kalix.admin.adminDict.component.AdminDictGridColumn'
+    'kalix.admin.adminDict.component.AdminDictGridColumn',
+    'kalix.view.components.common.IconColumn'
   ],
   alias: 'widget.userGrid',
   xtype: 'userGridPanel',
@@ -23,14 +24,23 @@ Ext.define('kalix.admin.user.view.UserGrid', {
   store: {
     type: 'userStore'
   },
+  viewConfig:{
+    getRowClass:function(){
+      return 'custom-grid-row';
+    }
+  },
   columns: [
     {
-      xtype: "rownumberer"
+      xtype: 'rownumberer'
     },
     {
       text: '编号',
       dataIndex: 'id',
       hidden: true
+    },
+    {
+      xtype:'iconcolumn',
+      dataIndex:'icon'
     },
     {
       text: '工号',

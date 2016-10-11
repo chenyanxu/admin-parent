@@ -11,6 +11,9 @@ Ext.define('kalix.admin.user.model.UserModel', {
   extend: 'kalix.model.BaseModel',
   fields: [
     {
+      name:'icon'
+    },
+    {
       name: 'loginName',
       validators: [{type: 'presence'}]
     }, {
