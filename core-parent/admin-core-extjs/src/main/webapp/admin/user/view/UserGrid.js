@@ -64,17 +64,17 @@ Ext.define('kalix.admin.user.view.UserGrid', {
       dictType: '岗位名称',
       dataIndex: 'position'
     },
-    {
+    /*{
       text: '邮箱',
       dataIndex: 'email'
-    }, /*{
+     },*/ /*{
      text: '电话',
      dataIndex: 'phone',
-     }, */
+     },
     {
       text: '手机',
       dataIndex: 'mobile'
-    },
+     },*/
     {
       text: '创建人',
       dataIndex: 'createBy'
@@ -85,7 +85,7 @@ Ext.define('kalix.admin.user.view.UserGrid', {
       flex: 2
     },
     {
-      text: '所属机构',
+      text: '机构',
       dataIndex: 'org'
     },
     {
@@ -101,7 +101,7 @@ Ext.define('kalix.admin.user.view.UserGrid', {
       dataIndex: 'workGroup'
     },
     {
-      text: '用户状态',
+      text: '状态',
       dataIndex: 'available',
       renderer: function (value) {
         if (value != null && value == "1") {
