@@ -39,6 +39,7 @@ Ext.define('kalix.admin.user.view.UserGrid', {
       hidden: true
     },
     {
+      text:'头像',
       xtype:'iconcolumn',
       dataIndex:'icon'
     },
