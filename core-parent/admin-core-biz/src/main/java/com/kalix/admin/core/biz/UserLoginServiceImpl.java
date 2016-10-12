@@ -76,6 +76,7 @@ public class UserLoginServiceImpl implements IUserLoginService {
                 resMap.put("name", user.getName());
                 resMap.put("user_name", user.getLoginName());
                 resMap.put("password", user.getPassword());
+                resMap.put("user_icon",user.getIcon());
                 map.put("response", resMap);
 
             } else {
