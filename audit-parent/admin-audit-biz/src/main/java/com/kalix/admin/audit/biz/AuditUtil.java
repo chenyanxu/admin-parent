@@ -21,8 +21,8 @@ public class AuditUtil {
                 final Object workingValue = node.canonicalGet(newObj);
 
                 if (!node.isRootNode()) {
-                    if (!node.getPropertyName().equals("version") && !node.getPropertyName().equals("creationDate") && !node.getPropertyName().equals("createBy")
-                            && !node.getPropertyName().equals("updateBy") && !node.getPropertyName().equals("updateDate"))
+                    /*if (!node.getPropertyName().equals("version") && !node.getPropertyName().equals("creationDate") && !node.getPropertyName().equals("createBy")
+                            && !node.getPropertyName().equals("updateBy") && !node.getPropertyName().equals("updateDate"))*/
                         stringBuilder.append("字段名:[" + node.getPropertyName() + "],旧值[" +
                                 baseValue + "],新值[" + workingValue + "];");
                 }
