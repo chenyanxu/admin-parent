@@ -22,9 +22,11 @@ public class InitActivator extends KalixBundleActivator {
 
         if(deploy){
             httpService.registerResources(contextPath + "/app/sys/audit", "/min/sys/audit", null);
+            httpService.registerResources(contextPath + "/app/sys/auditconfig", "/min/sys/auditconfig", null);
         }
         else{
             httpService.registerResources(contextPath + "/app/sys/audit", "sys/audit", null);
+            httpService.registerResources(contextPath + "/app/sys/auditconfig", "sys/auditconfig", null);
         }
     }
 
@@ -34,6 +36,7 @@ public class InitActivator extends KalixBundleActivator {
 
         if (httpService != null) {
             httpService.unregister(contextPath + "/app/sys/audit");
+            httpService.unregister(contextPath + "/app/sys/auditconfig");
         }
 
         if (reference != null)

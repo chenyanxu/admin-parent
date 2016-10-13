@@ -23,7 +23,7 @@ public class AuditConfigBean extends PersistentEntity {
     private String clsName; //类名称
     private String appName; //应用名称
     private String funName;//功能名称
-    private Boolean isAudit;//是否监控
+    private Boolean enable;//是否监控
     private String remark;//备注
 
     public String getAppName() {
@@ -58,11 +58,11 @@ public class AuditConfigBean extends PersistentEntity {
         this.clsName = clsName;
     }
 
-    public Boolean getAudit() {
-        return isAudit;
+    public Boolean getEnable() {
+        return enable;
     }
 
-    public void setAudit(Boolean audit) {
-        isAudit = audit;
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
     }
 }

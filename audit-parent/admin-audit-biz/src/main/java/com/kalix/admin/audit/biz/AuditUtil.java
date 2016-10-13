@@ -29,6 +29,6 @@ public class AuditUtil {
 
             }
         });
-        return className + "{" + stringBuilder.toString() + "}";
+        return "{" + stringBuilder.toString() + "}";
     }
 }

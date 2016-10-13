@@ -7,8 +7,6 @@ import com.kalix.admin.audit.entities.AuditConfigBean;
 import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.impl.biz.GenericBizServiceImpl;
 
-import java.util.UUID;
-
 /**
  * @类描述：审计配置管理
  * @创建人： sunlf
@@ -18,11 +16,23 @@ import java.util.UUID;
  * @修改备注：
  */
 public class AuditConfigBeanServiceImpl extends GenericBizServiceImpl<IAuditConfigBeanDao, AuditConfigBean> implements IAuditConfigBeanService {
-    private JsonStatus jsonStatus = new JsonStatus();
-    private String uuid;
 
     public AuditConfigBeanServiceImpl() {
-        uuid = UUID.randomUUID().toString();
         super.init(AuditConfigBean.class.getName());
+    }
+
+    @Override
+    public void beforeUpdateEntity(AuditConfigBean entity, JsonStatus status) {
+
+    }
+
+    @Override
+    public void beforeSaveEntity(AuditConfigBean entity, JsonStatus status) {
+
+    }
+
+    @Override
+    public void beforeDeleteEntity(Long id, JsonStatus status) {
+
     }
 }

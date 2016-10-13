@@ -42,4 +42,19 @@ public class AuditBeanServiceImpl extends GenericBizServiceImpl<IAuditBeanDao, A
         throw new RuntimeException("this is text");
     }
 
+    @Override
+    public void beforeUpdateEntity(AuditBean entity, JsonStatus status) {
+
+    }
+
+    @Override
+    public void beforeSaveEntity(AuditBean entity, JsonStatus status) {
+
+    }
+
+    @Override
+    public void beforeDeleteEntity(Long id, JsonStatus status) {
+
+    }
+
 }
