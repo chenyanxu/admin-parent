@@ -27,14 +27,16 @@ Ext.define('kalix.sys.auditconfig.view.AuditConfigGrid', {
             xtype: "rownumberer"
         },
         {text: '编号', dataIndex: 'id', hidden: true},
-        {text: '类名称', dataIndex: 'clsName'},
+        {text: '类名称', dataIndex: 'clsName', flex: 2},
         {text: '应用名称', dataIndex: 'appName'},
         {text: '功能名称', dataIndex: 'funName'},
         {
+            xtype: 'booleancolumn',
             text: '是否监控',
             trueText: '是',
             falseText: '否',
-            xtype: 'booleancolumn', dataIndex: 'enable'
+            dataIndex: 'enable',
+            renderer: null
         },
         {
             text: '创建日期',

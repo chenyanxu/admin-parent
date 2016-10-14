@@ -15,12 +15,12 @@ Ext.define('kalix.sys.auditconfig.Main', {
     viewModel: 'auditconfigViewModel',
     items: [
         {
-            title: '审计查询',
+            title: '审计配置查询',
             xtype: 'auditconfigSearchForm'
         }, {
             xtype: 'auditconfigGridPanel',
             id: 'auditconfigGridPanel',
-            title: '审计列表'
+            title: '审计配置列表'
         }
     ]
 });
