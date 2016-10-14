@@ -21,22 +21,15 @@ Ext.define('kalix.sys.audit.view.AuditGrid', {
     },
     forceFit: true,
     selModel: {selType: 'checkboxmodel', mode: 'simple'},
-    columns: {
-        defaults: {flex: 1},
-        items: [
+    columns: [
             {
-                xtype: "rownumberer",
-                text: "行号",
-                width: 50,
-                flex: 0,
-                align: 'center',
-                renderer: this.update
+                xtype: "rownumberer"
             },
             {text: '编号', dataIndex: 'id', hidden: true},
-            {text: '应用名称', dataIndex: 'appName', renderer: 'addTooltip'},
-            {text: '功能名称', dataIndex: 'funName', renderer: 'addTooltip'},
-            {text: '操作人', dataIndex: 'actor', renderer: 'addTooltip'},
-            {text: '操作', dataIndex: 'action', renderer: 'addTooltip'},
+        {text: '应用名称', dataIndex: 'appName'},
+        {text: '功能名称', dataIndex: 'funName'},
+        {text: '操作人', dataIndex: 'actor'},
+        {text: '操作', dataIndex: 'action'},
             {text: '操作内容', dataIndex: 'content', flex: 2},
             {
                 text: '创建日期',
@@ -58,7 +51,7 @@ Ext.define('kalix.sys.audit.view.AuditGrid', {
                     }]
             }
         ]
-    },
+    ,
     tbar: {
         xtype: 'securityToolbar',
         verifyItems: [

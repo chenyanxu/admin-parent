@@ -12,5 +12,11 @@
     <bean id="auditBeanDaoImpl" class="com.kalix.admin.audit.dao.AuditBeanDaoImpl">
         <tx:transaction method="*" value="Required"/>
     </bean>
+
+    <service interface="com.kalix.admin.audit.api.dao.IAuditConfigBeanDao" ref="auditBeaConfigDaoImpl"/>
+
+    <bean id="auditBeaConfigDaoImpl" class="com.kalix.admin.audit.dao.AuditBeanConfigDaoImpl">
+        <tx:transaction method="*" value="Required"/>
+    </bean>
 </blueprint>
 

@@ -3,4 +3,5 @@
 #-----------------------------------------------------------------
 
 Bundle-Activator: ${bundle.namespace}.internal.InitActivator
+DynamicImport-Package: *
 Bundle-Category: Kalix Admin Audit

@@ -3,12 +3,24 @@
            xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
     <jpa:enable/>
     <tx:enable-annotations/>
+
+    <reference id="shiroService" interface="com.kalix.framework.core.api.security.IShiroService"/>
+
     <reference id="auditBeanDao" interface="com.kalix.admin.audit.api.dao.IAuditBeanDao"/>
     <service id="auditBeanService" interface="com.kalix.admin.audit.api.biz.IAuditBeanService" ref="beanServiceImpl">
     </service>
 
     <bean id="beanServiceImpl" class="com.kalix.admin.audit.biz.AuditBeanServiceImpl">
         <property name="dao" ref="auditBeanDao"/>
+    </bean>
+
+    <reference id="auditConfigBeanDao" interface="com.kalix.admin.audit.api.dao.IAuditConfigBeanDao"/>
+    <service id="auditConfigBeanService" interface="com.kalix.admin.audit.api.biz.IAuditConfigBeanService"
+             ref="beanConfigServiceImpl">
+    </service>
+
+    <bean id="beanConfigServiceImpl" class="com.kalix.admin.audit.biz.AuditConfigBeanServiceImpl">
+        <property name="dao" ref="auditConfigBeanDao"/>
     </bean>
 
     <bean id="auditUserLoginEventImpl" class="com.kalix.admin.audit.biz.AuditUserLoginEventImpl">
@@ -21,6 +33,24 @@
                 <array value-type="java.lang.String">
                     <value>com/kalix/userlogin</value>
                     <value>com/kalix/userlogout</value>
+                </array>
+            </entry>
+        </service-properties>
+    </service>
+
+    <bean id="auditBusinessEventImpl" class="com.kalix.admin.audit.biz.AuditBusinessEventImpl">
+        <property name="dao" ref="auditBeanDao"/>
+        <property name="configDao" ref="auditConfigBeanDao"/>
+        <property name="shiroService" ref="shiroService"/>
+    </bean>
+
+    <service interface="org.osgi.service.event.EventHandler" ref="auditBusinessEventImpl">
+        <service-properties>
+            <entry key="event.topics">
+                <array value-type="java.lang.String">
+                    <value>com/kalix/business/delete</value>
+                    <value>com/kalix/business/save</value>
+                    <value>com/kalix/business/update</value>
                 </array>
             </entry>
         </service-properties>
