@@ -24,24 +24,19 @@ Ext.define('kalix.admin.user.view.UserGrid', {
   store: {
     type: 'userStore'
   },
-  viewConfig:{
-    getRowClass:function(){
-      return 'custom-grid-row';
-    }
-  },
   columns: [
     {
       xtype: 'rownumberer'
     },
     {
-      text: '编号',
-      dataIndex: 'id',
-      hidden: true
-    },
-    {
       text:'头像',
       xtype:'iconcolumn',
       dataIndex:'icon'
+    },
+    {
+      text: '编号',
+      dataIndex: 'id',
+      hidden: true
     },
     {
       text: '工号',
