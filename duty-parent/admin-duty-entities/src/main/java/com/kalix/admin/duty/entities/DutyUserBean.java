@@ -19,8 +19,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "sys_duty_user")
-@Inheritance(strategy = InheritanceType.JOINED)
-//@XmlRootElement
 public class DutyUserBean extends PersistentEntity {
     /**
      * 用户.

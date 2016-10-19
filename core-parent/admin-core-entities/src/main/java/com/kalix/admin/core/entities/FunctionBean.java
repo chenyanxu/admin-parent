@@ -16,8 +16,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "sys_function")
-@Inheritance(strategy = InheritanceType.JOINED)
-@XmlRootElement
 public class FunctionBean extends PersistentEntity {
     private String name; //功能名称
     private String code; //功能代码

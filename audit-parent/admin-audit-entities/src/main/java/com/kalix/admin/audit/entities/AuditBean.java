@@ -15,7 +15,6 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "sys_audit")
-@Inheritance(strategy = InheritanceType.JOINED)
 public class AuditBean extends PersistentEntity {
     private String clsName; //类名称
     private String appName; //应用名称

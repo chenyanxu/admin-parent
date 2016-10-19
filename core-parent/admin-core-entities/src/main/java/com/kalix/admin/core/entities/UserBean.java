@@ -19,7 +19,6 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "sys_user")
-@Inheritance(strategy = InheritanceType.JOINED)
 public class UserBean extends PersistentEntity {
 
     private String loginName;       // 登录名

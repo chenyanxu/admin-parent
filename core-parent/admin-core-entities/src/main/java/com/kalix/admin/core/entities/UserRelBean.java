@@ -17,8 +17,6 @@ import javax.persistence.Table;
  */
 //@Entity
 //@Table(name = "sys_user_rel")
-@Inheritance(strategy = InheritanceType.JOINED)
-//@XmlRootElement
 public class UserRelBean extends PersistentEntity {
 
     private long user_id;       //用户ID

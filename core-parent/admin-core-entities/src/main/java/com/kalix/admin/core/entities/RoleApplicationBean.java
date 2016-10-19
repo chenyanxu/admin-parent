@@ -15,8 +15,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "sys_role_application")
-@Inheritance(strategy = InheritanceType.JOINED)
-//@XmlRootElement
 public class RoleApplicationBean extends PersistentEntity {
     /**
      * 应用.

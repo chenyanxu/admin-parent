@@ -17,8 +17,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 //@Entity
 //@Table(name = "sys_plugin")
-@Inheritance(strategy = InheritanceType.JOINED)
-@XmlRootElement
 public class PluginBean extends PersistentEntity {
     private String name; //功能名称
     private String code; //功能代码

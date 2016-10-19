@@ -16,8 +16,6 @@ import java.util.List;
  */
 @Entity
 @Table(name = "sys_role")
-@Inheritance(strategy = InheritanceType.JOINED)
-//@XmlRootElement
 public class RoleBean extends PersistentEntity {
     private String name;    // 角色名称
     private String remark;  //角色备注

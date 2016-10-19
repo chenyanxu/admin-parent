@@ -16,8 +16,6 @@ import java.util.List;
  */
 //@Entity
 //@Table(name = "sys_office")
-@Inheritance(strategy = InheritanceType.JOINED)
-//@XmlRootElement
 public class OfficeBean extends PersistentEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_id")
