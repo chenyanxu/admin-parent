@@ -1,6 +1,7 @@
 package com.kalix.admin.duty.entities;
 
 import com.kalix.framework.core.api.persistence.PersistentEntity;
+import com.kalix.framework.core.util.KalixCascade;
 
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -29,6 +30,7 @@ public class DutyUserBean extends PersistentEntity {
     /**
      * 职位.
      */
+    @KalixCascade(beans = "com.kalix.admin.duty.entities.DutyBean", deletable = true, foreignKey = "dutyId")
     private long dutyId;
     /**
      * 机构.
