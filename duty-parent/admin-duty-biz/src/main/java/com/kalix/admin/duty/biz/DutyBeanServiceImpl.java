@@ -105,9 +105,8 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
                 return JsonStatus.failureResult("保存失败!");
             }
         }
-        throw new RuntimeException();
 
-//        return JsonStatus.successResult("保存成功!");
+        return JsonStatus.successResult("保存成功!");
     }
 
     @Override
