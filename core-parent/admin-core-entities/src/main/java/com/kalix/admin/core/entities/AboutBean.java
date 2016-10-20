@@ -18,7 +18,6 @@ import javax.persistence.Table;
  */
 //@Entity
 //@Table(name = "sys_about")
-@Inheritance(strategy = InheritanceType.JOINED)
 public class AboutBean extends PersistentEntity {
     private static final long serialVersionUID = 1L;
 

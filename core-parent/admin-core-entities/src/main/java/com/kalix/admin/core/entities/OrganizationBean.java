@@ -15,8 +15,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "sys_organization")
-@Inheritance(strategy = InheritanceType.JOINED)
-//@XmlRootElement
 public class OrganizationBean extends PersistentEntity {
     private String name; //机构名称
     private String code; //机构代码

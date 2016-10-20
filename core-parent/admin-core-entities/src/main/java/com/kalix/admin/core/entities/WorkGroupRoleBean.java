@@ -15,8 +15,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "sys_workGroup_role")
-@Inheritance(strategy = InheritanceType.JOINED)
-//@XmlRootElement
 public class WorkGroupRoleBean extends PersistentEntity {
     /**
      * 角色.

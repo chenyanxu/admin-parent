@@ -17,8 +17,6 @@ import javax.persistence.Table;
  */
 //@Entity
 //@Table(name = "sys_message")
-@Inheritance(strategy = InheritanceType.JOINED)
-//@XmlRootElement
 public class MessageBean extends PersistentEntity {
     private String sender = "系统管理员";//发送人
     private String title;//消息名称

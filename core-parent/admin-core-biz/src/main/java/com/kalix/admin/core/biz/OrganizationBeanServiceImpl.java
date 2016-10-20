@@ -13,8 +13,7 @@ import com.kalix.admin.core.entities.UserBean;
 import com.kalix.admin.core.util.Compare;
 import com.kalix.framework.core.api.persistence.JsonData;
 import com.kalix.framework.core.api.persistence.JsonStatus;
-import com.kalix.framework.core.api.security.IShiroService;
-import com.kalix.framework.core.impl.biz.GenericBizServiceImpl;
+import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
 import org.apache.commons.lang.StringUtils;
 import org.dozer.DozerBeanMapper;
@@ -33,12 +32,11 @@ import java.util.stream.Collectors;
  *         date:2015-7-21
  * @version 1.0.0
  */
-public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganizationBeanDao, OrganizationBean> implements IOrganizationBeanService {
+public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrganizationBeanDao, OrganizationBean> implements IOrganizationBeanService {
     private static final String FUNCTION_NAME = "机构";
     private IOrganizationUserBeanDao organizationUserDao;
     private IUserBeanService userService;
     private IUserBeanDao userDao;
-    private IShiroService shiroService;
 
     public OrganizationBeanServiceImpl() {
         super.init(OrganizationBean.class.getName());
@@ -54,10 +52,6 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
 
     public void setUserDao(IUserBeanDao userDao) {
         this.userDao = userDao;
-    }
-
-    public void setShiroService(IShiroService shiroService) {
-        this.shiroService = shiroService;
     }
 
     @Override
@@ -139,8 +133,7 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
 
     @Override
     @Transactional
-    public JsonStatus deleteEntity(long id) {
-        JsonStatus jsonStatus = new JsonStatus();
+    public void doDelete(long id, JsonStatus jsonStatus) {
         try {
             OrganizationBean bean = dao.get(id);
             if (bean != null) {
@@ -162,7 +155,6 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
             jsonStatus.setFailure(true);
             jsonStatus.setMsg(FUNCTION_NAME + "删除失败！");
         }
-        return jsonStatus;
     }
 
     /**
@@ -191,7 +183,8 @@ public class OrganizationBeanServiceImpl extends GenericBizServiceImpl<IOrganiza
             children.stream()
                     .forEach(n -> {
                         removeChildren(n.getId());
-                        dao.remove(n.getId());
+                        this.deleteEntity(n.getId());
+                        //dao.remove(n.getId());
                     });
         }
     }

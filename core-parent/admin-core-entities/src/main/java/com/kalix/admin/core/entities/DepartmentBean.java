@@ -15,8 +15,6 @@ import javax.persistence.Table;
  */
 //@Entity
 //@Table(name = "sys_department")
-@Inheritance(strategy = InheritanceType.JOINED)
-//@XmlRootElement
 public class DepartmentBean extends PersistentEntity {
     private String name; //名称
     private String code; //代码

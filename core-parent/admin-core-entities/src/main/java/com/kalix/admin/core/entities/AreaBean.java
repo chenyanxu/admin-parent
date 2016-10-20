@@ -20,8 +20,6 @@ import java.util.List;
  */
 //@Entity
 //@Table(name = "sys_area")
-@Inheritance(strategy = InheritanceType.JOINED)
-//@XmlRootElement
 public class AreaBean extends PersistentEntity {
 
     private static final long serialVersionUID = 1L;

@@ -17,7 +17,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "admin_dict")
-@Inheritance(strategy = InheritanceType.JOINED)
 public class AdminDictBean extends PersistentEntity {
     private String label;    // 标签名
     private Integer value;    // 数据值

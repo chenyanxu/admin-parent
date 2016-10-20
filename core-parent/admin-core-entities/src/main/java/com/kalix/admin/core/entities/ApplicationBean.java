@@ -17,8 +17,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "sys_application")
-@Inheritance(strategy = InheritanceType.JOINED)
-@XmlRootElement
 public class ApplicationBean extends PersistentEntity {
     private String name;   // 名称
     private String remark;   // 备注

@@ -15,8 +15,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "sys_workGroup")
-@Inheritance(strategy = InheritanceType.JOINED)
-//@XmlRootElement
 public class WorkGroupBean extends PersistentEntity {
     private String name; //名称
     private String remark; //备注
