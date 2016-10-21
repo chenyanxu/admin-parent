@@ -33,7 +33,7 @@ public class AuditBusinessEventImpl implements EventHandler {
         AuditDTOBean dto = gson.fromJson(json, AuditDTOBean.class);
         AuditConfigBean configBean = configDao.findUnique("select a from AuditConfigBean a where a.clsName=?1", dto.getClsName());
         //未设置监控则退出
-        if (configBean == null && (configBean.getEnable()))
+        if (configBean == null || (!configBean.getEnable()))
             return;
 
         auditBean.setAction(dto.getAction());
