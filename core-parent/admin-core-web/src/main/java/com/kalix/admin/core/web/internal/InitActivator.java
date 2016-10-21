@@ -6,14 +6,5 @@ import org.osgi.framework.BundleContext;
 /**
  * Created by sunlf on 14-3-23.
  */
-public class InitActivator implements BundleActivator {
-    @Override
-    public void start(BundleContext bundleContext) throws Exception {
-        SystemUtil.startBundlePrintln(bundleContext);
-    }
-
-    @Override
-    public void stop(BundleContext bundleContext) throws Exception {
-        SystemUtil.stopBundlePrintln(bundleContext);
-    }
+public class InitActivator extends BaseBundleActivator {
 }
