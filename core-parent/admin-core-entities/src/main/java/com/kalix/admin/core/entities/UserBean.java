@@ -34,6 +34,19 @@ public class UserBean extends PersistentEntity {
     private String sex;             //性别
     private long code;              //工号
     private String icon;            //头像地址
+    /*@OneToMany(cascade={CascadeType.REMOVE},mappedBy="garage")
+    @JoinTable(name="CUSTOMER_HAS_DOGS", joinColumns={@JoinColumn(name="CUSTOMER_ID", referencedColumnName="id")},
+            inverseJoinColumns={@JoinColumn(name="DOG_ID", referencedColumnName="id")})
+
+    private Set<PersistentEntity>  personalSet;
+
+    public Set<PersistentEntity> getPersonalSet() {
+        return personalSet;
+    }
+
+    public void setPersonalSet(Set<PersistentEntity> personalSet) {
+        this.personalSet = personalSet;
+    }*/
 
     public String getLoginName() {
         return loginName;
