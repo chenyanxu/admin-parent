@@ -64,8 +64,16 @@ Ext.define('kalix.admin.user.view.UserViewWindow', {
             }, {
                 xtype: 'combobox',
                 fieldLabel: '状态',
+                queryMode: 'local',
+                displayField: 'name',
+                valueField: 'value',
+                store: {
+                    data: [
+                        {name: '启用', value: 1},
+                        {name: '停用', value: 0}
+                    ]
+                },
                 bind: {
-                    store: '{rec.availableOptions}',
                     value: '{rec.available}'
                 }
             }]

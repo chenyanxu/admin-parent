@@ -70,14 +70,6 @@ Ext.define('kalix.admin.user.view.UserEditWindow', {
                 bind: {
                     value: '{rec.mobile}'
                 }
-            }, {
-                xtype: 'combobox',
-                fieldLabel: '状态',
-                editable: false,
-                bind: {
-                    store: '{rec.availableOptions}',
-                    value: '{rec.available}'
-                }
             }]
     }]
 });

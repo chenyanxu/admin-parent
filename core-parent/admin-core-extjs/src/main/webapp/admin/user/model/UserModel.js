@@ -11,7 +11,7 @@ Ext.define('kalix.admin.user.model.UserModel', {
   extend: 'kalix.model.BaseModel',
   fields: [
     {
-      name:'icon'
+      name: 'icon'
     },
     {
       name: 'loginName',
@@ -38,7 +38,7 @@ Ext.define('kalix.admin.user.model.UserModel', {
     },
     {
       name: 'mobile',
-      validators: [{type: 'presence'},{type: 'mobile'}]
+      validators: [{type: 'presence'}, {type: 'mobile'}]
     },
     {
       name: 'loginIp'
@@ -63,28 +63,8 @@ Ext.define('kalix.admin.user.model.UserModel', {
       name: 'workGroup'
     },
     {
-      name: 'availableOptions',
-      defaultValue: [
-        ['1', '启用'],
-        ['0', '停用']
-      ]
-    },
-    {
       name: 'available',
-      type:'string',
-      defaultValue: '1'
-    }, {
-      name: 'availableText',
-      calculate: function (data) {
-        var options = [
-          ['1', '启用'],
-          ['0', '停用']
-        ];
-        var available = data.available;
-
-        return _.find(options, function (item) {
-          return item[0] === available;
-        })[1];
-      }
-    }]
+      defaultValue: 1
+    }
+  ]
 });

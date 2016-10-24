@@ -29,24 +29,11 @@ public class UserBean extends PersistentEntity {
     private String mobile;          // 手机
     private String loginIp;         // 最后登陆IP
     private Date loginDate;         // 最后登陆日期
-    private long available = 1;     //用户是否有效：0-无效；1-有效
+    private Long available = 1L;     //用户是否有效：0-无效；1-有效
     private Integer position;       // 岗位
     private String sex;             //性别
     private long code;              //工号
     private String icon;            //头像地址
-    /*@OneToMany(cascade={CascadeType.REMOVE},mappedBy="garage")
-    @JoinTable(name="CUSTOMER_HAS_DOGS", joinColumns={@JoinColumn(name="CUSTOMER_ID", referencedColumnName="id")},
-            inverseJoinColumns={@JoinColumn(name="DOG_ID", referencedColumnName="id")})
-
-    private Set<PersistentEntity>  personalSet;
-
-    public Set<PersistentEntity> getPersonalSet() {
-        return personalSet;
-    }
-
-    public void setPersonalSet(Set<PersistentEntity> personalSet) {
-        this.personalSet = personalSet;
-    }*/
 
     public String getLoginName() {
         return loginName;
@@ -112,11 +99,11 @@ public class UserBean extends PersistentEntity {
         this.loginDate = loginDate;
     }
 
-    public long getAvailable() {
+    public Long getAvailable() {
         return available;
     }
 
-    public void setAvailable(long available) {
+    public void setAvailable(Long available) {
         this.available = available;
     }
 

@@ -24,14 +24,24 @@ Ext.define('kalix.admin.user.view.UserGrid', {
   store: {
     type: 'userStore'
   },
+  viewConfig:{
+    //stripeRows: false,//是否隔行换色
+    getRowClass : function(record,rowIndex,rowParams,store){
+      var type = record.get('available');
+
+      if(type==0){
+        return 'x-grid-row-red';
+      }
+    }
+  },
   columns: [
     {
       xtype: 'rownumberer'
     },
     {
-      text:'头像',
-      xtype:'iconcolumn',
-      dataIndex:'icon'
+      text: '头像',
+      xtype: 'iconcolumn',
+      dataIndex: 'icon'
     },
     {
       text: '编号',
@@ -61,15 +71,15 @@ Ext.define('kalix.admin.user.view.UserGrid', {
       dataIndex: 'position'
     },
     /*{
-      text: '邮箱',
-      dataIndex: 'email'
+     text: '邮箱',
+     dataIndex: 'email'
      },*/ /*{
      text: '电话',
      dataIndex: 'phone',
      },
-    {
-      text: '手机',
-      dataIndex: 'mobile'
+     {
+     text: '手机',
+     dataIndex: 'mobile'
      },*/
     {
       text: '创建人',
@@ -121,12 +131,28 @@ Ext.define('kalix.admin.user.view.UserGrid', {
           permission: 'edit',
           tooltip: '编辑',
           handler: 'onEdit'
-        }, {
-          iconCls: 'iconfont icon-delete',
-          permission: 'delete',
-          tooltip: '删除',
-          handler: 'onDelete'
-        }, {
+        },
+        {
+          getClass: function (v, meta, record) {
+            if (record.data.available==1) {
+              return 'iconfont icon-stop-using';
+            }
+            else{
+              return 'iconfont icon-start-using';
+            }
+          },
+          getTip: function (value, metadata, record, row, col, store) {
+            if (record.data.available==1) {
+              return '停用';
+            }
+            else{
+              return '启用';
+            }
+          },
+          permission: 'startStopUsing',
+          handler: 'onStartStopUsing'
+        },
+        {
           iconCls: 'iconfont icon-password-reset',
           permission: 'key',
           tooltip: '重置密码',
