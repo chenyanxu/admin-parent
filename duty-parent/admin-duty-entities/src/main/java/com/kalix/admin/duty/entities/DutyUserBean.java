@@ -1,6 +1,7 @@
 package com.kalix.admin.duty.entities;
 
 import com.kalix.framework.core.api.annotation.KalixCascade;
+import com.kalix.framework.core.api.annotation.TableCascade;
 import com.kalix.framework.core.api.persistence.PersistentEntity;
 
 import javax.persistence.Entity;
@@ -18,6 +19,11 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "sys_duty_user")
+@TableCascade(kalixCascades = {
+        @KalixCascade(beans = "com.kalix.admin.core.entities.UserBean", deletable = true, foreignKey = "userId"),
+        @KalixCascade(beans = "com.kalix.admin.core.entities.OrganizationBean", deletable = true, foreignKey = "orgid"),
+        @KalixCascade(beans = "com.kalix.admin.core.entities.DutyBean", deletable = true, foreignKey = "dutyId")
+})
 public class DutyUserBean extends PersistentEntity {
     /**
      * 用户.
@@ -26,7 +32,6 @@ public class DutyUserBean extends PersistentEntity {
     /**
      * 职位.
      */
-    @KalixCascade(beans = "com.kalix.admin.duty.entities.DutyBean", deletable = true, foreignKey = "dutyId")
     private long dutyId;
     /**
      * 机构.

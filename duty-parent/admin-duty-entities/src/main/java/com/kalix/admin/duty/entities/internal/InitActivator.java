@@ -12,9 +12,14 @@ public class InitActivator extends CascadeBundleActivator {
     @Override
     public void start(BundleContext bundleContext) throws Exception {
         super.start(bundleContext);
-        unRegisterCascade(DutyBean.class);
-        unRegisterCascade(DutyUserBean.class);
         registerCascade(DutyBean.class);
         registerCascade(DutyUserBean.class);
+    }
+
+    @Override
+    public void stop(BundleContext bundleContext) throws Exception {
+        unRegisterCascade(DutyBean.class);
+        unRegisterCascade(DutyUserBean.class);
+        super.stop(bundleContext);
     }
 }
