@@ -48,8 +48,6 @@ public class UserLoginServiceImpl implements IUserLoginService {
     }
 
 
-
-
     public boolean validateUserStatus(String username) {
         UserBean user = userBeanDao.getUser(username);
         if (user == null) {
@@ -60,28 +58,32 @@ public class UserLoginServiceImpl implements IUserLoginService {
         }
         return true;
     }
+
     @Override
     public Map login(String username, String password) {
         Map map = new HashMap();
         int result = -1;
 
-            UserBean user = userBeanDao.getUser(username);
-            if (user == null) {
-                throw new UnknownAccountException("Unknown Account Exception!");
-            }
-            //判断密码和用户类型是否对应
-            if (encrypt(password).equals(user.getPassword())) {
-                Map resMap = new HashMap();
-                resMap.put("user_id", user.getId());
-                resMap.put("name", user.getName());
-                resMap.put("user_name", user.getLoginName());
-                resMap.put("password", user.getPassword());
-                resMap.put("user_icon",user.getIcon());
-                map.put("response", resMap);
+        UserBean user = userBeanDao.getUser(username);
+        if (user == null) {
+            throw new UnknownAccountException("Unknown Account Exception!");
+        }
+        if (user.getAvailable() != 1L) {
+            throw new LockedAccountException("Account LockedException!");
+        }
+        //判断密码和用户类型是否对应
+        if (encrypt(password).equals(user.getPassword())) {
+            Map resMap = new HashMap();
+            resMap.put("user_id", user.getId());
+            resMap.put("name", user.getName());
+            resMap.put("user_name", user.getLoginName());
+            resMap.put("password", user.getPassword());
+            resMap.put("user_icon", user.getIcon());
+            map.put("response", resMap);
 
-            } else {
-                throw new IncorrectCredentialsException("Incorrect Credentials Exception!");
-            }
+        } else {
+            throw new IncorrectCredentialsException("Incorrect Credentials Exception!");
+        }
 
         return map;
 
