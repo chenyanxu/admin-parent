@@ -1,8 +1,8 @@
 package com.kalix.admin.duty.entities;
 
 
+import com.kalix.framework.core.api.annotation.KalixCascade;
 import com.kalix.framework.core.api.persistence.PersistentEntity;
-import com.kalix.framework.core.util.KalixCascade;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
