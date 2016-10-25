@@ -228,73 +228,30 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         dao.update("update sys_user set available=0 where relateId=" + relateId);
     }
 
+    /**
+     * 查找组织机构下所有用户（分页）
+     * 排序功能未加
+     *
+     * @param orgId
+     * @param page
+     * @param limit
+     * @param sort
+     * @return
+     */
+    @Override
+    public JsonData findUserByOrgId(Long orgId, int page, int limit, String sort) {
+        return getUserAttachedInfo(dao.findByNativeSql("select u.* from " + dao.getTableName() + " u, " + organizationUserBeanDao.getTableName() + " o  where u.id = o.userId and o.orgId = " + orgId, page, limit, UserBean.class));
+    }
+
+    /**
+     * 查找全部用户
+     *
+     * @param queryDTO
+     * @return
+     */
     @Override
     public JsonData getAllEntityByQuery(QueryDTO queryDTO) {
-        Mapper mapper = new DozerBeanMapper();
-        JsonData jsonData = super.getAllEntityByQuery(queryDTO);
-        List userList = jsonData.getData();
-        List<UserDTO> userDTOList = new ArrayList<>();
-        for (Object user : userList) {
-            UserDTO userDTO = mapper.map(user, UserDTO.class);
-            //userDTO.setOrg(getUserOrg(userDTO.getId()));
-            //userDTO.setDuty(getUserDuty(userDTO.getId()));
-            userDTOList.add(userDTO);
-        }
-
-        // 全部组织机构
-        List<OrganizationBean> orgList = organizationBeanDao.getAll();
-        // 部分机构人员对应关系
-        List<OrganizationUserBean> orgUserList = organizationUserBeanDao.findByUserIds(userDTOList.stream().map(BaseDTO::getId).collect(Collectors.toList()));
-        // 全部职务
-        List<DutyBean> dutyList = dutyBeanDao.getAll();
-        // 部分职务人员对应关系
-        List<DutyUserBean> dutyUserList = dutyUserBeanDao.findByUserIds(userDTOList.stream().map(BaseDTO::getId).collect(Collectors.toList()));
-        // 全部角色
-        List<RoleBean> roleList = roleBeanDao.getAll();
-        // 全部角色人员对应关系
-        List<RoleUserBean> roleUserList = roleUserBeanDao.getAll();
-        // 全部工作组
-        List<WorkGroupBean> workGroupList = workGroupBeanDao.getAll();
-        // 全部工作组人员对应关系
-        List<WorkGroupUserBean> workGroupUserList = workGroupUserBeanDao.getAll();
-
-        userList = userDTOList.stream().peek(n -> {
-            orgUserList.stream().filter(m -> n.getId() == m.getUserId())
-                    .forEach(m -> orgList.stream().filter(org -> org.getId() == m.getOrgId())
-                            .forEach(org -> n.setOrg(n.getOrg() == null ? org.getName() : n.getOrg() + "," + org.getName())));
-
-            dutyUserList.stream().filter(m -> n.getId() == m.getUserId())
-                    .forEach(m -> dutyList.stream().filter(duty -> duty.getId() == m.getDutyId())
-                            .forEach(duty -> n.setDuty(n.getDuty() == null ? duty.getName() : n.getDuty() + "," + duty.getName())));
-
-            roleUserList.stream().filter(m -> n.getId() == m.getUserId())
-                    .forEach(m -> roleList.stream().filter(role -> role.getId() == m.getRoleId())
-                            .forEach(role -> n.setRole(n.getRole() == null ? role.getName() : n.getRole() + "," + role.getName())));
-
-            workGroupUserList.stream().filter(m -> n.getId() == m.getUserId())
-                    .forEach(m -> workGroupList.stream().filter(workGroup -> workGroup.getId() == m.getGroupId())
-                            .forEach(workGroup -> n.setWorkGroup(n.getWorkGroup() == null ? workGroup.getName() : n.getWorkGroup() + "," + workGroup.getName())));
-
-            if (n.getOrg() == null || "".equals(n.getOrg())) {
-                n.setOrg("暂无所属机构");
-            }
-
-            if (n.getDuty() == null || "".equals(n.getDuty())) {
-                n.setDuty("暂无职务");
-            }
-
-            if (n.getRole() == null || "".equals(n.getRole())) {
-                n.setRole("暂无角色");
-            }
-
-            if (n.getWorkGroup() == null || "".equals(n.getWorkGroup())) {
-                n.setWorkGroup("暂无工作组");
-            }
-        }).collect(Collectors.toList());
-
-        jsonData.setData(userList);
-
-        return jsonData;
+        return getUserAttachedInfo(super.getAllEntityByQuery(queryDTO));
     }
 
     /**
@@ -407,4 +364,79 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
 
         return JsonData.toJsonData(userList);
     }
+
+    /**
+     * 为查询出的用户信息附加所属组织机构、职务、角色、工作组信息
+     *
+     * @param jsonData
+     * @return
+     */
+    private JsonData getUserAttachedInfo(JsonData jsonData) {
+        Mapper mapper = new DozerBeanMapper();
+
+        List userList = jsonData.getData();
+        List<UserDTO> userDTOList = new ArrayList<>();
+        for (Object user : userList) {
+            UserDTO userDTO = mapper.map(user, UserDTO.class);
+            //userDTO.setOrg(getUserOrg(userDTO.getId()));
+            //userDTO.setDuty(getUserDuty(userDTO.getId()));
+            userDTOList.add(userDTO);
+        }
+
+        // 全部组织机构
+        List<OrganizationBean> orgList = organizationBeanDao.getAll();
+        // 部分机构人员对应关系
+        List<OrganizationUserBean> orgUserList = organizationUserBeanDao.findByUserIds(userDTOList.stream().map(BaseDTO::getId).collect(Collectors.toList()));
+        // 全部职务
+        List<DutyBean> dutyList = dutyBeanDao.getAll();
+        // 部分职务人员对应关系
+        List<DutyUserBean> dutyUserList = dutyUserBeanDao.findByUserIds(userDTOList.stream().map(BaseDTO::getId).collect(Collectors.toList()));
+        // 全部角色
+        List<RoleBean> roleList = roleBeanDao.getAll();
+        // 全部角色人员对应关系
+        List<RoleUserBean> roleUserList = roleUserBeanDao.getAll();
+        // 全部工作组
+        List<WorkGroupBean> workGroupList = workGroupBeanDao.getAll();
+        // 全部工作组人员对应关系
+        List<WorkGroupUserBean> workGroupUserList = workGroupUserBeanDao.getAll();
+
+        userList = userDTOList.stream().peek(n -> {
+            orgUserList.stream().filter(m -> n.getId() == m.getUserId())
+                    .forEach(m -> orgList.stream().filter(org -> org.getId() == m.getOrgId())
+                            .forEach(org -> n.setOrg(n.getOrg() == null ? org.getName() : n.getOrg() + "," + org.getName())));
+
+            dutyUserList.stream().filter(m -> n.getId() == m.getUserId())
+                    .forEach(m -> dutyList.stream().filter(duty -> duty.getId() == m.getDutyId())
+                            .forEach(duty -> n.setDuty(n.getDuty() == null ? duty.getName() : n.getDuty() + "," + duty.getName())));
+
+            roleUserList.stream().filter(m -> n.getId() == m.getUserId())
+                    .forEach(m -> roleList.stream().filter(role -> role.getId() == m.getRoleId())
+                            .forEach(role -> n.setRole(n.getRole() == null ? role.getName() : n.getRole() + "," + role.getName())));
+
+            workGroupUserList.stream().filter(m -> n.getId() == m.getUserId())
+                    .forEach(m -> workGroupList.stream().filter(workGroup -> workGroup.getId() == m.getGroupId())
+                            .forEach(workGroup -> n.setWorkGroup(n.getWorkGroup() == null ? workGroup.getName() : n.getWorkGroup() + "," + workGroup.getName())));
+
+            if (n.getOrg() == null || "".equals(n.getOrg())) {
+                n.setOrg("暂无所属机构");
+            }
+
+            if (n.getDuty() == null || "".equals(n.getDuty())) {
+                n.setDuty("暂无职务");
+            }
+
+            if (n.getRole() == null || "".equals(n.getRole())) {
+                n.setRole("暂无角色");
+            }
+
+            if (n.getWorkGroup() == null || "".equals(n.getWorkGroup())) {
+                n.setWorkGroup("暂无工作组");
+            }
+        }).collect(Collectors.toList());
+
+        jsonData.setData(userList);
+
+        return jsonData;
+    }
+
 }

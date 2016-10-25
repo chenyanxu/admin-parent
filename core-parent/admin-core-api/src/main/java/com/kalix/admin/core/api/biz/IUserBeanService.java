@@ -136,4 +136,16 @@ public interface IUserBeanService extends IBizService<UserBean> {
      * @return
      */
     //UserBean getUserByRelateId(String relateId);
+
+    /**
+     * 查找组织机构下所有用户（分页）
+     * 排序功能未加
+     *
+     * @param orgId
+     * @param page
+     * @param limit
+     * @param sort
+     * @return
+     */
+    JsonData findUserByOrgId(Long orgId, int page, int limit, String sort);
 }

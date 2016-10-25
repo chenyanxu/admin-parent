@@ -63,6 +63,14 @@
                 <to uri="bean:orgService?method=saveOrganizationUsers"/>
             </post>
         </rest>
+
+        <!-- 根据组织结构id查找机构下所有用户 -->
+        <rest path="/orgs/{orgId}/users/list" consumes="application/json;charset=utf-8" produces="application/json">
+            <get id="route-findUserByOrgId" outType="com.kalix.framework.core.api.persistence.JsonData">
+                <to uri="bean:userService?method=findUserByOrgId(${header.orgId},${header.page},${header.limit},${header.sort})"/>
+            </get>
+        </rest>
+
         <rest path="/orgs/{id}/users/ids" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
             <!--get the ids that has been selected into org-->
             <get id="route-getUserIdsByOrganizationId"  outType="java.util.List">
