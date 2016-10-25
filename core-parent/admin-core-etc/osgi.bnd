@@ -1,2 +1,4 @@
 Bundle-Activator: ${bundle.namespace}.internal.InitActivator
 Bundle-Category: Kalix Admin Core
+#Bundle-Classifier: IApplication
+#Bundle-ApplicationId: admin
