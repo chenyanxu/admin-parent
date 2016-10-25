@@ -1,0 +1,10 @@
+<blueprint xmlns:jpa="http://aries.apache.org/xmlns/jpa/v2.0.0"
+           xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.2.0"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+    <reference id="cacheManager" interface="com.kalix.framework.core.api.cache.ICacheManager"/>
+
+    <bean id="cascadeActivator" class="com.kalix.admin.duty.entities.CascadeActivator" init-method="start" destroy-method="stop">
+        <property name="cacheManager" ref="cacheManager"/>
+    </bean>
+</blueprint>
+
