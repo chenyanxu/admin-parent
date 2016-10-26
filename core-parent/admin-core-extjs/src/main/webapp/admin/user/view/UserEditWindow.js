@@ -41,7 +41,18 @@ Ext.define('kalix.admin.user.view.UserEditWindow', {
                     value: '{rec.name}'
                 }
             }, {
+                xtype: 'combobox',
                 fieldLabel: '性别',
+                editable: false,
+                queryMode: 'local',
+                displayField: 'name',
+                valueField: 'value',
+                store: {
+                    data: [
+                        {name: '男', value: '男'},
+                        {name: '女', value: '女'}
+                    ]
+                },
                 bind: {
                     value: '{rec.sex}'
                 }

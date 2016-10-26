@@ -58,7 +58,30 @@ Ext.define('kalix.admin.user.controller.UserWindowController', {
     onSave: function () {
         var vm = this.getView().lookupViewModel();
         if (vm.get('rec').get('password') == null || vm.get('rec').get('password') == '') {
-            Ext.Msg.alert(CONFIG.ALTER_TITLE_FAILURE, '密码不能为空！！！');
+            //Ext.Msg.alert(CONFIG.ALTER_TITLE_FAILURE, '密码不能为空！！！');
+            var formItems = arguments[0].findParentByType('window').items;
+
+            for (var formIndex = 0; formIndex < formItems.length; ++formIndex) {
+                var fieldItems = formItems.getAt(formIndex).items;
+
+                for (var fieldIndex = 0; fieldIndex < fieldItems.length; ++fieldIndex) {
+                    var fieldItem = fieldItems.getAt(fieldIndex);
+                    if (fieldItem.bind != null) {
+                        if (fieldItem.name == 'password') {
+                            fieldItem.setActiveError('密码不能为空！！！');
+                        }
+
+                        if (fieldItem.name == 'confirmPassword') {
+                            fieldItem.setActiveError('确认密码不能为空！！！');
+                        }
+                        //var msg = validation[fieldItem.bind.value.stub.path.split('.')[1]];
+                        //
+                        //if (msg != undefined) {
+                        //    fieldItem.setActiveError(msg);
+                        //}
+                    }
+                }
+            }
         }
         else {
             this.callParent(arguments);

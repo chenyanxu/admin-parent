@@ -48,7 +48,8 @@ Ext.define('kalix.admin.user.model.UserModel', {
       type: 'int'
     },
     {
-      name: 'sex'
+      name: 'sex',
+      defaultValue: '男'
     },
     {
       name: 'org'
