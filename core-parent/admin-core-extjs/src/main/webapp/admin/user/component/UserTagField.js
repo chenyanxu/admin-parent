@@ -29,7 +29,7 @@ Ext.define('kalix.admin.user.component.UserTagField', {
             param = this.queryParam;
 
         if (param) {
-            params[param] = '{' + this.displayField + ':"' + queryString + '"}';
+            params[param] = '{"%' + this.displayField + '%":"' + queryString + '"}';
         }
 
         return params;
