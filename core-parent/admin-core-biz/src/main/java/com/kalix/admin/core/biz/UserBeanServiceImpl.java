@@ -24,6 +24,7 @@ import org.apache.commons.lang.StringUtils;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -98,6 +99,24 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
             entity.setPassword(MD5Util.encode(entity.getPassword()));
         }
         super.beforeUpdateEntity(entity, status);
+    }
+
+    @Override
+    @Transactional
+    public JsonStatus saveEntityWithOrg(UserBean entity, Long id) {
+        JsonStatus jsonStatus = super.saveEntity(entity);
+        if (jsonStatus.getSuccess()) {
+            OrganizationUserBean organizationUserBean = new OrganizationUserBean();
+            organizationUserBean.setCreateById(shiroService.getCurrentUserId());
+            organizationUserBean.setCreateBy(shiroService.getCurrentUserRealName());
+            organizationUserBean.setUpdateById(shiroService.getCurrentUserId());
+            organizationUserBean.setUpdateBy(shiroService.getCurrentUserRealName());
+            organizationUserBean.setOrgId(id);
+            organizationUserBean.setUserId(Integer.valueOf(jsonStatus.getTag()));
+            organizationUserBeanDao.save(organizationUserBean);
+        }
+
+        return jsonStatus;
     }
 
     @Override

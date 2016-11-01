@@ -35,8 +35,8 @@
             </put>
             <!--&lt;!&ndash; this is a rest GET to view an org by the given name &ndash;&gt;-->
             <!--<get id="route-getOrgByName" uri="/name">-->
-                <!--<description>Find org by id</description>-->
-                <!--<to uri="bean:orgService?method=getOrgByName(${header.name})"/>-->
+            <!--<description>Find org by id</description>-->
+            <!--<to uri="bean:orgService?method=getOrgByName(${header.name})"/>-->
             <!--</get>-->
         </rest>
         <rest path="/orgs/{id}" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
@@ -52,13 +52,15 @@
             </delete>
         </rest>
         <!--rest url for the user-org-relation-->
-        <rest path="/orgs/{id}/users" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+        <rest path="/orgs/{id}/users" consumes="application/json;charset=utf-8"
+              produces="application/json;charset=utf-8">
             <!--get the ids that has been selected into org-->
-            <get id="route-getUserByOrganizationId"  outType="java.util.List">
+            <get id="route-getUserByOrganizationId" outType="java.util.List">
                 <description>Find users by department Id</description>
                 <to uri="bean:orgService?method=getOrganizationUsers(${header.id})"/>
             </get>
-            <post id="route-saveOrganizationUsers" type="java.util.List" outType="com.kalix.framework.core.api.persistence.JsonStatus">
+            <post id="route-saveOrganizationUsers" type="java.util.List"
+                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>save departmentUsers</description>
                 <to uri="bean:orgService?method=saveOrganizationUsers"/>
             </post>
@@ -69,11 +71,28 @@
             <get id="route-findUserByOrgId" outType="com.kalix.framework.core.api.persistence.JsonData">
                 <to uri="bean:userService?method=findUserByOrgId(${header.orgId},${header.page},${header.limit},${header.sort})"/>
             </get>
+
+            <post id="route-addOrgUsers" type="com.kalix.admin.core.entities.UserBean"
+                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
+                <description>Create a User</description>
+                <to uri="bean:userService?method=saveEntityWithOrg(${body}, ${header.orgId})"/>
+            </post>
+
+
         </rest>
 
-        <rest path="/orgs/{id}/users/ids" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+        <rest path="/orgs/{orgId}/users/list/{id}" consumes="application/json;charset=utf-8" produces="application/json">
+            <put id="route-updateOrgUser" type="com.kalix.admin.core.entities.UserBean"
+                 outType="com.kalix.framework.core.api.persistence.JsonStatus">
+                <description>Updates a User</description>
+                <to uri="bean:userService?method=updateEntity"/>
+            </put>
+        </rest>
+
+        <rest path="/orgs/{id}/users/ids" consumes="application/json;charset=utf-8"
+              produces="application/json;charset=utf-8">
             <!--get the ids that has been selected into org-->
-            <get id="route-getUserIdsByOrganizationId"  outType="java.util.List">
+            <get id="route-getUserIdsByOrganizationId" outType="java.util.List">
                 <description>Find users by department Id</description>
                 <to uri="bean:orgService?method=getUserIdsByOrganizationId(${header.id})"/>
             </get>

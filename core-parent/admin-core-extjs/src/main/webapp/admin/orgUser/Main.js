@@ -7,7 +7,7 @@ Ext.define('kalix.admin.orgUser.Main', {
     requires: [
         'kalix.admin.orgUser.controller.OrgUserController',
         'kalix.admin.org.view.OrgTreeList',
-        'kalix.admin.orgUser.view.OrgUserGrid',
+        'kalix.admin.user.view.UserGrid',
         'kalix.container.BaseTreeContainer'
     ],
     xtype: 'orgUserPanel',
@@ -31,7 +31,7 @@ Ext.define('kalix.admin.orgUser.Main', {
             }
         },
         {
-            xtype: 'orgUserGridPanel',
+            xtype: 'userGridPanel',
             title: '用户列表',
             flex: 1
         }

@@ -4,6 +4,7 @@ package com.kalix.admin.core.api.biz;
 import com.kalix.admin.core.entities.UserBean;
 import com.kalix.framework.core.api.biz.IBizService;
 import com.kalix.framework.core.api.persistence.JsonData;
+import com.kalix.framework.core.api.persistence.JsonStatus;
 
 /**
  * Created by dell on 14-1-17.
@@ -148,4 +149,6 @@ public interface IUserBeanService extends IBizService<UserBean> {
      * @return
      */
     JsonData findUserByOrgId(Long orgId, int page, int limit, String sort);
+
+    JsonStatus saveEntityWithOrg(UserBean entity, Long id);
 }
