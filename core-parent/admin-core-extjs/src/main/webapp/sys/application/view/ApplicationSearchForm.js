@@ -15,6 +15,6 @@ Ext.define('kalix.admin.application.view.ApplicationSearchForm', {
             labelAlign: 'right',
             labelWidth: 80,
             width: 200,
-            name: 'name'
+            name: '%name%'
         }]
 });

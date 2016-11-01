@@ -15,7 +15,7 @@ Ext.define('kalix.sys.audit.view.AuditSearchForm', {
             labelAlign: 'right',
             labelWidth: 60,
             width: 200,
-            name: 'appName'
+            name: '%appName%'
         },
         {
             xtype: 'textfield',
@@ -23,13 +23,13 @@ Ext.define('kalix.sys.audit.view.AuditSearchForm', {
             labelAlign: 'right',
             labelWidth: 60,
             width: 200,
-            name: 'funName'
+            name: '%funName%'
         },{
             xtype: 'textfield',
             fieldLabel: '操作人',
             labelAlign: 'right',
             labelWidth: 60,
             width: 200,
-            name: 'actor'
+            name: '%actor%'
         }]
 });

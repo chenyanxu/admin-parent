@@ -14,6 +14,6 @@ Ext.define('kalix.admin.workgroup.view.WorkGroupSearchForm', {
             labelAlign: 'right',
             labelWidth: 80,
             width: 200,
-            name: 'name'
+            name: '%name%'
         }]
 });

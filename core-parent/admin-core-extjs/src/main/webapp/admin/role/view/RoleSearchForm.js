@@ -14,6 +14,6 @@ Ext.define('kalix.admin.role.view.RoleSearchForm', {
             labelAlign: 'right',
             labelWidth: 60,
             width: 200,
-            name: 'name'
+            name: '%name%'
         }]
 });

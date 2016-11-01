@@ -13,14 +13,14 @@ Ext.define('kalix.admin.user.view.UserSearchForm', {
                 labelAlign: 'right',
                 labelWidth: 60,
                 width: 200,
-                name: 'loginName'
+                name: '%loginName%'
             }, {
                 xtype: 'textfield',
                 fieldLabel: '姓名',
                 labelAlign: 'right',
                 labelWidth: 40,
                 width: 200,
-                name: 'name'
+                name: '%name%'
             } /*,{
                 xtype: 'combobox',
                 fieldLabel: '状态',
