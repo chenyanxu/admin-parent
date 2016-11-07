@@ -6,6 +6,7 @@
         <module>core-parent</module>
         <module>audit-parent</module>
         <module>duty-parent</module>
+        <module>karaf-features</module>
     </modules>
 
     <parent>

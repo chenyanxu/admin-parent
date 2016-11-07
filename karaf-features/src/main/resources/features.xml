@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.4.0" name="kalix-features-admin-${project.admin.version}">
+
+    <feature name="admin-all" version="${project.admin.version}">
+        <feature>admin-config</feature>
+        <feature>admin-core</feature>
+        <feature>admin-audit</feature>
+        <feature>admin-duty</feature>
+    </feature>
+
+    <feature name="admin-config" version="${project.admin.version}">
+        <configfile finalname="/etc/ConfigAdminApp.cfg" override="true">
+            mvn:com.kalix.admin.core/admin-core-etc/${project.admin.version/cfg/ConfigAdminApp
+        </configfile>
+        <configfile finalname="/etc/ConfigAdminDict.cfg" override="true">
+            mvn:com.kalix.admin.core/admin-core-etc/${project.admin.version}/cfg/ConfigAdminDict
+        </configfile>
+    </feature>
+
+    <feature name="admin-core" version="${project.admin.version}">
+        <bundle>mvn:com.kalix.admin.core/admin-core-entities/${project.admin.version}</bundle>
+        <bundle>mvn:com.kalix.admin.core/admin-core-dto/${project.admin.version}</bundle>
+        <bundle>mvn:com.kalix.admin.core/admin-core-api/${project.admin.version}</bundle>
+        <bundle>mvn:com.kalix.admin.core/admin-core-dao/${project.admin.version}</bundle>
+        <bundle>mvn:com.kalix.admin.core/admin-core-biz/${project.admin.version}</bundle>
+        <bundle>mvn:com.kalix.admin.core/admin-core-rest/${project.admin.version}</bundle>
+        <bundle>mvn:com.kalix.admin.core/admin-core-extjs/${project.admin.version}</bundle>
+        <bundle>mvn:com.kalix.admin.core/admin-core-etc/${project.admin.version}</bundle>
+    </feature>
+
+    <feature name="admin-audit" version="${project.admin.version}">
+        <bundle>mvn:com.kalix.admin.audit/admin-audit-api/${project.admin.version}</bundle>
+        <bundle>mvn:com.kalix.admin.audit/admin-audit-biz/${project.admin.version}</bundle>
+        <bundle>mvn:com.kalix.admin.audit/admin-audit-entities/${project.admin.version}</bundle>
+        <bundle>mvn:com.kalix.admin.audit/admin-audit-dao/${project.admin.version}</bundle>
+        <bundle>mvn:com.kalix.admin.audit/admin-audit-rest/${project.admin.version}</bundle>
+        <bundle>mvn:com.kalix.admin.audit/admin-audit-extjs/${project.admin.version}</bundle>
+    </feature>
+
+    <feature name="admin-duty" version="${project.admin.version}">
+        <bundle>mvn:com.kalix.admin.duty/admin-duty-api/${project.admin.version}</bundle>
+        <bundle>mvn:com.kalix.admin.duty/admin-duty-biz/${project.admin.version}</bundle>
+        <bundle>mvn:com.kalix.admin.duty/admin-duty-entities/${project.admin.version}</bundle>
+        <bundle>mvn:com.kalix.admin.duty/admin-duty-dao/${project.admin.version}</bundle>
+        <bundle>mvn:com.kalix.admin.duty/admin-duty-rest/${project.admin.version}</bundle>
+        <bundle>mvn:com.kalix.admin.duty/admin-duty-extjs/${project.admin.version}</bundle>
+    </feature>
+
+
+</features>
