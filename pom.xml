@@ -11,7 +11,7 @@
     <parent>
         <groupId>com.kalix</groupId>
         <artifactId>kalix-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0-RELEASE</version>
     </parent>
 
     <groupId>com.kalix.admin</groupId>
@@ -24,7 +24,7 @@
             <dependency>
                 <groupId>com.kalix.framework.poms</groupId>
                 <artifactId>framework-poms-dm</artifactId>
-                <version>${globle.version}</version>
+                <version>${project.framework.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -35,7 +35,7 @@
             <groupId>com.kalix.framework.poms</groupId>
             <artifactId>framework-poms-dm</artifactId>
             <type>pom</type>
-            <version>${globle.version}</version>
+            <version>${project.framework.version}</version>
         </dependency>
 
         <dependency>
