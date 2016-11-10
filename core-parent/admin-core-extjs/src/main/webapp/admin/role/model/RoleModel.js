@@ -8,8 +8,8 @@
 Ext.define('kalix.admin.role.model.RoleModel', {
     extend: 'kalix.model.BaseModel',
     fields: [
-        {name: 'name', type: 'string'},
-        {name: 'remark', type: 'string'},
-        {name: 'app', type: 'string'}
+        {name: 'name', type: 'string',validators: [{type: 'presence'}]},
+        {name: 'app', type: 'string',validators: [{type: 'presence'}]},
+        {name: 'remark', type: 'string'}
     ]
 });

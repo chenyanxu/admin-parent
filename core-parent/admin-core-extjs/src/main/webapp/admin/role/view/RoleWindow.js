@@ -19,25 +19,25 @@ Ext.define('kalix.admin.role.view.RoleWindow', {
         xtype: 'baseForm',
         items: [{
             fieldLabel: '名称',
-            allowBlank: false,
+            //allowBlank: false,
             bind: {
-                activeError: '{validation.name}',
+               // activeError: '{validation.name}',
                 value: '{rec.name}'
             }
         },
         {
             fieldLabel: '所属应用',
-            allowBlank: false,
+           // allowBlank: false,
             bind: {
-                activeError: '{validation.app}',
+              //  activeError: '{validation.app}',
                 value: '{rec.app}'
             }
         }, {
             fieldLabel: '备注',
-            allowBlank: false,
+            //allowBlank: false,
             xtype: 'textarea',
             bind: {
-                activeError: '{validation.remark}',
+                //activeError: '{validation.remark}',
                 value: '{rec.remark}'
             }
         }]
