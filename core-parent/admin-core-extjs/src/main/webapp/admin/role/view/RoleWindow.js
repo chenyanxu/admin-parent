@@ -7,6 +7,7 @@
 Ext.define('kalix.admin.role.view.RoleWindow', {
     extend: 'kalix.view.components.common.BaseWindow',
     requires: [
+        'kalix.view.components.common.BaseComboBox',
         'kalix.controller.BaseWindowController'
     ],
     alias: 'widget.roleWindow',
@@ -25,11 +26,25 @@ Ext.define('kalix.admin.role.view.RoleWindow', {
                 value: '{rec.name}'
             }
         },
-        {
+        /*{
             fieldLabel: '所属应用',
            // allowBlank: false,
             bind: {
               //  activeError: '{validation.app}',
+                value: '{rec.app}'
+            }
+        }, {*/
+        {
+            fieldLabel: '所属应用',
+            xtype: 'baseComboBox',
+            editable: false,
+            valueField: 'id',
+            displayField: 'text',
+            store: Ext.create('kalix.store.BaseStore', {
+                autoLoad: true,
+                proxyUrl: CONFIG.restRoot + '/camel/rest/system/applications'
+            }),
+            bind: {
                 value: '{rec.app}'
             }
         }, {

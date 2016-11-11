@@ -24,13 +24,27 @@ Ext.define('kalix.admin.workgroup.view.WorkGroupWindow', {
                 value: '{rec.name}'
             }
         },
-            {
+            /*{
                 fieldLabel: '所属应用',
                 allowBlank: false,
                 bind: {
                     value: '{rec.app}'
                 }
-            }, {
+            }, {*/
+            {
+                fieldLabel: '所属应用',
+                xtype: 'baseComboBox',
+                editable: false,
+                valueField: 'id',
+                displayField: 'text',
+                store: Ext.create('kalix.store.BaseStore', {
+                    autoLoad: true,
+                    proxyUrl: CONFIG.restRoot + '/camel/rest/system/applications'
+                }),
+                bind: {
+                    value: '{rec.app}'
+                }
+            },{
                 fieldLabel: '备注',
                 xtype: 'textarea',
                 bind: {
