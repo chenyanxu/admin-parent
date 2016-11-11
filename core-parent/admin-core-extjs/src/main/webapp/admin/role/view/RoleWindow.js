@@ -19,7 +19,7 @@ Ext.define('kalix.admin.role.view.RoleWindow', {
     items: [{
         xtype: 'baseForm',
         items: [{
-            fieldLabel: '名称',
+            fieldLabel: '角色名称',
             //allowBlank: false,
             bind: {
                // activeError: '{validation.name}',
@@ -38,7 +38,7 @@ Ext.define('kalix.admin.role.view.RoleWindow', {
             fieldLabel: '所属应用',
             xtype: 'baseComboBox',
             editable: false,
-            valueField: 'id',
+            valueField: 'text',
             displayField: 'text',
             store: Ext.create('kalix.store.BaseStore', {
                 autoLoad: true,

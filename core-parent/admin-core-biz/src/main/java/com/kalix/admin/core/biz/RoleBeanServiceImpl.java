@@ -96,7 +96,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
             RoleBean _role = beans.get(0);
             if (_role.getId() != role.getId()) {
                 status.setFailure(true);
-                status.setMsg("更新" + FUNCTION_NAME + "失败,已经存在！");
+                status.setMsg("更新" + FUNCTION_NAME + "["+entity.getName()+"]失败,已经存在！");
                 return false;
             }
         }
@@ -110,7 +110,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
         List<RoleBean> beans = dao.find("select ob from RoleBean ob where ob.name = ?1", role.getName());
         if (beans != null && beans.size() > 0) {
             status.setSuccess(false);
-            status.setMsg(FUNCTION_NAME + "已经存在！");
+            status.setMsg(FUNCTION_NAME + "["+entity.getName()+"]已经存在！");
             return false;
         }
         return true;
