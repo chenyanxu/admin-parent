@@ -5,7 +5,7 @@
     <parent>
         <artifactId>admin-parent</artifactId>
         <groupId>com.kalix.admin</groupId>
-        <version>1.0.0</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
 
     <groupId>com.kalix.admin.core</groupId>
