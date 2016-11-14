@@ -19,7 +19,7 @@ Ext.define('kalix.admin.workgroup.view.WorkGroupWindow', {
         xtype: 'baseForm',
         items: [{
             fieldLabel: '工作组名称',
-            allowBlank: false,
+            //allowBlank: false,
             bind: {
                 value: '{rec.name}'
             }
