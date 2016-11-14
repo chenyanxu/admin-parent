@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
  * Created by dell on 14-1-17.
  */
 public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao, UserBean> implements IUserBeanService {
-    private static final String FUNCTION_NAME = "用户";
+    private static final String FUNCTION_NAME = "登录名";
     private IRoleBeanDao roleBeanDao;
     private IRoleUserBeanDao roleUserBeanDao;
     private IWorkGroupBeanDao workGroupBeanDao;
@@ -458,4 +458,12 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         return jsonData;
     }
 
+    @Override
+    public Boolean existUserBeanByLoginName(String loginname) {
+        List<UserBean> userBeans = dao.find("select ob from UserBean ob where ob.loginName = ?1", loginname);
+        if (userBeans != null && userBeans.size() > 0) {
+            return true;
+        }
+        return false;
+    }
 }

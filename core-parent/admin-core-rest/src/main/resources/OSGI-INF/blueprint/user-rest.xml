@@ -92,5 +92,14 @@
                 <to uri="bean:userService?method=findOrgsUserByUserId(${header.id})"/>
             </get>
         </rest>
+
+        <!-- 查询指定用户登录名下所有用户 -->
+        <rest path="/users/loginname/{loginname}" consumes="application/json;charset=utf-8" produces="application/json">
+            <!-- this is a rest GET to view a user by the given loginname -->
+            <get id="route-existUserBeanByLoginName">
+                <description>Find User by loginname</description>
+                <to uri="bean:userService?method=existUserBeanByLoginName(${header.loginname})"/>
+            </get>
+        </rest>
     </camelContext>
 </blueprint>
