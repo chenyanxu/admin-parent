@@ -26,7 +26,9 @@ Ext.define('kalix.admin.role.view.RoleWindow', {
                 value: '{rec.name}'
             }
         },
-        /*{
+
+
+            /*{
             fieldLabel: '所属应用',
            // allowBlank: false,
             bind: {
