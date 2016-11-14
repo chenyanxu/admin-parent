@@ -10,7 +10,7 @@ Ext.define('kalix.admin.role.view.RoleSearchForm', {
     items: [
         {
             xtype: 'textfield',
-            fieldLabel: '名称',
+            fieldLabel: '角色名称',
             labelAlign: 'right',
             labelWidth: 60,
             width: 200,

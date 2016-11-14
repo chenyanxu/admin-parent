@@ -34,7 +34,7 @@ Ext.define('kalix.admin.role.view.RoleGrid', {
             },
             {text: '编号', dataIndex: 'id', hidden: true},
             {text: '所属应用', dataIndex: 'app',flex:0.5},
-            {text: '名称', dataIndex: 'name'},
+            {text: '角色名称', dataIndex: 'name'},
             {text: '备注', dataIndex: 'remark'},
             {text: '创建人', dataIndex: 'createBy'},
             {

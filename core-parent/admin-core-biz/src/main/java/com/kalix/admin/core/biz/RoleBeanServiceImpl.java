@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  */
 
 public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao, RoleBean> implements IRoleBeanService {
-    private static final String FUNCTION_NAME = "角色";
+    private static final String FUNCTION_NAME = "角色名称";
     private IRoleUserBeanDao roleUserBeanDao;
     private IRoleApplicationBeanDao roleApplicationBeanDao;
     private IRoleFunctionBeanDao roleFunctionBeanDao;

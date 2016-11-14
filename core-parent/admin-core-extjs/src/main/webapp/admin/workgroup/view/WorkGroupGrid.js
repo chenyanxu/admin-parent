@@ -34,7 +34,7 @@ Ext.define('kalix.admin.workgroup.view.WorkGroupGrid', {
             },
             {text: '编号', dataIndex: 'id', hidden: true},
             {text: '所属应用', dataIndex: 'app'},
-            {text: '名称', dataIndex: 'name'},
+            {text: '工作组名称', dataIndex: 'name'},
             {text: '备注', dataIndex: 'remark'},
             {text: '创建人', dataIndex: 'createBy'},
             {

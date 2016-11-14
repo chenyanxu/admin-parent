@@ -25,7 +25,7 @@ import java.util.List;
  * @version 1.0.0
  */
 public class WorkGroupBeanServiceImpl extends ShiroGenericBizServiceImpl<IWorkGroupBeanDao, WorkGroupBean> implements IWorkGroupBeanService {
-    private static final String FUNCTION_NAME = "工作组";
+    private static final String FUNCTION_NAME = "工作组名称";
     private IWorkGroupUserBeanDao workGroupUserBeanDao;
     private IWorkGroupRoleBeanDao workGroupRoleBeanDao;
 
