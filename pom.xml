@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.kalix</groupId>
+        <artifactId>kalix-parent</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <groupId>com.kalix.admin</groupId>
+    <artifactId>admin-parent</artifactId>
+    <name>Kalix Admin Parent</name>
+    <version>1.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <scm>
+        <connection>scm:git:https://github.com/chenyanxu/admin-parent.git</connection>
+        <developerConnection>scm:git:https://github.com/chenyanxu/admin-parent.git</developerConnection>
+      <tag>HEAD</tag>
+  </scm>
+
     <modules>
         <module>core-parent</module>
         <module>audit-parent</module>
         <module>duty-parent</module>
         <module>karaf-features</module>
     </modules>
-
-    <parent>
-        <groupId>com.kalix</groupId>
-        <artifactId>kalix-parent</artifactId>
-        <version>1.0.0-RELEASE</version>
-    </parent>
-
-    <groupId>com.kalix.admin</groupId>
-    <artifactId>admin-parent</artifactId>
-    <name>Kalix Admin Parent</name>
-    <packaging>pom</packaging>
 
     <dependencyManagement>
         <dependencies>
@@ -64,17 +71,17 @@
             </extension>
         </extensions>
     </build>
-    <reporting>
-        <plugins>
-            <plugin>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.3</version>
-                <configuration>
-                    <detectLinks>true</detectLinks>
-                    <detectJavaApiLink>true</detectJavaApiLink>
-                    <linksource>true</linksource>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
+    <!--<reporting>-->
+        <!--<plugins>-->
+            <!--<plugin>-->
+                <!--<artifactId>maven-javadoc-plugin</artifactId>-->
+                <!--<version>2.10.3</version>-->
+                <!--<configuration>-->
+                    <!--<detectLinks>true</detectLinks>-->
+                    <!--<detectJavaApiLink>true</detectJavaApiLink>-->
+                    <!--<linksource>true</linksource>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+        <!--</plugins>-->
+    <!--</reporting>-->
 </project>
