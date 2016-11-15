@@ -6,7 +6,7 @@
  * @version 1.0.0
  */
 Ext.define('kalix.admin.user.component.UserComboBox', {
-    extend: 'Ext.form.field.ComboBox',
+    extend:'kalix.view.components.common.BaseComboBox',
     requires: [
         'kalix.admin.user.store.UserStore'
     ],
@@ -18,7 +18,6 @@ Ext.define('kalix.admin.user.component.UserComboBox', {
     valueField: 'name',
     displayField: 'name',
     queryParam: 'jsonStr',
-    minChars: 1,
     typeAhead:true,
     store: {
         type: 'userStore',
