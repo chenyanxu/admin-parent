@@ -9,6 +9,7 @@ import com.kalix.framework.core.api.security.IShiroService;
 import com.kalix.framework.core.impl.biz.GenericBizServiceImpl;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 
 /**
  * 支持审计的业务服务基类
@@ -35,6 +36,7 @@ public abstract class AuditBizServiceImpl<T extends IGenericDao, TP extends Pers
     @Transactional
     public void beforeUpdateEntity(TP entity, JsonStatus status) {
         auditBean = new AuditBean();
+        auditBean.setCreationDate(new Date());
         auditBean.setAppName(getAppName());
         auditBean.setFunName(getFunName());
         auditBean.setAction("更新");
@@ -51,6 +53,7 @@ public abstract class AuditBizServiceImpl<T extends IGenericDao, TP extends Pers
     @Transactional
     public void beforeSaveEntity(TP entity, JsonStatus status) {
         auditBean = new AuditBean();
+        auditBean.setCreationDate(new Date());
         auditBean.setAppName(getAppName());
         auditBean.setFunName(getFunName());
         if (entity.getId() > 0) {
@@ -70,6 +73,7 @@ public abstract class AuditBizServiceImpl<T extends IGenericDao, TP extends Pers
     @Transactional
     public void beforeDeleteEntity(Long id, JsonStatus status) {
         auditBean = new AuditBean();
+        auditBean.setCreationDate(new Date());
         auditBean.setAppName(getAppName());
         auditBean.setFunName(getFunName());
         auditBean.setAction("删除");

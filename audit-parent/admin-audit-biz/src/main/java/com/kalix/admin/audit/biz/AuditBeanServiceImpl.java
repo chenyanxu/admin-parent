@@ -9,6 +9,7 @@ import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.impl.biz.GenericBizServiceImpl;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,6 +37,7 @@ public class AuditBeanServiceImpl extends GenericBizServiceImpl<IAuditBeanDao, A
     @Transactional
     public void test() {
         AuditBean auditBean = new AuditBean();
+        auditBean.setCreationDate(new Date());
         auditBean.setAction("dfd");
         auditBean.setAppName("fdfdfdfd");
         super.saveEntity(auditBean);
