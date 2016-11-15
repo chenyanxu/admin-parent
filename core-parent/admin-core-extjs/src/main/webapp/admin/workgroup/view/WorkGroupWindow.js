@@ -7,6 +7,7 @@
 Ext.define('kalix.admin.workgroup.view.WorkGroupWindow', {
     extend: 'kalix.view.components.common.BaseWindow',
     requires: [
+        'kalix.view.components.common.BaseComboBox',
         'kalix.controller.BaseWindowController'
     ],
     alias: 'widget.workgroupWindow',
