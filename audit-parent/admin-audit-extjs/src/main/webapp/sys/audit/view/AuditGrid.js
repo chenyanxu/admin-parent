@@ -32,7 +32,7 @@ Ext.define('kalix.sys.audit.view.AuditGrid', {
         {text: '操作', dataIndex: 'action'},
             {text: '操作内容', dataIndex: 'content', flex: 2},
             {
-                text: '创建日期',
+                text: '操作时间',
                 dataIndex: 'creationDate'
             },
             {
