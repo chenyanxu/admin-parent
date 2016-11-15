@@ -151,4 +151,6 @@ public interface IUserBeanService extends IBizService<UserBean> {
     JsonData findUserByOrgId(Long orgId, int page, int limit, String sort);
 
     JsonStatus saveEntityWithOrg(UserBean entity, Long id);
+
+    Boolean existUserBeanByLoginName(String loginname);
 }

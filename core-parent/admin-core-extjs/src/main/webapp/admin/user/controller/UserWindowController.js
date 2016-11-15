@@ -86,5 +86,18 @@ Ext.define('kalix.admin.user.controller.UserWindowController', {
         else {
             this.callParent(arguments);
         }
+    },
+    blur: function (target, event, eOpts) {
+        var lv = target.lastValue;
+        var rest_url = CONFIG.restRoot + '/camel/rest/users/loginname/' + lv;
+        Ext.Ajax.request({
+            url: rest_url,
+            callback: function (options, success, response) {
+                var resp = Ext.JSON.decode(response.responseText);
+                if (resp) {
+                    target.setActiveError('登录名已经存在，请换一个！');
+                }
+            }
+        });
     }
 });

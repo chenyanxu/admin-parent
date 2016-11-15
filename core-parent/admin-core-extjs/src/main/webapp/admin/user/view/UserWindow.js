@@ -31,6 +31,9 @@ Ext.define('kalix.admin.user.view.UserWindow', {
                 fieldLabel: '登录名',
                 bind: {
                     value: '{rec.loginName}'
+                },
+                listeners: {
+                    blur: 'blur'
                 }
             }, {
                 fieldLabel: '姓名',

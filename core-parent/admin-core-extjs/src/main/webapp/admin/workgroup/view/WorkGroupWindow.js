@@ -7,6 +7,7 @@
 Ext.define('kalix.admin.workgroup.view.WorkGroupWindow', {
     extend: 'kalix.view.components.common.BaseWindow',
     requires: [
+        'kalix.view.components.common.BaseComboBox',
         'kalix.controller.BaseWindowController'
     ],
     alias: 'widget.workgroupWindow',
@@ -18,8 +19,8 @@ Ext.define('kalix.admin.workgroup.view.WorkGroupWindow', {
     items: [{
         xtype: 'baseForm',
         items: [{
-            fieldLabel: '名称',
-            allowBlank: false,
+            fieldLabel: '工作组名称',
+            //allowBlank: false,
             bind: {
                 value: '{rec.name}'
             }
@@ -35,7 +36,7 @@ Ext.define('kalix.admin.workgroup.view.WorkGroupWindow', {
                 fieldLabel: '所属应用',
                 xtype: 'baseComboBox',
                 editable: false,
-                valueField: 'id',
+                valueField: 'text',
                 displayField: 'text',
                 store: Ext.create('kalix.store.BaseStore', {
                     autoLoad: true,
