@@ -17,8 +17,8 @@ public class DepartmentDTO extends BaseDTO {
     private String code; //代码
     private String centerCode; //中心代码
     private boolean leaf; //是否是叶子节点
-    private long parentId; //父节点
-    private int orgId;  // 所属机构
+    private Long parentId; //父节点
+    private Integer orgId;  // 所属机构
     private String parentName; //父节点名称
     private List<DepartmentDTO> children=new ArrayList<DepartmentDTO>();
 
@@ -71,19 +71,19 @@ public class DepartmentDTO extends BaseDTO {
         this.leaf = leaf;
     }
 
-    public long getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(long parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
-    public int getOrgId() {
+    public Integer getOrgId() {
         return orgId;
     }
 
-    public void setOrgId(int orgId) {
+    public void setOrgId(Integer orgId) {
         this.orgId = orgId;
     }
 

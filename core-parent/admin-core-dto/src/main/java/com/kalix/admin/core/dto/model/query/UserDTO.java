@@ -12,7 +12,7 @@ import com.kalix.framework.core.api.web.model.QueryDTO;
 public class UserDTO extends QueryDTO {
     private String loginName; //登录名
     private String name; //姓名
-    private int available=-1; //状态
+    private Integer available=-1; //状态
 
     public String getLoginName() {
         return loginName;
@@ -30,11 +30,11 @@ public class UserDTO extends QueryDTO {
         this.name = name;
     }
 
-    public int getAvailable() {
+    public Integer getAvailable() {
         return available;
     }
 
-    public void setAvailable(int available) {
+    public void setAvailable(Integer available) {
         this.available = available;
     }
 }

@@ -429,7 +429,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
 
         applicationList.stream().distinct().forEach(app -> {
             AuthorizationDTO applicationDTO = mapper.map(app, AuthorizationDTO.class);
-            applicationDTO.setParentId(-1);
+            applicationDTO.setParentId(-1L);
             applicationDTO.setParentName(parentName);
             applicationDTO.setLeaf(false);
             applicationDTO.setChecked(true);
@@ -467,7 +467,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
                 Assert.notNull(applicationBean, "应用不能为空");
                 Mapper mapper = new DozerBeanMapper();
                 AuthorizationDTO applicationDTO = mapper.map(applicationBean, AuthorizationDTO.class);
-                applicationDTO.setParentId(-1);
+                applicationDTO.setParentId(-1L);
                 applicationDTO.setParentName(parentName);
                 applicationDTO.setLeaf(true);
                 applicationDTO.setChecked(false);

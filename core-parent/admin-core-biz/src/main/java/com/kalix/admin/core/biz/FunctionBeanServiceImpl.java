@@ -68,7 +68,7 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
             List<FunctionBean> children = dao.find("select ob from FunctionBean ob where ob.parentId = ?1", parentId); //获得父节点
             if(children==null||children.isEmpty()) {
                 FunctionBean parent = functionBeans.get(0);
-                parent.setIsLeaf(1);
+                parent.setIsLeaf(1L);
                 dao.save(parent);
             }
         }
@@ -102,7 +102,7 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
         if(bean.getParentId()!=-1){
             FunctionBean parentFunctionBean = dao.get(bean.getParentId());
             if(parentFunctionBean!=null&&parentFunctionBean.getIsLeaf()==1){
-                parentFunctionBean.setIsLeaf(0);
+                parentFunctionBean.setIsLeaf(0L);
                 dao.save(parentFunctionBean);
             }
         }

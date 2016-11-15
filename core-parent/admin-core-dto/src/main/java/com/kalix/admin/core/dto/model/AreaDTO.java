@@ -17,7 +17,7 @@ public class AreaDTO extends BaseDTO {
     private String text; //名称
     private String centerCode; //中心代码
     private boolean leaf; //是否是叶子节点
-    private long parentId; //父节点
+    private Long parentId; //父节点
     private String parentName; //父节点名称
     private List<AreaDTO> children=new ArrayList<AreaDTO>();
     private String jd; //经度
@@ -90,11 +90,11 @@ public class AreaDTO extends BaseDTO {
         this.leaf = leaf;
     }
 
-    public long getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(long parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 

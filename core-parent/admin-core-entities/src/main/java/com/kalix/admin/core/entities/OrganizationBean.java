@@ -19,25 +19,25 @@ public class OrganizationBean extends PersistentEntity {
     private String name; //机构名称
     private String code; //机构代码
     private String centerCode; //中心代码
-    private long isLeaf; //是否是叶子节点
-    private long parentId; //父机构
-    private long areaId;  // 归属区域
+    private Long isLeaf; //是否是叶子节点
+    private Long parentId; //父机构
+    private Long areaId;  // 归属区域
     private boolean dept;//是否是部门
 
 
-    public long getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(long parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
-    public long getAreaId() {
+    public Long getAreaId() {
         return areaId;
     }
 
-    public void setAreaId(int areaId) {
+    public void setAreaId(Long areaId) {
         this.areaId = areaId;
     }
 
@@ -65,11 +65,11 @@ public class OrganizationBean extends PersistentEntity {
         this.centerCode = centerCode;
     }
 
-    public long getIsLeaf() {
+    public Long getIsLeaf() {
         return isLeaf;
     }
 
-    public void setIsLeaf(int isLeaf) {
+    public void setIsLeaf(Long isLeaf) {
         this.isLeaf = isLeaf;
     }
 

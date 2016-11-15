@@ -164,7 +164,7 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
                     Assert.notNull(applicationBean,"应用不能为空");
                     Mapper mapper = new DozerBeanMapper();
                     AuthorizationDTO applicationDTO = mapper.map(applicationBean, AuthorizationDTO.class);
-                    applicationDTO.setParentId(-1);
+                    applicationDTO.setParentId(-1L);
                     applicationDTO.setLeaf(true);
                     applicationDTO.setChecked(true);
                     applicationDTO.setExpanded(true);

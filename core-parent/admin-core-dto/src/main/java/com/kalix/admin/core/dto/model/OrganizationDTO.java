@@ -17,8 +17,8 @@ public class OrganizationDTO extends BaseDTO {
     private String text; //名称
     private String centerCode; //中心代码
     private boolean leaf; //是否是叶子节点
-    private long parentId; //父机构
-    private int areaId;  // 归属区域
+    private Long parentId; //父机构
+    private Integer areaId;  // 归属区域
     private String parentName; //父节点名称
     private boolean dept;//是否是部门
 
@@ -73,19 +73,19 @@ public class OrganizationDTO extends BaseDTO {
         this.leaf = leaf;
     }
 
-    public long getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(long parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
-    public int getAreaId() {
+    public Integer getAreaId() {
         return areaId;
     }
 
-    public void setAreaId(int areaId) {
+    public void setAreaId(Integer areaId) {
         this.areaId = areaId;
     }
 

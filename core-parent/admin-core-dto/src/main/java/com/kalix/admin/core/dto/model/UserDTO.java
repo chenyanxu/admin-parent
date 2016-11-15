@@ -20,14 +20,14 @@ public class UserDTO extends BaseDTO {
     private String mobile;      // 手机
     private String loginIp;    // 最后登陆IP
     private Date loginDate;    // 最后登陆日期
-    private long available = 1;     //用户是否有效：0-无效；1-有效
+    private Long available = 1L;     //用户是否有效：0-无效；1-有效
     private Integer position;    // 岗位
     private String org; // 组织结构
     private String duty; // 职位
     private String role; // 角色
     private String workGroup; // 工作组
     private String sex; //性别
-    private long code; //工号
+    private Long code; //工号
     private String icon; //头像
 
     public String getLoginName() {
@@ -90,11 +90,11 @@ public class UserDTO extends BaseDTO {
         this.loginDate = loginDate;
     }
 
-    public long getAvailable() {
+    public Long getAvailable() {
         return available;
     }
 
-    public void setAvailable(long available) {
+    public void setAvailable(Long available) {
         this.available = available;
     }
 
@@ -138,11 +138,11 @@ public class UserDTO extends BaseDTO {
         this.workGroup = workGroup;
     }
 
-    public long getCode() {
+    public Long getCode() {
         return code;
     }
 
-    public void setCode(long code) {
+    public void setCode(Long code) {
         this.code = code;
     }
 

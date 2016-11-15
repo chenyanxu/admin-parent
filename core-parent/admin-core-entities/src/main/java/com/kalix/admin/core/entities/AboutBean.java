@@ -19,7 +19,7 @@ import javax.persistence.Table;
 //@Entity
 //@Table(name = "sys_about")
 public class AboutBean extends PersistentEntity {
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
     private String systemName;//系统名称
     private String systemVersion;//系统版本号
