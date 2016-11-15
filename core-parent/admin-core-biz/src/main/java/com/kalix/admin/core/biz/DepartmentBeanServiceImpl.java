@@ -69,7 +69,7 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
             if(_bean.getParentId()!=-1){
                 DepartmentBean parentDepartmentBean = dao.get(_bean.getParentId());
                 if(parentDepartmentBean!=null&&parentDepartmentBean.getIsLeaf()==1){
-                    parentDepartmentBean.setIsLeaf(0);
+                    parentDepartmentBean.setIsLeaf(0L);
                     dao.save(parentDepartmentBean);
                 }
             }
@@ -135,7 +135,7 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
             List<DepartmentBean> children = dao.find("select ob from DepartmentBean ob where ob.parentId = ?1", id); //获得父节点
             if(children==null||children.isEmpty()) {
                 DepartmentBean parent = beans.get(0);
-                parent.setIsLeaf(1);
+                parent.setIsLeaf(1L);
                 dao.save(parent);
             }
         }

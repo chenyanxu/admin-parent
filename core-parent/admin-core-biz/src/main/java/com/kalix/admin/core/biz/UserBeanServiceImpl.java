@@ -112,7 +112,7 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
             organizationUserBean.setUpdateById(shiroService.getCurrentUserId());
             organizationUserBean.setUpdateBy(shiroService.getCurrentUserRealName());
             organizationUserBean.setOrgId(id);
-            organizationUserBean.setUserId(Integer.valueOf(jsonStatus.getTag()));
+            organizationUserBean.setUserId(Long.valueOf(jsonStatus.getTag()));
             organizationUserBeanDao.save(organizationUserBean);
         }
 

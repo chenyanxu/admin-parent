@@ -19,25 +19,25 @@ public class WorkGroupUserBean extends PersistentEntity {
     /**
      * 用户.
      */
-    private long userId;
+    private Long userId;
     /**
      * 工作组.
      */
-    private long groupId;
+    private Long groupId;
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public long getGroupId() {
+    public Long getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(long groupId) {
+    public void setGroupId(Long groupId) {
         this.groupId = groupId;
     }
 }

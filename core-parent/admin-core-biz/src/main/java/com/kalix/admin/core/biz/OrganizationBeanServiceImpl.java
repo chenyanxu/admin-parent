@@ -73,7 +73,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
         if (entity.getParentId() != -1) {
             OrganizationBean parentOrganizationBean = dao.get(entity.getParentId());
             if (parentOrganizationBean != null && parentOrganizationBean.getIsLeaf() == 1) {
-                parentOrganizationBean.setIsLeaf(0);
+                parentOrganizationBean.setIsLeaf(0L);
                 dao.save(parentOrganizationBean);
             }
         }
@@ -170,7 +170,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
             // 获取父节点下的所有子节点
             List<OrganizationBean> children = dao.findByParentId(parentId);
             if (children == null || children.isEmpty()) {
-                parentBean.setIsLeaf(1);
+                parentBean.setIsLeaf(1L);
                 dao.save(parentBean);
             }
         }

@@ -20,9 +20,9 @@ public class FunctionBean extends PersistentEntity {
     private String name; //功能名称
     private String code; //功能代码
     private String remark; //备注
-    private long isLeaf; //是否是叶子节点
-    private long parentId; //父功能
-    private long applicationId;  // 归属应用
+    private Long isLeaf; //是否是叶子节点
+    private Long parentId; //父功能
+    private Long applicationId;  // 归属应用
     private String permission; //权限
 
     public String getPermission() {
@@ -41,19 +41,19 @@ public class FunctionBean extends PersistentEntity {
         this.remark = remark;
     }
 
-    public long getApplicationId() {
+    public Long getApplicationId() {
         return applicationId;
     }
 
-    public void setApplicationId(int applicationId) {
+    public void setApplicationId(Long applicationId) {
         this.applicationId = applicationId;
     }
 
-    public long getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(long parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
@@ -75,11 +75,11 @@ public class FunctionBean extends PersistentEntity {
     }
 
 
-    public long getIsLeaf() {
+    public Long getIsLeaf() {
         return isLeaf;
     }
 
-    public void setIsLeaf(int isLeaf) {
+    public void setIsLeaf(Long isLeaf) {
         this.isLeaf = isLeaf;
     }
 

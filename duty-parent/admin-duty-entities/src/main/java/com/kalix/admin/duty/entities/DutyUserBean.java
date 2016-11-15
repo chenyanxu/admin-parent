@@ -28,37 +28,37 @@ public class DutyUserBean extends PersistentEntity {
     /**
      * 用户.
      */
-    private long userId;
+    private Long userId;
     /**
      * 职位.
      */
-    private long dutyId;
+    private Long dutyId;
     /**
      * 机构.
      */
-    private long orgId;
+    private Long orgId;
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public long getDutyId() {
+    public Long getDutyId() {
         return dutyId;
     }
 
-    public void setDutyId(long dutyId) {
+    public void setDutyId(Long dutyId) {
         this.dutyId = dutyId;
     }
 
-    public long getOrgId() {
+    public Long getOrgId() {
         return orgId;
     }
 
-    public void setOrgId(long orgId) {
+    public void setOrgId(Long orgId) {
         this.orgId = orgId;
     }
 }

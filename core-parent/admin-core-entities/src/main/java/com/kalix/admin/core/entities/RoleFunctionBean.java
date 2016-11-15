@@ -19,26 +19,26 @@ public class RoleFunctionBean extends PersistentEntity {
     /**
      * 功能.
      */
-    private long functionId;
+    private Long functionId;
     /**
      * 角色.
      */
-    private long roleId;
+    private Long roleId;
 
 
-    public long getFunctionId() {
+    public Long getFunctionId() {
         return functionId;
     }
 
-    public void setFunctionId(long functionId) {
+    public void setFunctionId(Long functionId) {
         this.functionId = functionId;
     }
 
-    public long getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(long roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 }

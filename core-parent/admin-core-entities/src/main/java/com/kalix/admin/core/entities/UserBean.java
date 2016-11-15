@@ -32,7 +32,7 @@ public class UserBean extends PersistentEntity {
     private Long available = 1L;     //用户是否有效：0-无效；1-有效
     private Integer position;       // 岗位
     private String sex;             //性别
-    private long code;              //工号
+    private Long code;              //工号
     private String icon;            //头像地址
 
     public String getLoginName() {
@@ -123,11 +123,11 @@ public class UserBean extends PersistentEntity {
         this.sex = sex;
     }
 
-    public long getCode() {
+    public Long getCode() {
         return code;
     }
 
-    public void setCode(long code) {
+    public void setCode(Long code) {
         this.code = code;
     }
 

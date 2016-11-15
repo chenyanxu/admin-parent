@@ -19,25 +19,25 @@ public class WorkGroupRoleBean extends PersistentEntity {
     /**
      * 角色.
      */
-    private long roleId;
+    private Long roleId;
     /**
      * 工作组.
      */
-    private long groupId;
+    private Long groupId;
 
-    public long getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(long roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 
-    public long getGroupId() {
+    public Long getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(long groupId) {
+    public void setGroupId(Long groupId) {
         this.groupId = groupId;
     }
 }

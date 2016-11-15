@@ -19,36 +19,36 @@ public class OrganizationUserBean extends PersistentEntity {
     /**
      * 用户.
      */
-    private long userId;
+    private Long userId;
     /**
      * 机构.
      */
-    private long orgId;
+    private Long orgId;
 
     public OrganizationUserBean(){
 
     }
 
-    public OrganizationUserBean(long userId, long orgId, String createBy, String updateBy)  {
+    public OrganizationUserBean(Long userId, Long orgId, String createBy, String updateBy)  {
         this.userId = userId;
         this.orgId = orgId;
         this.setCreateBy(createBy);
         this.setUpdateBy(updateBy);
     }
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public long getOrgId() {
+    public Long getOrgId() {
         return orgId;
     }
 
-    public void setOrgId(long orgId) {
+    public void setOrgId(Long orgId) {
         this.orgId = orgId;
     }
 }

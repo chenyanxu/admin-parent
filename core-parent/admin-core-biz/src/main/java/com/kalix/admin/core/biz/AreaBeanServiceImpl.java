@@ -154,7 +154,7 @@ public class AreaBeanServiceImpl extends ShiroGenericBizServiceImpl<IAreaBeanDao
             List<AreaBean> children = dao.find("select ob from AreaBean ob where ob.parentId = ?1", id); //获得父节点
             if(children==null||children.isEmpty()) {
                 AreaBean parent = AreaBeans.get(0);
-                parent.setIsLeaf(1);
+                parent.setIsLeaf(1L);
                 dao.save(parent);
             }
         }
@@ -168,7 +168,7 @@ public class AreaBeanServiceImpl extends ShiroGenericBizServiceImpl<IAreaBeanDao
         if(bean.getParentId()!=-1){
             AreaBean parentAreaBean = (AreaBean) dao.get(bean.getParentId());
             if(parentAreaBean!=null&&parentAreaBean.getIsLeaf()==1){
-                parentAreaBean.setIsLeaf(0);
+                parentAreaBean.setIsLeaf(0L);
                 dao.save(parentAreaBean);
             }
         }

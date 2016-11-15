@@ -22,11 +22,11 @@ import java.util.List;
 //@Table(name = "sys_area")
 public class AreaBean extends PersistentEntity {
 
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
     private String parentIds; // 所有父级编号
-    private long isLeaf; //是否是子节点
+    private Long isLeaf; //是否是子节点
     //    @Length(min = 1, max = 255)
-    private long parentId; // 父级编号
+    private Long parentId; // 父级编号
     //    @NotNull(message = "'区域编码'是必填项")
     private String code;    // 区域编码
     //    @NotNull(message = "'区域名称'是必填项")
@@ -61,19 +61,19 @@ public class AreaBean extends PersistentEntity {
 		}*/
     }
 
-    public long getIsLeaf() {
+    public Long getIsLeaf() {
         return isLeaf;
     }
 
-    public void setIsLeaf(long isLeaf) {
+    public void setIsLeaf(Long isLeaf) {
         this.isLeaf = isLeaf;
     }
 
-    public long getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(long parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
