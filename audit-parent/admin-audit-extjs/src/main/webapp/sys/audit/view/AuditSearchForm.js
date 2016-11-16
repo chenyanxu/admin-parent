@@ -37,6 +37,7 @@ Ext.define('kalix.sys.audit.view.AuditSearchForm', {
             //查询条件-操作开始时间
             xtype: 'datefield',
             format: 'Y-m-d H:i:s',
+            formatText:'格式为YYYY-mm-dd H:i:s',
             fieldLabel: '操作时间:',
             labelAlign: 'right',
             labelWidth: 60,
@@ -54,6 +55,7 @@ Ext.define('kalix.sys.audit.view.AuditSearchForm', {
             //查询条件-操作截至时间
             xtype: 'datefield',
             format: 'Y-m-d H:i:s',
+            formatText:'格式为YYYY-mm-dd H:i:s',
             headLabel: true,
             labelAlign: 'right',
             width: 140,
