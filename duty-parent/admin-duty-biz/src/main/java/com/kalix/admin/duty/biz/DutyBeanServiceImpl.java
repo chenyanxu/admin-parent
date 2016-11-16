@@ -136,7 +136,7 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
             for(DutyUserBean dutyUserBean :dutyUserBeenList){
                 DutyBean dutyBean=dao.get(dutyUserBean.getDutyId());
                 OrganizationBean organizationBean=orgDao.get(dutyUserBean.getOrgId());
-                dutyNameList.add(organizationBean.getName()+"-"+dutyBean.getName());
+                dutyNameList.add(organizationBean.getName() + "&" + dutyBean.getName());
             }
         }
 
