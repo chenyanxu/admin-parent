@@ -45,10 +45,15 @@ Ext.define('kalix.admin.application.view.ApplicationGrid', {
                 verifyItems: [
                     {
                         getClass: function (v, meta, record) {
-                            if (record.data.status) {
-                                return "iconfont icon-stop";
+                            if (record.data.code == 'admin') {
+                                return "kalix_hidden";
                             }
-                            return "iconfont icon-start";
+                            else {
+                                if (record.data.status) {
+                                    return "iconfont icon-stop";
+                                }
+                                return "iconfont icon-start";
+                            }
                         },
                         getTip: function (value, metadata, record, row, col, store) {
                             if (record.data.status) {
@@ -66,12 +71,34 @@ Ext.define('kalix.admin.application.view.ApplicationGrid', {
                         handler: 'onView'
                     },
                     {
-                        iconCls: 'iconfont icon-edit-column',
+                        /*iconCls: 'iconfont icon-edit-column',
+                        permission: 'edit',
+                        tooltip: '编辑',
+                         handler: 'onEdit'*/
+                        getClass: function (v, meta, record) {
+                            if (record.data.code == 'admin') {
+                                return "kalix_hidden";
+                            }
+                            else {
+                                return "iconfont icon-edit-column";
+                            }
+                        },
                         permission: 'edit',
                         tooltip: '编辑',
                         handler: 'onEdit'
                     }, {
-                        iconCls: 'iconfont icon-delete',
+                        /*iconCls: 'iconfont icon-delete',
+                        permission: 'delete',
+                        tooltip: '删除',
+                         handler: 'onDelete'*/
+                        getClass: function (v, meta, record) {
+                            if (record.data.code == 'admin') {
+                                return "kalix_hidden";
+                            }
+                            else {
+                                return "iconfont icon-delete";
+                            }
+                        },
                         permission: 'delete',
                         tooltip: '删除',
                         handler: 'onDelete'
