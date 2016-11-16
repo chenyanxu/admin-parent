@@ -11,6 +11,8 @@ import com.kalix.framework.core.util.SerializeUtil;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 
+import java.util.Date;
+
 /**
  * 业务数据的事件监听处理类
  * Created by sunlf on 2016/10/13.
@@ -28,6 +30,7 @@ public class AuditBusinessEventImpl implements EventHandler {
     @Override
     public void handleEvent(Event event) {
         AuditBean auditBean = new AuditBean();
+        auditBean.setCreationDate(new Date());
         Gson gson = new Gson();
         String json = (String) event.getProperty("message");
         AuditDTOBean dto = gson.fromJson(json, AuditDTOBean.class);
