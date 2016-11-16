@@ -16,7 +16,7 @@ public class DepartmentDTO extends BaseDTO {
     private String text; //名称
     private String code; //代码
     private String centerCode; //中心代码
-    private boolean leaf; //是否是叶子节点
+    private Boolean leaf; //是否是叶子节点
     private Long parentId; //父节点
     private Integer orgId;  // 所属机构
     private String parentName; //父节点名称
@@ -63,11 +63,11 @@ public class DepartmentDTO extends BaseDTO {
     }
 
 
-    public boolean isLeaf() {
+    public Boolean isLeaf() {
         return leaf;
     }
 
-    public void setLeaf(boolean leaf) {
+    public void setLeaf(Boolean leaf) {
         this.leaf = leaf;
     }
 

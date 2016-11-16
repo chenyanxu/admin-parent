@@ -22,7 +22,7 @@ public class OrganizationBean extends PersistentEntity {
     private Long isLeaf; //是否是叶子节点
     private Long parentId; //父机构
     private Long areaId;  // 归属区域
-    private boolean dept;//是否是部门
+    private Boolean dept;//是否是部门
 
 
     public Long getParentId() {
@@ -73,11 +73,11 @@ public class OrganizationBean extends PersistentEntity {
         this.isLeaf = isLeaf;
     }
 
-    public boolean isDept() {
+    public Boolean isDept() {
         return dept;
     }
 
-    public void setDept(boolean dept) {
+    public void setDept(Boolean dept) {
         this.dept = dept;
     }
 }

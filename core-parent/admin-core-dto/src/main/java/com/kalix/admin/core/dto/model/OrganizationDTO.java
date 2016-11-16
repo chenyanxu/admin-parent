@@ -16,11 +16,11 @@ public class OrganizationDTO extends BaseDTO {
     private String code; //机构代码
     private String text; //名称
     private String centerCode; //中心代码
-    private boolean leaf; //是否是叶子节点
+    private Boolean leaf; //是否是叶子节点
     private Long parentId; //父机构
     private Integer areaId;  // 归属区域
     private String parentName; //父节点名称
-    private boolean dept;//是否是部门
+    private Boolean dept;//是否是部门
 
     private List<OrganizationDTO> children=new ArrayList<OrganizationDTO>();
 
@@ -65,11 +65,11 @@ public class OrganizationDTO extends BaseDTO {
     }
 
 
-    public boolean isLeaf() {
+    public Boolean isLeaf() {
         return leaf;
     }
 
-    public void setLeaf(boolean leaf) {
+    public void setLeaf(Boolean leaf) {
         this.leaf = leaf;
     }
 
@@ -97,11 +97,11 @@ public class OrganizationDTO extends BaseDTO {
         this.children = children;
     }
 
-    public boolean isDept() {
+    public Boolean isDept() {
         return dept;
     }
 
-    public void setDept(boolean dept) {
+    public void setDept(Boolean dept) {
         this.dept = dept;
     }
 }

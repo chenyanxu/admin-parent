@@ -16,7 +16,7 @@ public class FunctionDTO extends BaseDTO {
     private String name; //功能名称
     private String code; //功能代码
     private String text; //名称
-    private boolean leaf; //是否是叶子节点
+    private Boolean leaf; //是否是叶子节点
     private Long parentId; //父功能
     private String remark; //备注
     private Long applicationId;  // 归属应用
@@ -73,11 +73,11 @@ public class FunctionDTO extends BaseDTO {
     }
 
 
-    public boolean isLeaf() {
+    public Boolean isLeaf() {
         return leaf;
     }
 
-    public void setLeaf(boolean leaf) {
+    public void setLeaf(Boolean leaf) {
         this.leaf = leaf;
     }
 

@@ -16,26 +16,26 @@ public class AuthorizationDTO extends BaseDTO {
     private String name; //名称
     private String code; //代码
     private String text; //名称
-    private boolean leaf; //是否是叶子节点
+    private Boolean leaf; //是否是叶子节点
     private Long parentId; //父节点
     private String parentName; //父节点名称
-    private boolean expanded; //是否展开子节点
-    private boolean checked; //是否多选
+    private Boolean expanded; //是否展开子节点
+    private Boolean checked; //是否多选
     private List<AuthorizationDTO> children=new ArrayList<AuthorizationDTO>();
 
-    public boolean isExpanded() {
+    public Boolean isExpanded() {
         return expanded;
     }
 
-    public void setExpanded(boolean expanded) {
+    public void setExpanded(Boolean expanded) {
         this.expanded = expanded;
     }
 
-    public boolean isChecked() {
+    public Boolean isChecked() {
         return checked;
     }
 
-    public void setChecked(boolean checked) {
+    public void setChecked(Boolean checked) {
         this.checked = checked;
     }
 
@@ -71,11 +71,11 @@ public class AuthorizationDTO extends BaseDTO {
         this.code = code;
     }
 
-    public boolean isLeaf() {
+    public Boolean isLeaf() {
         return leaf;
     }
 
-    public void setLeaf(boolean leaf) {
+    public void setLeaf(Boolean leaf) {
         this.leaf = leaf;
     }
 

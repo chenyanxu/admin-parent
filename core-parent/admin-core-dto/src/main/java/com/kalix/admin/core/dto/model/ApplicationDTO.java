@@ -16,7 +16,7 @@ public class ApplicationDTO extends BaseDTO {
     private String name; //名称
     private String code; //代码
     private String text; //名称
-    private boolean leaf; //是否是叶子节点
+    private Boolean leaf; //是否是叶子节点
     private Long parentId; //父节点
     private String parentName; //父节点名称
     private String iconCls;//图标
@@ -54,11 +54,11 @@ public class ApplicationDTO extends BaseDTO {
         this.code = code;
     }
 
-    public boolean isLeaf() {
+    public Boolean isLeaf() {
         return leaf;
     }
 
-    public void setLeaf(boolean leaf) {
+    public void setLeaf(Boolean leaf) {
         this.leaf = leaf;
     }
 
