@@ -10,7 +10,7 @@
 
     <feature name="admin-config" version="${project.admin.version}">
         <configfile finalname="/etc/ConfigAdminApp.cfg" override="true">
-            mvn:com.kalix.admin.core/admin-core-etc/${project.admin.version/cfg/ConfigAdminApp
+            mvn:com.kalix.admin.core/admin-core-etc/${project.admin.version}/cfg/ConfigAdminApp
         </configfile>
         <configfile finalname="/etc/ConfigAdminDict.cfg" override="true">
             mvn:com.kalix.admin.core/admin-core-etc/${project.admin.version}/cfg/ConfigAdminDict
