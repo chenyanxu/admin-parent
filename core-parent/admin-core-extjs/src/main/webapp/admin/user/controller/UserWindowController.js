@@ -82,6 +82,7 @@ Ext.define('kalix.admin.user.controller.UserWindowController', {
                     }
                 }
             }
+            this.callParent(arguments);
         }
         else {
             this.callParent(arguments);

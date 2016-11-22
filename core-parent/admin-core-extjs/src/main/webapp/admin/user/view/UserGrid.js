@@ -127,7 +127,15 @@ Ext.define('kalix.admin.user.view.UserGrid', {
         handler: 'onView'
       },
         {
-          iconCls: 'iconfont icon-edit-column',
+          //iconCls: 'iconfont icon-edit-column',
+          getClass: function (v, meta, record) {
+            if (record.data.available == 1) {
+              return 'iconfont icon-edit-column';
+            }
+            else {
+              return 'kalix_hidden';
+            }
+          },
           permission: 'edit',
           tooltip: '编辑',
           handler: 'onEdit'
@@ -153,7 +161,15 @@ Ext.define('kalix.admin.user.view.UserGrid', {
           handler: 'onStartStopUsing'
         },
         {
-          iconCls: 'iconfont icon-password-reset',
+          //iconCls: 'iconfont icon-password-reset',
+          getClass: function (v, meta, record) {
+            if (record.data.available == 1) {
+              return 'iconfont icon-password-reset';
+            }
+            else {
+              return 'kalix_hidden';
+            }
+          },
           permission: 'key',
           tooltip: '重置密码',
           handler: 'onKey'
