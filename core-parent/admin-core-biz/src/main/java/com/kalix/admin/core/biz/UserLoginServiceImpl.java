@@ -109,31 +109,31 @@ public class UserLoginServiceImpl implements IUserLoginService {
         return MD5Util.encode(text);
     }
 
-    @Override
-    public Map loginByPhone(String username, String password, String client,
-                            HttpServletRequest request, HttpServletResponse response) {
-        Map map = new HashMap();
-        int result = -1;
-        try {
-            UserBean user = userBeanDao.findUnique("select u from UserBean u where u.loginName=?1", username);
-            if (user != null && password.equals(user.getPassword())) {
-                logon(user, client, request, response);
-                result = 1;
-                Map resMap = new HashMap();
-                resMap.put("id", user.getId());
-                resMap.put("name", user.getName());
-                resMap.put("login_name", user.getLoginName());
-                resMap.put("password", user.getPassword());
-                map.put("response", resMap);
-            }
-        } catch (Exception e) {
-            map.put("errorCode", ErrorCodeValue.INNER_ERROR);
-            e.printStackTrace();
-        } finally {
-            map.put("result", result);
-        }
-        return map;
-    }
+//    @Override
+//    public Map loginByPhone(String username, String password, String client,
+//                            HttpServletRequest request, HttpServletResponse response) {
+//        Map map = new HashMap();
+//        int result = -1;
+//        try {
+//            UserBean user = userBeanDao.findUnique("select u from UserBean u where u.loginName=?1", username);
+//            if (user != null && password.equals(user.getPassword())) {
+//                logon(user, client, request, response);
+//                result = 1;
+//                Map resMap = new HashMap();
+//                resMap.put("id", user.getId());
+//                resMap.put("name", user.getName());
+//                resMap.put("login_name", user.getLoginName());
+//                resMap.put("password", user.getPassword());
+//                map.put("response", resMap);
+//            }
+//        } catch (Exception e) {
+//            map.put("errorCode", ErrorCodeValue.INNER_ERROR);
+//            e.printStackTrace();
+//        } finally {
+//            map.put("result", result);
+//        }
+//        return map;
+//    }
 
     private HashMap logon(UserBean user, String client, HttpServletRequest request, HttpServletResponse response) throws Exception {
         int rs = 1;
@@ -160,24 +160,24 @@ public class UserLoginServiceImpl implements IUserLoginService {
         return rsMap;
     }
 
-    @Override
-    public Map updateToken(HttpServletRequest request, String token, Long user_id) {
-        int result = -1;
-        Map map = new HashMap();
-        try {
-            if (user_id != null) {
-                userBeanDao.update("update UserRelBean u set u.token=null where u.token='" + token + "'");
-                userBeanDao.update("update UserRelBean u set u.token='" + token + "' where u.user_id=" + user_id);
-                result = 1;
-            }
-        } catch (Exception e) {
-            map.put("errorCode", ErrorCodeValue.INNER_ERROR);
-            e.printStackTrace();
-        } finally {
-            map.put("result", result);
-        }
-        return map;
-    }
+//    @Override
+//    public Map updateToken(HttpServletRequest request, String token, Long user_id) {
+//        int result = -1;
+//        Map map = new HashMap();
+//        try {
+//            if (user_id != null) {
+//                userBeanDao.update("update UserRelBean u set u.token=null where u.token='" + token + "'");
+//                userBeanDao.update("update UserRelBean u set u.token='" + token + "' where u.user_id=" + user_id);
+//                result = 1;
+//            }
+//        } catch (Exception e) {
+//            map.put("errorCode", ErrorCodeValue.INNER_ERROR);
+//            e.printStackTrace();
+//        } finally {
+//            map.put("result", result);
+//        }
+//        return map;
+//    }
 
     public void setUserBeanDao(IUserBeanDao userBeanDao) {
         this.userBeanDao = userBeanDao;
