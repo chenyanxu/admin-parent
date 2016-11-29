@@ -1,11 +1,10 @@
 package com.kalix.admin.core.entities;
 
 import com.kalix.framework.core.api.persistence.PersistentEntity;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 
@@ -19,21 +18,34 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "sys_user")
+@ApiModel("用户<br>UserBean")
 public class UserBean extends PersistentEntity {
-
-    private String loginName;       // 登录名
-    private String name;            // 姓名
-    private String password;        // 密码
-    private String email;           // 邮箱
-    private String phone;           // 电话
-    private String mobile;          // 手机
-    private String loginIp;         // 最后登陆IP
-    private Date loginDate;         // 最后登陆日期
-    private Long available = 1L;     //用户是否有效：0-无效；1-有效
-    private Integer position;       // 岗位
-    private String sex;             //性别
-    private Long code;              //工号
-    private String icon;            //头像地址
+    @ApiModelProperty(value="工号",position=0,example = "0")
+    private Long code;
+    @ApiModelProperty(value="岗位",position=1,example = "0")
+    private Integer position;
+    @ApiModelProperty(value="性别（男 女）",allowableValues = "男,女",position=2,example = "男")
+    private String sex;
+    @ApiModelProperty(value="登录名",position=3,example = "test_login")
+    private String loginName;
+    @ApiModelProperty(value="姓名",position =4,example = "陈某")
+    private String name;
+    @ApiModelProperty(value="密码",position = 5,example = "123")
+    private String password;
+    @ApiModelProperty(value="邮箱",position=6,example = "text@kalix.ocm")
+    private String email;
+    @ApiModelProperty(value="固定电话",position=7,example = "043288888888")
+    private String phone;
+    @ApiModelProperty(value="手机",position = 8,example = "18866667777")
+    private String mobile;
+    @ApiModelProperty(value="头像地址",position = 9,example = "http://head.png")
+    private String icon;
+    @ApiModelProperty(value="是否可用：（0-不可用 1-可用）",allowableValues = "0,1",position = 10,example = "1")
+    private Long available = 1L;
+    @ApiModelProperty(value="最后登陆IP",hidden=true)
+    private String loginIp;
+    @ApiModelProperty(value="最后登陆日期",hidden = true)
+    private Date loginDate;
 
     public String getLoginName() {
         return loginName;
