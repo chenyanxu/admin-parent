@@ -5,101 +5,57 @@
        http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
     <reference id="userService" interface="com.kalix.admin.core.api.biz.IUserBeanService"/>
 
+    <bean id="userRoute" class="com.kalix.framework.core.impl.camel.BaseRouteBuilder">
+        <property name="beanName" value="com.kalix.admin.core.entities.UserBean"/>
+        <property name="rests">
+            <list>
+                <bean class="com.kalix.framework.core.api.camel.CustomRest">
+                    <property name="path" value="/users/{id}/orgs"/>
+                    <property name="getDescription" value="获得用户（id）所属组织结构"/>
+                    <property name="getToUri" value="bean:orgService?method=getOrgsByUserId(${header.id})"/>
+                </bean>
+                <bean class="com.kalix.framework.core.api.camel.CustomRest">
+                    <property name="path" value="/users/{id}/orgs/tree"/>
+                    <property name="getDescription" value="获得用户（id）所属组织结构树"/>
+                    <property name="getOutType" value="java.util.List"/>
+                    <property name="getToUri" value="bean:orgService?method=getOrgsTreeByUserId(${header.id})"/>
+                </bean>
+                <bean class="com.kalix.framework.core.api.camel.CustomRest">
+                    <property name="path" value="/users/{name}/orgs/brother"/>
+                    <property name="getDescription" value="获得用户（name）的兄弟机构列表"/>
+                    <property name="getOutType" value="java.util.List"/>
+                    <property name="getToUri" value="bean:orgService?method=getOrgsBrotherByUserName(${header.name})"/>
+                </bean>
+                <bean class="com.kalix.framework.core.api.camel.CustomRest">
+                    <property name="path" value="/users/{id}/authorizations"/>
+                    <property name="getDescription" value="查询用户（id）的权限树"/>
+                    <property name="getOutType" value="com.kalix.admin.core.dto.model.AuthorizationDTO"/>
+                    <property name="getToUri" value="bean:roleService?method=getAuthorizationTreeByUserId(${header.id})"/>
+                </bean>
+                <bean class="com.kalix.framework.core.api.camel.CustomRest">
+                    <property name="path" value="/users/{id}/password/{password}"/>
+                    <property name="getDescription" value="检查用户（id）的密码是否正确"/>
+                    <property name="getParams" value="password:path:string::密码"/>
+                    <property name="getOutType" value="java.lang.Boolean"/>
+                    <property name="getToUri" value="bean:userService?method=checkUserPassword(${header.id}, ${header.password})"/>
+                </bean>
+                <bean class="com.kalix.framework.core.api.camel.CustomRest">
+                    <property name="path" value="/users/{id}/orgs/all/users"/>
+                    <property name="getDescription" value="查询用户（id）所属机构（包括子机构）下所有用户"/>
+                    <property name="getToUri" value="bean:userService?method=findOrgsUserByUserId(${header.id})"/>
+                </bean>
+                <bean class="com.kalix.framework.core.api.camel.CustomRest">
+                    <property name="path" value="/users/loginname/{loginname}"/>
+                    <property name="getDescription" value="查询登录名是否存在"/>
+                    <property name="getParams" value="loginname:path:string::登录名"/>
+                    <property name="getOutType" value="java.lang.Boolean"/>
+                    <property name="getToUri" value="bean:userService?method=existUserBeanByLoginName(${header.loginname})"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
     <camelContext id="userCamel" xmlns="http://camel.apache.org/schema/blueprint">
-        <restConfiguration component="servlet" bindingMode="json">
-            <dataFormatProperty key="prettyPrint" value="${rest.pretty}"/>
-        </restConfiguration>
-        <!-- defines the rest services using the context-path /user -->
-        <rest path="/users" consumes="application/json;charset=utf-8" produces="application/json">
-            <description>user rest service</description>
-            <!-- this is a rest GET to find all user -->
-            <get id="route-getAllUserbyPage" outType="com.kalix.framework.core.api.persistence.JsonData">
-                <description>Find all Users</description>
-                <to uri="bean:userService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr},${header.sort})"/>
-            </get>
-            <!-- this is a rest POST to create a user -->
-            <post id="route-addUser" type="com.kalix.admin.core.entities.UserBean"
-                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
-                <description>Create a User</description>
-                <to uri="bean:userService?method=saveEntity"/>
-            </post>
-        </rest>
-        <rest path="/users/{id}" consumes="application/json;charset=utf-8" produces="application/json">
-            <!-- this is a rest GET to view a user by the given id -->
-            <get id="route-getUser" outType="com.kalix.admin.core.entities.UserBean">
-                <description>Find User by id</description>
-                <to uri="bean:userService?method=getEntity(${header.id})"/>
-            </get>
-
-            <!-- this is a rest PUT to update a user -->
-            <put  id="route-updateUser" type="com.kalix.admin.core.entities.UserBean"
-                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
-                <description>Updates a User</description>
-                <to uri="bean:userService?method=updateEntity"/>
-            </put>
-            <!-- this is a rest DELETE to delete a user -->
-            <delete  id="route-deleteUser"
-                     outType="com.kalix.framework.core.api.persistence.JsonStatus">
-                <description>Delete a User</description>
-                <to uri="bean:userService?method=deleteEntity(${header.id})"/>
-            </delete>
-        </rest>
-        <rest path="/users/{id}/orgs" consumes="application/json;charset=utf-8" produces="application/json">
-            <!-- this is a rest GET to view a user by the given id -->
-            <get id="route-getOrgsByUserId" outType="com.kalix.framework.core.api.persistence.JsonData">
-                <description>Find User's Orgs by UserId</description>
-                <to uri="bean:orgService?method=getOrgsByUserId(${header.id})"/>
-            </get>
-        </rest>
-
-        <rest path="/users/{id}/orgs/tree" consumes="application/json;charset=utf-8" produces="application/json">
-            <!-- this is a rest GET to view a user by the given id -->
-            <get id="route-getOrgsTreeByUserId"  outType="java.util.List">
-                <description>Find User's Orgs Tree by UserId</description>
-                <to uri="bean:orgService?method=getOrgsTreeByUserId(${header.id})"/>
-            </get>
-        </rest>
-
-        <!-- 根据用户名获取指定用户的兄弟机构列表 -->
-        <rest path="/users/{name}/orgs/brother" consumes="application/json;charset=utf-8" produces="application/json">
-            <!-- this is a rest GET to view a user by the given id -->
-            <get id="route-getOrgsBrotherByUserName"  outType="com.kalix.framework.core.api.persistence.JsonData">
-                <description>Find User's Orgs Tree by UserId</description>
-                <to uri="bean:orgService?method=getOrgsBrotherByUserName(${header.name})"/>
-            </get>
-        </rest>
-
-        <!-- 获取指定用户id的权限树 -->
-        <rest path="/users/{id}/authorizations" consumes="application/json;charset=utf-8" produces="application/json">
-            <get id="route-getAuthorizationTreeByUserId">
-                <description>Find User's Orgs Tree by UserId</description>
-                <to uri="bean:roleService?method=getAuthorizationTreeByUserId(${header.id})"/>
-            </get>
-        </rest>
-
-        <!-- 检查指定用户id的密码是否正确 -->
-        <rest path="/users/{id}/password/{password}" consumes="application/json;charset=utf-8" produces="application/json">
-            <get id="route-checkUserPassword" outType="com.kalix.framework.core.api.persistence.JsonStatus">
-                <description>Check User's Password by UserId</description>
-                <to uri="bean:userService?method=checkUserPassword(${header.id}, ${header.password})"/>
-            </get>
-        </rest>
-
-        <!-- 查询指定用户id所属机构（包括子机构）下所有用户 -->
-        <rest path="/users/{id}/orgs/all/users" consumes="application/json;charset=utf-8" produces="application/json">
-            <get id="route-findOrgsUserByUserId" outType="com.kalix.framework.core.api.persistence.JsonData">
-                <description>Find All Organization's User by UserId</description>
-                <to uri="bean:userService?method=findOrgsUserByUserId(${header.id})"/>
-            </get>
-        </rest>
-
-        <!-- 查询指定用户登录名下所有用户 -->
-        <rest path="/users/loginname/{loginname}" consumes="application/json;charset=utf-8" produces="application/json">
-            <!-- this is a rest GET to view a user by the given loginname -->
-            <get id="route-existUserBeanByLoginName">
-                <description>Find User by loginname</description>
-                <to uri="bean:userService?method=existUserBeanByLoginName(${header.loginname})"/>
-            </get>
-        </rest>
+        <routeBuilder ref="userRoute"/>
     </camelContext>
 </blueprint>
