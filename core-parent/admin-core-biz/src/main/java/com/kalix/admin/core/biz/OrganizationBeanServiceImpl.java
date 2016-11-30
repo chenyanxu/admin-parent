@@ -364,7 +364,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
      * @return
      */
     private List<OrganizationBean> getRootElements(List<OrganizationBean> elements, Long id) {
-        return elements.stream().filter(n -> n.getParentId() == id)
+        return elements.stream().filter(n->n.getParentId().equals(id))
                 .collect(Collectors.toList());
     }
 
