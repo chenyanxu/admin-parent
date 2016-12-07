@@ -36,10 +36,10 @@ Ext.define('kalix.admin.application.view.ApplicationGrid', {
             {text: '名称', dataIndex: 'name'},
             {text: '应用代码', dataIndex: 'code'},
             {text: '应用图标', dataIndex: 'iconCls'},
-            {text: '创建人', dataIndex: 'createBy'},
-            {
-                text: '创建日期', dataIndex: 'creationDate'
-            },
+            // {text: '创建人', dataIndex: 'createBy'},
+            // {
+            //     text: '创建日期', dataIndex: 'creationDate'
+            // },
             {
                 xtype: 'securityGridColumnCommon',
                 verifyItems: [
@@ -69,56 +69,57 @@ Ext.define('kalix.admin.application.view.ApplicationGrid', {
                         permission: 'view',
                         tooltip: '查看',
                         handler: 'onView'
-                    },
-                    {
-                        /*iconCls: 'iconfont icon-edit-column',
-                        permission: 'edit',
-                        tooltip: '编辑',
-                         handler: 'onEdit'*/
-                        getClass: function (v, meta, record) {
-                            if (record.data.code == 'admin') {
-                                return "kalix_hidden";
-                            }
-                            else {
-                                return "iconfont icon-edit-column";
-                            }
-                        },
-                        permission: 'edit',
-                        tooltip: '编辑',
-                        handler: 'onEdit'
-                    }, {
-                        /*iconCls: 'iconfont icon-delete',
-                        permission: 'delete',
-                        tooltip: '删除',
-                         handler: 'onDelete'*/
-                        getClass: function (v, meta, record) {
-                            if (record.data.code == 'admin') {
-                                return "kalix_hidden";
-                            }
-                            else {
-                                return "iconfont icon-delete";
-                            }
-                        },
-                        permission: 'delete',
-                        tooltip: '删除',
-                        handler: 'onDelete'
                     }
+                    // ,
+                    // {
+                    //     /*iconCls: 'iconfont icon-edit-column',
+                    //     permission: 'edit',
+                    //     tooltip: '编辑',
+                    //      handler: 'onEdit'*/
+                    //     getClass: function (v, meta, record) {
+                    //         if (record.data.code == 'admin') {
+                    //             return "kalix_hidden";
+                    //         }
+                    //         else {
+                    //             return "iconfont icon-edit-column";
+                    //         }
+                    //     },
+                    //     permission: 'edit',
+                    //     tooltip: '编辑',
+                    //     handler: 'onEdit'
+                    // }, {
+                    //     /*iconCls: 'iconfont icon-delete',
+                    //     permission: 'delete',
+                    //     tooltip: '删除',
+                    //      handler: 'onDelete'*/
+                    //     getClass: function (v, meta, record) {
+                    //         if (record.data.code == 'admin') {
+                    //             return "kalix_hidden";
+                    //         }
+                    //         else {
+                    //             return "iconfont icon-delete";
+                    //         }
+                    //     },
+                    //     permission: 'delete',
+                    //     tooltip: '删除',
+                    //     handler: 'onDelete'
+                    // }
                 ]
             }
         ]
     },
-    tbar: {
-        xtype: 'securityToolbar',
-        verifyItems: [
-            {
-                text: '添加',
-                xtype: 'button',
-                permission: 'add',
-                iconCls: 'iconfont icon-add',
-                handler: 'onAdd'
-            }
-        ]
-    },
+    // tbar: {
+    //     xtype: 'securityToolbar',
+    //     verifyItems: [
+    //         {
+    //             text: '添加',
+    //             xtype: 'button',
+    //             permission: 'add',
+    //             iconCls: 'iconfont icon-add',
+    //             handler: 'onAdd'
+    //         }
+    //     ]
+    // },
     constructor: function () {
         var scope = this;
 
