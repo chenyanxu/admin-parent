@@ -28,6 +28,8 @@
     <!--<reference id="functionBeanService" interface="com.kalix.framework.app.api.biz.IFunctionBeanService"/>-->
     <!--<reference id="messageBeanDao" interface="com.kalix.admin.core.api.dao.IMessageBeanDao"/>-->
     <!--<reference id="pluginBeanDao" interface="com.kalix.admin.core.api.dao.IPluginBeanDao"/>-->
+    <reference id="bundleService" interface="com.kalix.framework.osgi.api.IBundleService"/>
+
 
     <bean id="userBeanServiceImpl" class="com.kalix.admin.core.biz.UserBeanServiceImpl">
         <property name="dao" ref="userBeanDao"/>
@@ -164,6 +166,7 @@
         <property name="dao" ref="applicationBeanDao"/>
         <property name="functionBeanService" ref="functionBeanService"/>
         <property name="functionBeanDao" ref="functionBeanDao"/>
+        <property name="bundleService" ref="bundleService"/>
     </bean>
 
     <!--应用服务-->
