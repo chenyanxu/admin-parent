@@ -4,6 +4,7 @@ import com.kalix.admin.core.dto.model.ApplicationDTO;
 import com.kalix.admin.core.dto.model.AuthorizationDTO;
 import com.kalix.admin.core.entities.ApplicationBean;
 import com.kalix.framework.core.api.biz.IBizService;
+import com.kalix.framework.core.api.persistence.JsonData;
 
 /**
  * 应用服务接口.
@@ -24,5 +25,8 @@ public interface IApplicationBeanService extends IBizService<ApplicationBean> {
      */
     AuthorizationDTO getAuthorizationTree();
 
-
+    /**
+     * 从配置文件读取应用
+     */
+    JsonData getApplicationsFromConfig();
 }

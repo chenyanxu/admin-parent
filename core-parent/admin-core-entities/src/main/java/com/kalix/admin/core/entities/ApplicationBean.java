@@ -1,6 +1,8 @@
 package com.kalix.admin.core.entities;
 
 import com.kalix.framework.core.api.persistence.PersistentEntity;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -17,10 +19,15 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "sys_application")
+@ApiModel("应用<br>ApplicationBean")
 public class ApplicationBean extends PersistentEntity {
+    @ApiModelProperty(value="名称",position=0,example = "测试应用")
     private String name;   // 名称
+    @ApiModelProperty(value="备注",position=1,example = "测试备注")
     private String remark;   // 备注
+    @ApiModelProperty(value="代码",position=2,example = "test")
     private String code; //代码
+    @ApiModelProperty(value="地址",position = 3,hidden = true)
     private String location; //地址
     private String iconCls;
 

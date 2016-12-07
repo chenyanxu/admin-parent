@@ -13,6 +13,6 @@ Ext.define('kalix.admin.application.store.ApplicationTreeListStore', {
     model: 'kalix.admin.application.model.ApplicationTreeListModel',
     proxy: {
         type: "ajax",
-        url: CONFIG.restRoot + '/camel/rest/applications/all/trees'
+        url: CONFIG.restRoot + '/camel/rest/applications/extend/tree'
     }
 });

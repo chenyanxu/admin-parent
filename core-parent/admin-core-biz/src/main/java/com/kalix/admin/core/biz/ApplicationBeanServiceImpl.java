@@ -11,12 +11,18 @@ import com.kalix.admin.core.dto.model.ApplicationDTO;
 import com.kalix.admin.core.dto.model.AuthorizationDTO;
 import com.kalix.admin.core.entities.ApplicationBean;
 import com.kalix.admin.core.entities.FunctionBean;
+import com.kalix.framework.core.api.persistence.JsonData;
 import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
+import com.kalix.framework.core.util.ConfigUtil;
+import com.kalix.framework.osgi.api.IBundleService;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,30 +39,7 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
     private IRoleBeanService roleBeanService;
     private IRoleApplicationBeanDao roleApplicationBeanDao;
     private IWorkGroupBeanService workGroupBeanService;
-
-    public ApplicationBeanServiceImpl() {
-        super.init(ApplicationBean.class.getName());
-    }
-    
-    public void setWorkGroupBeanService(IWorkGroupBeanService workGroupBeanService) {
-        this.workGroupBeanService = workGroupBeanService;
-    }
-
-    public void setRoleApplicationBeanDao(IRoleApplicationBeanDao roleApplicationBeanDao) {
-        this.roleApplicationBeanDao = roleApplicationBeanDao;
-    }
-
-    public void setRoleBeanService(IRoleBeanService roleBeanService) {
-        this.roleBeanService = roleBeanService;
-    }
-
-    public void setFunctionBeanDao(IFunctionBeanDao functionBeanDao) {
-        this.functionBeanDao = functionBeanDao;
-    }
-
-    public void setFunctionBeanService(IFunctionBeanService functionBeanService) {
-        this.functionBeanService = functionBeanService;
-    }
+    private IBundleService bundleService;
 
     @Override
     public boolean isDelete(Long entityId, JsonStatus status) {
@@ -137,7 +120,9 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
     public ApplicationDTO getTreesByAllApplications() {
         ApplicationDTO root=new ApplicationDTO();
         root.setId(-1);
-        List<ApplicationBean> beans = dao.getAll();
+        //List<ApplicationBean> beans = dao.getAll();
+        List<ApplicationBean> beans=getApplicationsFromConfig().getData();
+
         if(beans!=null&&beans.size()>0){
             if(beans!=null&&beans.size()>0) {
                 for(ApplicationBean applicationBean:beans){
@@ -195,5 +180,70 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
         return root;
     }
 
+    @Override
+    public JsonData getApplicationsFromConfig(){
+        List<Bundle> bundles=this.bundleService.getBundleList("Bundle-Classifier:IApplication");
+        JsonData jsonData=new JsonData();
 
+        for (Bundle bundle : bundles) {
+            String category=bundle.getHeaders().get("Bundle-Category").toString();
+
+            if (category!=null) {
+                String[] categorySplit=category.split(" ");
+
+
+                if(categorySplit.length==3){
+                    String configName="Config"+categorySplit[1]+"App";
+                    String code= ConfigUtil.getConfigProp("APPLICATION_APP_ID",configName).toString();
+                    String text=ConfigUtil.getConfigProp("APPLICATION_APP_TEXT",configName).toString();
+                    String iconCls=ConfigUtil.getConfigProp("APPLICATION_APP_ICONCLS",configName).toString();
+
+                    ApplicationBean appBean=new ApplicationBean();
+
+                    appBean.setId(jsonData.getData().size()+1);
+                    appBean.setCode(code);
+                    appBean.setName(text);
+                    appBean.setIconCls(iconCls);
+
+                    jsonData.getData().add(appBean);
+                }
+            }
+        }
+
+        jsonData.setTotalCount((long) jsonData.getData().size());
+
+        return jsonData;
+    }
+
+    public ApplicationBeanServiceImpl() {
+        super.init(ApplicationBean.class.getName());
+    }
+
+    public void setWorkGroupBeanService(IWorkGroupBeanService workGroupBeanService) {
+        this.workGroupBeanService = workGroupBeanService;
+    }
+
+    public void setRoleApplicationBeanDao(IRoleApplicationBeanDao roleApplicationBeanDao) {
+        this.roleApplicationBeanDao = roleApplicationBeanDao;
+    }
+
+    public void setRoleBeanService(IRoleBeanService roleBeanService) {
+        this.roleBeanService = roleBeanService;
+    }
+
+    public void setFunctionBeanDao(IFunctionBeanDao functionBeanDao) {
+        this.functionBeanDao = functionBeanDao;
+    }
+
+    public void setFunctionBeanService(IFunctionBeanService functionBeanService) {
+        this.functionBeanService = functionBeanService;
+    }
+
+    public IBundleService getBundleService() {
+        return bundleService;
+    }
+
+    public void setBundleService(IBundleService bundleService) {
+        this.bundleService = bundleService;
+    }
 }
