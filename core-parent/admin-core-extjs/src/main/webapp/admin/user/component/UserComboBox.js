@@ -17,20 +17,21 @@ Ext.define('kalix.admin.user.component.UserComboBox', {
     queryMode: 'remote',
     valueField: 'name',
     displayField: 'name',
-    queryParam: 'jsonStr',
+    queryParam: '%name%',
     typeAhead:true,
     store: {
         type: 'userStore',
         autoLoad: true
-    },
-    getParams: function (queryString) {
-        var params = {},
-            param = this.queryParam;
-
-        if (param) {
-            params[param] = '{"%' + this.displayField + '%":"' + queryString + '"}';
-        }
-
-        return params;
     }
+    //,
+    //getParams: function (queryString) {
+    //    var params = {},
+    //        param = this.queryParam;
+    //
+    //    if (param) {
+    //        params[param] = '{"%' + this.displayField + '%":"' + queryString + '"}';
+    //    }
+    //
+    //    return params;
+    //}
 });
