@@ -38,5 +38,9 @@
             <groupId>com.kalix.framework.core</groupId>
             <artifactId>framework-core-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.kalix.framework.osgi</groupId>
+            <artifactId>framework-osgi-api</artifactId>
+        </dependency>
     </dependencies>
 </project>
