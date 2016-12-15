@@ -20,9 +20,7 @@ import com.kalix.framework.osgi.api.IBundleService;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -197,10 +195,11 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
                     String code= ConfigUtil.getConfigProp("APPLICATION_APP_ID",configName).toString();
                     String text=ConfigUtil.getConfigProp("APPLICATION_APP_TEXT",configName).toString();
                     String iconCls=ConfigUtil.getConfigProp("APPLICATION_APP_ICONCLS",configName).toString();
+                    String db_id = ConfigUtil.getConfigProp("APPLICATION_APP_DB_ID", configName).toString();
 
                     ApplicationBean appBean=new ApplicationBean();
 
-                    appBean.setId(jsonData.getData().size()+1);
+                    appBean.setId(Long.parseLong(db_id));
                     appBean.setCode(code);
                     appBean.setName(text);
                     appBean.setIconCls(iconCls);
