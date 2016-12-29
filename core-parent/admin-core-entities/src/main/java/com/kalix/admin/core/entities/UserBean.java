@@ -4,7 +4,8 @@ import com.kalix.framework.core.api.persistence.PersistentEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 
 
@@ -46,6 +47,8 @@ public class UserBean extends PersistentEntity {
     private String loginIp;
     @ApiModelProperty(value="最后登陆日期",hidden = true)
     private Date loginDate;
+    @ApiModelProperty(value = "中文名字缩写", hidden = true)
+    private String abridge;
 
     public String getLoginName() {
         return loginName;
@@ -149,5 +152,13 @@ public class UserBean extends PersistentEntity {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public String getAbridge() {
+        return abridge;
+    }
+
+    public void setAbridge(String abridge) {
+        this.abridge = abridge;
     }
 }
