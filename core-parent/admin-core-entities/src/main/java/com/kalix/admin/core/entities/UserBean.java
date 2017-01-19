@@ -49,6 +49,8 @@ public class UserBean extends PersistentEntity {
     private Date loginDate;
     @ApiModelProperty(value = "中文名字缩写", hidden = true)
     private String abridge;
+    @ApiModelProperty(value = "中文名字全拼", hidden = true)
+    private String fullName;
 
     public String getLoginName() {
         return loginName;
@@ -160,5 +162,13 @@ public class UserBean extends PersistentEntity {
 
     public void setAbridge(String abridge) {
         this.abridge = abridge;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }
