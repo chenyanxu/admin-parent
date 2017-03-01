@@ -3,7 +3,10 @@ package com.kalix.admin.core.dao;
 import com.kalix.admin.core.api.dao.IUserBeanDao;
 import com.kalix.admin.core.entities.UserBean;
 import com.kalix.framework.core.api.persistence.JsonData;
+import com.kalix.framework.core.impl.dao.UserEntityDao;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,46 +16,45 @@ import java.util.List;
  * Created by dell on 14-1-16.
  */
 
-public class UserBeanDaoImpl extends BaseAdminDao<UserBean, Long> implements IUserBeanDao {
-    private final String className = UserBean.class.getName();
-
-    /**
-     * Constructor that sets the entity to User.class.
-     */
-    public UserBeanDaoImpl() {
-//        super.setEntityManager(UserBean.class);
-    }
+public class UserBeanDaoImpl extends UserEntityDao<UserBean,Long> implements IUserBeanDao{ //extends BaseAdminDao<UserBean, Long> implements IUserBeanDao {
+    //private final String className = UserBean.class.getName();
 
     @Override
-    public JsonData getUserList(int page,int limit) {
-        return super.getAll(page, limit);
+    @PersistenceContext(unitName = "admin-core-unit")
+    public void setEntityManager(EntityManager em) {
+        super.setEntityManager(em);
     }
 
-    @Override
-    public UserBean saveUser(UserBean user) {
-        return super.save(user);
-    }
+//    @Override
+//    public JsonData getUserList(int page,int limit) {
+//        return super.getAll(page, limit);
+//    }
 
-    @Override
-    public void removeUser(Long userId) {
-        super.remove(userId);
-    }
+//    @Override
+//    public UserBean saveUser(UserBean user) {
+//        return super.save(user);
+//    }
 
-    @Override
-    public UserBean getUser(Long userId) {
-        return super.get(userId);
-    }
+//    @Override
+//    public void removeUser(Long userId) {
+//        super.remove(userId);
+//    }
+//
+//    @Override
+//    public UserBean getUser(Long userId) {
+//        return super.get(userId);
+//    }
 
-    @Transactional(Transactional.TxType.SUPPORTS)
-    public UserBean getUser(String username) {
-        UserBean user = this.findUnique("select u from UserBean u where u.loginName=?1", username);
-        return user;
-    }
+//    @Transactional(Transactional.TxType.SUPPORTS)
+//    public UserBean getUser(String username) {
+//        UserBean user = this.findUnique("select u from UserBean u where u.loginName=?1", username);
+//        return user;
+//    }
 
-    @Override
-    public void updateUserLoginInfo(long id, String loginIp) {
-        this.update("update UserBean u set u.loginIp=?1, u.loginDate=?2 where u.id = ?3", loginIp, new Date(), id);
-    }
+//    @Override
+//    public void updateUserLoginInfo(long id, String loginIp) {
+//        this.update("update UserBean u set u.loginIp=?1, u.loginDate=?2 where u.id = ?3", loginIp, new Date(), id);
+//    }
 
     @Override
     @SuppressWarnings("unchecked")
