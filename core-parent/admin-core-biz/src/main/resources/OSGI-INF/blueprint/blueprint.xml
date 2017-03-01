@@ -46,11 +46,15 @@
 
 
     <bean id="loginBeanServiceImpl" class="com.kalix.admin.core.biz.UserLoginServiceImpl">
-        <property name="userBeanDao" ref="userBeanDao"/>
+        <property name="dao" ref="userBeanDao"/>
         <property name="permissionService" ref="permissionServiceImpl"/>
     </bean>
     <service id="userloginBeanService" ref="loginBeanServiceImpl"
-             interface="com.kalix.framework.core.api.security.IUserLoginService"/>
+             interface="com.kalix.framework.core.api.security.ILoginService">
+        <service-properties>
+            <entry key="type" value="main"/>
+        </service-properties>
+    </service>
     <!--角色dao服务注册-->
     <bean id="roleBeanServiceImpl" class="com.kalix.admin.core.biz.RoleBeanServiceImpl">
         <property name="dao" ref="roleBeanDao"/>
