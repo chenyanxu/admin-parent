@@ -39,12 +39,12 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
-        <dependency>
-            <groupId>com.kalix.framework.poms</groupId>
-            <artifactId>framework-poms-dm</artifactId>
-            <type>pom</type>
-            <version>${project.framework.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.kalix.framework.poms</groupId>-->
+            <!--<artifactId>framework-poms-dm</artifactId>-->
+            <!--<type>pom</type>-->
+            <!--<version>${project.framework.version}</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>com.kalix.framework.core</groupId>

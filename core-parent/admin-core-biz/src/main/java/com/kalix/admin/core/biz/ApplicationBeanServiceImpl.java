@@ -16,6 +16,7 @@ import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
 import com.kalix.framework.core.util.ConfigUtil;
+import com.kalix.framework.core.util.StringUtils;
 import com.kalix.framework.osgi.api.IBundleService;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
@@ -184,14 +185,14 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
         JsonData jsonData=new JsonData();
 
         for (Bundle bundle : bundles) {
-            String category=bundle.getHeaders().get("Bundle-Category").toString();
+            //String category=bundle.getHeaders().get("Bundle-Category").toString();
+            String appName=bundle.getHeaders().get("Bundle-ApplicationId").toString();
+            //if (category!=null) {
+            if(appName!=null) {
+                //String[] categorySplit=category.split(" ");
 
-            if (category!=null) {
-                String[] categorySplit=category.split(" ");
-
-
-                if(categorySplit.length==3){
-                    String configName="Config"+categorySplit[1]+"App";
+                //if(categorySplit.length==3){
+                    String configName="Config"+ StringUtils.changeFirstCharacterCase(appName,true)+"App";
                     String code= ConfigUtil.getConfigProp("APPLICATION_APP_ID",configName).toString();
                     String text=ConfigUtil.getConfigProp("APPLICATION_APP_TEXT",configName).toString();
                     String iconCls=ConfigUtil.getConfigProp("APPLICATION_APP_ICONCLS",configName).toString();
@@ -205,7 +206,7 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
                     appBean.setIconCls(iconCls);
 
                     jsonData.getData().add(appBean);
-                }
+                //}
             }
         }
 
