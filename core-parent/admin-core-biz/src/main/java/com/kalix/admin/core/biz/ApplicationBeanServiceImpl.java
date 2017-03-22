@@ -192,7 +192,7 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
                 //String[] categorySplit=category.split(" ");
 
                 //if(categorySplit.length==3){
-                    String configName="Config"+ StringUtils.changeFirstCharacterCase(appName,true)+"App";
+                    String configName="config."+ appName+".app";
                     String code= ConfigUtil.getConfigProp("APPLICATION_APP_ID",configName).toString();
                     String text=ConfigUtil.getConfigProp("APPLICATION_APP_TEXT",configName).toString();
                     String iconCls=ConfigUtil.getConfigProp("APPLICATION_APP_ICONCLS",configName).toString();

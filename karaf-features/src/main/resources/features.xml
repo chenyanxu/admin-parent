@@ -9,11 +9,11 @@
     </feature>
 
     <feature name="admin-config" version="${project.admin.version}">
-        <configfile finalname="/etc/ConfigAdminApp.cfg" override="true">
-            mvn:com.kalix.admin.core/admin-core-etc/${project.admin.version}/cfg/ConfigAdminApp
+        <configfile finalname="/etc/config.admin.app.cfg" override="true">
+            mvn:com.kalix.admin.core/admin-core-etc/${project.admin.version}/cfg/config.admin.app
         </configfile>
-        <configfile finalname="/etc/ConfigAdminDict.cfg" override="true">
-            mvn:com.kalix.admin.core/admin-core-etc/${project.admin.version}/cfg/ConfigAdminDict
+        <configfile finalname="/etc/config.admin.dict.cfg" override="true">
+            mvn:com.kalix.admin.core/admin-core-etc/${project.admin.version}/cfg/config.admin.dict
         </configfile>
     </feature>
 
