@@ -23,7 +23,7 @@
                 </bean>
                 <bean class="com.kalix.framework.core.api.camel.CustomRest">
                     <property name="path" value="/applications/extend/config"/>
-                    <property name="getDescription" value="测试"/>
+                    <property name="getDescription" value="从配置文件获得应用"/>
                     <property name="getToUri" value="bean:applicationService?method=getApplicationsFromConfig"/>
                 </bean>
             </list>

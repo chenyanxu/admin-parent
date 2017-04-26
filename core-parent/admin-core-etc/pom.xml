@@ -45,14 +45,14 @@
                         <configuration>
                             <artifacts>
                                 <artifact>
-                                    <file>target/classes/ConfigAdminApp.cfg</file>
+                                    <file>target/classes/config.admin.app.cfg</file>
                                     <type>cfg</type>
-                                    <classifier>ConfigAdminApp</classifier>
+                                    <classifier>config.admin.app</classifier>
                                 </artifact>
                                 <artifact>
-                                    <file>target/classes/ConfigAdminDict.cfg</file>
+                                    <file>target/classes/config.admin.dict.cfg</file>
                                     <type>cfg</type>
-                                    <classifier>ConfigAdminDict</classifier>
+                                    <classifier>config.admin.dict</classifier>
                                 </artifact>
                             </artifacts>
                         </configuration>

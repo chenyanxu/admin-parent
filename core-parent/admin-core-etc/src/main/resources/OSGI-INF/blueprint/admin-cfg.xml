@@ -9,7 +9,7 @@
     </bean>
     <service  interface="org.osgi.service.cm.ManagedService" ref="adminApplicationConfig">
         <service-properties>
-            <entry key="service.pid" value="ConfigAdminApp"/>
+            <entry key="service.pid" value="config.admin.app"/>
         </service-properties>
     </service>
 
@@ -17,7 +17,7 @@
     </bean>
     <service  interface="org.osgi.service.cm.ManagedService" ref="adminDictConfig">
         <service-properties>
-            <entry key="service.pid" value="ConfigAdminDict"/>
+            <entry key="service.pid" value="config.admin.dict"/>
         </service-properties>
     </service>
 </blueprint>
