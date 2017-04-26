@@ -1,0 +1,19 @@
+<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0
+           http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+    <reference id="stateMachineBeanDao" interface="com.kalix.admin.state.api.dao.IStateMachineBeanDao"/>
+
+    <bean id="statemachineServiceImpl" class="com.kalix.admin.state.biz.StatemachineServiceImpl">
+    </bean>
+    <service id="statemachineService" ref="statemachineServiceImpl"
+             interface="com.kalix.admin.state.api.biz.IStatemachineService"/>
+
+    <!--状态机管理服务注册-->
+    <bean id="stateMachineBeanServiceImpl" class="com.kalix.admin.state.biz.StateMachineBeanServiceImpl">
+        <property name="dao" ref="stateMachineBeanDao"/>
+    </bean>
+    <service id="stateMachineBeanService" ref="stateMachineBeanServiceImpl"
+             interface="com.kalix.admin.state.api.biz.IStateMachineBeanService"/>
+</blueprint>
