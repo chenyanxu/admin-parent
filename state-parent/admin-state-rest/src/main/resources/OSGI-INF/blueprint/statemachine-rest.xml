@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+    <reference id="statemachineService" interface="com.kalix.admin.state.api.biz.IStateMachineBeanService"/>
+
+    <bean id="stateMachineRoute" class="com.kalix.framework.core.impl.camel.BaseRouteBuilder">
+        <property name="beanName" value="com.kalix.admin.state.entities.StateMachineBean"/>
+    </bean>
+
+    <camelContext id="stateMachineCamel" xmlns="http://camel.apache.org/schema/blueprint">
+        <routeBuilder ref="stateMachineRoute"/>
+    </camelContext>
+</blueprint>

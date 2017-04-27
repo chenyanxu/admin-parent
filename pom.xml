@@ -25,6 +25,7 @@
         <module>audit-parent</module>
         <module>duty-parent</module>
         <module>karaf-features</module>
+        <module>state-parent</module>
     </modules>
 
     <dependencyManagement>
