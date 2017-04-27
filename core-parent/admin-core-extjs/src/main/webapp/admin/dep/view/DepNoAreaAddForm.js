@@ -16,15 +16,15 @@ Ext.define('kalix.admin.depNoArea.view.DepNoAreaAddForm', {
         type: 'depNoAreaViewModel'
     },
     controller: 'depNoAreaFormController',
-    xtype: "depNoAreaAddForm",
+    xtype: 'depNoAreaAddForm',
     labelAlign: 'center',
     labelWidth: 75,
     autoWidth: true,
     autoHeight: true,
     jsonSubmit: true,
-    bodyStyle: "padding:15px",
+    bodyStyle: 'padding:15px',
     frame: true,
-    buttonAlign: "center",
+    buttonAlign: 'center',
     defaultType: 'textfield',
     url:CONFIG.restRoot + '/camel/rest/deps',
     items: [

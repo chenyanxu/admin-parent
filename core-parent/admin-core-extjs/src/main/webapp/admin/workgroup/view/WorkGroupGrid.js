@@ -8,7 +8,7 @@ Ext.define('kalix.admin.workgroup.view.WorkGroupGrid', {
     extend: 'kalix.view.components.common.BaseGrid',
     requires: [
         'kalix.admin.workgroup.controller.WorkGroupGridController',
-        'kalix.admin.workgroup.store.WorkGroupStore',
+        'kalix.admin.workgroup.store.WorkGroupStore'
     ],
     alias: 'widget.workgroupGrid',
     xtype: 'workgroupGridPanel',
@@ -25,8 +25,8 @@ Ext.define('kalix.admin.workgroup.view.WorkGroupGrid', {
         defaults: {flex: 1, renderer: 'addTooltip'},
         items: [
             {
-                xtype: "rownumberer",
-                text: "行号",
+                xtype: 'rownumberer',
+                text: '行号',
                 width: 50,
                 flex: 0,
                 align: 'center',

@@ -56,8 +56,8 @@ Ext.define('kalix.admin.user.controller.UserGridController', {
 
     store.reload({
       callback: function (records, options, success) {
-        if (records == "") {
-          kalix.Notify.success("当前用户暂无权限信息！！！", "提示信息");
+        if (records == '') {
+          kalix.Notify.success('当前用户暂无权限信息！！！', '提示信息');
         }
       }
     });

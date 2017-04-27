@@ -21,28 +21,28 @@ Ext.define('kalix.admin.area.view.AreaEditForm', {
     labelWidth: 75,
     autoWidth: true,
     autoHeight: true,
-    bodyStyle: "padding:15px",
+    bodyStyle: 'padding:15px',
     frame: true,
     jsonSubmit: true,
-    method: "PUT",
+    method: 'PUT',
     defaultType: 'textfield',
-    buttonAlign: "center",
+    buttonAlign: 'center',
     items: [
         {xtype: 'hiddenfield', name: 'id'},
         //{xtype: 'hiddenfield', name: 'parentId', id: 'parentIdId', value: '-1'},
         {xtype: 'hiddenfield', name: 'isLeaf', value: '1'},
         {
             fieldLabel: '上级区域',
-            itemId: "parentName",
+            itemId: 'parentName',
             isFormField: false,
-            disabled: true,
+            disabled: true
         },
         {
             fieldLabel: '名称',
             itemId: 'nameId',
             name: 'name',
             allowBlank: false,
-            blankText: '名称不能为空!',
+            blankText: '名称不能为空!'
         },
         {
             fieldLabel: '区域代码',

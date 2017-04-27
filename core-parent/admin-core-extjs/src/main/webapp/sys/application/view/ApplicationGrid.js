@@ -18,6 +18,7 @@ Ext.define('kalix.admin.application.view.ApplicationGrid', {
         cfgViewForm: 'kalix.admin.application.view.ApplicationViewWindow',
         cfgModel: 'kalix.admin.application.model.ApplicationModel'
     },
+    autoLoad:false,
     store: {
         type: 'applicationStore'
     },
@@ -25,8 +26,8 @@ Ext.define('kalix.admin.application.view.ApplicationGrid', {
         defaults: {flex: 1, renderer: 'addTooltip'},
         items: [
             {
-                xtype: "rownumberer",
-                text: "行号",
+                xtype: 'rownumberer',
+                text: '行号',
                 width: 50,
                 flex: 0,
                 align: 'center',
@@ -46,18 +47,18 @@ Ext.define('kalix.admin.application.view.ApplicationGrid', {
                     {
                         getClass: function (v, meta, record) {
                             if (record.data.code == 'admin') {
-                                return "kalix_hidden";
+                                return 'kalix_hidden';
                             }
                             else {
                                 if (record.data.status) {
-                                    return "iconfont icon-stop";
+                                    return 'iconfont icon-stop';
                                 }
-                                return "iconfont icon-start";
+                                return 'iconfont icon-start';
                             }
                         },
                         getTip: function (value, metadata, record, row, col, store) {
                             if (record.data.status) {
-                                return "停止";
+                                return '停止';
                             }
                             return '启动';
                         },

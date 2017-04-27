@@ -9,10 +9,10 @@ Ext.define('kalix.admin.application.store.ApplicationTreeListStore', {
     extend: 'Ext.data.TreeStore',
     alias: 'store.applicationListStore',
     xtype: 'applicationListStore',
-    storeId: "applicationListStore",
+    storeId: 'applicationListStore',
     model: 'kalix.admin.application.model.ApplicationTreeListModel',
     proxy: {
-        type: "ajax",
+        type: 'ajax',
         url: CONFIG.restRoot + '/camel/rest/applications/extend/tree'
     }
 });

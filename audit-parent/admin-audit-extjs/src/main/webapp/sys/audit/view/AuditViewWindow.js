@@ -6,44 +6,44 @@
  */
 
 Ext.define('kalix.sys.audit.view.AuditViewWindow', {
-    extend: 'kalix.view.components.common.BaseWindow',
-        requires: [
-            'kalix.admin.user.store.UserStore'
-        ],
-        alias: 'widget.auditViewWindow',
-        xtype: "auditViewWindow",
-        width: 400,
+  extend: 'kalix.view.components.common.BaseWindow',
+  requires: [
+    'kalix.admin.user.store.UserStore'
+  ],
+  alias: 'widget.auditViewWindow',
+  xtype: 'auditViewWindow',
+  width: 400,
+  items: [{
+    defaults: {readOnly: true},
+    xtype: 'baseForm',
     items: [{
-            defaults: {readOnly: true},
-            xtype: 'baseForm',
-            items: [{
-                fieldLabel: '应用名称',
-                bind: {
-                    value: '{rec.appName}'
-                }
-            },
-            {
-                fieldLabel: '功能名称',
-                bind: {
-                    value: '{rec.funName}'
-                }
-            }, {
-                    fieldLabel: '操作人',
-                    bind: {
-                        value: '{rec.actor}'
-                    }
-                },
-                {
-                    fieldLabel: '操作',
-                    bind: {
-                        value: '{rec.action}'
-                    }
-                },{
-                fieldLabel: '操作内容',
-                xtype: 'textarea',
-                bind: {
-                    value: '{rec.content}'
-                }
-            }]
-        }]
+      fieldLabel: '应用名称',
+      bind: {
+        value: '{rec.appName}'
+      }
+    },
+      {
+        fieldLabel: '功能名称',
+        bind: {
+          value: '{rec.funName}'
+        }
+      }, {
+        fieldLabel: '操作人',
+        bind: {
+          value: '{rec.actor}'
+        }
+      },
+      {
+        fieldLabel: '操作',
+        bind: {
+          value: '{rec.action}'
+        }
+      }, {
+        fieldLabel: '操作内容',
+        xtype: 'textarea',
+        bind: {
+          value: '{rec.content}'
+        }
+      }]
+  }]
 });

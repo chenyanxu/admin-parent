@@ -15,7 +15,7 @@ Ext.define('kalix.admin.common.components.AuthorizationWindow', {
         roleId: null,
         authorizationUrl: null
     },
-    title: "权限分配",
+    title: '权限分配',
     layout: 'form',
     buttonAlign: 'center',
     items: [{
@@ -56,26 +56,26 @@ Ext.define('kalix.admin.common.components.AuthorizationWindow', {
             handler: function () {
                 var authorizationUrl = Ext.ComponentQuery.query('authorizationWindow')[0].authorizationUrl;
                 var roleId = Ext.ComponentQuery.query('authorizationWindow')[0].roleId;
-                if (authorizationUrl == null || authorizationUrl == "") {
-                    Ext.MessageBox.alert(CONFIG.ALTER_TITLE_FAILURE, "保存路径不能为空!");
+                if (authorizationUrl == null || authorizationUrl == '') {
+                    Ext.MessageBox.alert(CONFIG.ALTER_TITLE_FAILURE, '保存路径不能为空!');
                     return;
                 }
-                if (roleId == null || roleId == "") {
-                    Ext.MessageBox.alert(CONFIG.ALTER_TITLE_FAILURE, "角色编号不能为空!");
+                if (roleId == null || roleId == '') {
+                    Ext.MessageBox.alert(CONFIG.ALTER_TITLE_FAILURE, '角色编号不能为空!');
                     return;
                 }
                 var records = Ext.ComponentQuery.query('authorizationWindow')[0].down('#authorizationTree').getChecked();
                 var ids = [];
                 Ext.Array.each(records, function (rec) {
-                    if (rec.get("parentId") == "root") {
-                        ids.push("app:" + rec.get('id'));
+                    if (rec.get('parentId') == 'root') {
+                        ids.push('app:' + rec.get('id'));
                     } else {
-                        ids.push("fun:" + rec.get('id'));
+                        ids.push('fun:' + rec.get('id'));
                     }
                 });
                 Ext.Ajax.request({
                     url: authorizationUrl,
-                    method: "POST",
+                    method: 'POST',
                     defaultPostHeader : 'application/json;charset=utf-8',
                     params:Ext.encode([roleId.toString(),ids.join(',')]),
                     callback: function (options, success, response) {

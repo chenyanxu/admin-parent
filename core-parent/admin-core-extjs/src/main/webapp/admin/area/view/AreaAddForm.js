@@ -16,15 +16,15 @@ Ext.define('kalix.admin.area.view.AreaAddForm', {
         type: 'areaViewModel'
     },
     controller: 'areaFormController',
-    xtype: "areaAddForm",
+    xtype: 'areaAddForm',
     labelAlign: 'center',
     labelWidth: 75,
     autoWidth: true,
     autoHeight: true,
     jsonSubmit: true,
-    bodyStyle: "padding:15px",
+    bodyStyle: 'padding:15px',
     frame: true,
-    buttonAlign: "center",
+    buttonAlign: 'center',
     //layout: 'form',
     defaultType: 'textfield',
     items: [
@@ -32,9 +32,9 @@ Ext.define('kalix.admin.area.view.AreaAddForm', {
         {xtype: 'hiddenfield', name: 'isLeaf', value: '1'},
         {
             fieldLabel: '上级区域',
-            itemId: "parentName",
+            itemId: 'parentName',
             isFormField: false,
-            disabled: true,
+            disabled: true
 
         },
         {
@@ -42,7 +42,7 @@ Ext.define('kalix.admin.area.view.AreaAddForm', {
             itemId: 'nameId',
             name: 'name',
             allowBlank: false,
-            blankText: '名称不能为空!',
+            blankText: '名称不能为空!'
 
         },
         {
@@ -50,7 +50,7 @@ Ext.define('kalix.admin.area.view.AreaAddForm', {
             itemId: 'codeId',
             name: 'code',
             allowBlank: false,
-            blankText: '区域不能为空!',
+            blankText: '区域不能为空!'
 
         },
         {
@@ -58,7 +58,7 @@ Ext.define('kalix.admin.area.view.AreaAddForm', {
             itemId: 'centerCodeId',
             name: 'centerCode',
             allowBlank: false,
-            blankText: '中心代码不能为空!',
+            blankText: '中心代码不能为空!'
 
         },
         {

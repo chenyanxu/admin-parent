@@ -9,6 +9,6 @@ Ext.define('kalix.app.duty.store.DutyStore', {
     model: 'kalix.app.duty.model.DutyModel',
     alias: 'store.dutyStore',
     xtype: 'dutyStore',
-    storeId: "dutyStore",
+    storeId: 'dutyStore',
     proxyUrl: CONFIG.restRoot + '/camel/rest/dutys'
 });

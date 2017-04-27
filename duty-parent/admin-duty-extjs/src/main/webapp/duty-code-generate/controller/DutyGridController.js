@@ -6,6 +6,6 @@
  */
 Ext.define('kalix.app.duty.controller.DutyGridController', {
     extend: 'kalix.controller.BaseGridController',
-    alias: 'controller.dutyGridController',
+    alias: 'controller.dutyGridController'
 
 });

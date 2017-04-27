@@ -38,7 +38,7 @@ Ext.define('kalix.admin.user.component.UserOrgComboBox', {
                 }
             }
             else {
-                kalix.Notify.warning(CONFIG.ALTER_TITLE_FAILURE, "未找到该用户的部门，请为该用户选择部门！");
+                kalix.Notify.warning(CONFIG.ALTER_TITLE_FAILURE, '未找到该用户的部门，请为该用户选择部门！');
             }
         }, this);
         this.on('change', function (target, newValue, oldValue) {

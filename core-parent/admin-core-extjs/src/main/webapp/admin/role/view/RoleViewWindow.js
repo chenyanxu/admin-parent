@@ -6,36 +6,36 @@
  */
 
 Ext.define('kalix.admin.role.view.RoleViewWindow', {
-    extend: 'kalix.view.components.common.BaseWindow',
-    alias: 'widget.roleViewWindow',
-    xtype: "roleViewWindow",
-    width: 400,
+  extend: 'kalix.view.components.common.BaseWindow',
+  alias: 'widget.roleViewWindow',
+  xtype: 'roleViewWindow',
+  width: 400,
+  items: [{
+    defaults: {readOnly: true},
+    xtype: 'baseForm',
     items: [{
-        defaults: {readOnly: true},
-        xtype: 'baseForm',
-        items: [{
-            fieldLabel: '名称',
-            allowBlank: false,
-            bind: {
-                activeError: '{validation.name}',
-                value: '{rec.name}'
-            }
-        },
-            {
-                fieldLabel: '所属应用',
-                allowBlank: false,
-                bind: {
-                    activeError: '{validation.app}',
-                    value: '{rec.app}'
-                }
-            }, {
-                fieldLabel: '备注',
-                allowBlank: false,
-                xtype: 'textarea',
-                bind: {
-                    activeError: '{validation.remark}',
-                    value: '{rec.remark}'
-                }
-            }]
-    }]
+      fieldLabel: '名称',
+      allowBlank: false,
+      bind: {
+        activeError: '{validation.name}',
+        value: '{rec.name}'
+      }
+    },
+      {
+        fieldLabel: '所属应用',
+        allowBlank: false,
+        bind: {
+          activeError: '{validation.app}',
+          value: '{rec.app}'
+        }
+      }, {
+        fieldLabel: '备注',
+        allowBlank: false,
+        xtype: 'textarea',
+        bind: {
+          activeError: '{validation.remark}',
+          value: '{rec.remark}'
+        }
+      }]
+  }]
 });

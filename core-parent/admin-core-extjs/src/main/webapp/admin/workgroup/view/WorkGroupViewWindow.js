@@ -8,7 +8,7 @@
 Ext.define('kalix.admin.workgroup.view.WorkGroupViewWindow', {
   extend: 'kalix.view.components.common.BaseWindow',
   alias: 'widget.workgroupViewWindow',
-  xtype: "workgroupViewWindow",
+  xtype: 'workgroupViewWindow',
   width: 400,
   items: [{
     defaults: {readOnly: true},

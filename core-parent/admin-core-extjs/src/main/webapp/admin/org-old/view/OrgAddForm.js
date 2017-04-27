@@ -16,15 +16,15 @@ Ext.define('kalix.admin.org.view.OrgAddForm', {
         type: 'orgViewModel'
     },
     controller: 'orgFormController',
-    xtype: "orgAddForm",
+    xtype: 'orgAddForm',
     labelAlign: 'center',
     labelWidth: 75,
     autoWidth: true,
     autoHeight: true,
     jsonSubmit: true,
-    bodyStyle: "padding:15px",
+    bodyStyle: 'padding:15px',
     frame: true,
-    buttonAlign: "center",
+    buttonAlign: 'center',
     defaultType: 'textfield',
     items: [
         {xtype: 'hiddenfield', name: 'parentId', itemId: 'parentIdId', value: '-1'},
@@ -32,7 +32,7 @@ Ext.define('kalix.admin.org.view.OrgAddForm', {
         {xtype: 'hiddenfield', name: 'areaId', itemId: 'areaIdId', value: '-1'},
         {
             fieldLabel: '所属区域',
-            itemId: "areaName",
+            itemId: 'areaName',
             isFormField: false,
             disabled: true,
             beforeLabelTpl: [
@@ -41,7 +41,7 @@ Ext.define('kalix.admin.org.view.OrgAddForm', {
         },
         {
             fieldLabel: '上级机构',
-            id:"parentName",
+            id:'parentName',
             isFormField: false,
             disabled:true,
             beforeLabelTpl: [

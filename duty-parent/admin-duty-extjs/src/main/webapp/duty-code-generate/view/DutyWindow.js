@@ -17,7 +17,7 @@ Ext.define('kalix.app.duty.view.DutyWindow', {
         type: 'baseWindowController',
         storeId: 'dutyStore'
     },
-    xtype: "dutyWindow",
+    xtype: 'dutyWindow',
     width: 400,
     //todo 在此修改表单
     items: [{

@@ -19,15 +19,15 @@ Ext.define('kalix.admin.function.view.FunctionAddForm', {
         parentPermission: null
     },
     controller: 'functionFormController',
-    xtype: "functionAddForm",
+    xtype: 'functionAddForm',
     labelAlign: 'center',
     labelWidth: 75,
     autoWidth: true,
     autoHeight: true,
     jsonSubmit: true,
-    bodyStyle: "padding:15px",
+    bodyStyle: 'padding:15px',
     frame: true,
-    buttonAlign: "center",
+    buttonAlign: 'center',
     defaultType: 'textfield',
     items: [
         {xtype: 'hiddenfield', name: 'parentId', itemId: 'parentIdId', value: '-1'},
@@ -36,7 +36,7 @@ Ext.define('kalix.admin.function.view.FunctionAddForm', {
         {xtype: 'hiddenfield', name: 'applicationId', itemId: 'applicationIdId', value: '-1'},
         {
             fieldLabel: '所属应用',
-            itemId: "applicationName",
+            itemId: 'applicationName',
             isFormField: false,
             disabled: true,
             beforeLabelTpl: [
@@ -45,7 +45,7 @@ Ext.define('kalix.admin.function.view.FunctionAddForm', {
         },
         {
             fieldLabel: '上级功能',
-            id: "parentName",
+            id: 'parentName',
             isFormField: false,
             disabled: true,
             beforeLabelTpl: [

@@ -18,7 +18,7 @@ Ext.define('kalix.admin.dep.Main', {
     },
     items: [],
     initComponent: function () {
-        var depController = this.getController("depController");
+        var depController = this.getController('depController');
 
         this.items[0] = depController.onInitPanel();
 

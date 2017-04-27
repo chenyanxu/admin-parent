@@ -45,36 +45,36 @@ Ext.define('kalix.admin.dep.view.DepGrid', {
         {
             text: '创建日期', dataIndex: 'creationDate', renderer: function (value) {
             var createDate = new Date(value);
-            return createDate.format("yyyy-MM-dd hh:mm:ss");
+            return createDate.format('yyyy-MM-dd hh:mm:ss');
         }
         }/*,
         {text: '更新人', dataIndex: 'updateBy'},
         {
             text: '更新日期', dataIndex: 'updateDate', renderer: function (value) {
             var updateDate = new Date(value);
-            return updateDate.format("yyyy-MM-dd hh:mm:ss");
+            return updateDate.format('yyyy-MM-dd hh:mm:ss');
         }
         }*/,
         {
             header: '操作',
-            xtype: "actioncolumn",
+            xtype: 'actioncolumn',
             items: [{
-                icon: "admin/resources/images/pencil.png",
+                icon: 'admin/resources/images/pencil.png',
                 tooltip: '编辑',
                 handler: 'onEdit',
                 isDisabled: function (view, rowIdx, colIdx, item, record) {
-                    return record.data.name == "根部门" ? true : false;
+                    return record.data.name == '根部门' ? true : false;
                 }
             }, {
-                icon: "admin/resources/images/cancel.png",
+                icon: 'admin/resources/images/cancel.png',
                 tooltip: '删除',
                 handler: 'onDelete',
                 isDisabled: function (view, rowIdx, colIdx, item, record) {
-                    return record.data.name == "根机构" ? true : false;
+                    return record.data.name == '根机构' ? true : false;
                 }
 
             }, {
-                icon: "admin/resources/images/group_add.png",
+                icon: 'admin/resources/images/group_add.png',
                 tooltip: '添加用户',
                 handler: 'onAddUser'
             }]

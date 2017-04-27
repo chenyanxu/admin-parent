@@ -12,6 +12,6 @@ Ext.define('kalix.sys.auditconfig.model.AuditConfigModel', {
         {name: 'appName', type: 'string', validators: [{type: 'presence'}]},//应用名称
         {name: 'funName', type: 'string', validators: [{type: 'presence'}]},//功能名称
         {name: 'enable', type: 'boolean', defaultValue: true, validators: [{type: 'presence'}]},//是否监控
-        {name: 'remark', type: 'string'},//备注
+        {name: 'remark', type: 'string'}//备注
     ]
 });

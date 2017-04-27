@@ -21,19 +21,19 @@ Ext.define('kalix.admin.function.view.FunctionEditForm', {
     labelWidth: 75,
     autoWidth: true,
     autoHeight: true,
-    bodyStyle: "padding:15px",
+    bodyStyle: 'padding:15px',
     frame: true,
     jsonSubmit: true,
-    method: "PUT",
+    method: 'PUT',
     defaultType: 'textfield',
-    buttonAlign: "center",
+    buttonAlign: 'center',
     items: [
         {xtype: 'hiddenfield', name: 'id'},
         {xtype: 'hiddenfield', name: 'isLeaf', value: '1'},
         {xtype: 'hiddenfield', name: 'applicationId', itemId: 'applicationIdId', value: '-1'},
         {
             fieldLabel: '所属应用',
-            itemId: "applicationName",
+            itemId: 'applicationName',
             isFormField: false,
             disabled: true,
             beforeLabelTpl: [
@@ -42,7 +42,7 @@ Ext.define('kalix.admin.function.view.FunctionEditForm', {
         },
         {
             fieldLabel: '上级功能',
-            itemId: "parentName",
+            itemId: 'parentName',
             isFormField: false,
             disabled: true,
             beforeLabelTpl: [

@@ -7,6 +7,6 @@ Ext.define('kalix.sys.auditconfig.store.AuditConfigStore', {
     model: 'kalix.sys.auditconfig.model.AuditConfigModel',
     alias: 'store.auditconfigStore',
     xtype: 'auditconfigStore',
-    storeId: "auditconfigStore",
+    storeId: 'auditconfigStore',
     proxyUrl: CONFIG.restRoot + '/camel/rest/auditconfigs'
 });

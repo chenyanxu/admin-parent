@@ -8,7 +8,7 @@ Ext.define('kalix.admin.role.view.RoleGrid', {
     extend: 'kalix.view.components.common.BaseGrid',
     requires: [
         'kalix.admin.role.controller.RoleGridController',
-        'kalix.admin.role.store.RoleStore',
+        'kalix.admin.role.store.RoleStore'
     ],
     alias: 'widget.roleGrid',
     xtype: 'roleGridPanel',
@@ -25,8 +25,8 @@ Ext.define('kalix.admin.role.view.RoleGrid', {
         //defaults: {flex: 1, renderer: 'addTooltip'},
         columns: [
             {
-                xtype: "rownumberer",
-                // text: "行号",
+                xtype: 'rownumberer'
+                // text: '行号',
                 // width: 50,
                 // align: 'center',
                 // flex:0,
