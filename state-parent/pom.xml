@@ -19,7 +19,15 @@
         <module>admin-state-dao</module>
         <module>admin-state-rest</module>
         <module>admin-state-extjs</module>
+        <module>admin-state-itest</module>
     </modules>
     <packaging>pom</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.kalix.framework.core</groupId>
+            <artifactId>framework-core-restfultest</artifactId>
+            <version>${project.framework.version}</version>
+        </dependency>
+    </dependencies>
 </project>
