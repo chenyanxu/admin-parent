@@ -164,14 +164,16 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
      */
     @Transactional
     public void updateParent(Long parentId) {
-        // 获取父节点
-        OrganizationBean parentBean = dao.get(parentId);
-        if (parentBean != null) {
-            // 获取父节点下的所有子节点
-            List<OrganizationBean> children = dao.findByParentId(parentId);
-            if (children == null || children.isEmpty()) {
-                parentBean.setIsLeaf(1L);
-                dao.save(parentBean);
+        if (parentId != -1) {
+            // 获取父节点
+            OrganizationBean parentBean = dao.get(parentId);
+            if (parentBean != null) {
+                // 获取父节点下的所有子节点
+                List<OrganizationBean> children = dao.findByParentId(parentId);
+                if (children == null || children.isEmpty()) {
+                    parentBean.setIsLeaf(1L);
+                    dao.save(parentBean);
+                }
             }
         }
     }
