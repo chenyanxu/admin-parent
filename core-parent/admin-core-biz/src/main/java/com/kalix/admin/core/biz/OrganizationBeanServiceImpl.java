@@ -13,6 +13,7 @@ import com.kalix.admin.core.entities.UserBean;
 import com.kalix.admin.core.util.Compare;
 import com.kalix.framework.core.api.persistence.JsonData;
 import com.kalix.framework.core.api.persistence.JsonStatus;
+import com.kalix.framework.core.impl.biz.CodeUtil;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
 import org.apache.commons.lang.StringUtils;
@@ -91,12 +92,12 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
             return false;
         }
         // 校验机构代码
-        beans = dao.findByCode(entity.getId(), entity.getCode());
+        /*beans = dao.findByCode(entity.getId(), entity.getCode());
         if (beans != null && beans.size() > 0) {
             status.setFailure(true);
             status.setMsg(FUNCTION_NAME + "代码已经存在！");
             return false;
-        }
+        }*/
         return true;
     }
 
@@ -112,11 +113,19 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
             return false;
         }
         // 校验机构代码
-        beans = dao.findByCode(0L, entity.getCode());
+        /*beans = dao.findByCode(0L, entity.getCode());
         if (beans != null && beans.size() > 0) {
             status.setSuccess(false);
             status.setMsg(FUNCTION_NAME + "代码已经存在！");
             return false;
+        }*/
+        String code = CodeUtil.createCode(IOrganizationBeanDao.class, entity.getParentId());
+        if (code.isEmpty()) {
+            status.setSuccess(false);
+            status.setMsg(FUNCTION_NAME + "代码生成错误！");
+            return false;
+        } else {
+            entity.setCode(code);
         }
         return true;
     }
@@ -204,7 +213,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
             if (isUpdate(entity, jsonStatus)) {
                 OrganizationBean oldOrg = dao.get(entity.getId());
                 oldOrg.setName(entity.getName());
-                oldOrg.setCode(entity.getCode());
+                /*oldOrg.setCode(entity.getCode());*/
                 oldOrg.setCenterCode(entity.getCenterCode());
                 oldOrg.setUpdateBy(shiroService.getCurrentUserLoginName());
                 dao.save(oldOrg);

@@ -2,9 +2,8 @@ package com.kalix.admin.core.entities;
 
 import com.kalix.framework.core.api.persistence.PersistentEntity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 /**
@@ -17,6 +16,7 @@ import javax.persistence.Table;
 @Table(name = "sys_organization")
 public class OrganizationBean extends PersistentEntity {
     private String name; //机构名称
+    @Column(unique = true)
     private String code; //机构代码
     private String centerCode; //中心代码
     private Long isLeaf; //是否是叶子节点
