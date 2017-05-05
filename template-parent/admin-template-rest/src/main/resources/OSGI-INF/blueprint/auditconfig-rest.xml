@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+    <reference id="templateConfigService" interface="com.kalix.admin.template.api.biz.ITemplateConfigBeanService"/>
+    <camelContext id="templateconfigCamel" xmlns="http://camel.apache.org/schema/blueprint">
+        <restConfiguration component="servlet" bindingMode="json">
+            <dataFormatProperty key="prettyPrint" value="${rest.pretty}"/>
+        </restConfiguration>
+
+        <!-- defines the rest services using the context-path /template -->
+        <rest path="/templateconfigs" consumes="application/json;charset=utf-8" produces="application/json">
+            <description>template config rest service</description>
+            <!-- this is a rest GET to find all template -->
+            <get id="route-getAllTemplateConfig" outType="com.kalix.framework.core.api.persistence.JsonData">
+                <description>Find all Templates</description>
+                <to uri="bean:templateConfigService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr},${header.sort})"/>
+            </get>
+            <!-- this is a rest POST to create a template -->
+            <post id="route-addTemplateConfig" type="com.kalix.admin.template.entities.TemplateConfigBean"
+                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
+                <description>Create a Template</description>
+                <to uri="bean:templateConfigService?method=saveEntity"/>
+            </post>
+        </rest>
+        <rest path="/templateconfigs/{id}" consumes="application/json;charset=utf-8" produces="application/json">
+            <!-- this is a rest GET to view a template by the given id -->
+            <get id="route-getTemplateConfig" outType="com.kalix.admin.template.entities.TemplateConfigBean">
+                <description>Find Template by id</description>
+                <to uri="bean:templateConfigService?method=getEntity(${header.id})"/>
+            </get>
+            <!-- this is a rest PUT to update a template -->
+            <put id="route-updateTemplate" type="com.kalix.admin.template.entities.TemplateConfigBean"
+                 outType="com.kalix.framework.core.api.persistence.JsonStatus">
+                <description>Updates a Template</description>
+                <to uri="bean:templateConfigService?method=updateEntity"/>
+            </put>
+            <!-- this is a rest DELETE to delete a template -->
+            <delete id="route-deleteTemplateConfig"
+                    outType="com.kalix.framework.core.api.persistence.JsonStatus">
+                <description>Delete a Template</description>
+                <to uri="bean:templateConfigService?method=deleteEntity(${header.id})"/>
+            </delete>
+        </rest>
+    </camelContext>
+</blueprint>

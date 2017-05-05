@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+    <reference id="templateService" interface="com.kalix.admin.template.api.biz.ITemplateBeanService"/>
+    <camelContext id="templateCamel" xmlns="http://camel.apache.org/schema/blueprint">
+        <restConfiguration component="servlet" bindingMode="json">
+            <dataFormatProperty key="prettyPrint" value="${rest.pretty}"/>
+        </restConfiguration>
+
+        <!-- defines the rest services using the context-path /template -->
+        <rest path="/templates" consumes="application/json;charset=utf-8" produces="application/json">
+            <description>template rest service</description>
+            <!-- this is a rest GET to find all template -->
+            <get id="route-getAllTemplate" outType="com.kalix.framework.core.api.persistence.JsonData">
+                <description>Find all Templates</description>
+                <to uri="bean:templateService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr},${header.sort})"/>
+            </get>
+            <!-- this is a rest POST to create a template -->
+            <post id="route-addTemplate" type="com.kalix.admin.template.entities.TemplateBean"
+                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
+                <description>Create a Template</description>
+                <to uri="bean:templateService?method=saveEntity"/>
+            </post>
+            <!-- this is a rest DELETE to batch delete  templates -->
+            <delete uri="/remove" id="route-batchDeleteTemplate"
+                    outType="com.kalix.framework.core.api.persistence.JsonStatus">
+                <description>Batch Delete Templates</description>
+                <to uri="bean:templateService?method=batchDeleteEntity(${header.ids})"/>
+            </delete>
+        </rest>
+        <rest path="/templates/{id}" consumes="application/json;charset=utf-8" produces="application/json">
+            <!-- this is a rest GET to view a template by the given id -->
+            <get  id="route-getTemplate" outType="com.kalix.admin.template.entities.TemplateBean">
+                <description>Find Template by id</description>
+                <to uri="bean:templateService?method=getEntity(${header.id})"/>
+            </get>
+            <!-- this is a rest PUT to update a template -->
+            <put  id="route-updateTemplate" type="com.kalix.admin.template.entities.TemplateBean"
+                 outType="com.kalix.framework.core.api.persistence.JsonStatus">
+                <description>Updates a Template</description>
+                <to uri="bean:templateService?method=updateEntity"/>
+            </put>
+            <!-- this is a rest DELETE to delete a template -->
+            <delete  id="route-deleteTemplate"
+                    outType="com.kalix.framework.core.api.persistence.JsonStatus">
+                <description>Delete a Template</description>
+                <to uri="bean:templateService?method=deleteEntity(${header.id})"/>
+            </delete>
+        </rest>
+    </camelContext>
+</blueprint>

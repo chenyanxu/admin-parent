@@ -1,0 +1,3 @@
+Bundle-Activator: ${bundle.namespace}.internal.InitActivator
+Include-Resource: src/main/webapp,target/classes
+Bundle-Category: Kalix Admin Template

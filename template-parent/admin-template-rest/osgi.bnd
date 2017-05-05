@@ -1,0 +1,9 @@
+#-----------------------------------------------------------------
+# Use this file to add customized Bnd instructions for the bundle
+#-----------------------------------------------------------------
+
+Bundle-Activator: ${bundle.namespace}.internal.InitActivator
+Import-Package: com.kalix.framework.core.api.persistence,\
+                com.kalix.admin.template.entities,\
+                com.kalix.framework.core.api.biz,*
+Bundle-Category: Kalix Admin Template

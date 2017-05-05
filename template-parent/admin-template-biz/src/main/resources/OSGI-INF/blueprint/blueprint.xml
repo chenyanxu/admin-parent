@@ -1,0 +1,27 @@
+<blueprint xmlns:jpa="http://aries.apache.org/xmlns/jpa/v2.0.0"
+           xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.2.0"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+    <jpa:enable/>
+    <tx:enable-annotations/>
+
+    <reference id="shiroService" interface="com.kalix.framework.core.api.security.IShiroService"/>
+
+    <reference id="templateBeanDao" interface="com.kalix.admin.template.api.dao.ITemplateBeanDao"/>
+    <service id="templateBeanService" interface="com.kalix.admin.template.api.biz.ITemplateBeanService" ref="beanServiceImpl">
+    </service>
+
+    <bean id="beanServiceImpl" class="com.kalix.admin.template.biz.TemplateBeanServiceImpl">
+        <property name="dao" ref="templateBeanDao"/>
+    </bean>
+
+    <reference id="templateConfigBeanDao" interface="com.kalix.admin.template.api.dao.ITemplateConfigBeanDao"/>
+    <service id="templateConfigBeanService" interface="com.kalix.admin.template.api.biz.ITemplateConfigBeanService"
+             ref="beanConfigServiceImpl">
+    </service>
+
+    <bean id="beanConfigServiceImpl" class="com.kalix.admin.template.biz.TemplateConfigBeanServiceImpl">
+        <property name="dao" ref="templateConfigBeanDao"/>
+    </bean>
+
+</blueprint>
+
