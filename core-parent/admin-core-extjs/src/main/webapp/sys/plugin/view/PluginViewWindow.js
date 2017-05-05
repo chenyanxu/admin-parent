@@ -11,7 +11,7 @@ Ext.define('kalix.admin.plugin.view.PluginViewWindow', {
         'kalix.admin.user.store.UserStore'
     ],
     alias: 'widget.pluginViewWindow',
-    xtype: "pluginViewWindow",
+    xtype: 'pluginViewWindow',
     width: 400,
     items: [{
         defaults: {readOnly: true},

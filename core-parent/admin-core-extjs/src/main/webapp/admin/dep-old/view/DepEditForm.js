@@ -21,12 +21,12 @@ Ext.define('kalix.admin.dep.view.DepEditForm', {
     labelWidth: 75,
     autoWidth: true,
     autoHeight: true,
-    bodyStyle: "padding:15px",
+    bodyStyle: 'padding:15px',
     frame: true,
     jsonSubmit: true,
-    method: "PUT",
+    method: 'PUT',
     defaultType: 'textfield',
-    buttonAlign: "center",
+    buttonAlign: 'center',
     items: [
         {xtype: 'hiddenfield', name: 'id'},
         //{xtype: 'hiddenfield', name: 'parentId', itemId: 'parentIdId', value: '-1'},
@@ -34,7 +34,7 @@ Ext.define('kalix.admin.dep.view.DepEditForm', {
         {xtype: 'hiddenfield', name: 'isLeaf',value:'1'},
         {
             fieldLabel: '所属机构',
-            itemId: "orgName",
+            itemId: 'orgName',
             isFormField: false,
             disabled:true,
             beforeLabelTpl: [
@@ -43,7 +43,7 @@ Ext.define('kalix.admin.dep.view.DepEditForm', {
         },
         {
             fieldLabel: '上级部门',
-            itemId: "parentName",
+            itemId: 'parentName',
             isFormField: false,
             disabled:true,
             beforeLabelTpl: [

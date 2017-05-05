@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- default-activation="lazy" -->
+<blueprint xmlns:jpa="http://aries.apache.org/xmlns/jpa/v2.0.0"
+           xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.2.0"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+    <jpa:enable/>
+    <tx:enable-annotations/>
+
+    <!-- 状态机Dao -->
+    <bean id="stateMachineBeanDaoImpl"
+          class="com.kalix.admin.state.dao.StateMachineBeanDaoImpl"> <!--init-method="init">-->
+        <tx:transaction method="*" value="Required"/>
+    </bean>
+    <service id="stateMachineBeanDao" ref="stateMachineBeanDaoImpl"
+             interface="com.kalix.admin.state.api.dao.IStateMachineBeanDao"/>
+</blueprint>

@@ -26,7 +26,7 @@ Ext.define('kalix.admin.duty.view.DutyGrid', {
     items: [
       {
         xtype: 'rownumberer',
-        text: "行号",
+        text: '行号',
         width: 50,
         align: 'center',
         flex: 0,

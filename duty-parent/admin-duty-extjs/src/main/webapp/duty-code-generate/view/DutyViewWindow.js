@@ -13,7 +13,7 @@ Ext.define('kalix.app.duty.view.DutyViewWindow', {
         ],
         alias: 'widget.dutyViewWindow',
         viewModel: 'dutyViewModel',
-        xtype: "dutyViewWindow",
+        xtype: 'dutyViewWindow',
         width: 400,
     //todo 在此修改查看字段
     items: [{

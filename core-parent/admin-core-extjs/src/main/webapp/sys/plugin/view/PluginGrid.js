@@ -7,7 +7,7 @@ Ext.define('kalix.admin.plugin.view.PluginGrid', {
     extend: 'kalix.view.components.common.BaseGrid',
     requires: [
         'kalix.admin.plugin.controller.PluginGridController',
-        'kalix.admin.plugin.store.PluginStore',
+        'kalix.admin.plugin.store.PluginStore'
     ],
     alias: 'widget.pluginGrid',
     xtype: 'pluginGridPanel',
@@ -25,8 +25,8 @@ Ext.define('kalix.admin.plugin.view.PluginGrid', {
         defaults: {flex: 1, renderer: 'addTooltip'},
         items: [
             {
-                xtype: "rownumberer",
-                text: "行号",
+                xtype: 'rownumberer',
+                text: '行号',
                 width: 50,
                 align: 'center',
                 flex: 0,
@@ -53,13 +53,13 @@ Ext.define('kalix.admin.plugin.view.PluginGrid', {
                     {
                         getClass: function (v, meta, record) {
                             if (record.data.status) {
-                                return "kalix_stop";
+                                return 'kalix_stop';
                             }
-                            return "kalix_start";
+                            return 'kalix_start';
                         },
                         getTip: function (value, metadata, record, row, col, store) {
                             if (record.data.status) {
-                                return "停止";
+                                return '停止';
                             }
                             return '启动';
                         },
@@ -67,18 +67,18 @@ Ext.define('kalix.admin.plugin.view.PluginGrid', {
                         handler: 'onAppStartStop'
                     },
                     {
-                        icon: "resources/images/read.png",
+                        icon: 'resources/images/read.png',
                         permission: 'admin:appModule:pluginMenu:view',
                         tooltip: '查看',
                         handler: 'onView'
                     },
                     {
-                        icon: "resources/images/edit.png",
+                        icon: 'resources/images/edit.png',
                         permission: 'admin:appModule:pluginMenu:edit',
                         tooltip: '编辑',
                         handler: 'onEdit'
                     }, {
-                        icon: "resources/images/delete.png",
+                        icon: 'resources/images/delete.png',
                         permission: 'admin:appModule:pluginMenu:delete',
                         tooltip: '删除',
                         handler: 'onDelete'

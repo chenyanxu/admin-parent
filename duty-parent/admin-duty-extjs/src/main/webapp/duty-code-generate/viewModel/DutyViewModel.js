@@ -13,6 +13,6 @@ Ext.define('kalix.app.duty.viewModel.DutyViewModel', {
         validation: {},  //验证错误信息
         icon: '',
         title: '',
-        view_operation: false,
+        view_operation: false
     }
 });

@@ -30,8 +30,8 @@ Ext.define('kalix.admin.org.view.OrgForm', {
             bind:{
                 value:'{rec.name}'
             }
-        },
-        {
+        }
+        /*{
             fieldLabel: '机构代码',
             name: 'code',
             allowBlank: false,
@@ -39,6 +39,6 @@ Ext.define('kalix.admin.org.view.OrgForm', {
             bind:{
                 value:'{rec.code}'
             }
-        }
+         }*/
     ]
 });

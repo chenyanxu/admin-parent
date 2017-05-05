@@ -17,7 +17,7 @@ Ext.define('kalix.admin.area.view.Area', {
     },
     items: [],
     initComponent: function () {
-        var areaController = this.getController("areaController");
+        var areaController = this.getController('areaController');
 
         this.items[0] = areaController.onInitPanel();
 

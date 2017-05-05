@@ -17,10 +17,10 @@ Ext.define('kalix.admin.area.controller.AreaController', {
      */
     onInitPanel: function () {
 
-        var panel = Ext.create("Ext.panel.Panel", {
+        var panel = Ext.create('Ext.panel.Panel', {
             border: false,
             autoScroll: true,
-            title: "区域列表",
+            title: '区域列表',
             iconCls: 'x-fa fa-home',
             height: document.body.clientHeight,
             items: [this.onInitDataGrid()]

@@ -6,10 +6,10 @@
  */
 
 Ext.define('kalix.sys.audit.viewModel.AuditViewModel', {
-    extend: 'kalix.viewmodel.BaseViewModel',
-    alias: 'viewmodel.auditViewModel',
-    data: {
-        // batchDeleteUrl为执行批量删除服务的地址
-        batchDeleteUrl: CONFIG.restRoot + '/camel/rest/audits/remove',
-    }
+  extend: 'kalix.viewmodel.BaseViewModel',
+  alias: 'viewmodel.auditViewModel',
+  data: {
+    // batchDeleteUrl为执行批量删除服务的地址
+    batchDeleteUrl: CONFIG.restRoot + '/camel/rest/audits/remove'
+  }
 });

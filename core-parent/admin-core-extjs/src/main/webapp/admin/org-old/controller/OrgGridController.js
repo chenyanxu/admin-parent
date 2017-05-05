@@ -24,23 +24,23 @@ Ext.define('kalix.admin.org.controller.OrgGridController', {
     onAdd: function () {
 
         if (this.getView().areaId == null || this.getView().areaName == null) {
-            kalix.Notify.alert(CONFIG.ALTER_TITLE_FAILURE, "请选择一个区域!");
+            kalix.Notify.alert(CONFIG.ALTER_TITLE_FAILURE, '请选择一个区域!');
             return;
         }
         var rows = this.getView().getSelectionModel().getSelection();
         var addFormPanel = Ext.create('kalix.admin.org.view.OrgAddForm', {
-            url: this.getView().getViewModel().get("url")
+            url: this.getView().getViewModel().get('url')
         });
-        addFormPanel.down("#areaIdId").setValue(this.getView().areaId);
-        addFormPanel.down("#areaName").setValue(this.getView().areaName);
+        addFormPanel.down('#areaIdId').setValue(this.getView().areaId);
+        addFormPanel.down('#areaName').setValue(this.getView().areaName);
         if(rows!=null&&rows.length>0){
             if(rows[0]!=null){
-                addFormPanel.down("#parentName").setValue(rows[0].data.name);
-                addFormPanel.down("#parentIdId").setValue(rows[0].data.id);
+                addFormPanel.down('#parentName').setValue(rows[0].data.name);
+                addFormPanel.down('#parentIdId').setValue(rows[0].data.id);
             }
         }else{
-            addFormPanel.down("#parentName").setValue("根机构");
-            addFormPanel.down("#parentIdId").setValue(-1);
+            addFormPanel.down('#parentName').setValue('根机构');
+            addFormPanel.down('#parentIdId').setValue(-1);
         }
         var win = Ext.create('Ext.Window', {
             width: 400,
@@ -49,7 +49,7 @@ Ext.define('kalix.admin.org.controller.OrgGridController', {
             modal: true,
             //resizable:false,
             icon: 'admin/resources/images/script_add.png',
-            title: this.getView().getViewModel().get("addTitle"),
+            title: this.getView().getViewModel().get('addTitle'),
             items: [addFormPanel]
         });
 
@@ -64,17 +64,17 @@ Ext.define('kalix.admin.org.controller.OrgGridController', {
     onEdit: function (grid, rowIndex, colIndex) {
         var rec = grid.getStore().getAt(rowIndex);
         var editFormPanel = Ext.create('kalix.admin.org.view.OrgEditForm', {
-            url: this.getView().getViewModel().get("url")
+            url: this.getView().getViewModel().get('url')
         });
-        var OrgModel = Ext.create("kalix.admin.org.model.OrgModel", {
+        var OrgModel = Ext.create('kalix.admin.org.model.OrgModel', {
             id: rec.data.id,
             name: rec.data.name,
             code: rec.data.code,
             centerCode: rec.data.centerCode
         });
-        editFormPanel.getComponent("areaIdId").setValue(this.getView().areaId);
-        editFormPanel.getComponent("areaName").setValue(this.getView().areaName);
-        editFormPanel.getComponent("parentName").setValue(rec.data.parentName);
+        editFormPanel.getComponent('areaIdId').setValue(this.getView().areaId);
+        editFormPanel.getComponent('areaName').setValue(this.getView().areaName);
+        editFormPanel.getComponent('parentName').setValue(rec.data.parentName);
         editFormPanel.loadRecord(OrgModel);
 
         var win = Ext.create('Ext.Window', {
@@ -84,7 +84,7 @@ Ext.define('kalix.admin.org.controller.OrgGridController', {
             modal: true,
             //resizable:false,
             icon: 'admin/resources/images/script_edit.png',
-            title: this.getView().getViewModel().get("editTitle"),
+            title: this.getView().getViewModel().get('editTitle'),
             items: [editFormPanel]
         });
 
@@ -94,32 +94,32 @@ Ext.define('kalix.admin.org.controller.OrgGridController', {
      * 批量删除操作.
      */
     onDeleteAll: function () {
-        var selModel = Ext.getCmp("userDataGrid").getSelectionModel();
+        var selModel = Ext.getCmp('userDataGrid').getSelectionModel();
         if (selModel.hasSelection()) {
-            Ext.Msg.confirm("警告", "确定要删除吗？", function (button) {
-                if (button == "yes") {
+            Ext.Msg.confirm('警告', '确定要删除吗？', function (button) {
+                if (button == 'yes') {
                     var rows = selModel.getSelection();
-                    var ids = "";
+                    var ids = '';
                     for (var i = 0; i < rows.length; i++) {
                         if (rows[i] != null && rows[i].id != null) {
                             ids += rows[i].id;
                             if (i + 1 != rows.length) {
-                                ids += "_";
+                                ids += '_';
                             }
                         }
                     }
                     Ext.Ajax.request({
-                        url: "/userDeleteAllServlet?ids=" + ids,
-                        method: "GET",
+                        url: '/userDeleteAllServlet?ids=' + ids,
+                        method: 'GET',
                         callback: function (options, success, response) {
                             var resp = Ext.JSON.decode(response.responseText);
                             kalix.Notify.success(resp.msg,CONFIG.ALTER_TITLE_INFO);
                             if (resp.success) {
-                                //var username = Ext.getCmp("username").getValue();
-                                //var name = Ext.getCmp("name").getValue();
-                                //var sex = Ext.getCmp("sex").getValue();
-                                //var status = Ext.getCmp("status").getValue();
-                                //var grid = Ext.getCmp("userDataGrid");
+                                //var username = Ext.getCmp('username').getValue();
+                                //var name = Ext.getCmp('name').getValue();
+                                //var sex = Ext.getCmp('sex').getValue();
+                                //var status = Ext.getCmp('status').getValue();
+                                //var grid = Ext.getCmp('userDataGrid');
                                 //var store = grid.getStore();
                                 //store.reload({
                                 //    params: {
@@ -137,7 +137,7 @@ Ext.define('kalix.admin.org.controller.OrgGridController', {
                 }
             });
         } else {
-            kalix.Notify.alert("请选择要删除的记录！",CONFIG.ALTER_TITLE_ERROR);
+            kalix.Notify.alert('请选择要删除的记录！',CONFIG.ALTER_TITLE_ERROR);
         }
     },
     /**
@@ -148,11 +148,11 @@ Ext.define('kalix.admin.org.controller.OrgGridController', {
      */
     onDelete: function (grid, rowIndex, colIndex) {
         var rec = grid.getStore().getAt(rowIndex);
-        var deleteUrl = this.getView().getViewModel().get("url");
-        Ext.Msg.confirm("警告", "确定要删除吗？", function (button) {
-            if (button == "yes") {
+        var deleteUrl = this.getView().getViewModel().get('url');
+        Ext.Msg.confirm('警告', '确定要删除吗？', function (button) {
+            if (button == 'yes') {
                 Ext.Ajax.request({
-                    url: deleteUrl + "?id=" + rec.id,
+                    url: deleteUrl + '?id=' + rec.id,
                     method: 'DELETE',
                     callback: function (options, success, response) {
                         var resp = Ext.JSON.decode(response.responseText);

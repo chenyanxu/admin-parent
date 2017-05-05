@@ -12,6 +12,6 @@ Ext.define('kalix.sys.audit.model.AuditModel', {
         {name: 'funName', type: 'string'},//功能名称
         {name: 'actor', type: 'string'},//操作人
         {name: 'action', type: 'string'},//操作
-        {name: 'content', type: 'string'},//操作内容
+        {name: 'content', type: 'string'}//操作内容
     ]
 });

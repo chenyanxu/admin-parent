@@ -15,7 +15,7 @@ Ext.define('kalix.admin.common.components.AuthorizationViewWindow', {
         roleId: null,
         authorizationUrl: null
     },
-    title: "权限查看",
+    title: '权限查看',
     layout: 'form',
     buttonAlign: 'center',
     items: [{

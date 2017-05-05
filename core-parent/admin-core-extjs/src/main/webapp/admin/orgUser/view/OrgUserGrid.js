@@ -109,10 +109,10 @@ Ext.define('kalix.admin.orgUser.view.OrgUserGrid', {
             text: '状态',
             dataIndex: 'available',
             renderer: function (value) {
-                if (value != null && value == "1") {
-                    return "启用";
+                if (value != null && value == '1') {
+                    return '启用';
                 }
-                return "停用";
+                return '停用';
             }
         }
     ]

@@ -77,19 +77,19 @@ Ext.define('kalix.admin.area.view.AreaGrid', {
      //width: 160,
      renderer: function (value) {
      var updateDate = new Date(value);
-     return updateDate.format("yyyy-MM-dd hh:mm:ss");
+     return updateDate.format('yyyy-MM-dd hh:mm:ss');
      }
      }, */{
         header: '操作',
         width: 60,
-        xtype: "securityGridColumnCommon",
+        xtype: 'securityGridColumnCommon',
         items: [{
             iconCls:'iconfont icon-edit-column',
             tooltip: '编辑',
             handler: 'onEdit',
             permission: 'admin:constructModule:areaMenu:edit',
             isDisabled: function (view, rowIdx, colIdx, item, record) {
-                return record.data.name == "根机构" ? true : false;
+                return record.data.name == '根机构' ? true : false;
             }
         }, {
             iconCls:'iconfont icon-delete',
@@ -97,7 +97,7 @@ Ext.define('kalix.admin.area.view.AreaGrid', {
             handler: 'onDelete',
             permission: 'admin:constructModule:areaMenu:delete',
             isDisabled: function (view, rowIdx, colIdx, item, record) {
-                return record.data.name == "根机构" ? true : false;
+                return record.data.name == '根机构' ? true : false;
             }
 
         }

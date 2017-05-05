@@ -15,7 +15,7 @@ Ext.define('kalix.admin.plugin.view.PluginWindow', {
         type: 'baseWindowController',
         storeId: 'pluginStore'
     },
-    xtype: "pluginWindow",
+    xtype: 'pluginWindow',
     width: 400,
     items: [{
         xtype: 'baseForm',

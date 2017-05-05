@@ -9,7 +9,7 @@ Ext.define('kalix.admin.application.view.ApplicationViewWindow', {
   extend: 'kalix.view.components.common.BaseWindow',
 
   alias: 'widget.applicationViewWindow',
-  xtype: "applicationViewWindow",
+  xtype: 'applicationViewWindow',
   width: 400,
   items: [{
     defaults: {readOnly: true},

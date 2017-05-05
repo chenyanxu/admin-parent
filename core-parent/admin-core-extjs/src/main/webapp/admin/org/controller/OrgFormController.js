@@ -21,15 +21,15 @@ Ext.define('kalix.admin.org.controller.OrgFormController', {
             validate = false;
 
             var fieldItem = view.items.getAt(4);
-            fieldItem.setActiveError("机构名称不能为空！！！");
+            fieldItem.setActiveError('机构名称不能为空！！！');
         }
 
-        if (vm.get('rec').get('code') == null || vm.get('rec').get('code') == '') {
+        /*if (vm.get('rec').get('code') == null || vm.get('rec').get('code') == '') {
             validate = false;
 
             var fieldItem = view.items.getAt(5);
-            fieldItem.setActiveError("机构名称不能为空！！！");
-        }
+            fieldItem.setActiveError('机构名称不能为空！！！');
+         }*/
 
         if (validate) {
             this.callParent(arguments);

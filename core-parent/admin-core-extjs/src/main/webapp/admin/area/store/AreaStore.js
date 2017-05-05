@@ -9,7 +9,7 @@ Ext.define('kalix.admin.area.store.AreaStore', {
     extend: 'Ext.data.TreeStore',
     alias: 'store.areaStore',
     xtype: 'areaStore',
-    storeId: "areaStore",
+    storeId: 'areaStore',
     autoLoad: true,
     model: 'kalix.admin.area.model.AreaModel',
     
@@ -26,7 +26,7 @@ Ext.define('kalix.admin.area.store.AreaStore', {
     },
     
     proxy: {
-        type: "ajax",
+        type: 'ajax',
         url: CONFIG.restRoot + '/camel/rest/areas'
     }
 });

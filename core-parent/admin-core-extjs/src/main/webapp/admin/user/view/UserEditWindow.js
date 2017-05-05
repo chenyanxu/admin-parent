@@ -17,7 +17,7 @@ Ext.define('kalix.admin.user.view.UserEditWindow', {
         type: 'baseWindowController',
         storeId: 'userStore'
     },
-    xtype: "userWindow",
+    xtype: 'userWindow',
     width: 400,
     items: [{
         xtype: 'baseForm',

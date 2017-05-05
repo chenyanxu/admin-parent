@@ -31,12 +31,12 @@ Ext.define('kalix.admin.area.controller.AreaGridController', {
         });
         if (rows != null && rows.length > 0) {
             if (rows[0] != null) {
-                addFormPanel.down("#parentName").setValue(rows[0].data.name);
-                addFormPanel.down("#parentIdId").setValue(rows[0].data.id);
+                addFormPanel.down('#parentName').setValue(rows[0].data.name);
+                addFormPanel.down('#parentIdId').setValue(rows[0].data.id);
             }
         } else {
-            addFormPanel.down("#parentName").setValue("根区域");
-            addFormPanel.down("#parentIdId").setValue(-1);
+            addFormPanel.down('#parentName').setValue('根区域');
+            addFormPanel.down('#parentIdId').setValue(-1);
         }
         var win = Ext.create('Ext.Window', {
             width: 400,
@@ -61,7 +61,7 @@ Ext.define('kalix.admin.area.controller.AreaGridController', {
         var editFormPanel = Ext.create('kalix.admin.area.view.AreaEditForm', {
             url: CONFIG.restRoot + '/camel/rest/areas'
         });
-        editFormPanel.down("#parentName").setValue(rec.data.parentName);
+        editFormPanel.down('#parentName').setValue(rec.data.parentName);
         editFormPanel.loadRecord(rec);
 
         var win = Ext.create('Ext.Window', {
@@ -83,11 +83,11 @@ Ext.define('kalix.admin.area.controller.AreaGridController', {
      */
     onDelete: function (grid, rowIndex, colIndex) {
         var rec = grid.getStore().getAt(rowIndex);
-        var deleteUrl = this.getView().getViewModel().get("url");
-        Ext.Msg.confirm("警告", "确定要删除吗？", function (button) {
-            if (button == "yes") {
+        var deleteUrl = this.getView().getViewModel().get('url');
+        Ext.Msg.confirm('警告', '确定要删除吗？', function (button) {
+            if (button == 'yes') {
                 Ext.Ajax.request({
-                    url: deleteUrl + "?id=" + rec.id,
+                    url: deleteUrl + '?id=' + rec.id,
                     method: 'DELETE',
                     callback: function (options, success, response) {
                         var resp = Ext.JSON.decode(response.responseText);

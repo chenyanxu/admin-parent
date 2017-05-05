@@ -9,6 +9,6 @@ Ext.define('kalix.admin.plugin.store.PluginStore', {
     model: 'kalix.admin.plugin.model.PluginModel',
     alias: 'store.pluginStore',
     xtype: 'pluginStore',
-    storeId: "pluginStore",
+    storeId: 'pluginStore',
     proxyUrl: CONFIG.restRoot + '/camel/rest/plugins'
 });

@@ -41,20 +41,20 @@ Ext.define('kalix.admin.depNoArea.view.DepNoAreaGrid', {
             },
             {
                 header: '操作',
-                xtype: "actioncolumn",
+                xtype: 'actioncolumn',
                 items: [{
                     iconCls:'iconfont icon-edit-column',
                     tooltip: '编辑',
                     handler: 'onEdit',
                     isDisabled: function (view, rowIdx, colIdx, item, record) {
-                        return record.data.name == "根部门" ? true : false;
+                        return record.data.name == '根部门' ? true : false;
                     }
                 }, {
                     iconCls:'iconfont icon-delete',
                     tooltip: '删除',
                     handler: 'onDelete',
                     isDisabled: function (view, rowIdx, colIdx, item, record) {
-                        return record.data.name == "根机构" ? true : false;
+                        return record.data.name == '根机构' ? true : false;
                     }
 
                 }, {

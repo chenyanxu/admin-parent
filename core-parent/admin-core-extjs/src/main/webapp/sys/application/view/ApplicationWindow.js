@@ -15,7 +15,7 @@ Ext.define('kalix.admin.application.view.ApplicationWindow', {
         type: 'baseWindowController',
         storeId: 'applicationStore'
     },
-    xtype: "applicationWindow",
+    xtype: 'applicationWindow',
     width: 400,
     items: [{
         xtype: 'baseForm',

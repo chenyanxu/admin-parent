@@ -18,7 +18,7 @@ Ext.define('kalix.admin.org.Main', {
     },
     items: [],
     initComponent: function () {
-        var OrgController = this.getController("orgController");
+        var OrgController = this.getController('orgController');
 
         this.items[0] = OrgController.onInitPanel();
 
