@@ -8,5 +8,5 @@ Ext.define('kalix.sys.template.store.TemplateStore', {
     alias: 'store.templateStore',
     xtype: 'templateStore',
     storeId: "templateStore",
-    proxyUrl: CONFIG.restRoot + '/camel/rest/templates'
+    proxyUrl: CONFIG.restRoot + '/camel/rest/admin/templates'
 });
