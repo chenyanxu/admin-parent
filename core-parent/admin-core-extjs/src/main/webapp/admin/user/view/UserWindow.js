@@ -117,6 +117,14 @@ Ext.define('kalix.admin.user.view.UserWindow', {
         bind: {
           value: '{rec.available}'
         }
-      }]
+      }, {
+            fieldLabel: '人员类型',
+            xtype: 'adminDictCombobox',
+            dictType: '人员类型',
+            bind: {
+                value: '{rec.userType}'
+            },
+            render: null
+        }]
   }]
 });

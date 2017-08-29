@@ -31,6 +31,10 @@ Ext.define('kalix.admin.user.model.UserModel', {
       validators: [{type: 'presence'}]
     },
     {
+      name: 'userType',
+      validators: [{type: 'presence'}]
+    },
+    {
       name: 'email',
       validators: [{type: 'presence'}, {type: 'mail'}]
     },
