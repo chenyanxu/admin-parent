@@ -25,6 +25,8 @@ public class UserBean extends UserEntity {
     private Long code;
     @ApiModelProperty(value="岗位",position=1,example = "0")
     private Integer position;
+    @ApiModelProperty(value="用户类型",position=2,example = "0")
+    private Long userType;
 //    @ApiModelProperty(value="性别（男 女）",allowableValues = "男,女",position=2,example = "男")
 //    private String sex;
 //    @ApiModelProperty(value="登录名",position=3,example = "test_login")
@@ -143,6 +145,10 @@ public class UserBean extends UserEntity {
     public void setCode(Long code) {
         this.code = code;
     }
+
+    public Long getUserType() { return userType;}
+
+    public void setUserType(Long userType) {this.userType = userType;}
 //
 //    public String getIcon() {
 //        return icon;
