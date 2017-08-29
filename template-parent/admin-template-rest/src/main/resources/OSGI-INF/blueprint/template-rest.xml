@@ -10,7 +10,7 @@
         </restConfiguration>
 
         <!-- defines the rest services using the context-path /template -->
-        <rest path="/templates" consumes="application/json;charset=utf-8" produces="application/json">
+        <rest path="/admin/templates" consumes="application/json;charset=utf-8" produces="application/json">
             <description>template rest service</description>
             <!-- this is a rest GET to find all template -->
             <get id="route-getAllTemplate" outType="com.kalix.framework.core.api.persistence.JsonData">
@@ -30,7 +30,7 @@
                 <to uri="bean:templateService?method=batchDeleteEntity(${header.ids})"/>
             </delete>
         </rest>
-        <rest path="/templates/{id}" consumes="application/json;charset=utf-8" produces="application/json">
+        <rest path="/admin/templates/{id}" consumes="application/json;charset=utf-8" produces="application/json">
             <!-- this is a rest GET to view a template by the given id -->
             <get  id="route-getTemplate" outType="com.kalix.admin.template.entities.TemplateBean">
                 <description>Find Template by id</description>
