@@ -495,4 +495,23 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
         jsonData.setTotalCount((long) returnList.size());
         return returnList;
     }
+
+    @Override
+    public String getParentOrgIdPath(Long id) {
+        return getParentOrgIds(id, "");
+    }
+
+    private String getParentOrgIds(Long id, String childIds) {
+        OrganizationBean org = this.getEntity(id);
+        Long parentId = org.getParentId();
+        if (childIds.equals("")) {
+            childIds = id.toString();
+        } else {
+            childIds = id.toString() + "," + childIds;
+        }
+        if (parentId != -1L) {
+            childIds = getParentOrgIds(parentId, childIds);
+        }
+        return childIds;
+    }
 }

@@ -97,5 +97,14 @@
                 <to uri="bean:orgService?method=getUserIdsByOrganizationId(${header.id})"/>
             </get>
         </rest>
+
+        <!-- 根据当前机构id查找其父id路径 -->
+        <rest path="/orgs/{id}/parentpath" consumes="application/json;charset=utf-8"
+              produces="application/json;charset=utf-8">
+            <get id="route-getParentOrgIdPath" outType="java.lang.String">
+                <description>Find Parent department Id Path</description>
+                <to uri="bean:orgService?method=getParentOrgIdPath(${header.id})"/>
+            </get>
+        </rest>
     </camelContext>
 </blueprint>

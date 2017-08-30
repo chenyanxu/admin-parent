@@ -3,8 +3,8 @@ package com.kalix.admin.core.api.biz;
 import com.kalix.admin.core.dto.model.OrganizationDTO;
 import com.kalix.admin.core.entities.OrganizationBean;
 import com.kalix.framework.core.api.biz.IBizService;
-import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.api.persistence.JsonData;
+import com.kalix.framework.core.api.persistence.JsonStatus;
 
 import java.util.List;
 
@@ -63,4 +63,12 @@ public interface IOrganizationBeanService extends IBizService<OrganizationBean> 
      * @return
      */
     List<Long> getOrgsBrotherByUserName(String name);
+
+    /**
+     * 根据当前机构id，找到其父机构id路径
+     *
+     * @param id
+     * @return
+     */
+    String getParentOrgIdPath(Long id);
 }
