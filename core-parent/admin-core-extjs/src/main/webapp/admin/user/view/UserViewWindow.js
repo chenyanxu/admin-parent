@@ -47,6 +47,14 @@ Ext.define('kalix.admin.user.view.UserViewWindow', {
           value: '{rec.position}'
         }
       }, {
+            fieldLabel: '人员类型',
+            xtype: 'adminDictCombobox',
+            dictType: '人员类型',
+            bind: {
+                value: '{rec.userType}'
+            }
+        }
+      , {
         fieldLabel: '邮箱',
         bind: {
           value: '{rec.email}'

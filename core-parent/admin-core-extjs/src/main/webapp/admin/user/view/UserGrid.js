@@ -70,14 +70,14 @@ Ext.define('kalix.admin.user.view.UserGrid', {
       dictType: '岗位名称',
       dataIndex: 'position'
     },
-      {
-          text: '人员类型',
-          xtype: 'adminDictGridColumn',
-          dictType: '人员类型',
-          dataIndex: 'userType'
-      },
+    {
+        text: '人员类型',
+        xtype: 'adminDictGridColumn',
+        dictType: '人员类型',
+        dataIndex: 'userType'
+    },
     /*{
-     text: '邮箱',
+     text: '邮箱',la
      dataIndex: 'email'
      },*/ /*{
      text: '电话',
