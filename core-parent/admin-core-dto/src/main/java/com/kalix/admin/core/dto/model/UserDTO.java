@@ -31,6 +31,7 @@ public class UserDTO extends BaseDTO {
     private String icon; //头像
     private String abridge; //中文名字缩写
     private String fullName; //中文名字全拼
+    private String userType;
 
     public String getLoginName() {
         return loginName;
@@ -178,5 +179,13 @@ public class UserDTO extends BaseDTO {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 }
