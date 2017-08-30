@@ -74,7 +74,7 @@ Ext.define('kalix.admin.user.view.UserGrid', {
           text: '人员类型',
           xtype: 'adminDictGridColumn',
           dictType: '人员类型',
-          dataIndex: 'usertype'
+          dataIndex: 'userType'
       },
     /*{
      text: '邮箱',
