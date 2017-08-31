@@ -296,7 +296,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
     @Override
     public OrganizationDTO getAllOrg(Boolean isAll) {
         OrganizationDTO rtn = new OrganizationDTO();
-        isAll = isAll == null ? false : isAll;
+        isAll = isAll == null ? true : isAll;
         if (isAll) {
             List<OrganizationBean> orgs = dao.getAll().stream()
                     .sorted(Compare.<OrganizationBean>compare()
