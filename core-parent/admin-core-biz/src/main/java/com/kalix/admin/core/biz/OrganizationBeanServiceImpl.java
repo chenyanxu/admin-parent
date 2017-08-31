@@ -294,13 +294,27 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
      * @return
      */
     @Override
-    public OrganizationDTO getAllOrg() {
-        List<OrganizationBean> orgs = dao.getAll().stream()
-                .sorted(Compare.<OrganizationBean>compare()
-                        .thenComparing((a, b) -> a.getCode().compareTo(b.getCode())))
-                .collect(Collectors.toList());
-
-        return generateRoot(orgs, -1L);
+    public OrganizationDTO getAllOrg(Boolean isAll) {
+        OrganizationDTO rtn = new OrganizationDTO();
+        isAll = isAll == null ? false : isAll;
+        if (isAll) {
+            List<OrganizationBean> orgs = dao.getAll().stream()
+                    .sorted(Compare.<OrganizationBean>compare()
+                            .thenComparing((a, b) -> a.getCode().compareTo(b.getCode())))
+                    .collect(Collectors.toList());
+            rtn = generateRoot(orgs, -1L);
+        } else {
+            Long userId = this.shiroService.getCurrentUserId();
+            List<OrganizationDTO> rtns = getOrgsTreeByUserId(userId);
+            if (rtns.size() > 1) {
+                rtn.setId(-1L);
+                rtn.setChildren(rtns);
+            } else if (rtns.size() == 1) {
+                rtn = rtns.get(0);
+            } else {
+            }
+        }
+        return rtn;
     }
 
     /**

@@ -20,7 +20,7 @@ import java.util.List;
  */
 public interface IOrganizationBeanService extends IBizService<OrganizationBean> {
 
-    OrganizationDTO getAllOrg();
+    OrganizationDTO getAllOrg(Boolean isAll);
 
     OrganizationDTO getOrganizationDTO(Long id);
 

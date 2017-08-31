@@ -18,7 +18,7 @@
             <!-- this is a rest GET to find all orgs -->
             <get id="route-getAllOrg">
                 <description>Find all orgs</description>
-                <to uri="bean:orgService?method=getAllOrg"/>
+                <to uri="bean:orgService?method=getAllOrg(${header.isAll})"/>
             </get>
             <!-- this is a rest PUT to create an org -->
             <post id="route-addOrg" type="com.kalix.admin.core.entities.OrganizationBean"
