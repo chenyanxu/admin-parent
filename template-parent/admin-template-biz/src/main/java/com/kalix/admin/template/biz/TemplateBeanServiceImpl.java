@@ -31,7 +31,7 @@ public class TemplateBeanServiceImpl extends GenericBizServiceImpl<ITemplateBean
 
     @Override
     public List<TemplateBean> query(String title) {
-        return dao.find("select n from templateBean n where n.title LIKE ?1 ", "%" + title + "%");
+        return dao.find("select n from templateBean n where n.name LIKE ?1 ", "%" + title + "%");
     }
 
     @Transactional
