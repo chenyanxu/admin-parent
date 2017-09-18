@@ -280,7 +280,9 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         final String url = "http://localhost:8181/kalix/camel/rest/users/%s/orgs";
         String getStr = "";
         try {
-            getStr = HttpClientUtil.shiroGet(String.format(url, userId), this.getShiroService().getSession().getId().toString());
+            String sessionId = this.getShiroService().getSession().getId().toString();
+            String access_token = this.getShiroService().getSession().getAttribute("access_token").toString();
+            getStr = HttpClientUtil.shiroGet(String.format(url, userId), sessionId, access_token);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -310,7 +312,9 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         final String url = "http://localhost:8181/kalix/camel/rest/users/user/%s/dutys";
         String getStr = "";
         try {
-            getStr = HttpClientUtil.shiroGet(String.format(url, userId), this.getShiroService().getSession().getId().toString());
+            String sessionId = this.getShiroService().getSession().getId().toString();
+            String access_token = this.getShiroService().getSession().getAttribute("access_token").toString();
+            getStr = HttpClientUtil.shiroGet(String.format(url, userId), sessionId, access_token);
         } catch (IOException e) {
             e.printStackTrace();
         }
