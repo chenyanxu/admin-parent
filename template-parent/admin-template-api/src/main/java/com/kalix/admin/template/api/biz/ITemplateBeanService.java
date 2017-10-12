@@ -16,6 +16,4 @@ import java.util.List;
  */
 public interface ITemplateBeanService extends IBizService<TemplateBean> {
     List<TemplateBean> query(String title);
-
-    public void test();
 }
