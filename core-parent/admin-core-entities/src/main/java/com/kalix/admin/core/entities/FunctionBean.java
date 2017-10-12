@@ -3,10 +3,7 @@ package com.kalix.admin.core.entities;
 import com.kalix.framework.core.api.persistence.PersistentEntity;
 
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * 功能实体类
@@ -24,6 +21,8 @@ public class FunctionBean extends PersistentEntity {
     private Long parentId; //父功能
     private Long applicationId;  // 归属应用
     private String permission; //权限
+    private Boolean dataPermission; // 数据权限是否生效
+    private String dataPermissionKey; //数据权限key
 
     public String getPermission() {
         return permission;
@@ -83,4 +82,19 @@ public class FunctionBean extends PersistentEntity {
         this.isLeaf = isLeaf;
     }
 
+    public Boolean getDataPermission() {
+        return dataPermission;
+    }
+
+    public void setDataPermission(Boolean dataPermission) {
+        this.dataPermission = dataPermission;
+    }
+
+    public String getDataPermissionKey() {
+        return dataPermissionKey;
+    }
+
+    public void setDataPermissionKey(String dataPermissionKey) {
+        this.dataPermissionKey = dataPermissionKey;
+    }
 }

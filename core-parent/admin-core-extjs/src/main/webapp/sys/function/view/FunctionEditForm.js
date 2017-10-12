@@ -70,6 +70,26 @@ Ext.define('kalix.admin.function.view.FunctionEditForm', {
             ]
         },
         {
+            fieldLabel: '数据权限主键',
+            itemId: 'dataPermissionKeyId',
+            name: 'dataPermissionKey'
+        }, {
+            xtype: 'combobox',
+            editable: false,
+            valueField: 'key',
+            displayField: 'name',
+            itemId: 'dataPermissionId',
+            name: 'dataPermission',
+            // fieldStyle: 'font-size:15px;text-align:center;background:transparent;',
+            store: {
+                data: [
+                    {'name': '是', 'key': true},
+                    {'name': '否', 'key': false}
+                ]
+            },
+            fieldLabel: '权限是否生效'
+        },
+        {
             xtype: 'textarea',
             fieldLabel: '备注',
             itemId: 'remarkId',
