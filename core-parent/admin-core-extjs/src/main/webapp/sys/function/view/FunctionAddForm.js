@@ -73,6 +73,26 @@ Ext.define('kalix.admin.function.view.FunctionAddForm', {
             ]
         },
         {
+            fieldLabel: '数据权限主键',
+            name: 'dataPermissionKey'
+
+        }, {
+            xtype: 'combobox',
+            editable: false,
+            valueField: 'key',
+            displayField: 'name',
+            // fieldStyle: 'font-size:15px;text-align:center;background:transparent;',
+            store: {
+                data: [
+                    {'name': '是', 'key': true},
+                    {'name': '否', 'key': false}
+                ]
+            },
+            fieldLabel: '权限是否生效',
+            name: 'dataPermission'
+        },
+
+        {
             xtype: 'textarea',
             fieldLabel: '备注',
             itemId: 'remarkId',
@@ -86,12 +106,12 @@ Ext.define('kalix.admin.function.view.FunctionAddForm', {
         {
             text: '保存',
             type: 'submit',
-            iconCls:'iconfont icon-save iconfont-btn-small',
+            iconCls: 'iconfont icon-save iconfont-btn-small',
             handler: 'onSave'
         },
         {
             text: '重置',
-            iconCls:'iconfont icon-reset iconfont-btn-small',
+            iconCls: 'iconfont icon-reset iconfont-btn-small',
             handler: 'onAddReset'
         }
     ]

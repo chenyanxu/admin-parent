@@ -3,7 +3,6 @@ package com.kalix.admin.core.dto.model;
 import com.kalix.framework.core.api.web.model.BaseDTO;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,6 +21,8 @@ public class FunctionDTO extends BaseDTO {
     private Long applicationId;  // 归属应用
     private String parentName; //父节点名称
     private String permission; //权限路径
+    private Boolean dataPermission; // 数据权限是否生效
+    private String dataPermissionKey; //数据权限key
     private List<FunctionDTO> children=new ArrayList<FunctionDTO>();
 
     public String getPermission() {
@@ -103,5 +104,21 @@ public class FunctionDTO extends BaseDTO {
 
     public void setChildren(List<FunctionDTO> children) {
         this.children = children;
+    }
+
+    public Boolean getDataPermission() {
+        return dataPermission;
+    }
+
+    public void setDataPermission(Boolean dataPermission) {
+        this.dataPermission = dataPermission;
+    }
+
+    public String getDataPermissionKey() {
+        return dataPermissionKey;
+    }
+
+    public void setDataPermissionKey(String dataPermissionKey) {
+        this.dataPermissionKey = dataPermissionKey;
     }
 }

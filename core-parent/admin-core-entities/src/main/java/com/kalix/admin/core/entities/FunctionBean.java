@@ -21,7 +21,7 @@ public class FunctionBean extends PersistentEntity {
     private Long parentId; //父功能
     private Long applicationId;  // 归属应用
     private String permission; //权限
-    private Boolean isDataPermission; // 数据权限是否生效
+    private Boolean dataPermission; // 数据权限是否生效
     private String dataPermissionKey; //数据权限key
 
     public String getPermission() {
@@ -83,11 +83,11 @@ public class FunctionBean extends PersistentEntity {
     }
 
     public Boolean getDataPermission() {
-        return isDataPermission;
+        return dataPermission;
     }
 
     public void setDataPermission(Boolean dataPermission) {
-        isDataPermission = dataPermission;
+        this.dataPermission = dataPermission;
     }
 
     public String getDataPermissionKey() {

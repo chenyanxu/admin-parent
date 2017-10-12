@@ -16,6 +16,8 @@ Ext.define('kalix.admin.function.model.FunctionModel', {
         {name: 'code', type: 'string'},
         {name: 'remark', type: 'string'},
         {name: 'leaf', type: 'boolean'},
+        {name: 'dataPermissionKey', type: 'string'},
+        {name: 'dataPermission', type: 'boolean'},
         {name: 'parentId', type: 'int'},
         {name: 'parentName', type: 'string'},
         {name: 'areaId', type: 'int'}
