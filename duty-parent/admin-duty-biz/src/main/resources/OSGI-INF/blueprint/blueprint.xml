@@ -9,6 +9,7 @@
     <reference id="orgBeanDao" interface="com.kalix.admin.core.api.dao.IOrganizationBeanDao"/>
     <reference id="dataAuthBeanDao" interface="com.kalix.admin.duty.api.dao.IDataAuthBeanDao"/>
     <reference id="dataAuthUserBeanDao" interface="com.kalix.admin.duty.api.dao.IDataAuthUserBeanDao"/>
+    <reference id="adminDictBeanService" interface="com.kalix.admin.core.api.biz.IAdminDictBeanService"/>
 
     <bean id="dutyBeanServiceImpl" class="com.kalix.admin.duty.biz.DutyBeanServiceImpl">
         <property name="dao" ref="dutyBeanDao"/>
@@ -30,6 +31,7 @@
     <bean id="dataAuthBeanServiceImpl" class="com.kalix.admin.duty.biz.DataAuthBeanServiceImpl">
         <property name="dao" ref="dataAuthBeanDao"/>
         <property name="dataAuthUserBeanDao" ref="dataAuthUserBeanDao"/>
+        <property name="adminDictBeanService" ref="adminDictBeanService"/>
     </bean>
     <service id="dataAuthBeanService" interface="com.kalix.admin.duty.api.biz.IDataAuthBeanService"
              ref="dataAuthBeanServiceImpl">
