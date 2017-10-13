@@ -22,6 +22,7 @@
     </service>
 
     <bean id="dataAuthServiceImpl" class="com.kalix.admin.duty.biz.DataAuthServiceImpl">
+        <property name="dataAuthBeanService" ref="dataAuthBeanServiceImpl"/>
     </bean>
     <service id="dataAuthService" interface="com.kalix.framework.core.api.security.IDataAuthService"
              ref="dataAuthServiceImpl">
