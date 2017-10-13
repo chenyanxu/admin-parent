@@ -35,7 +35,7 @@ public class DataAuthServiceImpl implements IDataAuthService {
             String appName = systemService.getAppName(reqAppName); //获得appName
             //根据appName查询具体的数据权限
             DataAuthBean authBean = dataAuthBeanService.getDataAuthBean(userId, appName, "");
-            return EnumDataAuth.values()[Integer.parseInt(authBean.getName())];
+            return EnumDataAuth.values()[authBean.getType()];
         }
         return EnumDataAuth.ALL;
     }
