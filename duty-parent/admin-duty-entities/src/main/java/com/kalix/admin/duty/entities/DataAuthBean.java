@@ -18,6 +18,8 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "sys_data_auth")
 public class DataAuthBean extends PersistentEntity {
+    private Integer type;
+    @Transient
     private String name;     //数据权限名称
     private String remark;   //数据权限备注
     private String appId;    //数据权限所属应用
@@ -26,6 +28,14 @@ public class DataAuthBean extends PersistentEntity {
     private String menuId;   //数据权限所属菜单
     @Transient
     private String menuName; //菜单名称
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
     public String getName() {
         return name;
