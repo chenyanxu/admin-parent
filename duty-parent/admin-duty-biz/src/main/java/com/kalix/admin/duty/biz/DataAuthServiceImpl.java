@@ -10,4 +10,6 @@ public class DataAuthServiceImpl implements IDataAuthService {
     public boolean isAuth(String entityClassName, Long userId) {
         return false;
     }
+
+
 }

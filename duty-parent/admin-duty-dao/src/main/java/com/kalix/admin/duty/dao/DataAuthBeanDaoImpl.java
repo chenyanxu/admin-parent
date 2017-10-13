@@ -21,5 +21,4 @@ public class DataAuthBeanDaoImpl extends GenericDao<DataAuthBean, Long> implemen
     public void setEntityManager(EntityManager em) {
         super.setEntityManager(em);
     }
-
 }

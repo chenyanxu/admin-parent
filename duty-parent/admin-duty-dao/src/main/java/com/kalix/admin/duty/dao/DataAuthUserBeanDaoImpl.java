@@ -6,6 +6,8 @@ import com.kalix.framework.core.impl.dao.GenericDao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.util.List;
 
 /**
  * @类描述：
@@ -22,4 +24,10 @@ public class DataAuthUserBeanDaoImpl extends GenericDao<DataAuthUserBean, Long> 
         super.setEntityManager(em);
     }
 
+    @Override
+    public List<DataAuthUserBean> getEntitiesByUserId(Long userId) {
+        final Query query = this.createQuery("select d.userId,d.dataAuthId from DataAuthUserBean d where d.id = ?1", userId);
+        final List<DataAuthUserBean> resultList = query.getResultList();
+        return resultList;
+    }
 }

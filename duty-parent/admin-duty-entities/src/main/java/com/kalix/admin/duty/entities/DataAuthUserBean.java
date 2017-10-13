@@ -16,22 +16,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "sys_data_auth_user")
 public class DataAuthUserBean extends PersistentEntity {
-    /**
-     * 用户.
-     */
-    private Long userId;
-    /**
-     * 应用.
-     */
-    private String appId;
-    /**
-     * 菜单.
-     */
-    private String menuId;
-    /**
-     * 数据权限.
-     */
-    private Long dataDutyId;
+    private Long userId;     //用户id
+    private Long dataAuthId; //数据权限id
 
     public Long getUserId() {
         return userId;
@@ -41,27 +27,11 @@ public class DataAuthUserBean extends PersistentEntity {
         this.userId = userId;
     }
 
-    public String getAppId() {
-        return appId;
+    public Long getDataAuthId() {
+        return dataAuthId;
     }
 
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
-
-    public String getMenuId() {
-        return menuId;
-    }
-
-    public void setMenuId(String menuId) {
-        this.menuId = menuId;
-    }
-
-    public Long getDataDutyId() {
-        return dataDutyId;
-    }
-
-    public void setDataDutyId(Long dataDutyId) {
-        this.dataDutyId = dataDutyId;
+    public void setDataAuthId(Long dataAuthId) {
+        this.dataAuthId = dataAuthId;
     }
 }

@@ -17,6 +17,19 @@
                     <property name="getOutType" value="java.lang.Boolean"/>
                     <property name="getToUri" value="bean:teacherService?method=existTeacherBeanByLoginName(${header.loginname})"/>
                 </bean>-->
+                <post id="route-saveOrganizationUsers" type="java.util.List"
+                      outType="com.kalix.framework.core.api.persistence.JsonStatus">
+                    <description>save departmentUsers</description>
+                    <to uri="bean:orgService?method=saveOrganizationUsers"/>
+                </post>
+                <bean class="com.kalix.framework.core.api.camel.CustomRest">
+                    <property name="path" value="/dataauths/{}/{loginname}"/>
+                    <property name="getDescription" value="查询登录名是否存在"/>
+                    <property name="getParams" value="loginname:path:string::登录名"/>
+                    <property name="getOutType" value="java.lang.Boolean"/>
+                    <property name="getToUri"
+                              value="bean:teacherService?method=existTeacherBeanByLoginName(${header.loginname})"/>
+                </bean>
             </list>
         </property>
     </bean>

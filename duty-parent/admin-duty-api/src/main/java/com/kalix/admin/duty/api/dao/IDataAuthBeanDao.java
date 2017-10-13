@@ -12,5 +12,4 @@ import com.kalix.framework.core.api.dao.IGenericDao;
  * @修改备注：
  */
 public interface IDataAuthBeanDao extends IGenericDao<DataAuthBean, Long> {
-    //在此添加新的DAO方法
 }

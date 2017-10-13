@@ -15,5 +15,14 @@ import java.util.List;
  * @修改备注：
  */
 public interface IDataAuthBeanService extends IBizService<DataAuthBean> {
+
+    /**
+     * 保存数据权限与用户关联
+     *
+     * @param ids
+     * @return
+     */
     JsonStatus saveDataAuthUsers(List ids);
+
+    DataAuthBean getDataAuthBean(Long userId, String appId, String menuId);
 }

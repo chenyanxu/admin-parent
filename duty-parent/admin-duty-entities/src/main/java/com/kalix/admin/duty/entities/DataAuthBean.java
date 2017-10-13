@@ -4,6 +4,7 @@ import com.kalix.framework.core.api.persistence.PersistentEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * @类描述：数据权限管理
@@ -17,8 +18,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "sys_data_auth")
 public class DataAuthBean extends PersistentEntity {
-    private String name;    //数据权限名称
-    private String comment; //数据权限描述
+    private String name;     //数据权限名称
+    private String remark;   //数据权限备注
+    private String appId;    //数据权限所属应用
+    @Transient
+    private String appName;  //应用名称
+    private String menuId;   //数据权限所属菜单
+    @Transient
+    private String menuName; //菜单名称
 
     public String getName() {
         return name;
@@ -28,11 +35,43 @@ public class DataAuthBean extends PersistentEntity {
         this.name = name;
     }
 
-    public String getComment() {
-        return comment;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
+
+    public String getAppName() {
+        return appName;
+    }
+
+    public void setAppName(String appName) {
+        this.appName = appName;
+    }
+
+    public String getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(String menuId) {
+        this.menuId = menuId;
+    }
+
+    public String getMenuName() {
+        return menuName;
+    }
+
+    public void setMenuName(String menuName) {
+        this.menuName = menuName;
     }
 }
