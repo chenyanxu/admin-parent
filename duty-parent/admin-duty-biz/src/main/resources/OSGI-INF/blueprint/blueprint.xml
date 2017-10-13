@@ -7,6 +7,8 @@
     <reference id="dutyUserBeanDao" interface="com.kalix.admin.duty.api.dao.IDutyUserBeanDao"/>
     <reference id="userBeanDao" interface="com.kalix.admin.core.api.dao.IUserBeanDao"/>
     <reference id="orgBeanDao" interface="com.kalix.admin.core.api.dao.IOrganizationBeanDao"/>
+    <reference id="dataAuthBeanDao" interface="com.kalix.admin.duty.api.dao.IDataAuthBeanDao"/>
+    <reference id="dataAuthUserBeanDao" interface="com.kalix.admin.duty.api.dao.IDataAuthUserBeanDao"/>
 
     <bean id="dutyBeanServiceImpl" class="com.kalix.admin.duty.biz.DutyBeanServiceImpl">
         <property name="dao" ref="dutyBeanDao"/>
@@ -20,10 +22,17 @@
     </service>
 
     <bean id="dataAuthServiceImpl" class="com.kalix.admin.duty.biz.DataAuthServiceImpl">
-
     </bean>
     <service id="dataAuthService" interface="com.kalix.framework.core.api.security.IDataAuthService"
              ref="dataAuthServiceImpl">
+    </service>
+
+    <bean id="dataAuthBeanServiceImpl" class="com.kalix.admin.duty.biz.DataAuthBeanServiceImpl">
+        <property name="dao" ref="dataAuthBeanDao"/>
+        <property name="dataAuthUserBeanDao" ref="dataAuthUserBeanDao"/>
+    </bean>
+    <service id="dataAuthBeanService" interface="com.kalix.admin.duty.api.biz.IDataAuthBeanService"
+             ref="dataAuthBeanServiceImpl">
     </service>
 </blueprint>
 

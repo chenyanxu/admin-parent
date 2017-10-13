@@ -1,7 +1,6 @@
 package com.kalix.admin.duty.api.biz;
 
-
-import com.kalix.admin.duty.entities.DutyBean;
+import com.kalix.admin.duty.entities.DataAuthBean;
 import com.kalix.framework.core.api.biz.IBizService;
 import com.kalix.framework.core.api.persistence.JsonStatus;
 
@@ -15,6 +14,6 @@ import java.util.List;
  * @修改时间：
  * @修改备注：
  */
-public interface IDataAuthBeanService extends IBizService<DutyBean> {
+public interface IDataAuthBeanService extends IBizService<DataAuthBean> {
     JsonStatus saveDataAuthUsers(List ids);
 }

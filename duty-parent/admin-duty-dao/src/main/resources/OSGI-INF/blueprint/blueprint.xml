@@ -14,8 +14,16 @@
     <bean id="dutyUserBeanDaoImpl" class="com.kalix.admin.duty.dao.DutyUserBeanDaoImpl">
         <tx:transaction method="*" value="Required"/>
     </bean>
+    <bean id="dataAuthBeanDaoImpl" class="com.kalix.admin.duty.dao.DataAuthBeanDaoImpl">
+        <tx:transaction method="*" value="Required"/>
+    </bean>
+    <bean id="dataAuthUserBeanDaoImpl" class="com.kalix.admin.duty.dao.DataAuthUserBeanDaoImpl">
+        <tx:transaction method="*" value="Required"/>
+    </bean>
 
     <service interface="com.kalix.admin.duty.api.dao.IDutyBeanDao" ref="dutyBeanDaoImpl"/>
     <service interface="com.kalix.admin.duty.api.dao.IDutyUserBeanDao" ref="dutyUserBeanDaoImpl"/>
+    <service interface="com.kalix.admin.duty.api.dao.IDataAuthBeanDao" ref="dataAuthBeanDaoImpl"/>
+    <service interface="com.kalix.admin.duty.api.dao.IDataAuthUserBeanDao" ref="dataAuthUserBeanDaoImpl"/>
 </blueprint>
 
