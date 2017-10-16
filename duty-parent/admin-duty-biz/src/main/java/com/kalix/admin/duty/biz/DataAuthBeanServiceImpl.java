@@ -6,11 +6,14 @@ import com.kalix.admin.duty.api.biz.IDataAuthBeanService;
 import com.kalix.admin.duty.api.dao.IDataAuthBeanDao;
 import com.kalix.admin.duty.api.dao.IDataAuthUserBeanDao;
 import com.kalix.admin.duty.entities.DataAuthBean;
+import com.kalix.admin.duty.entities.DataAuthUserBean;
 import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
+import org.apache.commons.lang.StringUtils;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -81,76 +84,47 @@ public class DataAuthBeanServiceImpl extends ShiroGenericBizServiceImpl<IDataAut
     @Override
     @Transactional
     public JsonStatus saveDataAuthUsers(List ids) {
-        /*String roleId = null;
-        String authorizationIds = null;
-
-        if (ids != null && ids.size() == 2) {
-            roleId = ids.get(0).toString();
-            authorizationIds = ids.get(1).toString();
-        }
-
-        Assert.notNull(roleId, "角色编号不能为空.");
-        Assert.notNull(authorizationIds, "授权编号不能为空.");
         JsonStatus jsonStatus = new JsonStatus();
 
-        try {
-            //清除关联关系
-            roleApplicationBeanDao.deleteByRoleId(Long.parseLong(roleId));
-            roleFunctionBeanDao.deleteByRoleId(Long.parseLong(roleId));
-            String userName = getShiroService().getCurrentUserLoginName();
-//            if (authorizationIds.indexOf(",") != -1) {
-            String[] _authorizationIds = authorizationIds.split(",");
-
-            for (String _authorizationId : _authorizationIds) {
-                if (_authorizationId.indexOf("root") != -1)
-                    continue;
-                if (_authorizationId.startsWith("app:")) {
-                    RoleApplicationBean roleApplicationBean = new RoleApplicationBean();
-                    roleApplicationBean.setCreateBy(userName);
-                    roleApplicationBean.setUpdateBy(userName);
-                    roleApplicationBean.setRoleId(Long.parseLong(roleId));
-                    String applicationId = _authorizationId.substring("app:".length(), _authorizationId.length());
-                    roleApplicationBean.setApplicationId(Long.parseLong(applicationId));
-                    roleApplicationBeanDao.save(roleApplicationBean);
-                } else if (_authorizationId.startsWith("fun:")) {
-                    RoleFunctionBean roleFunctionBean = new RoleFunctionBean();
-                    roleFunctionBean.setCreateBy(userName);
-                    roleFunctionBean.setUpdateBy(userName);
-                    roleFunctionBean.setRoleId(Long.parseLong(roleId));
-                    String functionId = _authorizationId.substring("fun:".length(), _authorizationId.length());
-                    roleFunctionBean.setFunctionId(Long.parseLong(functionId));
-                    roleFunctionBeanDao.save(roleFunctionBean);
-                }
-            }
-//            } else {
-//                if (authorizationIds.startsWith("app:") && authorizationIds.indexOf("root") == -1) {
-//                    RoleApplicationBean roleApplicationBean = new RoleApplicationBean();
-//                    roleApplicationBean.setCreateBy(userName);
-//                    roleApplicationBean.setUpdateBy(userName);
-//                    roleApplicationBean.setRoleId(Long.parseLong(roleId));
-//                    String applicationId = authorizationIds.substring("app:".length(), authorizationIds.length());
-//                    roleApplicationBean.setApplicationId(Long.parseLong(applicationId));
-//                    roleApplicationBeanDao.save(roleApplicationBean);
-//                } else if (authorizationIds.startsWith("fun:") && authorizationIds.indexOf("root") == -1) {
-//                    RoleFunctionBean roleFunctionBean = new RoleFunctionBean();
-//                    roleFunctionBean.setCreateBy(userName);
-//                    roleFunctionBean.setUpdateBy(userName);
-//                    roleFunctionBean.setRoleId(Long.parseLong(roleId));
-//                    String functionId = authorizationIds.substring("fun:".length(), authorizationIds.length());
-//                    roleFunctionBean.setFunctionId(Long.parseLong(functionId));
-//                    roleFunctionBeanDao.save(roleFunctionBean);
-//                }
-//            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (ids == null || ids.size() != 2) {
             jsonStatus.setFailure(true);
             jsonStatus.setMsg("保存失败!");
             return jsonStatus;
+        } else {
+            try {
+                long dataAuthId = Long.valueOf(ids.get(0).toString());
+                String userId = ids.get(1).toString();
+
+                dataAuthUserBeanDao.deleteByDataAuthId(dataAuthId);
+
+                String userName = getShiroService().getCurrentUserLoginName();
+                if (StringUtils.isNotEmpty(userId)) {
+                    String[] userIds = userId.split(",");
+                    for (String _userId : userIds) {
+                        if (StringUtils.isNotEmpty(_userId.trim())) {
+                            DataAuthUserBean dataAuthUserBean = new DataAuthUserBean();
+                            dataAuthUserBean.setCreateBy(userName);
+                            dataAuthUserBean.setCreationDate(new Date());
+                            dataAuthUserBean.setUpdateBy(userName);
+                            dataAuthUserBean.setUpdateDate(new Date());
+                            dataAuthUserBean.setDataAuthId(dataAuthId);
+                            dataAuthUserBean.setUserId(Long.parseLong(_userId));
+                            dataAuthUserBeanDao.save(dataAuthUserBean);
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                jsonStatus.setFailure(true);
+                jsonStatus.setMsg("保存失败!");
+                return jsonStatus;
+            }
         }
+
         jsonStatus.setSuccess(true);
         jsonStatus.setMsg("保存成功!");
-        return jsonStatus;*/
-        return null;
+
+        return jsonStatus;
     }
 
     @Override

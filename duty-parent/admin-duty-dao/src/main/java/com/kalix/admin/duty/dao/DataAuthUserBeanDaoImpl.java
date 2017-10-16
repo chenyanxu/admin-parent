@@ -30,4 +30,9 @@ public class DataAuthUserBeanDaoImpl extends GenericDao<DataAuthUserBean, Long> 
         final List<DataAuthUserBean> resultList = query.getResultList();
         return resultList;
     }
+
+    @Override
+    public void deleteByDataAuthId(long id) {
+        super.updateNativeQuery("delete from sys_data_auth_user where dataauthid=" + id);
+    }
 }
