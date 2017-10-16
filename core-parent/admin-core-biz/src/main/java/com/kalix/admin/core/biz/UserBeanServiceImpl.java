@@ -277,7 +277,7 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
      * 获得用户的组织
      */
     private String getUserOrg(long userId) {
-        final String url = "http://localhost:8181/kalix/camel/rest/users/%s/orgs";
+        final String url = "/users/%s/orgs";
         String getStr = "";
         try {
             String sessionId = this.getShiroService().getSession().getId().toString();
@@ -309,7 +309,7 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
      * @return
      */
     private String getUserDuty(long userId) {
-        final String url = "http://localhost:8181/kalix/camel/rest/users/user/%s/dutys";
+        final String url = "/users/user/%s/dutys";
         String getStr = "";
         try {
             String sessionId = this.getShiroService().getSession().getId().toString();
