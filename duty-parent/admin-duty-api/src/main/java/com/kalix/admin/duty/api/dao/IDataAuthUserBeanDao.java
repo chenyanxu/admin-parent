@@ -12,4 +12,6 @@ import java.util.List;
 public interface IDataAuthUserBeanDao extends IGenericDao<DataAuthUserBean, Long> {
 
     List<DataAuthUserBean> getEntitiesByUserId(Long userId);
+
+    void deleteByDataAuthId(long id);
 }
