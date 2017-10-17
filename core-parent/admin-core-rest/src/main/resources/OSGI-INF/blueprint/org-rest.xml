@@ -106,5 +106,15 @@
                 <to uri="bean:orgService?method=getParentOrgIdPath(${header.id})"/>
             </get>
         </rest>
+
+        <!-- 查询指定用户id所属机构ids -->
+        <rest path="/orgs/ids" consumes="application/json;charset=utf-8"
+              produces="application/json;charset=utf-8">
+            <!--get the ids that has been selected into org-->
+            <get id="route-getOrgsByUserId" outType="java.util.List">
+                <description>Find orgids by user Id</description>
+                <to uri="bean:orgService?method=getOrgsByUserId(${header.userId},${header.includeChildOrg})"/>
+            </get>
+        </rest>
     </camelContext>
 </blueprint>

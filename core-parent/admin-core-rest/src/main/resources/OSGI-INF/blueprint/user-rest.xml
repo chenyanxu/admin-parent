@@ -51,6 +51,13 @@
                     <property name="getOutType" value="java.lang.Boolean"/>
                     <property name="getToUri" value="bean:userService?method=existUserBeanByLoginName(${header.loginname})"/>
                 </bean>
+                <bean class="com.kalix.framework.core.api.camel.CustomRest">
+                    <property name="path" value="/users/ids"/>
+                    <property name="getDescription" value="查询指定用户id所属机构下所有用户ids"/>
+                    <property name="getOutType" value="java.util.List"/>
+                    <property name="getToUri"
+                              value="bean:userService?method=findOrgsUserByUserId(${header.userId},${header.includeChildOrg})"/>
+                </bean>
             </list>
         </property>
     </bean>
