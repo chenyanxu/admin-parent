@@ -5,10 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 
 /**
@@ -29,7 +26,8 @@ public class ApplicationBean extends PersistentEntity {
     private String code; //代码
     @ApiModelProperty(value="地址",position = 3,hidden = true)
     private String location; //地址
-    private String iconCls;
+    private String iconCls; // 应用图标
+    private Boolean supportMobile; //是否支持手机应用
 
     public String getName() {
         return name;
@@ -69,6 +67,14 @@ public class ApplicationBean extends PersistentEntity {
 
     public void setIconCls(String iconCls) {
         this.iconCls = iconCls;
+    }
+
+    public Boolean getSupportMobile() {
+        return supportMobile;
+    }
+
+    public void setSupportMobile(Boolean supportMobile) {
+        this.supportMobile = supportMobile;
     }
 
     public ApplicationBean() {
