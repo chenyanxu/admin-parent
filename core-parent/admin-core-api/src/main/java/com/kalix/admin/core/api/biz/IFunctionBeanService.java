@@ -1,9 +1,9 @@
 package com.kalix.admin.core.api.biz;
 
-import com.kalix.admin.core.entities.RoleFunctionBean;
 import com.kalix.admin.core.dto.model.AuthorizationDTO;
 import com.kalix.admin.core.dto.model.FunctionDTO;
 import com.kalix.admin.core.entities.FunctionBean;
+import com.kalix.admin.core.entities.RoleFunctionBean;
 import com.kalix.framework.core.api.biz.IBizService;
 import org.dozer.Mapper;
 
@@ -43,6 +43,15 @@ public interface IFunctionBeanService extends IBizService<FunctionBean> {
      * @param mapper
      */
     void getChilden(AuthorizationDTO root, List<FunctionBean> elements, Mapper mapper);
+
+    /**
+     * 通过appname和funkey获得是否配置了数据权限
+     *
+     * @param appName
+     * @param funKey
+     * @return
+     */
+    Boolean getDataAuth(String appName, String funKey);
 
     /**
      * 返回子节点并设置选中状态

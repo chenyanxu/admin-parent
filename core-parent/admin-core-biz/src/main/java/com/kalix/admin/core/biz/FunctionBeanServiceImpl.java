@@ -248,6 +248,15 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
         root.setChildren(children);
     }
 
+    public Boolean getDataAuth(String appName, String funKey) {
+        FunctionBean dto = null;
+        List<FunctionBean> funBeans = this.dao.find("select d from FunctionBean d, ApplicationBean u " +
+                "where d.applicationId = u.id and u.code = ?1 and d.dataPermissionKey = ?2", appName, funKey);
+        if (funBeans != null && funBeans.size() > 0) {
+            return funBeans.get(0).getDataPermission();
+        }
+        return false;
+    }
     public FunctionDTO getAllByApplicationId(long id) {
         List<FunctionBean> beans = dao.find("select ob from FunctionBean ob where ob.applicationId = ?1", id);
         FunctionDTO root=new FunctionDTO();

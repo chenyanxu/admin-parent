@@ -1,5 +1,6 @@
 package com.kalix.admin.duty.biz;
 
+import com.kalix.admin.core.api.biz.IFunctionBeanService;
 import com.kalix.admin.duty.api.biz.IDataAuthBeanService;
 import com.kalix.admin.duty.entities.DataAuthBean;
 import com.kalix.framework.core.api.security.IDataAuthService;
@@ -16,6 +17,7 @@ import java.io.IOException;
  */
 public class DataAuthServiceImpl implements IDataAuthService {
     private IDataAuthBeanService dataAuthBeanService;
+    private IFunctionBeanService functionBeanService;
     @Override
     public boolean isAuth(String entityClassName, Long userId) {
         return false;
@@ -40,18 +42,27 @@ public class DataAuthServiceImpl implements IDataAuthService {
                 e.printStackTrace();
             }
             String appName = systemService.getAppName(reqAppName); //获得appName
-            //根据appName查询具体的数据权限
-            DataAuthBean authBean = dataAuthBeanService.getDataAuthBean(userId, appName, "");
-            if (authBean == null) {
-                return EnumDataAuth.ALL;
+            if (functionBeanService.getDataAuth(appName, reqAppName)) { // 判断是否设置了数据权限开关
+                //根据appName查询具体的数据权限
+                DataAuthBean authBean = dataAuthBeanService.getDataAuthBean(userId, appName, "");
+                if (authBean == null) {
+                    return EnumDataAuth.SELF;  //设置了数据权限开关，默认为只能查看自己建立的数据
+                } else {
+                    return EnumDataAuth.values()[authBean.getType()];
+                }
             } else {
-                return EnumDataAuth.values()[authBean.getType()];
+                return EnumDataAuth.ALL; //未设置数据权限，则默认为全部数据
             }
+
         }
         return EnumDataAuth.ALL;
     }
 
     public void setDataAuthBeanService(IDataAuthBeanService dataAuthBeanService) {
         this.dataAuthBeanService = dataAuthBeanService;
+    }
+
+    public void setFunctionBeanService(IFunctionBeanService functionBeanService) {
+        this.functionBeanService = functionBeanService;
     }
 }
