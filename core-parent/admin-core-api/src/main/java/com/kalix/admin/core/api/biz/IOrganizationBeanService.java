@@ -49,6 +49,14 @@ public interface IOrganizationBeanService extends IBizService<OrganizationBean> 
     JsonData getOrgsByUserId(long userId);
 
     /**
+     * 查询指定用户id所属机构ids
+     * @param userId 指定用户id
+     * @param includeChildOrg 是否包含子机构, true包含/false不包含
+     * @return
+     */
+    List<Long> getOrgsByUserId(Long userId, Boolean includeChildOrg);
+
+    /**
      * 根据用户id获取指定用户的机构列表
      *
      * @param userId

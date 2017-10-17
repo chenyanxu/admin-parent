@@ -377,7 +377,6 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
                 } else {
                     sql += " or org.code like '" + bean.getCode() + "%'";
                 }
-
             }
         }
 
@@ -386,6 +385,38 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         }
 
         return JsonData.toJsonData(userList);
+    }
+
+    @Override
+    public List<Long> findOrgsUserByUserId(Long userId, Boolean includeChildOrg) {
+        //JsonData jsonData = null;
+        List<Long> rtnList = new ArrayList<Long>();
+        List<UserBean> userList = new ArrayList<UserBean>();
+        if (includeChildOrg) {
+            JsonData jsonData = findOrgsUserByUserId(userId);
+            userList = jsonData.getData();
+        } else {
+            // 用户拥有的机构列表
+            List<OrganizationBean> list = organizationBeanDao.findById(organizationUserBeanDao.findByUserId(userId).stream().map(OrganizationUserBean::getOrgId).collect(Collectors.toList()));
+
+            // 拼接sql
+            String sql = "";
+            for (OrganizationBean bean : list) {
+                if (sql.isEmpty()) {
+                    sql = "org.code ='" + bean.getCode() + "'";
+                } else {
+                    sql += " or org.code ='" + bean.getCode() + "'";
+                }
+            }
+            if (!sql.isEmpty()) {
+                userList = dao.findByNativeSql("select id, name from sys_user where id in (select userid from sys_organization_user as orguser, sys_organization as org where orguser.orgid = org.id and (" + sql + "))", UserBean.class);
+            }
+        }
+        //jsonData = JsonData.toJsonData(userList);
+        for (UserBean obj : userList) {
+            rtnList.add(obj.getId());
+        }
+        return rtnList;
     }
 
     /**

@@ -351,12 +351,12 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
     public JsonStatus saveOrganizationUsers(List ids) {
         JsonStatus jsonStatus = new JsonStatus();
 
-        if(ids==null || ids.size()!=2){
+        if (ids == null || ids.size() != 2) {
             jsonStatus.setFailure(true);
             jsonStatus.setMsg("保存失败!");
-        }else{
-            long orgId=Long.valueOf((String) ids.get(0));
-            String userId=ids.get(1).toString();
+        } else {
+            long orgId = Long.valueOf((String) ids.get(0));
+            String userId = ids.get(1).toString();
 
             try {
                 String userName = shiroService.getCurrentUserLoginName();
@@ -389,7 +389,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
      * @return
      */
     private List<OrganizationBean> getRootElements(List<OrganizationBean> elements, Long id) {
-        return elements.stream().filter(n->n.getParentId().equals(id))
+        return elements.stream().filter(n -> n.getParentId().equals(id))
                 .collect(Collectors.toList());
     }
 
@@ -431,15 +431,67 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
 
     /**
      * 根据UserId，在用户与部门的关联表中查询部门信息。
+     *
      * @param userId
      * @return
      */
-    public JsonData getOrgsByUserId(long userId){
-
+    public JsonData getOrgsByUserId(long userId) {
 
         List list = dao.findByNativeSql("select id, code, name from " + dao.getTableName() + " where id in (select orgid from " + organizationUserDao.getTableName() + " where userid = " + userId + ")", OrganizationDTO.class);
 
         return JsonData.toJsonData(list);
+    }
+
+    /**
+     * 查询指定用户id所属机构ids
+     *
+     * @param userId          指定用户id
+     * @param includeChildOrg 是否包含子机构, true包含/false不包含
+     * @return
+     */
+    @Override
+    public List<Long> getOrgsByUserId(Long userId, Boolean includeChildOrg) {
+        //JsonData jsonData = null;
+        List<Long> rtnList = new ArrayList<Long>();
+        List<OrganizationDTO> orgList = new ArrayList<>();
+        if (includeChildOrg) {
+            // 用户拥有的机构列表
+            /*List<OrganizationBean> list = this.dao.findById(organizationUserDao.findByUserId(userId)
+                    .stream().map(OrganizationUserBean::getOrgId).collect(Collectors.toList()));*/
+            List<OrganizationDTO> list = dao.findByNativeSql("select id, code, name from " + dao.getTableName() +
+                            " where id in (select orgid from " + organizationUserDao.getTableName() + " where userid = " + userId + ")",
+                    OrganizationDTO.class);
+            // 查找最顶层机构code长度
+            int minLength = 100;
+            for (OrganizationDTO bean : list) {
+                if (bean.getCode().length() < minLength) {
+                    minLength = bean.getCode().length();
+                }
+            }
+            // 拼接sql
+            String sql = "";
+            for (OrganizationDTO bean : list) {
+                if (bean.getCode().length() == minLength) {
+                    if (sql.isEmpty()) {
+                        sql = "org.code like '" + bean.getCode() + "%'";
+                    } else {
+                        sql += " or org.code like '" + bean.getCode() + "%'";
+                    }
+                }
+            }
+            if (!sql.isEmpty()) {
+                orgList = dao.findByNativeSql("select id, code, name from " + dao.getTableName() + " as org where (" + sql + ")",
+                        OrganizationDTO.class);
+            }
+        } else {
+            JsonData jsonData = getOrgsByUserId(userId);
+            orgList = jsonData.getData();
+        }
+        //jsonData = JsonData.toJsonData(orgList);
+        for (OrganizationDTO obj : orgList) {
+            rtnList.add(obj.getId());
+        }
+        return rtnList;
     }
 
     /**
@@ -452,7 +504,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
         List<OrganizationDTO> orgsTree = new ArrayList<>();
 
         // 用户拥有的机构用户列表
-        List<OrganizationUserDTO> list = dao.findByNativeSql("select a.id, a.userid, (select name from sys_user b where b.id = a.userid) as username, a.orgid as departmentid,(select name from sys_organization c where c.id = a.orgid) as departmentname from sys_organization_user a where a.userid=" + userId,OrganizationUserDTO.class);
+        List<OrganizationUserDTO> list = dao.findByNativeSql("select a.id, a.userid, (select name from sys_user b where b.id = a.userid) as username, a.orgid as departmentid,(select name from sys_organization c where c.id = a.orgid) as departmentname from sys_organization_user a where a.userid=" + userId, OrganizationUserDTO.class);
 
         // 全部组织机构列表
         List<OrganizationBean> orgs = dao.getAll();

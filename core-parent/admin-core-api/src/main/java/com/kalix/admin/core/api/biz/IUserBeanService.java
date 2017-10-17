@@ -6,6 +6,8 @@ import com.kalix.framework.core.api.biz.IBizService;
 import com.kalix.framework.core.api.persistence.JsonData;
 import com.kalix.framework.core.api.persistence.JsonStatus;
 
+import java.util.List;
+
 /**
  * Created by dell on 14-1-17.
  */
@@ -53,6 +55,16 @@ public interface IUserBeanService extends IBizService<UserBean> {
      * @return
      */
     JsonData findOrgsUserByUserId(Long userId);
+
+    /**
+     * 查询指定用户id所属机构下所有用户ids
+     *
+     * @param userId          指定用户id
+     * @param includeChildOrg 是否包含子机构, true包含/false不包含
+     * @return
+     */
+    List<Long> findOrgsUserByUserId(Long userId, Boolean includeChildOrg);
+
 //    JsonData getAllUser();
 
 //    List<UserBean> queryUser(UserBean userBean, int is_ent);
