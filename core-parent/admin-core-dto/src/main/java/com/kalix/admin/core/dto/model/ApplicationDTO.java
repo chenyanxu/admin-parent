@@ -29,6 +29,9 @@ public class ApplicationDTO extends BaseDTO {
     private String parentName; //父节点名称
     @ApiModelProperty("图标")
     private String iconCls;//图标
+    @ApiModelProperty("支持手机")
+    private Boolean supportMobile;//支持手机
+
     private List<ApplicationDTO> children=new ArrayList<ApplicationDTO>();
 
     public String getText() {
@@ -93,5 +96,13 @@ public class ApplicationDTO extends BaseDTO {
 
     public void setChildren(List<ApplicationDTO> children) {
         this.children = children;
+    }
+
+    public Boolean getSupportMobile() {
+        return supportMobile;
+    }
+
+    public void setSupportMobile(Boolean supportMobile) {
+        this.supportMobile = supportMobile;
     }
 }
