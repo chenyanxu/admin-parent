@@ -3,32 +3,20 @@
            xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
            xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
        http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
-    <reference id="competitioninfoService"
-               interface="com.kalix.research.competition.api.biz.ICompetitionInfoBeanService"/>
+    <reference id="dataAuthBeanService"
+               interface="com.kalix.admin.duty.api.biz.IDataAuthBeanService"/>
 
     <bean id="dataAuthRoute" class="com.kalix.framework.core.impl.camel.BaseRouteBuilder">
         <property name="beanName" value="com.kalix.admin.duty.entities.DataAuthBean"/>
         <property name="rests">
             <list>
-                <!--<bean class="com.kalix.framework.core.api.camel.CustomRest">
-                    <property name="path" value="/teachers/loginname/{loginname}"/>
-                    <property name="getDescription" value="查询登录名是否存在"/>
-                    <property name="getParams" value="loginname:path:string::登录名"/>
-                    <property name="getOutType" value="java.lang.Boolean"/>
-                    <property name="getToUri" value="bean:teacherService?method=existTeacherBeanByLoginName(${header.loginname})"/>
-                </bean>-->
-                <post id="route-saveOrganizationUsers" type="java.util.List"
-                      outType="com.kalix.framework.core.api.persistence.JsonStatus">
-                    <description>save departmentUsers</description>
-                    <to uri="bean:orgService?method=saveOrganizationUsers"/>
-                </post>
                 <bean class="com.kalix.framework.core.api.camel.CustomRest">
-                    <property name="path" value="/dataauths/{}/{loginname}"/>
-                    <property name="getDescription" value="查询登录名是否存在"/>
-                    <property name="getParams" value="loginname:path:string::登录名"/>
-                    <property name="getOutType" value="java.lang.Boolean"/>
-                    <property name="getToUri"
-                              value="bean:teacherService?method=existTeacherBeanByLoginName(${header.loginname})"/>
+                    <property name="path" value="/dataauths/{id}/users"/>
+                    <property name="postDescription" value="保存数据权限与用户关联"/>
+                    <property name="inType" value="java.util.List"/>
+                    <property name="postOutType" value="com.kalix.framework.core.api.persistence.JsonStatus"/>
+                    <property name="postToUri"
+                              value="bean:dataAuthBeanService?method=saveDataAuthUsers(${body})"/>
                 </bean>
             </list>
         </property>
