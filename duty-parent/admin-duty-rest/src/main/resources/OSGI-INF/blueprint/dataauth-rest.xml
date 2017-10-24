@@ -3,7 +3,7 @@
            xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
            xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
        http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
-    <reference id="dataAuthBeanService"
+    <reference id="dataauthService"
                interface="com.kalix.admin.duty.api.biz.IDataAuthBeanService"/>
 
     <bean id="dataAuthRoute" class="com.kalix.framework.core.impl.camel.BaseRouteBuilder">
@@ -16,7 +16,7 @@
                     <property name="inType" value="java.util.List"/>
                     <property name="postOutType" value="com.kalix.framework.core.api.persistence.JsonStatus"/>
                     <property name="postToUri"
-                              value="bean:dataAuthBeanService?method=saveDataAuthUsers(${body})"/>
+                              value="bean:dataauthService?method=saveDataAuthUsers(${body})"/>
                 </bean>
             </list>
         </property>
