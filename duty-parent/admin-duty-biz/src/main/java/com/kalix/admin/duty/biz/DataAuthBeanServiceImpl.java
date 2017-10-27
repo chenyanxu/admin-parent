@@ -7,14 +7,22 @@ import com.kalix.admin.duty.api.dao.IDataAuthBeanDao;
 import com.kalix.admin.duty.api.dao.IDataAuthUserBeanDao;
 import com.kalix.admin.duty.entities.DataAuthBean;
 import com.kalix.admin.duty.entities.DataAuthUserBean;
+import com.kalix.framework.core.api.persistence.JsonData;
 import com.kalix.framework.core.api.persistence.JsonStatus;
+import com.kalix.framework.core.api.web.ISystemService;
+import com.kalix.framework.core.api.web.model.MenuBean;
+import com.kalix.framework.core.api.web.model.ModuleBean;
+import com.kalix.framework.core.api.web.model.QueryDTO;
+import com.kalix.framework.core.api.web.model.WebApplicationBean;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
 import org.apache.commons.lang.StringUtils;
 
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @类描述：
@@ -28,6 +36,7 @@ public class DataAuthBeanServiceImpl extends ShiroGenericBizServiceImpl<IDataAut
     private static final String FUNCTION_NAME = "数据权限";
     private IDataAuthUserBeanDao dataAuthUserBeanDao;
     private IAdminDictBeanService adminDictBeanService;
+    private ISystemService systemService;
 
     @Override
     public boolean isSave(DataAuthBean entity, JsonStatus status) {
@@ -54,7 +63,7 @@ public class DataAuthBeanServiceImpl extends ShiroGenericBizServiceImpl<IDataAut
     public boolean isUpdate(DataAuthBean entity, JsonStatus status) {
         Assert.notNull(entity, "实体不能为空.");
         DataAuthBean dataAuthBean = (DataAuthBean) entity;
-        List<DataAuthBean> beans = dao.find("select ob from DataAuthBean ob where ob.id <>  ob.appId = ?1 and ob.menuId = ?2",
+        List<DataAuthBean> beans = dao.find("select ob from DataAuthBean ob where ob.id <> ?1 and ob.appId = ?2 and ob.menuId = ?3",
                 dataAuthBean.getId(), dataAuthBean.getAppId(), dataAuthBean.getMenuId());
         if (beans != null && beans.size() > 0) {
             String typeLabel = "";
@@ -128,6 +137,77 @@ public class DataAuthBeanServiceImpl extends ShiroGenericBizServiceImpl<IDataAut
     }
 
     @Override
+    public DataAuthBean getEntity(long entityId) {
+        DataAuthBean dataAuthBean = super.getEntity(entityId);
+        List<WebApplicationBean> list1= systemService.getApplicationList();
+        String appid = dataAuthBean.getAppId();
+        for(WebApplicationBean webbean:list1)
+        {
+            if(appid!=null&&!"".equals(appid))
+            {
+                if (appid.equals(webbean.getId()))
+                {
+                    dataAuthBean.setAppName(webbean.getText());
+
+                    List<ModuleBean> moduleBeanList=systemService.getModuleByApplication(appid);
+                    for (ModuleBean moduleBean:moduleBeanList)
+                    {
+                        List<MenuBean> menuBeanList= moduleBean.getChildren();
+                        for (MenuBean menuBean: menuBeanList)
+                        {
+                            if(dataAuthBean.getMenuId()!=null&&!"".equals(dataAuthBean.getMenuId()))
+                            {
+                                if (dataAuthBean.getMenuId().equals(menuBean.getId()))
+                                {
+                                    dataAuthBean.setMenuName(menuBean.getText());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return dataAuthBean;
+    }
+
+    @Override
+    public JsonData getAllEntityByQuery(QueryDTO queryDTO) {
+        JsonData jsonData = super.getAllEntityByQuery(queryDTO);
+        List<DataAuthBean> list = jsonData.getData();
+        List<WebApplicationBean> list1= systemService.getApplicationList();
+        for(DataAuthBean obj : list) {
+            String appid = obj.getAppId();
+            for(WebApplicationBean webbean:list1)
+            {
+                if(appid!=null&&!"".equals(appid))
+                {
+                    if (appid.equals(webbean.getId()))
+                    {
+                        obj.setAppName(webbean.getText());
+
+                        List<ModuleBean> moduleBeanList=systemService.getModuleByApplication(appid);
+                        for (ModuleBean moduleBean:moduleBeanList)
+                        {
+                            List<MenuBean> menuBeanList= moduleBean.getChildren();
+                            for (MenuBean menuBean: menuBeanList)
+                            {
+                                if(obj.getMenuId()!=null&&!"".equals(obj.getMenuId()))
+                                {
+                                    if (obj.getMenuId().equals(menuBean.getId()))
+                                    {
+                                        obj.setMenuName(menuBean.getText());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return jsonData;
+    }
+
+    @Override
     public DataAuthBean getDataAuthBean(Long userId, String appId, String menuId) {
         DataAuthBean result = null;
         /*List<DataAuthUserBean> dataAuthUserBeans = dataAuthUserBeanDao.getEntitiesByUserId(userId);
@@ -154,5 +234,9 @@ public class DataAuthBeanServiceImpl extends ShiroGenericBizServiceImpl<IDataAut
 
     public void setAdminDictBeanService(IAdminDictBeanService adminDictBeanService) {
         this.adminDictBeanService = adminDictBeanService;
+    }
+
+    public void setSystemService(ISystemService systemService) {
+        this.systemService = systemService;
     }
 }
