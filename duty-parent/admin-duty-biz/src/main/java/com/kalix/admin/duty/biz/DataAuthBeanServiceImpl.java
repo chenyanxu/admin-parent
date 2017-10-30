@@ -42,8 +42,8 @@ public class DataAuthBeanServiceImpl extends ShiroGenericBizServiceImpl<IDataAut
     public boolean isSave(DataAuthBean entity, JsonStatus status) {
         Assert.notNull(entity, "实体不能为空.");
         DataAuthBean dataAuthBean = (DataAuthBean) entity;
-        List<DataAuthBean> beans = dao.find("select ob from DataAuthBean ob where ob.appId = ?1 and ob.menuId = ?2",
-                dataAuthBean.getAppId(), dataAuthBean.getMenuId());
+        List<DataAuthBean> beans = dao.find("select ob from DataAuthBean ob where ob.appId = ?1 and ob.menuId = ?2  and ob.type =?3",
+                dataAuthBean.getAppId(), dataAuthBean.getMenuId(),dataAuthBean.getType());
         if (beans != null && beans.size() > 0) {
             String typeLabel = "";
             AdminDictBean adminDictBean = (AdminDictBean) adminDictBeanService.getByTypeAndValue("数据权限", entity.getType());
@@ -63,8 +63,8 @@ public class DataAuthBeanServiceImpl extends ShiroGenericBizServiceImpl<IDataAut
     public boolean isUpdate(DataAuthBean entity, JsonStatus status) {
         Assert.notNull(entity, "实体不能为空.");
         DataAuthBean dataAuthBean = (DataAuthBean) entity;
-        List<DataAuthBean> beans = dao.find("select ob from DataAuthBean ob where ob.id <> ?1 and ob.appId = ?2 and ob.menuId = ?3",
-                dataAuthBean.getId(), dataAuthBean.getAppId(), dataAuthBean.getMenuId());
+        List<DataAuthBean> beans = dao.find("select ob from DataAuthBean ob where ob.id <> ?1 and ob.appId = ?2 and ob.menuId = ?3 and ob.type =?3",
+                dataAuthBean.getId(), dataAuthBean.getAppId(), dataAuthBean.getMenuId(),dataAuthBean.getType());
         if (beans != null && beans.size() > 0) {
             String typeLabel = "";
             AdminDictBean adminDictBean = (AdminDictBean) adminDictBeanService.getByTypeAndValue("数据权限", entity.getType());
