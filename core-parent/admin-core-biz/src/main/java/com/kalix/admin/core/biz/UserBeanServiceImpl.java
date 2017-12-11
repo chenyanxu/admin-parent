@@ -16,10 +16,7 @@ import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.api.web.model.BaseDTO;
 import com.kalix.framework.core.api.web.model.QueryDTO;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
-import com.kalix.framework.core.util.Assert;
-import com.kalix.framework.core.util.HttpClientUtil;
-import com.kalix.framework.core.util.MD5Util;
-import com.kalix.framework.core.util.SerializeUtil;
+import com.kalix.framework.core.util.*;
 import org.apache.commons.lang.StringUtils;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
@@ -500,5 +497,26 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
             return true;
         }
         return false;
+    }
+
+    /**
+     * 在用户新建之后，设置用户的默认角色
+     * 根据config.admin.dict.cfg文件中，admin_default_roles的属性
+     *
+     * @param entity
+     * @param status
+     */
+    @Override
+    public void afterSaveEntity(UserBean entity, JsonStatus status) {
+        String roles = (String) ConfigUtil.getConfigProp("admin_default_roles", "config.admin.dict");
+        String[] roleList = roles.split(",");
+        for (String role : roleList) {
+            RoleBean roleBean = roleBeanDao.getRole(role);
+            RoleUserBean bean = new RoleUserBean();
+            bean.setRoleId(roleBean.getId());
+            bean.setUserId(entity.getId());
+            roleUserBeanDao.save(bean);
+        }
+        super.afterSaveEntity(entity, status);
     }
 }

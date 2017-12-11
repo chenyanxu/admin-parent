@@ -8,6 +8,7 @@ import javax.persistence.Table;
 
 /**
  * 机构实体类
+ *
  * @author majian <br/>
  *         date:2015-7-21
  * @version 1.0.0
@@ -19,7 +20,7 @@ public class OrganizationBean extends PersistentEntity {
     @Column(unique = true)
     private String code; //机构代码
     private String centerCode; //中心代码
-    private Long isLeaf; //是否是叶子节点
+    private Long isLeaf = 1L; //是否是叶子节点
     private Long parentId; //父机构
     private Long areaId;  // 归属区域
     private Boolean dept;//是否是部门

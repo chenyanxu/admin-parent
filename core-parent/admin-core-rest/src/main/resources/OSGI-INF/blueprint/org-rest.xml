@@ -45,6 +45,11 @@
                 <description>Find org by id</description>
                 <to uri="bean:orgService?method=getOrganizationDTO(${header.id})"/>
             </get>
+            <put id="route-update-Org" type="com.kalix.admin.core.entities.OrganizationBean"
+                 outType="com.kalix.framework.core.api.persistence.JsonStatus">
+                <description>Updates a org</description>
+                <to uri="bean:orgService?method=updateEntity"/>
+            </put>
             <!-- this is a rest DELETE to delete an org -->
             <delete id="route-deleteOrg" outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Delete a org</description>
