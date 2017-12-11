@@ -1,12 +1,11 @@
 package com.kalix.admin.core.entities;
 
-import com.kalix.framework.core.api.persistence.PersistentEntity;
 import com.kalix.framework.core.api.persistence.UserEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 
 /**
@@ -21,12 +20,12 @@ import java.util.Date;
 @Table(name = "sys_user")
 @ApiModel("用户<br>UserBean")
 public class UserBean extends UserEntity {
-    @ApiModelProperty(value="工号",position=0,example = "0")
-    private Long code;
-    @ApiModelProperty(value="岗位",position=1,example = "0")
-    private Integer position;
-    @ApiModelProperty(value="用户类型",position=2,example = "0")
+    @ApiModelProperty(value = "用户类型", example = "0")
     private Long userType;
+    @ApiModelProperty(value = "工号", example = "0")
+    private String code;
+    @ApiModelProperty(value = "岗位", example = "0")
+    private Integer position;
 //    @ApiModelProperty(value="性别（男 女）",allowableValues = "男,女",position=2,example = "男")
 //    private String sex;
 //    @ApiModelProperty(value="登录名",position=3,example = "test_login")
@@ -138,11 +137,11 @@ public class UserBean extends UserEntity {
 //        this.sex = sex;
 //    }
 //
-    public Long getCode() {
+public String getCode() {
         return code;
     }
 
-    public void setCode(Long code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
