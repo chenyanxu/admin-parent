@@ -27,11 +27,11 @@ public class UserDTO extends BaseDTO {
     private String role; // 角色
     private String workGroup; // 工作组
     private String sex; //性别
-    private Long code; //工号
+    private String code; //工号
     private String icon; //头像
     private String abridge; //中文名字缩写
     private String fullName; //中文名字全拼
-    private String userType;
+    private Long userType;
 
     public String getLoginName() {
         return loginName;
@@ -141,11 +141,11 @@ public class UserDTO extends BaseDTO {
         this.workGroup = workGroup;
     }
 
-    public Long getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Long code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -181,11 +181,11 @@ public class UserDTO extends BaseDTO {
         this.fullName = fullName;
     }
 
-    public String getUserType() {
+    public Long getUserType() {
         return userType;
     }
 
-    public void setUserType(String userType) {
+    public void setUserType(Long userType) {
         this.userType = userType;
     }
 }
