@@ -243,7 +243,7 @@ public class AreaBeanServiceImpl extends ShiroGenericBizServiceImpl<IAreaBeanDao
 //        List<DepartmentBean> departmentBeans=depBeanDao.find("select d from DepartmentBean d where d.id=?1",depId);
 //        Assert.notEmpty(departmentBeans,"当前用户所属部门不能为空.");
         AreaDTO root=new AreaDTO();
-        root.setId(-1);
+        root.setId(-1L);
         List<AreaBean> beans = dao.getAll();
         if(beans!=null&&beans.size()>0){
             List<AreaBean> rootElements = getRootElements(beans);

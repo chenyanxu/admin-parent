@@ -16,7 +16,6 @@ import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
 import com.kalix.framework.core.util.ConfigUtil;
-import com.kalix.framework.core.util.StringUtils;
 import com.kalix.framework.osgi.api.IBundleService;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
@@ -118,7 +117,7 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
     @Override
     public ApplicationDTO getTreesByAllApplications() {
         ApplicationDTO root=new ApplicationDTO();
-        root.setId(-1);
+        root.setId(-1L);
         //List<ApplicationBean> beans = dao.getAll();
         List<ApplicationBean> beans=getApplicationsFromConfig().getData();
 
@@ -140,7 +139,7 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
     @Override
     public AuthorizationDTO getAuthorizationTree() {
         AuthorizationDTO root=new AuthorizationDTO();
-        root.setId(-1);
+        root.setId(-1L);
         List<ApplicationBean> beans = dao.getAll();
         if(beans!=null&&beans.size()>0){
             if(beans!=null&&beans.size()>0) {

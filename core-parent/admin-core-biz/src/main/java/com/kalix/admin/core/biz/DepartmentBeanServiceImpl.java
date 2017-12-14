@@ -187,7 +187,7 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
     public DepartmentDTO getAll() {
         List<DepartmentBean> beans = dao.getAll();
         DepartmentDTO root=new DepartmentDTO();
-        root.setId(-1);
+        root.setId(-1L);
         if(beans!=null&&beans.size()>0){
             List<DepartmentBean> rootElements = getRootElements(beans);
             if(rootElements!=null&&rootElements.size()>0) {
@@ -207,7 +207,7 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
     public DepartmentDTO getAllByOrgId(Long orgId) {
         List<DepartmentBean> beans = dao.find("select ob from DepartmentBean ob where ob.orgId = ?1", orgId);
         DepartmentDTO root=new DepartmentDTO();
-        root.setId(-1);
+        root.setId(-1L);
         if(beans!=null&&beans.size()>0){
             List<DepartmentBean> rootElements = getRootElements(beans);
             if(rootElements!=null&&rootElements.size()>0) {

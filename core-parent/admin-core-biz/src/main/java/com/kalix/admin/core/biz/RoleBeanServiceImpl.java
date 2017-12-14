@@ -456,7 +456,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
     @Override
     public AuthorizationDTO getAuthorizationTree(long roleId) {
         AuthorizationDTO root = new AuthorizationDTO();
-        root.setId(-1);
+        root.setId(-1L);
         root.setName(parentName);
         List<ApplicationBean> beans = applicationBeanDao.getAll();
         if (beans != null && beans.size() > 0) {

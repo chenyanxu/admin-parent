@@ -260,7 +260,7 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
     public FunctionDTO getAllByApplicationId(long id) {
         List<FunctionBean> beans = dao.find("select ob from FunctionBean ob where ob.applicationId = ?1", id);
         FunctionDTO root=new FunctionDTO();
-        root.setId(-1);
+        root.setId(-1L);
         if(beans!=null&&beans.size()>0){
             List<FunctionBean> rootElements = getRootElements(beans);
             if(rootElements!=null&&rootElements.size()>0) {
