@@ -238,28 +238,42 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
     private void getChilden(OrganizationDTO root, List<OrganizationBean> elements, Mapper mapper, boolean isRecursion) {
         List<OrganizationDTO> children = new ArrayList<>();
 
-        elements.stream().filter(n -> root.getId() != -1 && (root.getId() == n.getParentId()))
+        elements.stream().filter(n -> !root.getId().equals(-1L) && (root.getId().equals(n.getParentId())))
                 .forEach(n -> {
                     OrganizationDTO organizationDTO = mapper.map(n, OrganizationDTO.class);
-                    organizationDTO.setLeaf(n.getIsLeaf() != 0);
+                    organizationDTO.setLeaf(!n.getIsLeaf().equals(0L));
                     organizationDTO.setParentName(root.getName());
                     organizationDTO.setText(n.getName());
                     children.add(organizationDTO);
 
-                    if (isRecursion && n.getIsLeaf() == 0) {
+                    if (isRecursion && n.getIsLeaf().equals(0L)) {
                         getChilden(organizationDTO, elements, mapper, isRecursion);
                     }
                 });
+        /*for (OrganizationBean obj: elements) {
+            if (obj.getId() != -1 && (root.getId() == obj.getParentId())) {
+                OrganizationDTO organizationDTO = mapper.map(obj, OrganizationDTO.class);
+                organizationDTO.setLeaf(obj.getIsLeaf() != 0);
+                organizationDTO.setParentName(root.getName());
+                organizationDTO.setText(obj.getName());
+                children.add(organizationDTO);
+
+                if (isRecursion && obj.getIsLeaf() == 0) {
+                    getChilden(organizationDTO, elements, mapper, isRecursion);
+                }
+            }
+        }*/
+
         root.setChildren(children);
     }
 
     private void getChilden(OrganizationDTO root, List<OrganizationBean> elements, Mapper mapper) {
         List<OrganizationDTO> children = new ArrayList<>();
 
-        elements.stream().filter(n -> root.getId() == n.getParentId())
+        elements.stream().filter(n -> root.getId().equals(n.getParentId()))
                 .forEach(n -> {
                     OrganizationDTO organizationDTO = mapper.map(n, OrganizationDTO.class);
-                    organizationDTO.setLeaf(n.getIsLeaf() != 0);
+                    organizationDTO.setLeaf(!n.getIsLeaf().equals(0L));
                     organizationDTO.setParentName(root.getName());
                     organizationDTO.setText(n.getName());
                     children.add(organizationDTO);
@@ -327,7 +341,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
     @Override
     public List getUserIdsByOrganizationId(long id) {
         return organizationUserDao.findByOrgId(id).stream()
-                .filter(n -> n.getUserId() != 0)
+                .filter(n -> !n.getUserId().equals(0L))
                 .map(OrganizationUserBean::getUserId)
                 .distinct()
                 .collect(Collectors.toList());
@@ -337,7 +351,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
     public JsonData getOrganizationUsers(long orgId) {
         JsonData jsonData = new JsonData();
         List list = userDao.findByUserId(organizationUserDao.findParentAndBrotherByOrgId(orgId).stream()
-                .filter(n -> n.getUserId() != 0)
+                .filter(n -> !n.getUserId().equals(0L))
                 .map(OrganizationUserBean::getUserId)
                 .distinct().collect(Collectors.toList()), true);
 
