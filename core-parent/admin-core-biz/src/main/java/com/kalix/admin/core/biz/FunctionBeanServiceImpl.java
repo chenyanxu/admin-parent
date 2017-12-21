@@ -177,13 +177,13 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
         List<FunctionDTO> children = new ArrayList<FunctionDTO>();
 
         for (FunctionBean functionBean : elements) {
-            if (root.getId() != -1 && (root.getId() == functionBean.getParentId())) {
+            if (!root.getId().equals(-1L) && (root.getId().equals(functionBean.getParentId()))) {
                 FunctionDTO functionDTO = mapper.map(functionBean, FunctionDTO.class);
-                functionDTO.setLeaf(functionBean.getIsLeaf() == 0 ? false : true);
+                functionDTO.setLeaf(functionBean.getIsLeaf().equals(0L) ? false : true);
                 functionDTO.setParentName(root.getName());
                 functionDTO.setText(functionBean.getName());
                 children.add(functionDTO);
-                if(functionBean.getIsLeaf()==0) {
+                if (functionBean.getIsLeaf().equals(0L)) {
                     getChilden(functionDTO, elements, mapper);
                 }
             }
@@ -267,7 +267,7 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
                 for(FunctionBean rootElement:rootElements){
                     Mapper mapper = new DozerBeanMapper();
                     FunctionDTO functionDTO = mapper.map(rootElement, FunctionDTO.class);
-                    functionDTO.setLeaf(rootElement.getIsLeaf() == 0 ? false : true);
+                    functionDTO.setLeaf(rootElement.getIsLeaf().equals(0L) ? false : true);
                     functionDTO.setParentName("根功能");
                     functionDTO.setText(rootElement.getName());
                     getChilden(functionDTO, beans, mapper);
@@ -285,7 +285,7 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
     public List<FunctionBean> getRootElements(List<FunctionBean> elements) {
         List<FunctionBean> roots=new ArrayList<FunctionBean>();
         for (FunctionBean element : elements) {
-            if (element.getParentId() == -1) {
+            if (element.getParentId().equals(-1L)) {
                 roots.add(element);
             }
         }
