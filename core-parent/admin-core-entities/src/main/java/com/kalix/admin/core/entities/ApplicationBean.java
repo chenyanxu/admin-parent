@@ -28,6 +28,7 @@ public class ApplicationBean extends PersistentEntity {
     private String location; //地址
     private String iconCls; // 应用图标
     private Boolean supportMobile; //是否支持手机应用
+    private Boolean active; //是否运行
 
     public String getName() {
         return name;
@@ -75,6 +76,14 @@ public class ApplicationBean extends PersistentEntity {
 
     public void setSupportMobile(Boolean supportMobile) {
         this.supportMobile = supportMobile;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public ApplicationBean() {

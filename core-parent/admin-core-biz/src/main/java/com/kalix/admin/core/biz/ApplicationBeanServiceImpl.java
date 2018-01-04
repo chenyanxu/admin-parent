@@ -25,6 +25,7 @@ import java.util.List;
 
 /**
  * 应用服务实现
+ *
  * @author majian <br/>
  *         date:2015-7-27
  * @version 1.0.0
@@ -56,13 +57,13 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
 
     @Override
     public void afterUpdateEntity(ApplicationBean entity, JsonStatus status) {
-        ApplicationBean applicationBean=(ApplicationBean)entity;
-        List<FunctionBean> functionBeans=functionBeanDao.find("select fb from FunctionBean fb where fb.applicationId=?1",entity.getId());
-        if(functionBeans!=null&&!functionBeans.isEmpty()){
-            for(FunctionBean functionBean:functionBeans){
-                if(functionBean.getPermission()!=null&&functionBean.getPermission().indexOf(":")!=-1){
+        ApplicationBean applicationBean = (ApplicationBean) entity;
+        List<FunctionBean> functionBeans = functionBeanDao.find("select fb from FunctionBean fb where fb.applicationId=?1", entity.getId());
+        if (functionBeans != null && !functionBeans.isEmpty()) {
+            for (FunctionBean functionBean : functionBeans) {
+                if (functionBean.getPermission() != null && functionBean.getPermission().indexOf(":") != -1) {
                     //更新应用时,将应用代码再更新到各个功能的permission中
-                    functionBean.setPermission(applicationBean.getCode()+functionBean.getPermission().substring(functionBean.getPermission().indexOf(":"),functionBean.getPermission().length()));
+                    functionBean.setPermission(applicationBean.getCode() + functionBean.getPermission().substring(functionBean.getPermission().indexOf(":"), functionBean.getPermission().length()));
                     functionBeanDao.save(functionBean);
                 }
             }
@@ -72,20 +73,20 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
     @Override
     public boolean isUpdate(ApplicationBean entity, JsonStatus status) {
         Assert.notNull(entity, "实体不能为空.");
-        ApplicationBean bean=(ApplicationBean)entity;
+        ApplicationBean bean = (ApplicationBean) entity;
         List<ApplicationBean> beans = dao.find("select ob from ApplicationBean ob where ob.name = ?1", bean.getName());
-        if(beans!=null&&beans.size()>0){
-            ApplicationBean applicationBean=beans.get(0);
-            if(applicationBean.getId()!=entity.getId()) {
+        if (beans != null && beans.size() > 0) {
+            ApplicationBean applicationBean = beans.get(0);
+            if (applicationBean.getId() != entity.getId()) {
                 status.setFailure(true);
                 status.setMsg(FUNCTION_NAME + "已经存在,请检查名称！");
                 return false;
             }
         }
         beans = dao.find("select ob from ApplicationBean ob where ob.code = ?1", bean.getCode());
-        if(beans!=null&&beans.size()>0){
-            ApplicationBean applicationBean=beans.get(0);
-            if(applicationBean.getId()!=entity.getId()) {
+        if (beans != null && beans.size() > 0) {
+            ApplicationBean applicationBean = beans.get(0);
+            if (applicationBean.getId() != entity.getId()) {
                 status.setFailure(true);
                 status.setMsg(FUNCTION_NAME + "已经存在,请检查代码！");
                 return false;
@@ -97,15 +98,15 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
     @Override
     public boolean isSave(ApplicationBean entity, JsonStatus status) {
         Assert.notNull(entity, "实体不能为空.");
-        ApplicationBean bean=(ApplicationBean)entity;
+        ApplicationBean bean = (ApplicationBean) entity;
         List<ApplicationBean> beans = dao.find("select ob from ApplicationBean ob where ob.name = ?1 ", bean.getName());
-        if(beans!=null&&beans.size()>0){
+        if (beans != null && beans.size() > 0) {
             status.setFailure(true);
             status.setMsg(FUNCTION_NAME + "已经存在,请检查名称！");
             return false;
         }
         beans = dao.find("select ob from ApplicationBean ob where ob.code = ?1 ", bean.getCode());
-        if(beans!=null&&beans.size()>0){
+        if (beans != null && beans.size() > 0) {
             status.setFailure(true);
             status.setMsg(FUNCTION_NAME + "已经存在,请检查代码！");
             return false;
@@ -116,14 +117,14 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
 
     @Override
     public ApplicationDTO getTreesByAllApplications() {
-        ApplicationDTO root=new ApplicationDTO();
+        ApplicationDTO root = new ApplicationDTO();
         root.setId(-1L);
         //List<ApplicationBean> beans = dao.getAll();
-        List<ApplicationBean> beans=getApplicationsFromConfig().getData();
+        List<ApplicationBean> beans = getApplicationsFromConfig().getData();
 
-        if(beans!=null&&beans.size()>0){
-            if(beans!=null&&beans.size()>0) {
-                for(ApplicationBean applicationBean:beans){
+        if (beans != null && beans.size() > 0) {
+            if (beans != null && beans.size() > 0) {
+                for (ApplicationBean applicationBean : beans) {
                     Mapper mapper = new DozerBeanMapper();
                     ApplicationDTO applicationDTO = mapper.map(applicationBean, ApplicationDTO.class);
                     applicationDTO.setLeaf(true);
@@ -138,27 +139,27 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
 
     @Override
     public AuthorizationDTO getAuthorizationTree() {
-        AuthorizationDTO root=new AuthorizationDTO();
+        AuthorizationDTO root = new AuthorizationDTO();
         root.setId(-1L);
         List<ApplicationBean> beans = dao.getAll();
-        if(beans!=null&&beans.size()>0){
-            if(beans!=null&&beans.size()>0) {
-                for(ApplicationBean applicationBean:beans){
-                    Assert.notNull(applicationBean,"应用不能为空");
+        if (beans != null && beans.size() > 0) {
+            if (beans != null && beans.size() > 0) {
+                for (ApplicationBean applicationBean : beans) {
+                    Assert.notNull(applicationBean, "应用不能为空");
                     Mapper mapper = new DozerBeanMapper();
                     AuthorizationDTO applicationDTO = mapper.map(applicationBean, AuthorizationDTO.class);
                     applicationDTO.setParentId(-1L);
                     applicationDTO.setLeaf(true);
                     applicationDTO.setChecked(true);
                     applicationDTO.setExpanded(true);
-                    List<FunctionBean> functionBeans=functionBeanDao.find("select ob from FunctionBean ob where ob.applicationId = ?1", applicationBean.getId());
-                    if(functionBeans!=null&&functionBeans.size()>0) {
+                    List<FunctionBean> functionBeans = functionBeanDao.find("select ob from FunctionBean ob where ob.applicationId = ?1", applicationBean.getId());
+                    if (functionBeans != null && functionBeans.size() > 0) {
                         applicationDTO.setChecked(true);
                         applicationDTO.setLeaf(false);
                         //返回该应用下所有根功能
-                        List<FunctionBean> rootFunctions=functionBeanService.getRootElements(functionBeans);
-                        if(rootFunctions!=null&&rootFunctions.size()>0){
-                            for(FunctionBean functionBean:rootFunctions) {
+                        List<FunctionBean> rootFunctions = functionBeanService.getRootElements(functionBeans);
+                        if (rootFunctions != null && rootFunctions.size() > 0) {
+                            for (FunctionBean functionBean : rootFunctions) {
                                 AuthorizationDTO functionDTO = mapper.map(functionBean, AuthorizationDTO.class);
                                 functionDTO.setParentId(applicationBean.getId());
                                 functionDTO.setLeaf(functionBean.getIsLeaf() == 0 ? false : true);
@@ -179,32 +180,37 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
     }
 
     @Override
-    public JsonData getApplicationsFromConfig(){
-        List<Bundle> bundles=this.bundleService.getBundleList("Bundle-Classifier:IApplication");
-        JsonData jsonData=new JsonData();
+    public JsonData getApplicationsFromConfig() {
+        List<Bundle> bundles = this.bundleService.getBundleList("Bundle-Classifier:IApplication");
+        JsonData jsonData = new JsonData();
 
         for (Bundle bundle : bundles) {
             //String category=bundle.getHeaders().get("Bundle-Category").toString();
-            String appName=bundle.getHeaders().get("Bundle-ApplicationId").toString();
+            String appName = bundle.getHeaders().get("Bundle-ApplicationId").toString();
             //if (category!=null) {
-            if(appName!=null) {
+            if (appName != null) {
                 //String[] categorySplit=category.split(" ");
 
                 //if(categorySplit.length==3){
-                    String configName="config."+ appName+".app";
-                    String code= ConfigUtil.getConfigProp("APPLICATION_APP_ID",configName).toString();
-                    String text=ConfigUtil.getConfigProp("APPLICATION_APP_TEXT",configName).toString();
-                    String iconCls=ConfigUtil.getConfigProp("APPLICATION_APP_ICONCLS",configName).toString();
-                    String db_id = ConfigUtil.getConfigProp("APPLICATION_APP_DB_ID", configName).toString();
+                String configName = "config." + appName + ".app";
+                String code = ConfigUtil.getConfigProp("APPLICATION_APP_ID", configName).toString();
+                String text = ConfigUtil.getConfigProp("APPLICATION_APP_TEXT", configName).toString();
+                String iconCls = ConfigUtil.getConfigProp("APPLICATION_APP_ICONCLS", configName).toString();
+                String db_id = ConfigUtil.getConfigProp("APPLICATION_APP_DB_ID", configName).toString();
 
-                    ApplicationBean appBean=new ApplicationBean();
+                ApplicationBean appBean = new ApplicationBean();
 
-                    appBean.setId(Long.parseLong(db_id));
-                    appBean.setCode(code);
-                    appBean.setName(text);
-                    appBean.setIconCls(iconCls);
+                appBean.setId(Long.parseLong(db_id));
+                appBean.setCode(code);
+                appBean.setName(text);
+                appBean.setIconCls(iconCls);
+                if (bundle.getState() == Bundle.ACTIVE) {
+                    appBean.setActive(true);
+                } else {
+                    appBean.setActive(false);
+                }
 
-                    jsonData.getData().add(appBean);
+                jsonData.getData().add(appBean);
                 //}
             }
         }
