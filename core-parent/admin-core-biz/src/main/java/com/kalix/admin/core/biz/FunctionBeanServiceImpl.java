@@ -227,19 +227,19 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
     public void getChilden(AuthorizationDTO root, List<FunctionBean> elements, Mapper mapper, List<RoleFunctionBean> roleFunctionBeans, boolean defaultChecked) {
         List<AuthorizationDTO> children = new ArrayList<>();
 
-        elements.stream().filter(func -> root.getId() != -1 && func.getParentId() == root.getId())
+        elements.stream().filter(func -> !root.getId().equals(-1L) && func.getParentId().equals(root.getId()))
                 .forEach(func -> {
                     AuthorizationDTO functionDTO = mapper.map(func, AuthorizationDTO.class);
-                    functionDTO.setLeaf(func.getIsLeaf() != 0);
+                    functionDTO.setLeaf(!func.getIsLeaf().equals(0L));
                     functionDTO.setParentName(root.getName());
                     functionDTO.setChecked(defaultChecked);
                     functionDTO.setExpanded(true);
                     functionDTO.setText(func.getName());
                     if (roleFunctionBeans != null) {
-                        roleFunctionBeans.stream().filter(self -> self.getFunctionId() == func.getId())
+                        roleFunctionBeans.stream().filter(self -> self.getFunctionId().equals(func.getId()))
                                 .forEach(self -> functionDTO.setChecked(true));
                     }
-                    if (func.getIsLeaf() == 0) {
+                    if (func.getIsLeaf().equals(0L)) {
                         getChilden(functionDTO, elements, mapper,roleFunctionBeans, defaultChecked);
                     }
 
