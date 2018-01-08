@@ -28,5 +28,5 @@ public interface IApplicationBeanService extends IBizService<ApplicationBean> {
     /**
      * 从配置文件读取应用
      */
-    JsonData getApplicationsFromConfig();
+    JsonData getApplicationsFromConfig(String jsonStr);
 }

@@ -16,12 +16,14 @@ import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
 import com.kalix.framework.core.util.ConfigUtil;
+import com.kalix.framework.core.util.SerializeUtil;
 import com.kalix.framework.osgi.api.IBundleService;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.osgi.framework.Bundle;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 应用服务实现
@@ -120,7 +122,7 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
         ApplicationDTO root = new ApplicationDTO();
         root.setId(-1L);
         //List<ApplicationBean> beans = dao.getAll();
-        List<ApplicationBean> beans = getApplicationsFromConfig().getData();
+        List<ApplicationBean> beans = getApplicationsFromConfig(null).getData();
 
         if (beans != null && beans.size() > 0) {
             if (beans != null && beans.size() > 0) {
@@ -180,7 +182,13 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
     }
 
     @Override
-    public JsonData getApplicationsFromConfig() {
+    public JsonData getApplicationsFromConfig(String jsonStr) {
+        Map<String, String> jsonMap = null;
+        String filterName = "";
+        if (jsonStr != null && !jsonStr.isEmpty()) {
+            jsonMap = SerializeUtil.json2Map(jsonStr);
+            filterName = jsonMap.get("%name%");
+        }
         List<Bundle> bundles = this.bundleService.getBundleList("Bundle-Classifier:IApplication");
         JsonData jsonData = new JsonData();
 
@@ -190,7 +198,6 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
             //if (category!=null) {
             if (appName != null) {
                 //String[] categorySplit=category.split(" ");
-
                 //if(categorySplit.length==3){
                 String configName = "config." + appName + ".app";
                 String code = ConfigUtil.getConfigProp("APPLICATION_APP_ID", configName).toString();
@@ -198,25 +205,33 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
                 String iconCls = ConfigUtil.getConfigProp("APPLICATION_APP_ICONCLS", configName).toString();
                 String db_id = ConfigUtil.getConfigProp("APPLICATION_APP_DB_ID", configName).toString();
 
-                ApplicationBean appBean = new ApplicationBean();
-
-                appBean.setId(Long.parseLong(db_id));
-                appBean.setCode(code);
-                appBean.setName(text);
-                appBean.setIconCls(iconCls);
-                if (bundle.getState() == Bundle.ACTIVE) {
-                    appBean.setActive(true);
+                if (filterName != null && !filterName.isEmpty()) {
+                    if (text.contains(filterName)) {
+                        jsonData = makeAppBean(bundle, jsonData, db_id, code, text, iconCls);
+                    }
                 } else {
-                    appBean.setActive(false);
+                    jsonData = makeAppBean(bundle, jsonData, db_id, code, text, iconCls);
                 }
-
-                jsonData.getData().add(appBean);
-                //}
             }
         }
 
         jsonData.setTotalCount((long) jsonData.getData().size());
 
+        return jsonData;
+    }
+
+    private JsonData makeAppBean(Bundle bundle, JsonData jsonData, String db_id, String code, String text, String iconCls) {
+        ApplicationBean appBean = new ApplicationBean();
+        appBean.setId(Long.parseLong(db_id));
+        appBean.setCode(code);
+        appBean.setName(text);
+        appBean.setIconCls(iconCls);
+        if (bundle.getState() == Bundle.ACTIVE) {
+            appBean.setActive(true);
+        } else {
+            appBean.setActive(false);
+        }
+        jsonData.getData().add(appBean);
         return jsonData;
     }
 
