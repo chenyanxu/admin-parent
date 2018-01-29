@@ -177,13 +177,13 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
         List<FunctionDTO> children = new ArrayList<FunctionDTO>();
 
         for (FunctionBean functionBean : elements) {
-            if (root.getId() != -1 && (root.getId() == functionBean.getParentId())) {
+            if (!root.getId().equals(-1L) && (root.getId().equals(functionBean.getParentId()))) {
                 FunctionDTO functionDTO = mapper.map(functionBean, FunctionDTO.class);
-                functionDTO.setLeaf(functionBean.getIsLeaf() == 0 ? false : true);
+                functionDTO.setLeaf(functionBean.getIsLeaf().equals(0L) ? false : true);
                 functionDTO.setParentName(root.getName());
                 functionDTO.setText(functionBean.getName());
                 children.add(functionDTO);
-                if(functionBean.getIsLeaf()==0) {
+                if (functionBean.getIsLeaf().equals(0L)) {
                     getChilden(functionDTO, elements, mapper);
                 }
             }
@@ -227,19 +227,19 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
     public void getChilden(AuthorizationDTO root, List<FunctionBean> elements, Mapper mapper, List<RoleFunctionBean> roleFunctionBeans, boolean defaultChecked) {
         List<AuthorizationDTO> children = new ArrayList<>();
 
-        elements.stream().filter(func -> root.getId() != -1 && func.getParentId() == root.getId())
+        elements.stream().filter(func -> !root.getId().equals(-1L) && func.getParentId().equals(root.getId()))
                 .forEach(func -> {
                     AuthorizationDTO functionDTO = mapper.map(func, AuthorizationDTO.class);
-                    functionDTO.setLeaf(func.getIsLeaf() != 0);
+                    functionDTO.setLeaf(!func.getIsLeaf().equals(0L));
                     functionDTO.setParentName(root.getName());
                     functionDTO.setChecked(defaultChecked);
                     functionDTO.setExpanded(true);
                     functionDTO.setText(func.getName());
                     if (roleFunctionBeans != null) {
-                        roleFunctionBeans.stream().filter(self -> self.getFunctionId() == func.getId())
+                        roleFunctionBeans.stream().filter(self -> self.getFunctionId().equals(func.getId()))
                                 .forEach(self -> functionDTO.setChecked(true));
                     }
-                    if (func.getIsLeaf() == 0) {
+                    if (func.getIsLeaf().equals(0L)) {
                         getChilden(functionDTO, elements, mapper,roleFunctionBeans, defaultChecked);
                     }
 
@@ -267,7 +267,7 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
                 for(FunctionBean rootElement:rootElements){
                     Mapper mapper = new DozerBeanMapper();
                     FunctionDTO functionDTO = mapper.map(rootElement, FunctionDTO.class);
-                    functionDTO.setLeaf(rootElement.getIsLeaf() == 0 ? false : true);
+                    functionDTO.setLeaf(rootElement.getIsLeaf().equals(0L) ? false : true);
                     functionDTO.setParentName("根功能");
                     functionDTO.setText(rootElement.getName());
                     getChilden(functionDTO, beans, mapper);
@@ -285,7 +285,7 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
     public List<FunctionBean> getRootElements(List<FunctionBean> elements) {
         List<FunctionBean> roots=new ArrayList<FunctionBean>();
         for (FunctionBean element : elements) {
-            if (element.getParentId() == -1) {
+            if (element.getParentId().equals(-1L)) {
                 roots.add(element);
             }
         }

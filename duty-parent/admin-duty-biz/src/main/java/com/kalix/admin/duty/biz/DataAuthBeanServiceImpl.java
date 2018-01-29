@@ -1,7 +1,5 @@
 package com.kalix.admin.duty.biz;
 
-import com.kalix.admin.core.api.biz.IAdminDictBeanService;
-import com.kalix.admin.core.entities.AdminDictBean;
 import com.kalix.admin.duty.api.biz.IDataAuthBeanService;
 import com.kalix.admin.duty.api.dao.IDataAuthBeanDao;
 import com.kalix.admin.duty.api.dao.IDataAuthUserBeanDao;
@@ -20,9 +18,7 @@ import org.apache.commons.lang.StringUtils;
 
 import javax.transaction.Transactional;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @类描述：
@@ -35,24 +31,25 @@ import java.util.Map;
 public class DataAuthBeanServiceImpl extends ShiroGenericBizServiceImpl<IDataAuthBeanDao, DataAuthBean> implements IDataAuthBeanService {
     private static final String FUNCTION_NAME = "数据权限";
     private IDataAuthUserBeanDao dataAuthUserBeanDao;
-    private IAdminDictBeanService adminDictBeanService;
     private ISystemService systemService;
 
     @Override
     public boolean isSave(DataAuthBean entity, JsonStatus status) {
         Assert.notNull(entity, "实体不能为空.");
         DataAuthBean dataAuthBean = (DataAuthBean) entity;
-        List<DataAuthBean> beans = dao.find("select ob from DataAuthBean ob where ob.appId = ?1 and ob.menuId = ?2  and ob.type =?3",
-                dataAuthBean.getAppId(), dataAuthBean.getMenuId(),dataAuthBean.getType());
+        List<DataAuthBean> beans = dao.find("select ob from DataAuthBean ob where ob.appId = ?1 and ob.menuId = ?2",
+                dataAuthBean.getAppId(), dataAuthBean.getMenuId());
         if (beans != null && beans.size() > 0) {
-            String typeLabel = "";
+            /*String typeLabel = "";
             AdminDictBean adminDictBean = (AdminDictBean) adminDictBeanService.getByTypeAndValue("数据权限", entity.getType());
             if (adminDictBean != null && adminDictBean.getLabel() != null) {
                 typeLabel = adminDictBean.getLabel();
-            }
+            }*/
+            List<WebApplicationBean> webApplicationBeanList = systemService.getApplicationList();
+            this.translateEntity(webApplicationBeanList, entity);
             status.setSuccess(false);
             String info = "新增失败,应用[" + entity.getAppName() + "]下菜单[" + entity.getMenuName() + "]下" +
-                    FUNCTION_NAME + "[" + typeLabel + "]已经存在!";
+                    FUNCTION_NAME + "已经存在!";
             status.setMsg(info);
             return false;
         }
@@ -63,17 +60,19 @@ public class DataAuthBeanServiceImpl extends ShiroGenericBizServiceImpl<IDataAut
     public boolean isUpdate(DataAuthBean entity, JsonStatus status) {
         Assert.notNull(entity, "实体不能为空.");
         DataAuthBean dataAuthBean = (DataAuthBean) entity;
-        List<DataAuthBean> beans = dao.find("select ob from DataAuthBean ob where ob.id <> ?1 and ob.appId = ?2 and ob.menuId = ?3 and ob.type =?3",
-                dataAuthBean.getId(), dataAuthBean.getAppId(), dataAuthBean.getMenuId(),dataAuthBean.getType());
+        List<DataAuthBean> beans = dao.find("select ob from DataAuthBean ob where ob.id <> ?1 and ob.appId = ?2 and ob.menuId = ?3",
+                dataAuthBean.getId(), dataAuthBean.getAppId(), dataAuthBean.getMenuId());
         if (beans != null && beans.size() > 0) {
-            String typeLabel = "";
+            /*String typeLabel = "";
             AdminDictBean adminDictBean = (AdminDictBean) adminDictBeanService.getByTypeAndValue("数据权限", entity.getType());
             if (adminDictBean != null && adminDictBean.getLabel() != null) {
                 typeLabel = adminDictBean.getLabel();
-            }
+            }*/
+            List<WebApplicationBean> webApplicationBeanList = systemService.getApplicationList();
+            this.translateEntity(webApplicationBeanList, entity);
             status.setSuccess(false);
             String info = "更新失败,应用[" + entity.getAppName() + "]下菜单[" + entity.getMenuName() + "]下" +
-                    FUNCTION_NAME + "[" + typeLabel + "]已经存在！";
+                    FUNCTION_NAME + "已经存在！";
             status.setMsg(info);
             return false;
         }
@@ -139,34 +138,8 @@ public class DataAuthBeanServiceImpl extends ShiroGenericBizServiceImpl<IDataAut
     @Override
     public DataAuthBean getEntity(long entityId) {
         DataAuthBean dataAuthBean = super.getEntity(entityId);
-        List<WebApplicationBean> list1= systemService.getApplicationList();
-        String appid = dataAuthBean.getAppId();
-        for(WebApplicationBean webbean:list1)
-        {
-            if(appid!=null&&!"".equals(appid))
-            {
-                if (appid.equals(webbean.getId()))
-                {
-                    dataAuthBean.setAppName(webbean.getText());
-
-                    List<ModuleBean> moduleBeanList=systemService.getModuleByApplication(appid);
-                    for (ModuleBean moduleBean:moduleBeanList)
-                    {
-                        List<MenuBean> menuBeanList= moduleBean.getChildren();
-                        for (MenuBean menuBean: menuBeanList)
-                        {
-                            if(dataAuthBean.getMenuId()!=null&&!"".equals(dataAuthBean.getMenuId()))
-                            {
-                                if (dataAuthBean.getMenuId().equals(menuBean.getId()))
-                                {
-                                    dataAuthBean.setMenuName(menuBean.getText());
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        List<WebApplicationBean> webApplicationBeanList = systemService.getApplicationList();
+        this.translateEntity(webApplicationBeanList, dataAuthBean);
         return dataAuthBean;
     }
 
@@ -174,35 +147,9 @@ public class DataAuthBeanServiceImpl extends ShiroGenericBizServiceImpl<IDataAut
     public JsonData getAllEntityByQuery(QueryDTO queryDTO) {
         JsonData jsonData = super.getAllEntityByQuery(queryDTO);
         List<DataAuthBean> list = jsonData.getData();
-        List<WebApplicationBean> list1= systemService.getApplicationList();
-        for(DataAuthBean obj : list) {
-            String appid = obj.getAppId();
-            for(WebApplicationBean webbean:list1)
-            {
-                if(appid!=null&&!"".equals(appid))
-                {
-                    if (appid.equals(webbean.getId()))
-                    {
-                        obj.setAppName(webbean.getText());
-
-                        List<ModuleBean> moduleBeanList=systemService.getModuleByApplication(appid);
-                        for (ModuleBean moduleBean:moduleBeanList)
-                        {
-                            List<MenuBean> menuBeanList= moduleBean.getChildren();
-                            for (MenuBean menuBean: menuBeanList)
-                            {
-                                if(obj.getMenuId()!=null&&!"".equals(obj.getMenuId()))
-                                {
-                                    if (obj.getMenuId().equals(menuBean.getId()))
-                                    {
-                                        obj.setMenuName(menuBean.getText());
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+        List<WebApplicationBean> webApplicationBeanList = systemService.getApplicationList();
+        for (DataAuthBean obj : list) {
+            this.translateEntity(webApplicationBeanList, obj);
         }
         return jsonData;
     }
@@ -221,19 +168,36 @@ public class DataAuthBeanServiceImpl extends ShiroGenericBizServiceImpl<IDataAut
             }
         }*/
         List<DataAuthBean> dataAuthBeans = this.dao.find("select d from DataAuthBean d, DataAuthUserBean u " +
-                "where d.id = u.dataAuthId and u.userId = ?1 and d.appId = ?2", userId, appId);
+                "where d.id = u.dataAuthId and u.userId = ?1 and d.appId = ?2 and lower(d.menuId) = ?3", userId, appId, menuId.toLowerCase());
         if (dataAuthBeans != null && dataAuthBeans.size() > 0) {
             result = dataAuthBeans.get(0);
         }
         return result;
     }
 
-    public void setDataAuthUserBeanDao(IDataAuthUserBeanDao dataAuthUserBeanDao) {
-        this.dataAuthUserBeanDao = dataAuthUserBeanDao;
+    private void translateEntity(List<WebApplicationBean> list, DataAuthBean entity) {
+        String appId = entity.getAppId();
+        String menuId = entity.getMenuId();
+        List<WebApplicationBean> webApplicationBeanList = list;
+        for (WebApplicationBean webApplicationBean : webApplicationBeanList) {
+            if (StringUtils.isNotBlank(appId) && appId.equals(webApplicationBean.getId())) {
+                entity.setAppName(webApplicationBean.getText());
+                List<ModuleBean> moduleBeanList = systemService.getModuleByApplication(appId);
+                for (ModuleBean moduleBean : moduleBeanList) {
+                    List<MenuBean> menuBeanList = moduleBean.getChildren();
+                    for (MenuBean menuBean : menuBeanList) {
+                        if (StringUtils.isNotBlank(menuId) && menuId.equals(menuBean.getId())) {
+                            entity.setMenuName(menuBean.getText());
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 
-    public void setAdminDictBeanService(IAdminDictBeanService adminDictBeanService) {
-        this.adminDictBeanService = adminDictBeanService;
+    public void setDataAuthUserBeanDao(IDataAuthUserBeanDao dataAuthUserBeanDao) {
+        this.dataAuthUserBeanDao = dataAuthUserBeanDao;
     }
 
     public void setSystemService(ISystemService systemService) {

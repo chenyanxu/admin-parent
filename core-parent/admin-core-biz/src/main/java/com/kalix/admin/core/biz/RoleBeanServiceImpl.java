@@ -473,7 +473,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
                 applicationDTO.setChecked(false);
                 if (roleApplicationBeans != null && !roleApplicationBeans.isEmpty()) {
                     for (RoleApplicationBean roleApplicationBean : roleApplicationBeans) {
-                        if (applicationBean.getId() == roleApplicationBean.getApplicationId()) {
+                        if (roleApplicationBean.getApplicationId().equals(applicationBean.getId())) {
                             applicationDTO.setChecked(true);
                             break;
                         }
@@ -490,13 +490,13 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
                             AuthorizationDTO functionDTO = mapper.map(functionBean, AuthorizationDTO.class);
                             functionDTO.setParentId(applicationBean.getId());
                             functionDTO.setParentName(applicationBean.getName());
-                            functionDTO.setLeaf(functionBean.getIsLeaf() == 0 ? false : true);
+                            functionDTO.setLeaf(functionBean.getIsLeaf().equals(0L) ? false : true);
                             functionDTO.setText(functionBean.getName());
                             functionDTO.setChecked(false);
                             //将已选择的节点设置选中状态
                             if (roleFunctionBeans != null && !roleFunctionBeans.isEmpty()) {
                                 for (RoleFunctionBean roleFunctionBean : roleFunctionBeans) {
-                                    if (functionBean.getId() == roleFunctionBean.getFunctionId()) {
+                                    if (roleFunctionBean.getFunctionId().equals(functionBean.getId())) {
                                         functionDTO.setChecked(true);
                                         break;
                                     }
