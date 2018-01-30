@@ -8,7 +8,7 @@ import com.kalix.framework.core.api.persistence.JsonStatus;
 /**
  * Created by Administrator_ on 2018/1/26.
  */
-public class ConfigDbServiceIpml implements IConfigDbService {
+public class ConfigDbServiceImpl implements IConfigDbService {
     private JsonStatus jsonStatus = new JsonStatus();
     private IConfigService configService;
 

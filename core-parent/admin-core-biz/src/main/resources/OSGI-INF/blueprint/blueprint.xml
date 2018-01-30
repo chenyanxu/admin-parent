@@ -43,7 +43,7 @@
         <property name="dutyUserBeanDao" ref="dutyUserBeanDao"/>
     </bean>
     <service id="userBeanService" ref="userBeanServiceImpl" interface="com.kalix.admin.core.api.biz.IUserBeanService"/>
-    <bean id="configDbServiceImpl" class="com.kalix.admin.core.biz.ConfigDbServiceIpml">
+    <bean id="configDbServiceImpl" class="com.kalix.admin.core.biz.ConfigDbServiceImpl">
         <property name="configService" ref="configService"/>
     </bean>
     <service id="configDbService" ref="configDbServiceImpl" interface="com.kalix.admin.core.api.biz.IConfigDbService"/>
