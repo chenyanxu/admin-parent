@@ -168,7 +168,7 @@ public class DataAuthBeanServiceImpl extends ShiroGenericBizServiceImpl<IDataAut
             }
         }*/
         List<DataAuthBean> dataAuthBeans = this.dao.find("select d from DataAuthBean d, DataAuthUserBean u " +
-                "where d.id = u.dataAuthId and u.userId = ?1 and d.appId = ?2", userId, appId);
+                "where d.id = u.dataAuthId and u.userId = ?1 and d.appId = ?2 and lower(d.menuId) = ?3", userId, appId, menuId.toLowerCase());
         if (dataAuthBeans != null && dataAuthBeans.size() > 0) {
             result = dataAuthBeans.get(0);
         }

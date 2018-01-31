@@ -42,9 +42,10 @@ public class DataAuthServiceImpl implements IDataAuthService {
                 e.printStackTrace();
             }
             String appName = systemService.getAppName(reqAppName); //获得appName
+            String menuIdToLower = reqAppName + "menu";
             if (functionBeanService.getDataAuth(appName, reqAppName)) { // 判断是否设置了数据权限开关
                 //根据appName查询具体的数据权限
-                DataAuthBean authBean = dataAuthBeanService.getDataAuthBean(userId, appName, "");
+                DataAuthBean authBean = dataAuthBeanService.getDataAuthBean(userId, appName, menuIdToLower);
                 if (authBean == null) {
                     return EnumDataAuth.SELF;  //设置了数据权限开关，默认为只能查看自己建立的数据
                 } else {
