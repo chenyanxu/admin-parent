@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+    <reference id="configDBService" interface="com.kalix.admin.core.api.biz.IConfigDbService"/>
+    <camelContext id="configDBCamel" xmlns="http://camel.apache.org/schema/blueprint">
+        <restConfiguration component="servlet" bindingMode="json">
+            <dataFormatProperty key="prettyPrint" value="${rest.pretty}"/>
+        </restConfiguration>
+        <rest path="/resetConfigDBs" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+            <get id="route-getAllConfigDB"  outType="com.kalix.framework.core.api.persistence.JsonData">
+                <description>Get all configDB</description>
+                <to uri="bean:configDBService?method=getDBInfo"/>
+            </get>
+        </rest>
+        <rest path="/resetConfigDBs/{id}" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+            <get id="route-getConfigDBbyID">
+                <description>get ConfigDB by ID</description>
+                <to uri="bean:configDBService?method=configureDbinfo(${header.id})"/>
+            </get>
+        </rest>
+        <rest path="/saveConfigDBs" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
+            <post id="route-saveConfigDBs" type="java.util.List"
+                  outType="com.kalix.framework.core.api.persistence.JsonStatus">
+                <description>save departmentUsers</description>
+                <to uri="bean:configDBService?method=configureDB(${header.content})"/>
+            </post>
+        </rest>
+    </camelContext>
+</blueprint>

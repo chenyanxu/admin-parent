@@ -29,7 +29,7 @@
     <!--<reference id="messageBeanDao" interface="com.kalix.admin.core.api.dao.IMessageBeanDao"/>-->
     <!--<reference id="pluginBeanDao" interface="com.kalix.admin.core.api.dao.IPluginBeanDao"/>-->
     <reference id="bundleService" interface="com.kalix.framework.osgi.api.IBundleService"/>
-
+    <reference id="configService" interface="com.kalix.framework.core.api.config.IConfigService"/>
 
     <bean id="userBeanServiceImpl" class="com.kalix.admin.core.biz.UserBeanServiceImpl">
         <property name="dao" ref="userBeanDao"/>
@@ -43,7 +43,10 @@
         <property name="dutyUserBeanDao" ref="dutyUserBeanDao"/>
     </bean>
     <service id="userBeanService" ref="userBeanServiceImpl" interface="com.kalix.admin.core.api.biz.IUserBeanService"/>
-
+    <bean id="configDbServiceImpl" class="com.kalix.admin.core.biz.ConfigDbServiceImpl">
+        <property name="configService" ref="configService"/>
+    </bean>
+    <service id="configDbService" ref="configDbServiceImpl" interface="com.kalix.admin.core.api.biz.IConfigDbService"/>
 
     <bean id="loginBeanServiceImpl" class="com.kalix.admin.core.biz.UserLoginServiceImpl">
         <property name="dao" ref="userBeanDao"/>
