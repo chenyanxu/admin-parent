@@ -56,6 +56,7 @@ public class TemplateBeanServiceImpl extends GenericBizServiceImpl<ITemplateBean
      * @param templateMap   该模板的项目
      * @return String       替换后的模板
      * */
+    @Override
     public String getTemplateResult(String templateName, Map<String, String> templateMap) {
 
         String result = "";
@@ -71,7 +72,7 @@ public class TemplateBeanServiceImpl extends GenericBizServiceImpl<ITemplateBean
                 Iterator<Map.Entry<String, String>> it = templateMap.entrySet().iterator();
                 while (it.hasNext()) {
                     Map.Entry<String, String> entry = it.next();
-                    key = "${" + entry.getKey() + "}";
+                    key = "[$][{](" + entry.getKey() + ")[}]";
                     value = entry.getValue();
                     result = result.replaceAll(key, value);
                 }
