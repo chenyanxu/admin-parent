@@ -35,6 +35,12 @@
                 <to uri="bean:functionService?method=updateEntity"/>
             </put>
 
+            <put id="route-updateFunctionNew" uri="/{id}" type="com.kalix.admin.core.entities.FunctionBean"
+                 outType="com.kalix.framework.core.api.persistence.JsonStatus">
+                <description>Updates a function</description>
+                <to uri="bean:functionService?method=updateEntity"/>
+            </put>
+
             <!-- this is a rest DELETE to delete an function -->
             <delete id="route-deleteFunction" outType="com.kalix.framework.core.api.persistence.JsonStatus">
                 <description>Delete a function</description>
