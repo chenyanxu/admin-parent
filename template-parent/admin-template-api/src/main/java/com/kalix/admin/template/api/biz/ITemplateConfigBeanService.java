@@ -13,4 +13,5 @@ import com.kalix.framework.core.api.biz.IBizService;
  * @修改备注：
  */
 public interface ITemplateConfigBeanService extends IBizService<TemplateConfigBean> {
+    void deleteByTemplateId(Long templateId);
 }

@@ -2,6 +2,7 @@ package com.kalix.admin.template.biz;
 
 
 import com.kalix.admin.template.api.biz.ITemplateBeanService;
+import com.kalix.admin.template.api.biz.ITemplateConfigBeanService;
 import com.kalix.admin.template.api.dao.ITemplateBeanDao;
 import com.kalix.admin.template.entities.TemplateBean;
 import com.kalix.framework.core.api.persistence.JsonStatus;
@@ -26,6 +27,7 @@ public class TemplateBeanServiceImpl extends GenericBizServiceImpl<ITemplateBean
     private static final String FUNCTION_NAME = "模板信息";
     private JsonStatus jsonStatus = new JsonStatus();
     private String uuid;
+    private ITemplateConfigBeanService templateConfigBeanService;
 
     public TemplateBeanServiceImpl() {
         uuid = UUID.randomUUID().toString();
@@ -80,5 +82,16 @@ public class TemplateBeanServiceImpl extends GenericBizServiceImpl<ITemplateBean
         }
 
         return result;
+    }
+
+    @Override
+    @Transactional
+    public void beforeDeleteEntity(Long id, JsonStatus status) {
+        TemplateBean templateBean = this.getEntity(id);
+        this.templateConfigBeanService.deleteByTemplateId(templateBean.getId());
+    }
+
+    public void setTemplateConfigBeanService(ITemplateConfigBeanService templateConfigBeanService) {
+        this.templateConfigBeanService = templateConfigBeanService;
     }
 }

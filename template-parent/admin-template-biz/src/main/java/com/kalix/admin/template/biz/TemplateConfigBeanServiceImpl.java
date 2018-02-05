@@ -35,4 +35,9 @@ public class TemplateConfigBeanServiceImpl extends GenericBizServiceImpl<ITempla
     public void beforeDeleteEntity(Long id, JsonStatus status) {
 
     }
+
+    @Override
+    public void deleteByTemplateId(Long templateId) {
+        dao.updateNativeQuery("delete from sys_templateconfig where templateid = " + templateId);
+    }
 }

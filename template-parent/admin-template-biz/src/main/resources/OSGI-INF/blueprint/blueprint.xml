@@ -12,6 +12,7 @@
 
     <bean id="beanServiceImpl" class="com.kalix.admin.template.biz.TemplateBeanServiceImpl">
         <property name="dao" ref="templateBeanDao"/>
+        <property name="templateConfigBeanService" ref="beanConfigServiceImpl"/>
     </bean>
 
     <reference id="templateConfigBeanDao" interface="com.kalix.admin.template.api.dao.ITemplateConfigBeanDao"/>
