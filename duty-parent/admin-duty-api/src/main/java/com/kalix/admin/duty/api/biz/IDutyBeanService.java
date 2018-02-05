@@ -3,8 +3,8 @@ package com.kalix.admin.duty.api.biz;
 
 import com.kalix.admin.duty.entities.DutyBean;
 import com.kalix.framework.core.api.biz.IBizService;
-import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.api.persistence.JsonData;
+import com.kalix.framework.core.api.persistence.JsonStatus;
 
 import java.util.List;
 
@@ -21,6 +21,8 @@ public interface IDutyBeanService extends IBizService<DutyBean> {
     JsonData getDutiesByOrgId(long orgId);
 
     List getUserIdsByDutyId(long dutyId);
+
+    List getUserLoginNamesByDutyId(long dutyId);
 
     //JsonData getUserAll(long orgId);
 

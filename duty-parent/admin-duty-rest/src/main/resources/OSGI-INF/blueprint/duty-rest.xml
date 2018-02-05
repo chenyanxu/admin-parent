@@ -57,6 +57,14 @@
                 <to uri="bean:dutyService?method=getUserIdsByDutyId(${header.id})"/>
             </get>
         </rest>
+        <rest path="/dutys/{id}/users/loginnames" consumes="application/json;charset=utf-8"
+              produces="application/json;charset=utf-8">
+            <!-- this is a rest GET to view an user by the given id -->
+            <get id="route-getUserLoginNamesByDutyId" outType="java.util.List">
+                <description>Find users by organization Id and duty id</description>
+                <to uri="bean:dutyService?method=getUserLoginNamesByDutyId(${header.id})"/>
+            </get>
+        </rest>
         <rest path="/users/user/dutys/list" consumes="application/json;charset=utf-8" produces="application/json">
             <get id="route-getAllLoginUserDutys" outType="java.util.List">
                 <description>Find User Dutys</description>
