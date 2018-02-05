@@ -73,6 +73,14 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
     }
 
     @Override
+    public List getUserLoginNamesByDutyId(long dutyId) {
+        String sql = "select u.loginname " +
+                " from " + dutyUserBeanDao.getTableName() + " t, " + userBeanDao.getTableName() + " u " +
+                " where t.userid = u.id and t.dutyid = ?1";
+        return this.dao.findByNativeSql(sql, String.class, dutyId);
+    }
+
+    @Override
     @Transactional
     public JsonStatus saveDutyUsers(List ids) {
         if(ids==null || ids.size()!=2){
