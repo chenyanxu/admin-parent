@@ -5,15 +5,15 @@ import com.kalix.admin.template.api.biz.ITemplateBeanService;
 import com.kalix.admin.template.api.biz.ITemplateConfigBeanService;
 import com.kalix.admin.template.api.dao.ITemplateBeanDao;
 import com.kalix.admin.template.entities.TemplateBean;
+import com.kalix.admin.template.entities.TemplateConfigBean;
+import com.kalix.framework.core.api.persistence.JsonData;
 import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.impl.biz.GenericBizServiceImpl;
+import com.kalix.framework.core.util.SerializeUtil;
 import com.kalix.framework.core.util.StringUtils;
 
 import javax.transaction.Transactional;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @类描述：公告管理
@@ -82,6 +82,24 @@ public class TemplateBeanServiceImpl extends GenericBizServiceImpl<ITemplateBean
         }
 
         return result;
+    }
+
+    @Override
+    public JsonData getTranslateTemplate(String jsonStr) {
+        Map<String, Object> jsonMap = SerializeUtil.jsonToMap(jsonStr);
+        Long templateId = Long.valueOf((String) jsonMap.get("templateId"));
+        TemplateBean template = dao.get(templateId);
+        String templateContent = template.getContent();
+        List<TemplateConfigBean> configBeans = this.templateConfigBeanService.getConfigByTemplateId(template.getId());
+        for (TemplateConfigBean configBean : configBeans) {
+            String attrName = "\\$\\{" + configBean.getFieldName() + "\\}";
+            templateContent = templateContent.replaceAll(attrName, configBean.getFieldValue());
+        }
+        JsonData jsonData = new JsonData();
+        List<String> contentList = new ArrayList<>();
+        contentList.add(templateContent);
+        jsonData.setData(contentList);
+        return jsonData;
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.kalix.admin.template.api.biz;
 
 import com.kalix.admin.template.entities.TemplateBean;
 import com.kalix.framework.core.api.biz.IBizService;
+import com.kalix.framework.core.api.persistence.JsonData;
 
 import java.util.List;
 import java.util.Map;
@@ -27,4 +28,6 @@ public interface ITemplateBeanService extends IBizService<TemplateBean> {
      * @return String       替换后的模板
      */
     String getTemplateResult(String templateName, Map<String, String> templateMap);
+
+    JsonData getTranslateTemplate(String jsonStr);
 }

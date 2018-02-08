@@ -4,8 +4,6 @@ package com.kalix.admin.template.entities;
 import com.kalix.framework.core.api.persistence.PersistentEntity;
 
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 /**
@@ -22,6 +20,7 @@ public class TemplateConfigBean extends PersistentEntity {
     private Long templateId; //模板id
     private String fieldName; //属性名称
     private String fieldDesc;//属性描述
+    private String fieldValue;//属性值
 
     public Long getTemplateId() {
         return templateId;
@@ -45,5 +44,13 @@ public class TemplateConfigBean extends PersistentEntity {
 
     public void setFieldDesc(String fieldDesc) {
         this.fieldDesc = fieldDesc;
+    }
+
+    public String getFieldValue() {
+        return fieldValue;
+    }
+
+    public void setFieldValue(String fieldValue) {
+        this.fieldValue = fieldValue;
     }
 }

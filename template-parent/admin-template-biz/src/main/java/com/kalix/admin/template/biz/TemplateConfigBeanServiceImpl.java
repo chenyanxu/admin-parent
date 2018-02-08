@@ -7,6 +7,8 @@ import com.kalix.admin.template.entities.TemplateConfigBean;
 import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.impl.biz.GenericBizServiceImpl;
 
+import java.util.List;
+
 /**
  * @类描述：审计配置管理
  * @创建人： sunlf
@@ -39,5 +41,11 @@ public class TemplateConfigBeanServiceImpl extends GenericBizServiceImpl<ITempla
     @Override
     public void deleteByTemplateId(Long templateId) {
         dao.updateNativeQuery("delete from sys_templateconfig where templateid = " + templateId);
+    }
+
+    @Override
+    public List<TemplateConfigBean> getConfigByTemplateId(Long templateId) {
+        List<TemplateConfigBean> configsObj = dao.findByNativeSql("select * from sys_templateconfig where templateid = " + templateId, TemplateConfigBean.class, null);
+        return configsObj;
     }
 }

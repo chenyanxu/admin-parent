@@ -17,6 +17,12 @@
                 <description>Find all Templates</description>
                 <to uri="bean:templateService?method=getAllEntityByQuery(${header.page},${header.limit},${header.jsonStr},${header.sort})"/>
             </get>
+            <!-- get translate template content -->
+            <get id="route-getTranslateTemplate" uri="/template"
+                 outType="com.kalix.framework.core.api.persistence.JsonData">
+                <description>Get Translate Template</description>
+                <to uri="bean:templateService?method=getTranslateTemplate(${header.jsonStr})"/>
+            </get>
             <!-- this is a rest POST to create a template -->
             <post id="route-addTemplate" type="com.kalix.admin.template.entities.TemplateBean"
                   outType="com.kalix.framework.core.api.persistence.JsonStatus">

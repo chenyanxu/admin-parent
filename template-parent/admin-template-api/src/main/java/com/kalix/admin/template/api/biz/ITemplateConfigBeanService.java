@@ -4,6 +4,8 @@ package com.kalix.admin.template.api.biz;
 import com.kalix.admin.template.entities.TemplateConfigBean;
 import com.kalix.framework.core.api.biz.IBizService;
 
+import java.util.List;
+
 /**
  * @类描述：审计配置管理
  * @创建人： sunlf
@@ -14,4 +16,6 @@ import com.kalix.framework.core.api.biz.IBizService;
  */
 public interface ITemplateConfigBeanService extends IBizService<TemplateConfigBean> {
     void deleteByTemplateId(Long templateId);
+
+    List<TemplateConfigBean> getConfigByTemplateId(Long templateId);
 }
