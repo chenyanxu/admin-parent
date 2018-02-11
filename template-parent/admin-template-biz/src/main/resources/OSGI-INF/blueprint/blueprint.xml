@@ -13,6 +13,7 @@
     <bean id="beanServiceImpl" class="com.kalix.admin.template.biz.TemplateBeanServiceImpl">
         <property name="dao" ref="templateBeanDao"/>
         <property name="templateConfigBeanService" ref="beanConfigServiceImpl"/>
+        <property name="templateContentBeanService" ref="beanContentServiceImpl"/>
     </bean>
 
     <reference id="templateConfigBeanDao" interface="com.kalix.admin.template.api.dao.ITemplateConfigBeanDao"/>
@@ -24,5 +25,12 @@
         <property name="dao" ref="templateConfigBeanDao"/>
     </bean>
 
+    <reference id="templateContentBeanDao" interface="com.kalix.admin.template.api.dao.ITemplateContentBeanDao"/>
+    <bean id="beanContentServiceImpl" class="com.kalix.admin.template.biz.TemplateContentBeanServiceImpl">
+        <property name="dao" ref="templateContentBeanDao"/>
+    </bean>
+    <service id="templateContentBeanService" interface="com.kalix.admin.template.api.biz.ITemplateContentBeanService"
+             ref="beanContentServiceImpl">
+    </service>
 </blueprint>
 

@@ -18,5 +18,10 @@
     <bean id="templateBeaConfigDaoImpl" class="com.kalix.admin.template.dao.TemplateBeanConfigDaoImpl">
         <tx:transaction method="*" value="Required"/>
     </bean>
+
+    <service interface="com.kalix.admin.template.api.dao.ITemplateContentBeanDao" ref="templateBeaContentDaoImpl"/>
+    <bean id="templateBeaContentDaoImpl" class="com.kalix.admin.template.dao.TemplateBeanContentDaoImpl">
+        <tx:transaction method="*" value="Required"/>
+    </bean>
 </blueprint>
 

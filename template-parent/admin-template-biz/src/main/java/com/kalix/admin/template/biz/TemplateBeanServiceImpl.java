@@ -3,9 +3,11 @@ package com.kalix.admin.template.biz;
 
 import com.kalix.admin.template.api.biz.ITemplateBeanService;
 import com.kalix.admin.template.api.biz.ITemplateConfigBeanService;
+import com.kalix.admin.template.api.biz.ITemplateContentBeanService;
 import com.kalix.admin.template.api.dao.ITemplateBeanDao;
 import com.kalix.admin.template.entities.TemplateBean;
 import com.kalix.admin.template.entities.TemplateConfigBean;
+import com.kalix.admin.template.entities.TemplateContentBean;
 import com.kalix.framework.core.api.persistence.JsonData;
 import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.impl.biz.GenericBizServiceImpl;
@@ -28,6 +30,7 @@ public class TemplateBeanServiceImpl extends GenericBizServiceImpl<ITemplateBean
     private JsonStatus jsonStatus = new JsonStatus();
     private String uuid;
     private ITemplateConfigBeanService templateConfigBeanService;
+    private ITemplateContentBeanService templateContentBeanService;
 
     public TemplateBeanServiceImpl() {
         uuid = UUID.randomUUID().toString();
@@ -88,9 +91,15 @@ public class TemplateBeanServiceImpl extends GenericBizServiceImpl<ITemplateBean
     public JsonData getTranslateTemplate(String jsonStr) {
         Map<String, Object> jsonMap = SerializeUtil.jsonToMap(jsonStr);
         Long templateId = Long.valueOf((String) jsonMap.get("templateId"));
-        TemplateBean template = dao.get(templateId);
-        String templateContent = template.getContent();
-        List<TemplateConfigBean> configBeans = this.templateConfigBeanService.getConfigByTemplateId(template.getId());
+        Integer templateType = Integer.valueOf((String) jsonMap.get("templateType"));
+//        TemplateBean template = dao.get(templateId);
+        List<TemplateContentBean> templateContentBeans = this.templateContentBeanService.getContentByTemplateId(templateId, templateType);
+        String templateContent = "";
+        if (templateContentBeans != null && !templateContentBeans.isEmpty()) {
+            TemplateContentBean templateContentBean = templateContentBeans.get(0);
+            templateContent = templateContentBean.getContent();
+        }
+        List<TemplateConfigBean> configBeans = this.templateConfigBeanService.getConfigByTemplateId(templateId);
         for (TemplateConfigBean configBean : configBeans) {
             String attrName = "\\$\\{" + configBean.getFieldName() + "\\}";
             templateContent = templateContent.replaceAll(attrName, configBean.getFieldValue());
@@ -107,9 +116,14 @@ public class TemplateBeanServiceImpl extends GenericBizServiceImpl<ITemplateBean
     public void beforeDeleteEntity(Long id, JsonStatus status) {
         TemplateBean templateBean = this.getEntity(id);
         this.templateConfigBeanService.deleteByTemplateId(templateBean.getId());
+        this.templateContentBeanService.deleteByTemplateId(templateBean.getId());
     }
 
     public void setTemplateConfigBeanService(ITemplateConfigBeanService templateConfigBeanService) {
         this.templateConfigBeanService = templateConfigBeanService;
+    }
+
+    public void setTemplateContentBeanService(ITemplateContentBeanService templateContentBeanService) {
+        this.templateContentBeanService = templateContentBeanService;
     }
 }
