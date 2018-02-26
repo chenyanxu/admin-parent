@@ -37,7 +37,8 @@ public interface ITemplateBeanService extends IBizService<TemplateBean> {
      * @param templateMap  该模板的项目
      * @return String       替换后的模板
      */
-    String getTemplateResult(String templateName, String templateType, Map<String, String> templateMap);
+    String getTemplateResult(String templateName, Integer templateType, Map<String, String> templateMap);
 
     JsonData getTranslateTemplate(String jsonStr);
+
 }

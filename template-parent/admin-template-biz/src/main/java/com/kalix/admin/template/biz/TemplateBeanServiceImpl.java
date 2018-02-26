@@ -71,25 +71,43 @@ public class TemplateBeanServiceImpl extends GenericBizServiceImpl<ITemplateBean
 
         List<TemplateBean> templateBeans = dao.find("select ob from TemplateBean ob where ob.name = ?1", templateName);
         if (templateBeans != null && templateBeans.size() > 0) {
-            result = templateBeans.get(0).getContent();
-            if (templateMap != null && templateMap.size() > 0) {
-                String key, value;
-                Iterator<Map.Entry<String, String>> it = templateMap.entrySet().iterator();
-                while (it.hasNext()) {
-                    Map.Entry<String, String> entry = it.next();
-                    key = "[$][{](" + entry.getKey() + ")[}]";
-                    value = entry.getValue();
-                    result = result.replaceAll(key, value);
-                }
-            }
+            result = replaceValue(templateBeans.get(0).getContent(), templateMap);
         }
 
         return result;
     }
 
     @Override
-    public String getTemplateResult(String templateName, String templateType, Map<String, String> templateMap) {
-        return null;
+    public String getTemplateResult(String templateName, Integer templateType, Map<String, String> templateMap) {
+        String result = "";
+        if (StringUtils.isEmpty(templateName)) {
+            return result;
+        }
+        List<TemplateBean> templateBeans = dao.find("select ob from TemplateBean ob where ob.name = ?1", templateName);
+        TemplateBean templateBean = null;
+        if (templateBeans != null && !templateBeans.isEmpty()) {
+            templateBean = templateBeans.get(0);
+            if (templateBean != null) {
+                List<TemplateContentBean> templateContentBeans = this.templateContentBeanService.getContentByTemplateId(templateBean.getId(), templateType);
+                result = replaceValue(templateContentBeans.get(0).getContent(), templateMap);
+            }
+
+        }
+        return result;
+    }
+
+    private String replaceValue(String result, Map<String, String> templateMap) {
+        if (templateMap != null && templateMap.size() > 0) {
+            String key, value;
+            Iterator<Map.Entry<String, String>> it = templateMap.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry<String, String> entry = it.next();
+                key = "[$][{](" + entry.getKey() + ")[}]";
+                value = entry.getValue();
+                result = result.replaceAll(key, value);
+            }
+        }
+        return result;
     }
 
     @Override
