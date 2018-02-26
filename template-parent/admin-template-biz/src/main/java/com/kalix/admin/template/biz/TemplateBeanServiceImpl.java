@@ -88,6 +88,11 @@ public class TemplateBeanServiceImpl extends GenericBizServiceImpl<ITemplateBean
     }
 
     @Override
+    public String getTemplateResult(String templateName, String templateType, Map<String, String> templateMap) {
+        return null;
+    }
+
+    @Override
     public JsonData getTranslateTemplate(String jsonStr) {
         Map<String, Object> jsonMap = SerializeUtil.jsonToMap(jsonStr);
         Long templateId = Long.valueOf((String) jsonMap.get("templateId"));

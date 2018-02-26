@@ -29,5 +29,15 @@ public interface ITemplateBeanService extends IBizService<TemplateBean> {
      */
     String getTemplateResult(String templateName, Map<String, String> templateMap);
 
+    /**
+     * 根据模板名称、模板类型以及该模板的项目值返回替换后的模板
+     *
+     * @param templateName 模板名称
+     * @param templateName 模板名称
+     * @param templateMap  该模板的项目
+     * @return String       替换后的模板
+     */
+    String getTemplateResult(String templateName, String templateType, Map<String, String> templateMap);
+
     JsonData getTranslateTemplate(String jsonStr);
 }
