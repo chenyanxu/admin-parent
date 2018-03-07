@@ -10,6 +10,7 @@ import com.kalix.admin.duty.api.dao.IDutyBeanDao;
 import com.kalix.admin.duty.api.dao.IDutyUserBeanDao;
 import com.kalix.admin.duty.entities.DutyBean;
 import com.kalix.admin.duty.entities.DutyUserBean;
+import com.kalix.framework.core.api.extend.IUserDefaultRole;
 import com.kalix.framework.core.api.persistence.GenericJsonData;
 import com.kalix.framework.core.api.persistence.JsonData;
 import com.kalix.framework.core.api.persistence.JsonStatus;
@@ -25,7 +26,9 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -508,15 +511,23 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
      */
     @Override
     public void afterSaveEntity(UserBean entity, JsonStatus status) {
-        String roles = (String) ConfigUtil.getConfigProp("admin_default_roles", "config.admin.dict");
-        String[] roleList = roles.split(",");
-        for (String role : roleList) {
-            RoleBean roleBean = roleBeanDao.getRole(role);
+        IUserDefaultRole defaultRole = null;
+//        String roles = (String) ConfigUtil.getConfigProp("admin_default_roles", "config.admin.dict");
+        Map<String, String> map = new HashMap();
+        map.put(IUserDefaultRole.USER_TYPE, String.valueOf(entity.getUserType()));
+        try {
+            defaultRole = JNDIHelper.getJNDIServiceForName(IUserDefaultRole.class.getName(), map);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (defaultRole != null) {
+            RoleBean roleBean = roleBeanDao.getRole(defaultRole.getRoleName());
             RoleUserBean bean = new RoleUserBean();
             bean.setRoleId(roleBean.getId());
             bean.setUserId(entity.getId());
             roleUserBeanDao.save(bean);
         }
+
         super.afterSaveEntity(entity, status);
     }
 }
