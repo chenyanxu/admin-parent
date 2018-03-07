@@ -502,6 +502,13 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         return false;
     }
 
+    @Override
+    public List<UserBean> getUsersByIds(List<String> userIds) {
+        String userIdsStr = String.join(",", userIds);
+        String sql = "select * from sys_user where available=1 and id in (" + userIdsStr + ")";
+        return dao.findByNativeSql(sql, UserBean.class, null);
+    }
+
     /**
      * 在用户新建之后，设置用户的默认角色
      * 根据config.admin.dict.cfg文件中，admin_default_roles的属性

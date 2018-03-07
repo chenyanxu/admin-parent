@@ -89,9 +89,12 @@ public class TemplateBeanServiceImpl extends GenericBizServiceImpl<ITemplateBean
             templateBean = templateBeans.get(0);
             if (templateBean != null) {
                 List<TemplateContentBean> templateContentBeans = this.templateContentBeanService.getContentByTemplateId(templateBean.getId(), templateType);
-                result = replaceValue(templateContentBeans.get(0).getContent(), templateMap);
+                if (templateContentBeans != null && templateContentBeans.size() > 0) {
+                    String content = templateContentBeans.get(0).getContent();
+                    if (StringUtils.isNotEmpty(content))
+                        result = replaceValue(content, templateMap);
+                }
             }
-
         }
         return result;
     }
@@ -104,7 +107,9 @@ public class TemplateBeanServiceImpl extends GenericBizServiceImpl<ITemplateBean
                 Map.Entry<String, String> entry = it.next();
                 key = "[$][{](" + entry.getKey() + ")[}]";
                 value = entry.getValue();
-                result = result.replaceAll(key, value);
+                if (value != null) {
+                    result = result.replaceAll(key, value);
+                }
             }
         }
         return result;
