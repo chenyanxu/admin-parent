@@ -19,6 +19,7 @@ import org.apache.commons.lang.StringUtils;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @类描述：
@@ -173,6 +174,14 @@ public class DataAuthBeanServiceImpl extends ShiroGenericBizServiceImpl<IDataAut
             result = dataAuthBeans.get(0);
         }
         return result;
+    }
+
+    @Override
+    public List getUserIdsByDataAuthId(Long dataAuthId) {
+        return dataAuthUserBeanDao.findByDataAuthId(dataAuthId).stream()
+                .filter(n -> !n.getUserId().equals(0L))
+                .map(n -> n.getUserId())
+                .collect(Collectors.toList());
     }
 
     private void translateEntity(List<WebApplicationBean> list, DataAuthBean entity) {

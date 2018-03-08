@@ -18,6 +18,11 @@
                     <property name="postToUri"
                               value="bean:dataauthService?method=saveDataAuthUsers(${body})"/>
                 </bean>
+                <bean class="com.kalix.framework.core.api.camel.CustomRest">
+                    <property name="path" value="/dataauths/{id}/users/ids"/>
+                    <property name="getDescription" value="通过数据权限id查找用户ids"/>
+                    <property name="getToUri" value="bean:dataauthService?method=getUserIdsByDataAuthId(${header.id})"/>
+                </bean>
             </list>
         </property>
     </bean>

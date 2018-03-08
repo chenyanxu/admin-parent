@@ -25,7 +25,6 @@ public class DutyUserBeanDaoImpl extends GenericDao<DutyUserBean, Long> implemen
     }
 
     @Override
-
     public long findDutyIdByUserId(long userId) {
         List<DutyUserBean> dutyUserBeanList = findByNativeSql("select * from sys_duty_user where userId=" + userId, DutyUserBean.class, null);
         if (dutyUserBeanList != null && dutyUserBeanList.size() > 0) {
