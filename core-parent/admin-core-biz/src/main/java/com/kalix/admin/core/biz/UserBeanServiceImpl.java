@@ -455,20 +455,20 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         List<WorkGroupUserBean> workGroupUserList = workGroupUserBeanDao.getAll();
 
         userList = userDTOList.stream().peek(n -> {
-            orgUserList.stream().filter(m -> n.getId() == m.getUserId())
-                    .forEach(m -> orgList.stream().filter(org -> org.getId() == m.getOrgId())
+            orgUserList.stream().filter(m -> n.getId().equals(m.getUserId()))
+                    .forEach(m -> orgList.stream().filter(org -> m.getOrgId().equals(org.getId()))
                             .forEach(org -> n.setOrg(n.getOrg() == null ? org.getName() : n.getOrg() + "," + org.getName())));
 
-            dutyUserList.stream().filter(m -> n.getId() == m.getUserId())
-                    .forEach(m -> dutyList.stream().filter(duty -> duty.getId() == m.getDutyId())
+            dutyUserList.stream().filter(m -> n.getId().equals(m.getUserId()))
+                    .forEach(m -> dutyList.stream().filter(duty -> m.getDutyId().equals(duty.getId()))
                             .forEach(duty -> n.setDuty(n.getDuty() == null ? duty.getName() : n.getDuty() + "," + duty.getName())));
 
-            roleUserList.stream().filter(m -> n.getId() == m.getUserId())
-                    .forEach(m -> roleList.stream().filter(role -> role.getId() == m.getRoleId())
+            roleUserList.stream().filter(m -> n.getId().equals(m.getUserId()))
+                    .forEach(m -> roleList.stream().filter(role -> m.getRoleId().equals(role.getId()))
                             .forEach(role -> n.setRole(n.getRole() == null ? role.getName() : n.getRole() + "," + role.getName())));
 
-            workGroupUserList.stream().filter(m -> n.getId() == m.getUserId())
-                    .forEach(m -> workGroupList.stream().filter(workGroup -> workGroup.getId() == m.getGroupId())
+            workGroupUserList.stream().filter(m -> n.getId().equals(m.getUserId()))
+                    .forEach(m -> workGroupList.stream().filter(workGroup -> m.getGroupId().equals(workGroup.getId()))
                             .forEach(workGroup -> n.setWorkGroup(n.getWorkGroup() == null ? workGroup.getName() : n.getWorkGroup() + "," + workGroup.getName())));
 
             if (n.getOrg() == null || "".equals(n.getOrg())) {
