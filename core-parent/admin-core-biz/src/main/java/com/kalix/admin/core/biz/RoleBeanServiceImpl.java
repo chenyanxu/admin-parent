@@ -419,11 +419,11 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
         // 获取用户对应角色的application和function
         roleList.stream().forEach(n -> {
             roleApplicationBeanDao.getRoleApplicationsByRoleId(n.getId()).stream()
-                    .forEach(m -> applicationAllList.stream().filter(app -> app.getId() == m.getApplicationId())
+                    .forEach(m -> applicationAllList.stream().filter(app -> m.getApplicationId().equals(app.getId()))
                             .forEach(applicationList::add));
 
             roleFunctionBeanDao.getRoleFunctionsByRoleId(n.getId()).stream()
-                    .forEach(m -> functionAllList.stream().filter(func -> func.getId() == m.getFunctionId())
+                    .forEach(m -> functionAllList.stream().filter(func -> m.getFunctionId().equals(func.getId()))
                             .forEach(functionList::add));
         });
 
@@ -434,7 +434,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
             applicationDTO.setLeaf(false);
             applicationDTO.setChecked(true);
             applicationDTO.setExpanded(true);
-            functionBeanService.getRootElements(functionList).stream().distinct().filter(func -> func.getApplicationId() == app.getId())
+            functionBeanService.getRootElements(functionList).stream().distinct().filter(func -> func.getApplicationId().equals(app.getId()))
                     .forEach(func -> {
                         AuthorizationDTO functionDTO = mapper.map(func, AuthorizationDTO.class);
                         functionDTO.setParentId(app.getId());
@@ -443,7 +443,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
                         functionDTO.setText(func.getName());
                         functionDTO.setChecked(true);
                         functionDTO.setExpanded(true);
-                        functionBeanService.getChilden(functionDTO, functionList.stream().distinct().filter(f -> f.getApplicationId() == app.getId()).collect(Collectors.toList()), mapper, null, true);
+                        functionBeanService.getChilden(functionDTO, functionList.stream().distinct().filter(f -> f.getApplicationId().equals(app.getId())).collect(Collectors.toList()), mapper, null, true);
                         applicationDTO.getChildren().add(functionDTO);
                     });
             applicationDTO.setText(app.getName());

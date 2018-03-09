@@ -64,7 +64,7 @@ public class PermissionServiceImpl  implements IPermissionService {
         roleList.stream().distinct().forEach(n -> {
             // 角色与application对应关系
             roleApplicationBeanDao.getRoleApplicationsByRoleId(n.getId()).stream()
-                    .forEach(m -> applicationList.stream().filter(app -> m.getApplicationId() == app.getId())
+                    .forEach(m -> applicationList.stream().filter(app -> m.getApplicationId().equals(app.getId()))
                             .forEach(app -> applicationCodes.add(app.getCode())));
         });
 
@@ -104,7 +104,7 @@ public class PermissionServiceImpl  implements IPermissionService {
         roleList.stream().distinct().forEach(n -> {
             // 角色与function对应关系
             roleFunctionBeanDao.getRoleFunctionsByRoleId(n.getId()).stream()
-                    .forEach(m -> functionList.stream().filter(func -> m.getFunctionId() == func.getId())
+                    .forEach(m -> functionList.stream().filter(func -> m.getFunctionId().equals(func.getId()))
                             .forEach(func -> functionCodes.add(func.getPermission())));
         });
 

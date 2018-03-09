@@ -25,14 +25,19 @@ public class DataAuthUserBeanDaoImpl extends GenericDao<DataAuthUserBean, Long> 
     }
 
     @Override
-    public List<DataAuthUserBean> getEntitiesByUserId(Long userId) {
-        final Query query = this.createQuery("select d.userId,d.dataAuthId from DataAuthUserBean d where d.id = ?1", userId);
-        final List<DataAuthUserBean> resultList = query.getResultList();
-        return resultList;
+    public void deleteByDataAuthId(Long dataAuthId) {
+        super.updateNativeQuery("delete from sys_data_auth_user where dataauthid=" + dataAuthId);
     }
 
     @Override
-    public void deleteByDataAuthId(long id) {
-        super.updateNativeQuery("delete from sys_data_auth_user where dataauthid=" + id);
+    public List<DataAuthUserBean> findByDataAuthId(Long dataAuthId) {
+        return (List<DataAuthUserBean>) this.find("select t from DataAuthUserBean t where t.dataAuthId = ?1", dataAuthId);
+    }
+
+    @Override
+    public List<DataAuthUserBean> findByUserId(Long userId) {
+        final Query query = this.createQuery("select d.userId, d.dataAuthId from DataAuthUserBean d where d.userid = ?1", userId);
+        final List<DataAuthUserBean> resultList = query.getResultList();
+        return resultList;
     }
 }

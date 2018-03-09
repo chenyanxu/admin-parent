@@ -67,7 +67,7 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
     @Override
     public List getUserIdsByDutyId(long dutyId) {
         return dutyUserBeanDao.findByDutyId(dutyId).stream()
-                .filter(n -> n.getUserId() != 0)
+                .filter(n -> !n.getUserId().equals(0L))
                 .map(n -> n.getUserId())
                 .collect(Collectors.toList());
     }
