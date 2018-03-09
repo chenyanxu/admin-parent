@@ -1,6 +1,7 @@
 package com.kalix.admin.core.biz;
 
 import com.google.gson.reflect.TypeToken;
+import com.kalix.admin.core.api.biz.IAddFieldService;
 import com.kalix.admin.core.api.biz.IUserBeanService;
 import com.kalix.admin.core.api.dao.*;
 import com.kalix.admin.core.dto.model.OrganizationDTO;
@@ -18,9 +19,14 @@ import com.kalix.framework.core.api.web.model.BaseDTO;
 import com.kalix.framework.core.api.web.model.QueryDTO;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import com.kalix.framework.core.util.*;
+import com.kalix.framework.core.util.internal.InitActivator;
 import org.apache.commons.lang.StringUtils;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
+import com.kalix.framework.core.util.OsgiUtil;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.InvalidSyntaxException;
+import org.osgi.framework.ServiceReference;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -519,12 +525,26 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
     @Override
     public void afterSaveEntity(UserBean entity, JsonStatus status) {
         IUserDefaultRole defaultRole = null;
+
 //        String roles = (String) ConfigUtil.getConfigProp("admin_default_roles", "config.admin.dict");
         Map<String, String> map = new HashMap();
         map.put(IUserDefaultRole.USER_TYPE, String.valueOf(entity.getUserType()));
         try {
+            List  services =OsgiUtil.getServices(IAddFieldService.class,null);
+           if(services!=null&&services.size()>0)
+           {
+               for(int i =0 ;i<services.size();i++)
+               {
+                   IAddFieldService service=(IAddFieldService)services.get(i);
+                   service.setField(entity);
+               }
+           }
+
+
             defaultRole = JNDIHelper.getJNDIServiceForName(IUserDefaultRole.class.getName(), map);
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InvalidSyntaxException e) {
             e.printStackTrace();
         }
         if (defaultRole != null) {

@@ -1,5 +1,6 @@
 package com.kalix.admin.core.api.biz;
 
+import com.kalix.admin.core.entities.UserBean;
 import com.kalix.framework.core.api.persistence.JsonStatus;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public interface IAddFieldService{
 
-    JsonStatus setField(Long userId);
+    JsonStatus setField(UserBean entity);
 
 
 }
