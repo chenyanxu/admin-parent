@@ -22,6 +22,7 @@ import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.osgi.framework.Bundle;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -122,18 +123,31 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
         ApplicationDTO root = new ApplicationDTO();
         root.setId(-1L);
         //List<ApplicationBean> beans = dao.getAll();
+        // 从bundle获取applications信息
         List<ApplicationBean> beans = getApplicationsFromConfig(null).getData();
+        // 从数据库获取applications信息
+        List<ApplicationBean> beansBydb = dao.findByNativeSql("select * from sys_application", ApplicationBean.class, null);
 
-        if (beans != null && beans.size() > 0) {
-            if (beans != null && beans.size() > 0) {
-                for (ApplicationBean applicationBean : beans) {
-                    Mapper mapper = new DozerBeanMapper();
-                    ApplicationDTO applicationDTO = mapper.map(applicationBean, ApplicationDTO.class);
-                    applicationDTO.setLeaf(true);
-                    applicationDTO.setText(applicationBean.getName());
-                    applicationDTO.setIconCls(applicationBean.getIconCls());
-                    root.getChildren().add(applicationDTO);
-                }
+        if (beans != null && !beans.isEmpty()) {
+            List<ApplicationBean> newBeans = new ArrayList<>();
+            if (beansBydb != null && !beansBydb.isEmpty()) {
+                beans.stream().forEach((bean) -> {
+                    // 功能管理功能用数据库Id查sys_function
+                    beansBydb.stream().forEach(appBean -> {
+                        if (bean.getName().equals(appBean.getName())) {
+                            bean.setId(appBean.getId());
+                        }
+                    });
+                    newBeans.add(bean);
+                });
+            }
+            for (ApplicationBean applicationBean : newBeans) {
+                Mapper mapper = new DozerBeanMapper();
+                ApplicationDTO applicationDTO = mapper.map(applicationBean, ApplicationDTO.class);
+                applicationDTO.setLeaf(true);
+                applicationDTO.setText(applicationBean.getName());
+                applicationDTO.setIconCls(applicationBean.getIconCls());
+                root.getChildren().add(applicationDTO);
             }
         }
         return root;
