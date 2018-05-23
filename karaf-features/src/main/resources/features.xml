@@ -24,7 +24,7 @@
         <bundle>mvn:com.kalix.admin.core/admin-core-dao/${project.admin.version}</bundle>
         <bundle>mvn:com.kalix.admin.core/admin-core-biz/${project.admin.version}</bundle>
         <bundle>mvn:com.kalix.admin.core/admin-core-rest/${project.admin.version}</bundle>
-        <bundle>mvn:com.kalix.admin.core/admin-core-extjs/${project.admin.version}</bundle>
+        <!--<bundle>mvn:com.kalix.admin.core/admin-core-extjs/${project.admin.version}</bundle>-->
         <bundle>mvn:com.kalix.admin.core/admin-core-etc/${project.admin.version}</bundle>
     </feature>
 
@@ -34,7 +34,7 @@
         <bundle>mvn:com.kalix.admin.audit/admin-audit-entities/${project.admin.version}</bundle>
         <bundle>mvn:com.kalix.admin.audit/admin-audit-dao/${project.admin.version}</bundle>
         <bundle>mvn:com.kalix.admin.audit/admin-audit-rest/${project.admin.version}</bundle>
-        <bundle>mvn:com.kalix.admin.audit/admin-audit-extjs/${project.admin.version}</bundle>
+        <!--<bundle>mvn:com.kalix.admin.audit/admin-audit-extjs/${project.admin.version}</bundle>-->
     </feature>
 
     <feature name="admin-duty" version="${project.admin.version}">
@@ -43,7 +43,7 @@
         <bundle>mvn:com.kalix.admin.duty/admin-duty-entities/${project.admin.version}</bundle>
         <bundle>mvn:com.kalix.admin.duty/admin-duty-dao/${project.admin.version}</bundle>
         <bundle>mvn:com.kalix.admin.duty/admin-duty-rest/${project.admin.version}</bundle>
-        <bundle>mvn:com.kalix.admin.duty/admin-duty-extjs/${project.admin.version}</bundle>
+        <!--<bundle>mvn:com.kalix.admin.duty/admin-duty-extjs/${project.admin.version}</bundle>-->
     </feature>
 
 
