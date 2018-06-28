@@ -184,5 +184,14 @@
     <!--<service id="pluginBeanService" interface="com.kalix.admin.core.api.biz.IPluginBeanService"-->
              <!--ref="pluginBeanServiceImpl">-->
     <!--</service>-->
+
+    <bean id="adminDashboardServiceImpl" class="com.kalix.admin.core.biz.AdminDashboardServiceImpl">
+    </bean>
+    <service id="adminDashboardService" interface="com.kalix.framework.core.api.biz.IDashboardService"
+             ref="adminDashboardServiceImpl">
+        <service-properties>
+            <entry key="dashboard" value="admin"/>
+        </service-properties>
+    </service>
 </blueprint>
 

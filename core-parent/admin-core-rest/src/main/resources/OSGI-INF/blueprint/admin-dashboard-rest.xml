@@ -3,7 +3,7 @@
            xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
            xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
        http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
-    <reference id="adminDashboardService" interface="com.kalix.framework.core.api.biz.IDashboardService"/>
+    <reference id="adminDashboardService" interface="com.kalix.framework.core.api.biz.IDashboardService" filter="(dashboard=admin)"/>
 
     <camelContext id="adminDashboardCamel" xmlns="http://camel.apache.org/schema/blueprint">
 
@@ -15,10 +15,17 @@
         <rest path="/admin/dashboard" consumes="application/json;charset=utf-8" produces="application/json;charset=utf-8">
             <description>admin dashboard rest service</description>
 
-            <!-- this is a rest GET to find all orgs -->
+            <!-- this is a rest GET to find PanelGroupData -->
             <get id="route-getPanelGroupData" uri="/panelGroup" outType="com.kalix.framework.core.api.persistence.JsonData">
                 <description>Find PanelGroupData</description>
-                <to uri="bean:adminDashboardService?method=getPanelGroupData()"/>
+                <to uri="bean:adminDashboardService?method=getPanelGroupData"/>
+            </get>
+
+            <!-- this is a rest GET to find LineChartData -->
+            <get id="route-getLineChartData" uri="/lineChart"
+                 type="java.lang.String" outType="com.kalix.framework.core.api.persistence.JsonData">
+                <description>Find LineChartData</description>
+                <to uri="bean:adminDashboardService?method=getLineChartData(${header.chartKey})"/>
             </get>
         </rest>
     </camelContext>
