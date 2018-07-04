@@ -70,7 +70,9 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
     @Transactional
     public void afterSaveEntity(OrganizationBean entity, JsonStatus status) {
         Assert.notNull(entity, "实体不能为空.");
-
+        if (entity.getParentId() == null) {
+            entity.setParentId(-1L);
+        }
         if (entity.getParentId() != -1) {
             OrganizationBean parentOrganizationBean = dao.get(entity.getParentId());
             if (parentOrganizationBean != null && parentOrganizationBean.getIsLeaf() == 1) {
