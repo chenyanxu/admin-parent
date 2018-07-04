@@ -1,8 +1,8 @@
 package com.kalix.admin.core.biz;
 
 import com.kalix.framework.core.api.biz.IDashboardService;
+import com.kalix.framework.core.api.dto.PieSeriesDataDTO;
 import com.kalix.framework.core.impl.biz.DashboardServiceImpl;
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class AdminDashboardServiceImpl extends DashboardServiceImpl implements I
     }
 
     @Override
-    public List<JSONObject> getPieChartBizData(String chartKey) {
+    public List<PieSeriesDataDTO> getPieChartBizData(String chartKey) {
         return super.getPieChartBizData(chartKey);
     }
 
