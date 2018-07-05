@@ -185,7 +185,8 @@
              <!--ref="pluginBeanServiceImpl">-->
     <!--</service>-->
 
-    <bean id="adminDashboardServiceImpl" class="com.kalix.admin.core.biz.AdminDashboardServiceImpl">
+    <bean id="adminDashboardServiceImpl" class="com.kalix.admin.core.biz.AdminDashboardServiceImpl" init-method="init">
+        <property name="dashboardConfigName" value="config.admin.dashboard"/>
     </bean>
     <service id="adminDashboardService" interface="com.kalix.framework.core.api.biz.IDashboardService"
              ref="adminDashboardServiceImpl">

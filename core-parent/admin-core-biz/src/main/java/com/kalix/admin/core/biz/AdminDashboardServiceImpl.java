@@ -18,6 +18,11 @@ import java.util.List;
 public class AdminDashboardServiceImpl extends DashboardServiceImpl implements IDashboardService {
 
     @Override
+    public Integer getPanelGroupBizData(String chartKey) {
+        return super.getPanelGroupBizData(chartKey);
+    }
+
+    @Override
     public List<Integer> getLineChartBizData(String chartKey, String legend) {
         return super.getLineChartBizData(chartKey, legend);
     }
