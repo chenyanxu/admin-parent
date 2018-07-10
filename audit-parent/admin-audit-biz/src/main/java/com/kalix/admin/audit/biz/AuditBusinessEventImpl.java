@@ -41,6 +41,7 @@ public class AuditBusinessEventImpl implements EventHandler {
 
         auditBean.setAction(dto.getAction());
         auditBean.setActor(dto.getActor());
+        auditBean.setActorId(shiroService.getCurrentUserId());
         auditBean.setAppName(configBean.getAppName());
         auditBean.setFunName(configBean.getFunName());
 
