@@ -20,6 +20,7 @@ public class AuditBean extends PersistentEntity {
     private String appName; //应用名称
     private String funName;//功能名称
     private String actor;//操作人
+    private Long actorId;//操作人ID
     private String action;//操作
     @Lob
     private String content;//操作内容
@@ -70,5 +71,13 @@ public class AuditBean extends PersistentEntity {
 
     public void setClsName(String clsName) {
         this.clsName = clsName;
+    }
+
+    public Long getActorId() {
+        return actorId;
+    }
+
+    public void setActorId(Long actorId) {
+        this.actorId = actorId;
     }
 }
