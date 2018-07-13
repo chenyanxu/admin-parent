@@ -131,6 +131,9 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         //密码加密
         if (StringUtils.isNotEmpty(userEntity.getPassword())) {
             userEntity.setPassword(MD5Util.encode(userEntity.getPassword()));
+        } else {
+            //前台新增时，未输入密码，后台给定默认密码123
+            userEntity.setPassword(MD5Util.encode("123"));
         }
 
         super.beforeSaveEntity(entity, status);
