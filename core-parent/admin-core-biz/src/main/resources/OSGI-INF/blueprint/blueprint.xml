@@ -185,7 +185,9 @@
              <!--ref="pluginBeanServiceImpl">-->
     <!--</service>-->
 
+    <reference id="genericDao" interface="com.kalix.framework.core.api.dao.IGenericDao"/>
     <bean id="adminDashboardServiceImpl" class="com.kalix.admin.core.biz.AdminDashboardServiceImpl" init-method="init">
+        <property name="genericDao" ref="genericDao"/>
         <property name="dashboardConfigName" value="config.admin.dashboard"/>
     </bean>
     <service id="adminDashboardService" interface="com.kalix.framework.core.api.biz.IDashboardService"
