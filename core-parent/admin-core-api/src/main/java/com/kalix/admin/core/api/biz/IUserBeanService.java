@@ -167,4 +167,6 @@ public interface IUserBeanService extends IBizService<UserBean> {
     Boolean existUserBeanByLoginName(String loginname);
 
     List<UserBean> getUsersByIds(List<String> userIds);
+
+    JsonData findUserById(Long userId);
 }

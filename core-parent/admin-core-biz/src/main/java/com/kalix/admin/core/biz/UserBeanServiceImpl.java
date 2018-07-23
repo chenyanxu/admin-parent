@@ -518,6 +518,21 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         return dao.findByNativeSql(sql, UserBean.class, null);
     }
 
+    @Override
+    public JsonData findUserById(Long userId) {
+        JsonData jsonData = new JsonData();
+        UserBean userBean = this.getEntity(userId);
+        if (userBean != null) {
+            List<UserBean> userList = new ArrayList<>();
+            userList.add(userBean);
+            jsonData.setData(userList);
+            jsonData.setTotalCount(1L);
+        } else {
+            jsonData.setTotalCount(0L);
+        }
+        return jsonData;
+    }
+
     /**
      * 在用户新建之后，设置用户的默认角色
      * 根据config.admin.dict.cfg文件中，admin_default_roles的属性
