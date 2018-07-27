@@ -259,7 +259,6 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
                     organizationDTO.setSzxqid(n.getSzxqid());
                     if(n.getSzxqid()!=null)
                     {
-                        System.out.println(n.getSzxqid());
                         try {
                             if(JNDIHelper.getJNDIServiceForNameNoCatch(IEduSchoolZoneBeanService.class.getName()))
                             {
@@ -467,10 +466,8 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
                     organizationDTO.setParentName(parentName);
                     organizationDTO.setText(rootElement.getName());
                     organizationDTO.setSzxqid(rootElement.getSzxqid());
-                    System.out.println("root---------->"+rootElement.getName());
                     if(rootElement.getSzxqid()!=null)
                     {
-                        System.out.println(rootElement.getSzxqid());
                         try {
                             if(JNDIHelper.getJNDIServiceForNameNoCatch(IEduSchoolZoneBeanService.class.getName()))
                             {
