@@ -43,9 +43,9 @@
             <artifactId>framework-osgi-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.kalix.educational.information</groupId>
-            <artifactId>educational-information-api</artifactId>
-            <version>${project.educational.version}</version>
+            <groupId>com.kalix.general.org</groupId>
+            <artifactId>general-org-api</artifactId>
+            <version>${project.general.version}</version>
         </dependency>
     </dependencies>
 </project>
