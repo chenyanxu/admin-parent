@@ -58,6 +58,11 @@
                     <property name="getToUri"
                               value="bean:userService?method=findOrgsUserByUserId(${header.userId},${header.includeChildOrg})"/>
                 </bean>
+                <bean class="com.kalix.framework.core.api.camel.CustomRest">
+                    <property name="path" value="/users/{id}"/>
+                    <property name="getDescription" value="获取用户的信息"/>
+                    <property name="getToUri" value="bean:userService?method=findUserById(${header.id})"/>
+                </bean>
             </list>
         </property>
     </bean>

@@ -24,7 +24,16 @@ public class OrganizationBean extends PersistentEntity {
     private Long parentId; //父机构
     private Long areaId;  // 归属区域
     private Boolean dept;//是否是部门
+    private Integer szxqid; //所属校区
 
+
+    public Integer getSzxqid() {
+        return szxqid;
+    }
+
+    public void setSzxqid(Integer szxqid) {
+        this.szxqid = szxqid;
+    }
 
     public Long getParentId() {
         return parentId;

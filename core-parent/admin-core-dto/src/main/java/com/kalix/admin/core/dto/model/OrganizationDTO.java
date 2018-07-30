@@ -21,6 +21,25 @@ public class OrganizationDTO extends BaseDTO {
     private Integer areaId;  // 归属区域
     private String parentName; //父节点名称
     private Boolean dept;//是否是部门
+    private Integer szxqid;
+    private String szxqname;
+
+
+    public String getSzxqname() {
+        return szxqname;
+    }
+
+    public void setSzxqname(String szxqname) {
+        this.szxqname = szxqname;
+    }
+
+    public Integer getSzxqid() {
+        return szxqid;
+    }
+
+    public void setSzxqid(Integer szxqid) {
+        this.szxqid = szxqid;
+    }
 
     private List<OrganizationDTO> children=new ArrayList<OrganizationDTO>();
 

@@ -11,16 +11,21 @@ import com.kalix.admin.core.entities.OrganizationBean;
 import com.kalix.admin.core.entities.OrganizationUserBean;
 import com.kalix.admin.core.entities.UserBean;
 import com.kalix.admin.core.util.Compare;
+import com.kalix.educational.information.api.biz.IEduSchoolZoneBeanService;
+import com.kalix.educational.information.entities.EduSchoolBuildBean;
+import com.kalix.educational.information.entities.EduSchoolZoneBean;
 import com.kalix.framework.core.api.persistence.JsonData;
 import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.impl.biz.CodeUtil;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
+import com.kalix.framework.core.util.JNDIHelper;
 import org.apache.commons.lang.StringUtils;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,6 +43,11 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
     private IOrganizationUserBeanDao organizationUserDao;
     private IUserBeanService userService;
     private IUserBeanDao userDao;
+    private IEduSchoolZoneBeanService eduSchoolZoneBeanServiceImpl;
+
+    public void setEduSchoolZoneBeanServiceImpl(IEduSchoolZoneBeanService eduSchoolZoneBeanServiceImpl) {
+        this.eduSchoolZoneBeanServiceImpl = eduSchoolZoneBeanServiceImpl;
+    }
 
     public OrganizationBeanServiceImpl() {
         super.init(OrganizationBean.class.getName());
@@ -246,6 +256,24 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
                     organizationDTO.setLeaf(!n.getIsLeaf().equals(0L));
                     organizationDTO.setParentName(root.getName());
                     organizationDTO.setText(n.getName());
+                    organizationDTO.setSzxqid(n.getSzxqid());
+                    if(n.getSzxqid()!=null)
+                    {
+                        try {
+                            if(JNDIHelper.getJNDIServiceForNameNoCatch(IEduSchoolZoneBeanService.class.getName()))
+                            {
+                                eduSchoolZoneBeanServiceImpl = JNDIHelper.getJNDIServiceForName(IEduSchoolZoneBeanService.class.getName());
+
+                                EduSchoolZoneBean eduSchoolZoneBean =eduSchoolZoneBeanServiceImpl.getEntity(n.getSzxqid());
+                                organizationDTO.setSzxqname(eduSchoolZoneBean.getZwmc());
+                            }
+
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
                     children.add(organizationDTO);
 
                     if (isRecursion && n.getIsLeaf().equals(0L)) {
@@ -278,6 +306,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
                     organizationDTO.setLeaf(!n.getIsLeaf().equals(0L));
                     organizationDTO.setParentName(root.getName());
                     organizationDTO.setText(n.getName());
+                    organizationDTO.setSzxqid(n.getSzxqid());
                     children.add(organizationDTO);
                 });
         root.setChildren(children);
@@ -436,6 +465,22 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
                     organizationDTO.setLeaf(rootElement.getIsLeaf() != 0);
                     organizationDTO.setParentName(parentName);
                     organizationDTO.setText(rootElement.getName());
+                    organizationDTO.setSzxqid(rootElement.getSzxqid());
+                    if(rootElement.getSzxqid()!=null)
+                    {
+                        try {
+                            if(JNDIHelper.getJNDIServiceForNameNoCatch(IEduSchoolZoneBeanService.class.getName()))
+                            {
+                                eduSchoolZoneBeanServiceImpl = JNDIHelper.getJNDIServiceForName(IEduSchoolZoneBeanService.class.getName());
+                                EduSchoolZoneBean eduSchoolZoneBean =eduSchoolZoneBeanServiceImpl.getEntity(rootElement.getSzxqid());
+                                organizationDTO.setSzxqname(eduSchoolZoneBean.getZwmc());
+                            }
+
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     getChilden(organizationDTO, beans, mapper, true);
                     root.getChildren().add(organizationDTO);
                 }
