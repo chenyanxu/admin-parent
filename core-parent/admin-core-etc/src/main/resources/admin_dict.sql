@@ -62,3 +62,6 @@ INSERT INTO public.admin_dict (id, createby, createbyid, creationdate, updateby,
 
 INSERT INTO public.admin_dict (id, createby, createbyid, creationdate, updateby, updatebyid, updatedate, description, label, type, value, version_) VALUES (59, '管理员', '-1', '2018-02-09 15:16:08.395', '管理员', '-1', '2018-02-09 15:16:08.395', '文学', '文学', '学科', '1', 1);
 INSERT INTO public.admin_dict (id, createby, createbyid, creationdate, updateby, updatebyid, updatedate, description, label, type, value, version_) VALUES (60, '管理员', '-1', '2018-02-09 15:16:08.395', '管理员', '-1', '2018-02-09 15:16:08.395', '艺术学', '艺术学', '学科', '2', 1);
+
+INSERT INTO public.admin_dict (id, createby, createbyid, creationdate, updateby, updatebyid, updatedate, description, label, type, value, version_) VALUES (61, '管理员', '-1', '2018-02-09 15:16:08.395', '管理员', '-1', '2018-02-09 15:16:08.395', '不可用', '不可用', '状态', '0', 1);
+INSERT INTO public.admin_dict (id, createby, createbyid, creationdate, updateby, updatebyid, updatedate, description, label, type, value, version_) VALUES (62, '管理员', '-1', '2018-02-09 15:16:08.395', '管理员', '-1', '2018-02-09 15:16:08.395', '可用', '可用', '状态', '1', 1);
