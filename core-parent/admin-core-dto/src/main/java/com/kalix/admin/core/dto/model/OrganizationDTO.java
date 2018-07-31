@@ -21,43 +21,10 @@ public class OrganizationDTO extends BaseDTO {
     private Integer areaId;  // 归属区域
     private String parentName; //父节点名称
     private Boolean dept;//是否是部门
-    private Integer szxqid;
+    private Long szxqid;
     private String szxqname;
 
-
-    public String getSzxqname() {
-        return szxqname;
-    }
-
-    public void setSzxqname(String szxqname) {
-        this.szxqname = szxqname;
-    }
-
-    public Integer getSzxqid() {
-        return szxqid;
-    }
-
-    public void setSzxqid(Integer szxqid) {
-        this.szxqid = szxqid;
-    }
-
     private List<OrganizationDTO> children=new ArrayList<OrganizationDTO>();
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getParentName() {
-        return parentName;
-    }
-
-    public void setParentName(String parentName) {
-        this.parentName = parentName;
-    }
 
     public String getName() {
         return name;
@@ -75,6 +42,14 @@ public class OrganizationDTO extends BaseDTO {
         this.code = code;
     }
 
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
     public String getCenterCode() {
         return centerCode;
     }
@@ -83,8 +58,7 @@ public class OrganizationDTO extends BaseDTO {
         this.centerCode = centerCode;
     }
 
-
-    public Boolean isLeaf() {
+    public Boolean getLeaf() {
         return leaf;
     }
 
@@ -108,19 +82,43 @@ public class OrganizationDTO extends BaseDTO {
         this.areaId = areaId;
     }
 
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
+
+    public Boolean getDept() {
+        return dept;
+    }
+
+    public void setDept(Boolean dept) {
+        this.dept = dept;
+    }
+
+    public Long getSzxqid() {
+        return szxqid;
+    }
+
+    public void setSzxqid(Long szxqid) {
+        this.szxqid = szxqid;
+    }
+
+    public String getSzxqname() {
+        return szxqname;
+    }
+
+    public void setSzxqname(String szxqname) {
+        this.szxqname = szxqname;
+    }
+
     public List<OrganizationDTO> getChildren() {
         return children;
     }
 
     public void setChildren(List<OrganizationDTO> children) {
         this.children = children;
-    }
-
-    public Boolean isDept() {
-        return dept;
-    }
-
-    public void setDept(Boolean dept) {
-        this.dept = dept;
     }
 }

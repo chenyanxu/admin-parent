@@ -515,7 +515,7 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
     public List<UserBean> getUsersByIds(List<String> userIds) {
         String userIdsStr = String.join(",", userIds);
         String sql = "select * from sys_user where available=1 and id in (" + userIdsStr + ")";
-        return dao.findByNativeSql(sql, UserBean.class, null);
+        return dao.findByNativeSql(sql, UserBean.class);
     }
 
     @Override
