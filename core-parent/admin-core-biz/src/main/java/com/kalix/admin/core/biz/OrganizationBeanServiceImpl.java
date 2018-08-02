@@ -227,6 +227,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
                 /*oldOrg.setCode(entity.getCode());*/
                 oldOrg.setCenterCode(entity.getCenterCode());
                 oldOrg.setUpdateBy(shiroService.getCurrentUserLoginName());
+                oldOrg.setSzxqid(entity.getSzxqid());
                 dao.save(oldOrg);
                 jsonStatus.setSuccess(true);
                 jsonStatus.setMsg("更新" + FUNCTION_NAME + "成功！");
