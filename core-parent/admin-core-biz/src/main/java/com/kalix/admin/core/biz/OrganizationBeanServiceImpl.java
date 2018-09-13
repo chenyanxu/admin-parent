@@ -7,6 +7,7 @@ import com.kalix.admin.core.api.dao.IOrganizationUserBeanDao;
 import com.kalix.admin.core.api.dao.IUserBeanDao;
 import com.kalix.admin.core.dto.model.OrganizationDTO;
 import com.kalix.admin.core.dto.model.OrganizationUserDTO;
+import com.kalix.admin.core.dto.model.SchoolZoneDTO;
 import com.kalix.admin.core.entities.OrganizationBean;
 import com.kalix.admin.core.entities.OrganizationUserBean;
 import com.kalix.admin.core.entities.UserBean;
@@ -16,9 +17,8 @@ import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.impl.biz.CodeUtil;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
-import com.kalix.framework.core.util.JNDIHelper;
-import com.kalix.general.org.api.biz.ISchoolZoneBeanService;
-import com.kalix.general.org.entities.SchoolZoneBean;
+import com.kalix.framework.core.util.HttpClientUtil;
+import com.kalix.framework.core.util.SerializeUtil;
 import org.apache.commons.lang.StringUtils;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
@@ -42,11 +42,6 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
     private IOrganizationUserBeanDao organizationUserDao;
     private IUserBeanService userService;
     private IUserBeanDao userDao;
-    private ISchoolZoneBeanService schoolZoneBeanService;
-
-    public void setSchoolZoneBeanService(ISchoolZoneBeanService schoolZoneBeanService) {
-        this.schoolZoneBeanService = schoolZoneBeanService;
-    }
 
     public OrganizationBeanServiceImpl() {
         super.init(OrganizationBean.class.getName());
@@ -259,14 +254,19 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
                     organizationDTO.setSzxqid(n.getSzxqid());
                     if (n.getSzxqid() != null) {
                         try {
-                            if (JNDIHelper.getJNDIServiceForNameNoCatch(ISchoolZoneBeanService.class.getName())) {
-                                if (schoolZoneBeanService == null) {
-                                    schoolZoneBeanService = JNDIHelper.getJNDIServiceForName(ISchoolZoneBeanService.class.getName());
+                            String rtnStr = null;
+                            String access_token = this.shiroService.getSession().getAttribute("access_token").toString();
+                            String sessionId = this.shiroService.getSession().getId().toString();
+                            rtnStr = HttpClientUtil.shiroGet("/schoolZones/" + n.getSzxqid().toString(), sessionId, access_token);
+                            if (rtnStr != null) {
+                                SchoolZoneDTO schoolZoneDTO = SerializeUtil.unserializeJson(rtnStr, SchoolZoneDTO.class);
+                                if (schoolZoneDTO != null) {
+                                    organizationDTO.setSzxqname(schoolZoneDTO.getZwmc());
                                 }
-                                SchoolZoneBean schoolZoneBean = schoolZoneBeanService.getEntity(n.getSzxqid());
-                                organizationDTO.setSzxqname(schoolZoneBean.getZwmc());
                             }
                         } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
@@ -465,14 +465,19 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
                     organizationDTO.setSzxqid(rootElement.getSzxqid());
                     if (rootElement.getSzxqid() != null) {
                         try {
-                            if (JNDIHelper.getJNDIServiceForNameNoCatch(ISchoolZoneBeanService.class.getName())) {
-                                if (schoolZoneBeanService == null) {
-                                    schoolZoneBeanService = JNDIHelper.getJNDIServiceForName(ISchoolZoneBeanService.class.getName());
+                            String rtnStr = null;
+                            String access_token = this.shiroService.getSession().getAttribute("access_token").toString();
+                            String sessionId = this.shiroService.getSession().getId().toString();
+                            rtnStr = HttpClientUtil.shiroGet("/schoolZones/" + rootElement.getSzxqid().toString(), sessionId, access_token);
+                            if (rtnStr != null) {
+                                SchoolZoneDTO schoolZoneDTO = SerializeUtil.unserializeJson(rtnStr, SchoolZoneDTO.class);
+                                if (schoolZoneDTO != null) {
+                                    organizationDTO.setSzxqname(schoolZoneDTO.getZwmc());
                                 }
-                                SchoolZoneBean schoolZoneBean = schoolZoneBeanService.getEntity(rootElement.getSzxqid());
-                                organizationDTO.setSzxqname(schoolZoneBean.getZwmc());
                             }
                         } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
