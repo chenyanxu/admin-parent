@@ -18,18 +18,18 @@ import java.util.List;
  */
 public class TemplateContentBeanServiceImpl extends GenericBizServiceImpl<ITemplateContentBeanDao, TemplateContentBean> implements ITemplateContentBeanService {
 
-    public TemplateContentBeanServiceImpl() {
-        super.init(TemplateContentBean.class.getName());
+//    public TemplateContentBeanServiceImpl() {
+//        super.init(TemplateContentBean.class.getName());
+//    }
+
+    @Override
+    public void deleteByTemplateId(String templateId) {
+        dao.updateNativeQuery("delete from sys_templatecontent where templateid = '" + templateId + "'");
     }
 
     @Override
-    public void deleteByTemplateId(Long templateId) {
-        dao.updateNativeQuery("delete from sys_templatecontent where templateid = " + templateId);
-    }
-
-    @Override
-    public List<TemplateContentBean> getContentByTemplateId(Long templateId, Integer templateType) {
-        List<TemplateContentBean> configsObj = dao.findByNativeSql("select * from sys_templatecontent where templateid = " + templateId + "and templatetype = " + templateType, TemplateContentBean.class, null);
+    public List<TemplateContentBean> getContentByTemplateId(String templateId, Integer templateType) {
+        List<TemplateContentBean> configsObj = dao.findByNativeSql("select * from sys_templatecontent where templateid = '" + templateId + "' and templatetype = " + templateType, TemplateContentBean.class, null);
         return configsObj;
     }
 }

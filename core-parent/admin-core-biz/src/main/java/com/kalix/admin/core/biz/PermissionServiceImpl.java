@@ -39,7 +39,7 @@ public class PermissionServiceImpl  implements IPermissionService {
      * @return
      */
     @Override
-    public List<String> getApplicationCodesByUserId(long userId) {
+    public List<String> getApplicationCodesByUserId(String userId) {
         Assert.notNull(userId, "用户编号不能为空.");
         List<String> applicationCodes = new ArrayList<>();
 
@@ -79,7 +79,7 @@ public class PermissionServiceImpl  implements IPermissionService {
      * @return
      */
     @Override
-    public List<String> getFunctionCodesByUserId(long userId) {
+    public List<String> getFunctionCodesByUserId(String userId) {
         Assert.notNull(userId, "用户编号不能为空.");
         List<String> functionCodes=new ArrayList<>();
 

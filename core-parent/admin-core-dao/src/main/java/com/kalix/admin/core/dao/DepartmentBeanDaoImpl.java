@@ -9,7 +9,7 @@ import com.kalix.admin.core.entities.DepartmentBean;
  *         date:2015-7-23
  * @version 1.0.0
  */
-public class DepartmentBeanDaoImpl extends BaseAdminDao<DepartmentBean, Long> implements IDepartmentBeanDao {
+public class DepartmentBeanDaoImpl extends BaseAdminDao<DepartmentBean, String> implements IDepartmentBeanDao {
     private final String className = DepartmentBean.class.getName();
 
 }

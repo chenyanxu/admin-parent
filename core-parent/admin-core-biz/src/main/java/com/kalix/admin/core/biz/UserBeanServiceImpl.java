@@ -88,7 +88,7 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
     }
 
     @Override
-    public void afterDeleteEntity(Long id, JsonStatus status) {
+    public void afterDeleteEntity(String id, JsonStatus status) {
         roleUserBeanDao.update("delete from RoleUserBean ru where ru.userId=?1", id);
         organizationUserBeanDao.update("delete from OrganizationUserBean du where du.userId=?1", id);
         workGroupUserBeanDao.update("delete from WorkGroupUserBean wu where wu.userId=?1", id);
@@ -109,7 +109,7 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
 
     @Override
     @Transactional
-    public JsonStatus saveEntityWithOrg(UserBean entity, Long id) {
+    public JsonStatus saveEntityWithOrg(UserBean entity, String id) {
         JsonStatus jsonStatus = super.saveEntity(entity);
         if (jsonStatus.getSuccess()) {
             OrganizationUserBean organizationUserBean = new OrganizationUserBean();
@@ -118,7 +118,7 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
             organizationUserBean.setUpdateById(shiroService.getCurrentUserId());
             organizationUserBean.setUpdateBy(shiroService.getCurrentUserRealName());
             organizationUserBean.setOrgId(id);
-            organizationUserBean.setUserId(Long.valueOf(jsonStatus.getTag()));
+            organizationUserBean.setUserId(jsonStatus.getTag());
             organizationUserBeanDao.save(organizationUserBean);
         }
 
@@ -168,7 +168,7 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
     }
 
     @Override
-    public boolean isDelete(Long entityId, JsonStatus status) {
+    public boolean isDelete(String entityId, JsonStatus status) {
         if (dao.get(entityId) == null) {
             status.setFailure(true);
             status.setMsg(FUNCTION_NAME + "已经被删除！");
@@ -253,7 +253,7 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
 
     @Override
     public void setUserUnavailable(String relateId) {
-        dao.update("update sys_user set available=0 where relateId=" + relateId);
+        dao.update("update sys_user set available=0 where relateId='" + relateId + "'");
     }
 
     /**
@@ -267,8 +267,8 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
      * @return
      */
     @Override
-    public JsonData findUserByOrgId(Long orgId, int page, int limit, String sort) {
-        return getUserAttachedInfo(dao.findByNativeSql("select u.* from " + dao.getTableName() + " u, " + organizationUserBeanDao.getTableName() + " o  where u.id = o.userId and o.orgId = " + orgId, page, limit, UserBean.class));
+    public JsonData findUserByOrgId(String orgId, int page, int limit, String sort) {
+        return getUserAttachedInfo(dao.findByNativeSql("select u.* from " + dao.getTableName() + " u, " + organizationUserBeanDao.getTableName() + " o  where u.id = o.userId and o.orgId = '" + orgId + "'", page, limit, UserBean.class));
     }
 
     /**
@@ -351,7 +351,7 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
      * @return
      */
     @Override
-    public boolean checkUserPassword(long userId, String password) {
+    public boolean checkUserPassword(String userId, String password) {
         UserBean userBean = dao.get(userId);
         return userBean != null && userBean.getPassword() != null && password != null && userBean.getPassword().equals(MD5Util.encode(password)) ? true : false;
     }
@@ -363,7 +363,7 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
      * @return
      */
     @Override
-    public JsonData findOrgsUserByUserId(Long userId) {
+    public JsonData findOrgsUserByUserId(String userId) {
         List<UserBean> userList = new ArrayList<>();
 
         // 用户拥有的机构列表
@@ -397,9 +397,9 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
     }
 
     @Override
-    public List<Long> findOrgsUserByUserId(Long userId, Boolean includeChildOrg) {
+    public List<String> findOrgsUserByUserId(String userId, Boolean includeChildOrg) {
         //JsonData jsonData = null;
-        List<Long> rtnList = new ArrayList<Long>();
+        List<String> rtnList = new ArrayList<>();
         List<UserBean> userList = new ArrayList<UserBean>();
         if (includeChildOrg) {
             JsonData jsonData = findOrgsUserByUserId(userId);
@@ -519,7 +519,7 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
     }
 
     @Override
-    public JsonData findUserById(Long userId) {
+    public JsonData findUserById(String userId) {
         JsonData jsonData = new JsonData();
         UserBean userBean = this.getEntity(userId);
         if (userBean != null) {
@@ -568,7 +568,9 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         if (defaultRole != null) {
             RoleBean roleBean = roleBeanDao.getRole(defaultRole.getRoleName());
             RoleUserBean bean = new RoleUserBean();
-            bean.setRoleId(roleBean.getId());
+            if (roleBean != null) {
+                bean.setRoleId(roleBean.getId());
+            }
             bean.setUserId(entity.getId());
             roleUserBeanDao.save(bean);
         }

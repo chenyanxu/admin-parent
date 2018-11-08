@@ -11,5 +11,5 @@ import com.kalix.admin.core.entities.FunctionBean;
  * @version 1.0.0
  */
 
-public class FunctionBeanDaoImpl extends BaseAdminDao<FunctionBean, Long> implements IFunctionBeanDao {
+public class FunctionBeanDaoImpl extends BaseAdminDao<FunctionBean, String> implements IFunctionBeanDao {
 }

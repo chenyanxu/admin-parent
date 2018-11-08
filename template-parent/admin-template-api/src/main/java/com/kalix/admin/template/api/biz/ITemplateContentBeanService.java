@@ -15,7 +15,7 @@ import java.util.List;
  * @修改备注：
  */
 public interface ITemplateContentBeanService extends IBizService<TemplateContentBean> {
-    void deleteByTemplateId(Long templateId);
+    void deleteByTemplateId(String templateId);
 
-    List<TemplateContentBean> getContentByTemplateId(Long templateId, Integer templateType);
+    List<TemplateContentBean> getContentByTemplateId(String templateId, Integer templateType);
 }

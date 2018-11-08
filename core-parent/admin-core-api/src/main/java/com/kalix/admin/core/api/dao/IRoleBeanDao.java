@@ -14,7 +14,7 @@ import java.util.List;
  * @修改时间：
  * @修改备注：
  */
-public interface IRoleBeanDao extends IGenericDao<RoleBean, Long> {
+public interface IRoleBeanDao extends IGenericDao<RoleBean, String> {
     /**
      * 获得角色名列表
      *
@@ -36,14 +36,14 @@ public interface IRoleBeanDao extends IGenericDao<RoleBean, Long> {
      * @param roleId
      * @return
      */
-    RoleBean getRole(Long roleId);
+    RoleBean getRoleById(String roleId);
 
     /**
      * 删除一个角色.
      *
      * @param roleId 角色ID
      */
-    void removeRole(Long roleId);
+    void removeRole(String roleId);
 
     /**
      * 获得角色名列表

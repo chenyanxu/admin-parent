@@ -32,7 +32,7 @@ public class AuditConfigBeanServiceImpl extends GenericBizServiceImpl<IAuditConf
     }
 
     @Override
-    public void beforeDeleteEntity(Long id, JsonStatus status) {
+    public void beforeDeleteEntity(String id, JsonStatus status) {
 
     }
 }

@@ -11,5 +11,5 @@ import com.kalix.framework.core.api.dao.IGenericDao;
  * @修改时间：
  * @修改备注：
  */
-public interface IAuditConfigBeanDao extends IGenericDao<AuditConfigBean, Long> {
+public interface IAuditConfigBeanDao extends IGenericDao<AuditConfigBean, String> {
 }

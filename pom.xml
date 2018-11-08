@@ -28,6 +28,7 @@
         <module>karaf-features</module>
         <!--<module>state-parent</module>-->
         <module>template-parent</module>
+        <module>uuidtest-parent</module>
     </modules>
 
     <dependencyManagement>

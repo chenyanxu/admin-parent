@@ -24,7 +24,7 @@ import javax.persistence.Table;
 })
 public class DutyBean extends PersistentEntity {
     private String name;//职位名称
-    private Long orgid;   //所在机构
+    private String orgid;   //所在机构
     private String comment; //职位描述
 
     public String getName() {
@@ -35,11 +35,11 @@ public class DutyBean extends PersistentEntity {
         this.name = name;
     }
 
-    public Long getOrgid() {
+    public String getOrgid() {
         return orgid;
     }
 
-    public void setOrgid(Long orgid) {
+    public void setOrgid(String orgid) {
         this.orgid = orgid;
     }
 

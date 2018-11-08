@@ -12,5 +12,5 @@ import com.kalix.framework.core.api.dao.IGenericDao;
  * 修改时间:  2014/8/7 15:59
  * 修改备注:  [说明本次修改内容]
  */
-public interface IAreaBeanDao extends IGenericDao<AreaBean, Long> {
+public interface IAreaBeanDao extends IGenericDao<AreaBean, String> {
 }

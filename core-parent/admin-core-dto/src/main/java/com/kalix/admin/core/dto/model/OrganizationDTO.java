@@ -17,11 +17,11 @@ public class OrganizationDTO extends BaseDTO {
     private String text; //名称
     private String centerCode; //中心代码
     private Boolean leaf; //是否是叶子节点
-    private Long parentId; //父机构
-    private Integer areaId;  // 归属区域
+    private String parentId; //父机构
+    private String areaId;  // 归属区域
     private String parentName; //父节点名称
     private Boolean dept;//是否是部门
-    private Long szxqid;
+    private String szxqid;
     private String szxqname;
 
     private List<OrganizationDTO> children=new ArrayList<OrganizationDTO>();
@@ -66,19 +66,19 @@ public class OrganizationDTO extends BaseDTO {
         this.leaf = leaf;
     }
 
-    public Long getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 
-    public Integer getAreaId() {
+    public String getAreaId() {
         return areaId;
     }
 
-    public void setAreaId(Integer areaId) {
+    public void setAreaId(String areaId) {
         this.areaId = areaId;
     }
 
@@ -98,11 +98,11 @@ public class OrganizationDTO extends BaseDTO {
         this.dept = dept;
     }
 
-    public Long getSzxqid() {
+    public String getSzxqid() {
         return szxqid;
     }
 
-    public void setSzxqid(Long szxqid) {
+    public void setSzxqid(String szxqid) {
         this.szxqid = szxqid;
     }
 

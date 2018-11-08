@@ -47,13 +47,13 @@ public class WorkGroupBeanServiceImpl extends ShiroGenericBizServiceImpl<IWorkGr
     }
 
     @Override
-    public void afterDeleteEntity(Long id, JsonStatus status) {
+    public void afterDeleteEntity(String id, JsonStatus status) {
         workGroupUserBeanDao.deleteByWorkGroupId(id);
     }
 
     @Override
     @Transactional
-    public boolean isDelete(Long entityId, JsonStatus status) {
+    public boolean isDelete(String entityId, JsonStatus status) {
         if (dao.get(entityId) == null) {
             status.setFailure(true);
             status.setMsg(FUNCTION_NAME + "已经被删除！");
@@ -99,12 +99,12 @@ public class WorkGroupBeanServiceImpl extends ShiroGenericBizServiceImpl<IWorkGr
     }
 
     @Override
-    public List getUserIdsByWorkGroupId(long id) {
+    public List getUserIdsByWorkGroupId(String id) {
         List userIds = new ArrayList<String>();
         List<WorkGroupUserBean> workGroupUserBeans = workGroupUserBeanDao.find("select ob from WorkGroupUserBean ob where ob.groupId = ?1", id);
         if (workGroupUserBeans != null && !workGroupUserBeans.isEmpty()) {
             for (WorkGroupUserBean workGroupUserBean : workGroupUserBeans) {
-                if (workGroupUserBean != null && workGroupUserBean.getUserId() != 0) {
+                if (workGroupUserBean != null && workGroupUserBean.getUserId() != null) {
                     userIds.add(workGroupUserBean.getUserId());
                 }
             }
@@ -113,12 +113,12 @@ public class WorkGroupBeanServiceImpl extends ShiroGenericBizServiceImpl<IWorkGr
     }
 
     @Override
-    public List getRoleIdsByWorkGroupId(long id) {
+    public List getRoleIdsByWorkGroupId(String id) {
         List roleIds = new ArrayList<>();
         List<WorkGroupRoleBean> workGroupRoleBeans = workGroupRoleBeanDao.find("select ob from WorkGroupRoleBean ob where ob.groupId = ?1", id);
         if (workGroupRoleBeans != null && !workGroupRoleBeans.isEmpty()) {
             for (WorkGroupRoleBean workGroupRoleBean : workGroupRoleBeans) {
-                if (workGroupRoleBean != null && workGroupRoleBean.getRoleId() != 0) {
+                if (workGroupRoleBean != null && workGroupRoleBean.getRoleId() != null) {
                     roleIds.add(workGroupRoleBean.getRoleId());
                 }
             }
@@ -137,7 +137,7 @@ public class WorkGroupBeanServiceImpl extends ShiroGenericBizServiceImpl<IWorkGr
             return jsonStatus;
         } else {
             try {
-                long workGroupId = Long.valueOf(ids.get(0).toString());
+                String workGroupId = ids.get(0).toString();
                 String userId = ids.get(1).toString();
 
                 workGroupUserBeanDao.deleteByWorkGroupId(workGroupId);
@@ -150,7 +150,7 @@ public class WorkGroupBeanServiceImpl extends ShiroGenericBizServiceImpl<IWorkGr
                             workGroupUserBean.setCreateBy(userName);
                             workGroupUserBean.setUpdateBy(userName);
                             workGroupUserBean.setGroupId(workGroupId);
-                            workGroupUserBean.setUserId(Long.parseLong(_userId));
+                            workGroupUserBean.setUserId(_userId);
                             workGroupUserBeanDao.save(workGroupUserBean);
                         }
                     }
@@ -180,7 +180,7 @@ public class WorkGroupBeanServiceImpl extends ShiroGenericBizServiceImpl<IWorkGr
             return jsonStatus;
         } else {
             try {
-                long workGroupId = Long.valueOf(ids.get(0).toString());
+                String workGroupId = ids.get(0).toString();
                 String roleId = ids.get(1).toString();
 
                 workGroupRoleBeanDao.deleteByWorkGroupId(workGroupId);
@@ -193,7 +193,7 @@ public class WorkGroupBeanServiceImpl extends ShiroGenericBizServiceImpl<IWorkGr
                             workGroupRoleBean.setCreateBy(userName);
                             workGroupRoleBean.setUpdateBy(userName);
                             workGroupRoleBean.setGroupId(workGroupId);
-                            workGroupRoleBean.setRoleId(Long.parseLong(_roleId));
+                            workGroupRoleBean.setRoleId(_roleId);
                             workGroupRoleBeanDao.save(workGroupRoleBean);
                         }
                     }
@@ -212,7 +212,7 @@ public class WorkGroupBeanServiceImpl extends ShiroGenericBizServiceImpl<IWorkGr
     }
 
     @Override
-    public List<WorkGroupUserBean> getWorkGroupUserBeanByUserId(long userId) {
+    public List<WorkGroupUserBean> getWorkGroupUserBeanByUserId(String userId) {
         return workGroupUserBeanDao.find("select wgu from WorkGroupUserBean wgu where wgu.userId=?1", userId);
     }
 }

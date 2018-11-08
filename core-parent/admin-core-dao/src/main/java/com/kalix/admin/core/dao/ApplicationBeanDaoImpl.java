@@ -11,5 +11,5 @@ import com.kalix.admin.core.entities.ApplicationBean;
  * @version 1.0.0
  */
 
-public class ApplicationBeanDaoImpl extends BaseAdminDao<ApplicationBean, Long> implements IApplicationBeanDao {
+public class ApplicationBeanDaoImpl extends BaseAdminDao<ApplicationBean, String> implements IApplicationBeanDao {
 }

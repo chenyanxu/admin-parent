@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @修改时间：
  * @修改备注：
  */
-public class DataAuthBeanDaoImpl extends GenericDao<DataAuthBean, Long> implements IDataAuthBeanDao {
+public class DataAuthBeanDaoImpl extends GenericDao<DataAuthBean, String> implements IDataAuthBeanDao {
     @Override
     @PersistenceContext(unitName = "admin-duty-unit")
     public void setEntityManager(EntityManager em) {

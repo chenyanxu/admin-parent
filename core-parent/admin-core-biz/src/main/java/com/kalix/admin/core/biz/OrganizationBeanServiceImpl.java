@@ -75,9 +75,9 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
     public void afterSaveEntity(OrganizationBean entity, JsonStatus status) {
         Assert.notNull(entity, "实体不能为空.");
         if (entity.getParentId() == null) {
-            entity.setParentId(-1L);
+            entity.setParentId("-1");
         }
-        if (entity.getParentId() != -1) {
+        if (!"-1".equals(entity.getParentId())) {
             OrganizationBean parentOrganizationBean = dao.get(entity.getParentId());
             if (parentOrganizationBean != null && parentOrganizationBean.getIsLeaf() == 1) {
                 parentOrganizationBean.setIsLeaf(0L);
@@ -112,7 +112,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
         Assert.notNull(entity, "实体不能为空.");
 
         // 校验机构名称
-        List<OrganizationBean> beans = dao.findByName(0L, entity.getName());
+        List<OrganizationBean> beans = dao.findByName("0", entity.getName());
         if (beans != null && beans.size() > 0) {
             status.setSuccess(false);
             status.setMsg(FUNCTION_NAME + "名称已经存在！");
@@ -137,7 +137,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
     }
 
     @Override
-    public boolean isDelete(Long entityId, JsonStatus status) {
+    public boolean isDelete(String entityId, JsonStatus status) {
         if (dao.get(entityId) == null) {
             status.setFailure(true);
             status.setMsg(FUNCTION_NAME + "已经被删除！");
@@ -148,7 +148,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
 
     @Override
     @Transactional
-    public void doDelete(long id, JsonStatus jsonStatus) {
+    public void doDelete(String id, JsonStatus jsonStatus) {
         try {
             OrganizationBean bean = dao.get(id);
             if (bean != null) {
@@ -178,8 +178,8 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
      * @param parentId
      */
     @Transactional
-    public void updateParent(Long parentId) {
-        if (parentId != -1) {
+    public void updateParent(String parentId) {
+        if (!"-1".equals(parentId)) {
             // 获取父节点
             OrganizationBean parentBean = dao.get(parentId);
             if (parentBean != null) {
@@ -194,7 +194,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
     }
 
     @Transactional
-    public void removeChildren(Long id) {
+    public void removeChildren(String id) {
         List<OrganizationBean> children = dao.findByParentId(id);
         if (children != null && !children.isEmpty()) {
             children.stream()
@@ -309,7 +309,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
         root.setChildren(children);
     }
 
-    public OrganizationDTO getOrganizationDTO(Long id) {
+    public OrganizationDTO getOrganizationDTO(String id) {
         OrganizationBean bean = dao.get(id);
 
         if (bean != null) {
@@ -344,12 +344,12 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
                     .sorted(Compare.<OrganizationBean>compare()
                             .thenComparing((a, b) -> a.getCode().compareTo(b.getCode())))
                     .collect(Collectors.toList());
-            rtn = generateRoot(orgs, -1L);
+            rtn = generateRoot(orgs, "-1");
         } else {
-            Long userId = this.shiroService.getCurrentUserId();
+            String userId = this.shiroService.getCurrentUserId();
             List<OrganizationDTO> rtns = getOrgsTreeByUserId(userId);
             if (rtns.size() > 1) {
-                rtn.setId(-1L);
+                rtn.setId("-1");
                 rtn.setChildren(rtns);
             } else if (rtns.size() == 1) {
                 rtn = rtns.get(0);
@@ -367,19 +367,19 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
      * @return
      */
     @Override
-    public List getUserIdsByOrganizationId(long id) {
+    public List getUserIdsByOrganizationId(String id) {
         return organizationUserDao.findByOrgId(id).stream()
-                .filter(n -> !n.getUserId().equals(0L))
+                .filter(n -> !n.getUserId().equals("0"))
                 .map(OrganizationUserBean::getUserId)
                 .distinct()
                 .collect(Collectors.toList());
     }
 
     @Override
-    public JsonData getOrganizationUsers(long orgId) {
+    public JsonData getOrganizationUsers(String orgId) {
         JsonData jsonData = new JsonData();
         List list = userDao.findByUserId(organizationUserDao.findParentAndBrotherByOrgId(orgId).stream()
-                .filter(n -> !n.getUserId().equals(0L))
+                .filter(n -> !n.getUserId().equals("0"))
                 .map(OrganizationUserBean::getUserId)
                 .distinct().collect(Collectors.toList()), true);
 
@@ -397,7 +397,8 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
             jsonStatus.setFailure(true);
             jsonStatus.setMsg("保存失败!");
         } else {
-            long orgId = Long.valueOf((String) ids.get(0));
+//            long orgId = Long.valueOf((String) ids.get(0));
+            String orgId = (String) ids.get(0);
             String userId = ids.get(1).toString();
 
             try {
@@ -409,7 +410,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
                 if (StringUtils.isNotEmpty(userId)) {
                     Arrays.asList(userId.split(",")).stream()
                             .filter(n -> StringUtils.isNotEmpty(n.trim()))
-                            .forEach(n -> organizationUserDao.save(new OrganizationUserBean(Long.parseLong(n), orgId, userName, userName)));
+                            .forEach(n -> organizationUserDao.save(new OrganizationUserBean(n, orgId, userName, userName)));
                 }
 
                 jsonStatus.setSuccess(true);
@@ -430,12 +431,12 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
      * @param elements
      * @return
      */
-    private List<OrganizationBean> getRootElements(List<OrganizationBean> elements, Long id) {
+    private List<OrganizationBean> getRootElements(List<OrganizationBean> elements, String id) {
         return elements.stream().filter(n -> n.getParentId().equals(id))
                 .collect(Collectors.toList());
     }
 
-    private OrganizationDTO generateRoot(List<OrganizationBean> beans, Long id) {
+    private OrganizationDTO generateRoot(List<OrganizationBean> beans, String id) {
         OrganizationDTO root;
         Mapper mapper = new DozerBeanMapper();
         String parentName = "根机构";
@@ -443,7 +444,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
         root = new OrganizationDTO();
 
         for (OrganizationBean bean : beans) {
-            if (bean.getId() == id) {
+            if (bean.getId().equals(id)) {
                 root = mapper.map(bean, OrganizationDTO.class);
                 root.setText(bean.getName());
                 parentName = bean.getName();
@@ -496,9 +497,9 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
      * @param userId
      * @return
      */
-    public JsonData getOrgsByUserId(long userId) {
+    public JsonData getOrgsByUserId(String userId) {
 
-        List list = dao.findByNativeSql("select id, code, name from " + dao.getTableName() + " where id in (select orgid from " + organizationUserDao.getTableName() + " where userid = " + userId + ")", OrganizationDTO.class);
+        List list = dao.findByNativeSql("select id, code, name from " + dao.getTableName() + " where id in (select orgid from " + organizationUserDao.getTableName() + " where userid = '" + userId + "')", OrganizationDTO.class);
 
         return JsonData.toJsonData(list);
     }
@@ -511,16 +512,16 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
      * @return
      */
     @Override
-    public List<Long> getOrgsByUserId(Long userId, Boolean includeChildOrg) {
+    public List<String> getOrgsByUserId(String userId, Boolean includeChildOrg) {
         //JsonData jsonData = null;
-        List<Long> rtnList = new ArrayList<Long>();
+        List<String> rtnList = new ArrayList<>();
         List<OrganizationDTO> orgList = new ArrayList<>();
         if (includeChildOrg) {
             // 用户拥有的机构列表
             /*List<OrganizationBean> list = this.dao.findById(organizationUserDao.findByUserId(userId)
                     .stream().map(OrganizationUserBean::getOrgId).collect(Collectors.toList()));*/
             List<OrganizationDTO> list = dao.findByNativeSql("select id, code, name from " + dao.getTableName() +
-                            " where id in (select orgid from " + organizationUserDao.getTableName() + " where userid = " + userId + ")",
+                            " where id in (select orgid from " + organizationUserDao.getTableName() + " where userid = '" + userId + "')",
                     OrganizationDTO.class);
             // 查找最顶层机构code长度
             int minLength = 100;
@@ -561,11 +562,11 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
      * @param userId
      * @return
      */
-    public List<OrganizationDTO> getOrgsTreeByUserId(long userId) {
+    public List<OrganizationDTO> getOrgsTreeByUserId(String userId) {
         List<OrganizationDTO> orgsTree = new ArrayList<>();
 
         // 用户拥有的机构用户列表
-        List<OrganizationUserDTO> list = dao.findByNativeSql("select a.id, a.userid, (select name from sys_user b where b.id = a.userid) as username, a.orgid as departmentid,(select name from sys_organization c where c.id = a.orgid) as departmentname from sys_organization_user a where a.userid=" + userId, OrganizationUserDTO.class);
+        List<OrganizationUserDTO> list = dao.findByNativeSql("select a.id, a.userid, (select name from sys_user b where b.id = a.userid) as username, a.orgid as departmentid,(select name from sys_organization c where c.id = a.orgid) as departmentname from sys_organization_user a where a.userid='" + userId + "'", OrganizationUserDTO.class);
 
         // 全部组织机构列表
         List<OrganizationBean> orgs = dao.getAll();
@@ -593,8 +594,8 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
      * @param name
      * @return
      */
-    public List<Long> getOrgsBrotherByUserName(String name) {
-        List<Long> list = new ArrayList<>();
+    public List<String> getOrgsBrotherByUserName(String name) {
+        List<String> list = new ArrayList<>();
         JsonData jsonData = new JsonData();
         Mapper mapper = new DozerBeanMapper();
 
@@ -616,7 +617,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
         }
 
         // 过滤重复兄弟机构
-        List<Long> returnList = list.stream().distinct().collect(Collectors.toList());
+        List<String> returnList = list.stream().distinct().collect(Collectors.toList());
 
         jsonData.setData(returnList);
         jsonData.setTotalCount((long) returnList.size());
@@ -624,19 +625,19 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
     }
 
     @Override
-    public String getParentOrgIdPath(Long id) {
+    public String getParentOrgIdPath(String id) {
         return getParentOrgIds(id, "");
     }
 
-    private String getParentOrgIds(Long id, String childIds) {
+    private String getParentOrgIds(String id, String childIds) {
         OrganizationBean org = this.getEntity(id);
-        Long parentId = org.getParentId();
+        String parentId = org.getParentId();
         if (childIds.equals("")) {
             childIds = id.toString();
         } else {
             childIds = id.toString() + "," + childIds;
         }
-        if (parentId != -1L) {
+        if (!"-1".equals(parentId.trim())) {
             childIds = getParentOrgIds(parentId, childIds);
         }
         return childIds;

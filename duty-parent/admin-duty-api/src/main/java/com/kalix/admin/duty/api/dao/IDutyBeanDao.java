@@ -13,7 +13,7 @@ import java.util.List;
  * @修改时间：
  * @修改备注：
  */
-public interface IDutyBeanDao extends IGenericDao<DutyBean, Long> {
+public interface IDutyBeanDao extends IGenericDao<DutyBean, String> {
     //在此添加新的DAO方法
 
     /**
@@ -22,6 +22,6 @@ public interface IDutyBeanDao extends IGenericDao<DutyBean, Long> {
      * @param orgId
      * @return
      */
-    List<DutyBean> findByOrgId(Long orgId);
+    List<DutyBean> findByOrgId(String orgId);
 
 }

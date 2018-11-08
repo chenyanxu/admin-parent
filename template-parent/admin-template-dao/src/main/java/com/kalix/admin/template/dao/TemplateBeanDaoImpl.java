@@ -6,7 +6,7 @@ import com.kalix.framework.core.impl.dao.GenericDao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.UUID;
+// import java.util.UUID;
 
 /**
  * @类描述：审计管理
@@ -16,12 +16,12 @@ import java.util.UUID;
  * @修改时间：
  * @修改备注：
  */
-public class TemplateBeanDaoImpl extends GenericDao<TemplateBean, Long> implements ITemplateBeanDao {
-    private String uuid;
+public class TemplateBeanDaoImpl extends GenericDao<TemplateBean, String> implements ITemplateBeanDao {
+//    private String uuid;
 
-    public TemplateBeanDaoImpl() {
-        uuid = UUID.randomUUID().toString();
-    }
+//    public TemplateBeanDaoImpl() {
+//        uuid = UUID.randomUUID().toString();
+//    }
 
     @Override
     @PersistenceContext(unitName = "admin-template-unit")

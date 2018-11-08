@@ -11,5 +11,5 @@ import com.kalix.admin.core.entities.MessageBean;
  * @修改时间：
  * @修改备注：
  */
-public class MessageBeanDaoImpl extends BaseAdminDao<MessageBean, Long> implements IMessageBeanDao {
+public class MessageBeanDaoImpl extends BaseAdminDao<MessageBean, String> implements IMessageBeanDao {
 }

@@ -11,17 +11,17 @@ import java.util.List;
  *         date:2015-7-27
  * @version 1.0.0
  */
-public interface IRoleApplicationBeanDao extends IGenericDao<RoleApplicationBean, Long> {
+public interface IRoleApplicationBeanDao extends IGenericDao<RoleApplicationBean, String> {
     /**
      * 根据角色ID删除所有关联
      * @param id
      */
-    void deleteByRoleId(long id);
+    void deleteByRoleId(String id);
 
     /**
      * 返回指定角色下所有与应用的关联
      * @param id
      * @return
      */
-    List<RoleApplicationBean> getRoleApplicationsByRoleId(long id);
+    List<RoleApplicationBean> getRoleApplicationsByRoleId(String id);
 }

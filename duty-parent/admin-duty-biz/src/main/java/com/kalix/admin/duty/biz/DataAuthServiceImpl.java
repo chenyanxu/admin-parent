@@ -19,12 +19,12 @@ public class DataAuthServiceImpl implements IDataAuthService {
     private IDataAuthBeanService dataAuthBeanService;
     private IFunctionBeanService functionBeanService;
     @Override
-    public boolean isAuth(String entityClassName, Long userId) {
+    public boolean isAuth(String entityClassName, String userId) {
         return false;
     }
 
     @Override
-    public EnumDataAuth getDataAuth(Long userId) {
+    public EnumDataAuth getDataAuth(String userId) {
         ISystemService systemService = null;
         Session session = SecurityUtils.getSubject().getSession();
         String reqAppName = session.getAttribute("DataAuthApp").toString();

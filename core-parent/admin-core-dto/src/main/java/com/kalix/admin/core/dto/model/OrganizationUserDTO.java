@@ -12,16 +12,16 @@ import java.util.List;
  * @version 1.0.0
  */
 public class OrganizationUserDTO extends BaseDTO {
-    private Long userId;
+    private String userId;
     private String userName;
-    private Long departmentId;
+    private String departmentId;
     private String departmentName;
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -33,11 +33,11 @@ public class OrganizationUserDTO extends BaseDTO {
         this.userName = userName;
     }
 
-    public Long getDepartmentId() {
+    public String getDepartmentId() {
         return departmentId;
     }
 
-    public void setDepartmentId(Long departmentId) {
+    public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
     }
 

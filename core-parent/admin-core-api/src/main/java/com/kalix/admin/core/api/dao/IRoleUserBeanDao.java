@@ -9,6 +9,6 @@ import com.kalix.framework.core.api.dao.IGenericDao;
  *         date:2015-7-27
  * @version 1.0.0
  */
-public interface IRoleUserBeanDao extends IGenericDao<RoleUserBean, Long> {
-    void deleteByRoleId(long id);
+public interface IRoleUserBeanDao extends IGenericDao<RoleUserBean, String> {
+    void deleteByRoleId(String id);
 }

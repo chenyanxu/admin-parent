@@ -66,7 +66,7 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
             }
             dao.save(_bean);
 
-            if(_bean.getParentId()!=-1){
+            if(_bean.getParentId()!=null){
                 DepartmentBean parentDepartmentBean = dao.get(_bean.getParentId());
                 if(parentDepartmentBean!=null&&parentDepartmentBean.getIsLeaf()==1){
                     parentDepartmentBean.setIsLeaf(0L);
@@ -84,7 +84,7 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
     }
 
     @Override
-    public JsonStatus deleteEntity(long id) {
+    public JsonStatus deleteEntity(String id) {
         JsonStatus jsonStatus = new JsonStatus();
         try {
             if (dao.get(id) == null) {
@@ -115,7 +115,7 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
     }
 
     @Override
-    public void deleteByOrgId(Long orgId) {
+    public void deleteByOrgId(String orgId) {
         try {
             dao.update("delete from DepartmentBean ob where ob.orgId = ?1", orgId);
         } catch (Exception e) {
@@ -129,7 +129,7 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
      * 如果父节点下再没有子节点,将更新父节点状态
      * @param id
      */
-    public void updateParent(Long id){
+    public void updateParent(String id){
         List<DepartmentBean> beans = dao.find("select ob from DepartmentBean ob where ob.id = ?1", id); //获得父节点
         if(beans!=null&&beans.size()>0){
             List<DepartmentBean> children = dao.find("select ob from DepartmentBean ob where ob.parentId = ?1", id); //获得父节点
@@ -141,7 +141,7 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
         }
     }
 
-    public void removeChildren(Long id){
+    public void removeChildren(String id){
         List<DepartmentBean> beans = dao.find("select ob from DepartmentBean ob where ob.parentId = ?1", id);
         if(beans!=null&&beans.size()>0){
             for(DepartmentBean dep:beans){
@@ -187,7 +187,7 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
     public DepartmentDTO getAll() {
         List<DepartmentBean> beans = dao.getAll();
         DepartmentDTO root=new DepartmentDTO();
-        root.setId(-1L);
+        root.setId(null);
         if(beans!=null&&beans.size()>0){
             List<DepartmentBean> rootElements = getRootElements(beans);
             if(rootElements!=null&&rootElements.size()>0) {
@@ -204,10 +204,10 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
        return root;
     }
 
-    public DepartmentDTO getAllByOrgId(Long orgId) {
+    public DepartmentDTO getAllByOrgId(String orgId) {
         List<DepartmentBean> beans = dao.find("select ob from DepartmentBean ob where ob.orgId = ?1", orgId);
         DepartmentDTO root=new DepartmentDTO();
-        root.setId(-1L);
+        root.setId(null);
         if(beans!=null&&beans.size()>0){
             List<DepartmentBean> rootElements = getRootElements(beans);
             if(rootElements!=null&&rootElements.size()>0) {
@@ -235,7 +235,7 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
         List<DepartmentDTO> children = new ArrayList<DepartmentDTO>();
 
         for (DepartmentBean departmentBean : elements) {
-            if (root.getId() != -1 && (root.getId() == departmentBean.getParentId())) {
+            if (root.getId() != null && root.getId().equals(departmentBean.getParentId())) {
                 DepartmentDTO departmentDTO = mapper.map(departmentBean, DepartmentDTO.class);
                 departmentDTO.setLeaf(departmentBean.getIsLeaf()==0?false:true);
                 departmentDTO.setParentName(root.getName());
@@ -257,7 +257,7 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
     private List<DepartmentBean> getRootElements(List<DepartmentBean> elements) {
         List<DepartmentBean> roots=new ArrayList<DepartmentBean>();
         for (DepartmentBean element : elements) {
-            if (element.getParentId() == -1) {
+            if (element.getParentId() == null || element.getParentId().isEmpty()) {
                 roots.add(element);
             }
         }
@@ -265,17 +265,17 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
     }
 
     @Override
-    public void afterDeleteEntity(Long id, JsonStatus status) {
+    public void afterDeleteEntity(String id, JsonStatus status) {
         depUserBeanDao.deleteByOrganizationId(id);
     }
 
     @Override
-    public List getUsersByDepartmentId(long id) {
+    public List getUsersByDepartmentId(String id) {
         List<String> userIds=new ArrayList<String>();
         List<OrganizationUserBean> organizationUserBeen =depUserBeanDao.find("select ob from OrganizationUserBean ob where ob.orgId = ?1", id);
         if(organizationUserBeen !=null&&!organizationUserBeen.isEmpty()){
             for(OrganizationUserBean organizationUserBean : organizationUserBeen){
-                if(organizationUserBean !=null&& organizationUserBean.getUserId()!=0){
+                if(organizationUserBean !=null&& organizationUserBean.getUserId()!=null){
                     userIds.add(String.valueOf(organizationUserBean.getUserId()));
                 }
             }
@@ -301,7 +301,7 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
     }
 
     @Override
-    public JsonData getUserAllAndDepartmentUsers(long depId) {
+    public JsonData getUserAllAndDepartmentUsers(String depId) {
         JsonData jsonData=new JsonData();
         List<UserBean> users=userBeanDao.find("select u from UserBean u where u.id not in(select dub.userId from OrganizationUserBean dub)");
         List<PersistentEntity> persistentEntities=new ArrayList<PersistentEntity>();
@@ -326,7 +326,7 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
     }
 
     @Override
-    public JsonStatus saveDepartmentUsers(long orgId, String userId) {
+    public JsonStatus saveDepartmentUsers(String orgId, String userId) {
         JsonStatus jsonStatus=new JsonStatus();
         try {
 //            depUserBeanDao.deleteByOrganizationId(orgId);

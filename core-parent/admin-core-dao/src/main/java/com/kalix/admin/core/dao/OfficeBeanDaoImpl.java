@@ -12,5 +12,5 @@ import com.kalix.admin.core.entities.OfficeBean;
  * @修改备注：
  */
 
-public class OfficeBeanDaoImpl extends BaseAdminDao<OfficeBean, Long> implements IOfficeBeanDao {
+public class OfficeBeanDaoImpl extends BaseAdminDao<OfficeBean, String> implements IOfficeBeanDao {
 }

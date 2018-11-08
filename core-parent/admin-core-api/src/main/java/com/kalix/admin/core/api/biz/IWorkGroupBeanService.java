@@ -35,14 +35,14 @@ public interface IWorkGroupBeanService extends IBizService<WorkGroupBean> {
      * @param id
      * @return
      */
-    List getUserIdsByWorkGroupId(long id);
+    List getUserIdsByWorkGroupId(String id);
 
     /**
      * 返回工作组下所有角色
      * @param id
      * @return
      */
-    List getRoleIdsByWorkGroupId(long id);
+    List getRoleIdsByWorkGroupId(String id);
 
     /**
      * 保存工作组与用户关联
@@ -61,5 +61,5 @@ public interface IWorkGroupBeanService extends IBizService<WorkGroupBean> {
      * @param userId
      * @return
      */
-    List<WorkGroupUserBean> getWorkGroupUserBeanByUserId(long userId);
+    List<WorkGroupUserBean> getWorkGroupUserBeanByUserId(String userId);
 }

@@ -19,7 +19,7 @@ import javax.persistence.Table;
 //@Table(name = "sys_user_rel")
 public class UserRelBean extends PersistentEntity {
 
-    private Long user_id;       //用户ID
+    private String user_id;       //用户ID
     private String user_logo;   //用户logo
     private String token;       //手机端上传的token
 
@@ -27,11 +27,11 @@ public class UserRelBean extends PersistentEntity {
 
     }
 
-    public Long getUser_id() {
+    public String getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(Long user_id) {
+    public void setUser_id(String user_id) {
         this.user_id = user_id;
     }
 

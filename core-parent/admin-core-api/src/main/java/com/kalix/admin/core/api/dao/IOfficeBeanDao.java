@@ -12,5 +12,5 @@ import com.kalix.framework.core.api.dao.IGenericDao;
  * @修改备注：
  */
 
-public interface IOfficeBeanDao extends IGenericDao<OfficeBean, Long> {
+public interface IOfficeBeanDao extends IGenericDao<OfficeBean, String> {
 }

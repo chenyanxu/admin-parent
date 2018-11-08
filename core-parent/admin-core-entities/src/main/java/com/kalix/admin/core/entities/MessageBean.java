@@ -21,7 +21,7 @@ public class MessageBean extends PersistentEntity {
     private String sender = "系统管理员";//发送人
     private String title;//消息名称
     private String message;//消息内容
-    private Long userId;//接收用户名称
+    private String userId;//接收用户名称
     private Long status = 0L;//消息状态，0为未读，1为已读
 
     public String getSender() {
@@ -40,11 +40,11 @@ public class MessageBean extends PersistentEntity {
         this.message = message;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

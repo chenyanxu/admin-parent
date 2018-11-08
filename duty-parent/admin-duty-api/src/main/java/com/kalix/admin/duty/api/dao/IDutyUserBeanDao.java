@@ -9,10 +9,10 @@ import java.util.List;
 /**
  * Created by zangyanming on 2016/3/15.
  */
-public interface IDutyUserBeanDao extends IGenericDao<DutyUserBean, Long> {
-    void deleteByDutyId(long id);
+public interface IDutyUserBeanDao extends IGenericDao<DutyUserBean, String> {
+    void deleteByDutyId(String id);
 
-    long findDutyIdByUserId(long userId);
+    String findDutyIdByUserId(String userId);
 
     /**
      * 通过机构id查找职位信息 2016-07-05 by p
@@ -20,7 +20,7 @@ public interface IDutyUserBeanDao extends IGenericDao<DutyUserBean, Long> {
      * @param dutyId
      * @return
      */
-    List<DutyUserBean> findByDutyId(Long dutyId);
+    List<DutyUserBean> findByDutyId(String dutyId);
 
     /**
      * 通过用户集合查找职位信息 2016-08-25 by p
@@ -28,5 +28,5 @@ public interface IDutyUserBeanDao extends IGenericDao<DutyUserBean, Long> {
      * @param userId
      * @return
      */
-    List<DutyUserBean> findByUserIds(List<Long> userId);
+    List<DutyUserBean> findByUserIds(List<String> userId);
 }

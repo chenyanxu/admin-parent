@@ -28,14 +28,14 @@ import java.util.*;
 public class TemplateBeanServiceImpl extends GenericBizServiceImpl<ITemplateBeanDao, TemplateBean> implements ITemplateBeanService {
     private static final String FUNCTION_NAME = "模板信息";
     private JsonStatus jsonStatus = new JsonStatus();
-    private String uuid;
+//    private String uuid;
     private ITemplateConfigBeanService templateConfigBeanService;
     private ITemplateContentBeanService templateContentBeanService;
 
-    public TemplateBeanServiceImpl() {
-        uuid = UUID.randomUUID().toString();
-        super.init(TemplateBean.class.getName());
-    }
+//    public TemplateBeanServiceImpl() {
+//        uuid = UUID.randomUUID().toString();
+//        super.init(TemplateBean.class.getName());
+//    }
 
     @Override
     public List<TemplateBean> query(String title) {
@@ -118,7 +118,7 @@ public class TemplateBeanServiceImpl extends GenericBizServiceImpl<ITemplateBean
     @Override
     public JsonData getTranslateTemplate(String jsonStr) {
         Map<String, Object> jsonMap = SerializeUtil.jsonToMap(jsonStr);
-        Long templateId = Long.valueOf((String) jsonMap.get("templateId"));
+        String templateId = (String) jsonMap.get("templateId");
         Integer templateType = Integer.valueOf((String) jsonMap.get("templateType"));
 //        TemplateBean template = dao.get(templateId);
         List<TemplateContentBean> templateContentBeans = this.templateContentBeanService.getContentByTemplateId(templateId, templateType);
@@ -141,7 +141,7 @@ public class TemplateBeanServiceImpl extends GenericBizServiceImpl<ITemplateBean
 
     @Override
     @Transactional
-    public void beforeDeleteEntity(Long id, JsonStatus status) {
+    public void beforeDeleteEntity(String id, JsonStatus status) {
         TemplateBean templateBean = this.getEntity(id);
         this.templateConfigBeanService.deleteByTemplateId(templateBean.getId());
         this.templateContentBeanService.deleteByTemplateId(templateBean.getId());

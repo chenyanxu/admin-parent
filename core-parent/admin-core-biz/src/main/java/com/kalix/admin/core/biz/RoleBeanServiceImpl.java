@@ -78,7 +78,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
     }
 
     @Override
-    public boolean isDelete(Long entityId, JsonStatus status) {
+    public boolean isDelete(String entityId, JsonStatus status) {
         if (dao.get(entityId) == null) {
             status.setFailure(true);
             status.setMsg(FUNCTION_NAME + "已经被删除！");
@@ -173,8 +173,8 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
 
         try {
             //清除关联关系
-            roleApplicationBeanDao.deleteByRoleId(Long.parseLong(roleId));
-            roleFunctionBeanDao.deleteByRoleId(Long.parseLong(roleId));
+            roleApplicationBeanDao.deleteByRoleId(roleId);
+            roleFunctionBeanDao.deleteByRoleId(roleId);
             String userName = getShiroService().getCurrentUserLoginName();
 //            if (authorizationIds.indexOf(",") != -1) {
             String[] _authorizationIds = authorizationIds.split(",");
@@ -186,17 +186,17 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
                     RoleApplicationBean roleApplicationBean = new RoleApplicationBean();
                     roleApplicationBean.setCreateBy(userName);
                     roleApplicationBean.setUpdateBy(userName);
-                    roleApplicationBean.setRoleId(Long.parseLong(roleId));
+                    roleApplicationBean.setRoleId(roleId);
                     String applicationId = _authorizationId.substring("app:".length(), _authorizationId.length());
-                    roleApplicationBean.setApplicationId(Long.parseLong(applicationId));
+                    roleApplicationBean.setApplicationId(applicationId);
                     roleApplicationBeanDao.save(roleApplicationBean);
                 } else if (_authorizationId.startsWith("fun:")) {
                     RoleFunctionBean roleFunctionBean = new RoleFunctionBean();
                     roleFunctionBean.setCreateBy(userName);
                     roleFunctionBean.setUpdateBy(userName);
-                    roleFunctionBean.setRoleId(Long.parseLong(roleId));
+                    roleFunctionBean.setRoleId(roleId);
                     String functionId = _authorizationId.substring("fun:".length(), _authorizationId.length());
-                    roleFunctionBean.setFunctionId(Long.parseLong(functionId));
+                    roleFunctionBean.setFunctionId(functionId);
                     roleFunctionBeanDao.save(roleFunctionBean);
                 }
             }
@@ -275,7 +275,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
     }
 
     @Override
-    public List<RoleBean> getRolesByUserId(long userId) {
+    public List<RoleBean> getRolesByUserId(String userId) {
         List<RoleUserBean> roleUserBeans = roleUserBeanDao.find("select rub from RoleUserBean rub where rub.userId=?1", userId);
         List<RoleBean> roleBeans = new ArrayList<RoleBean>();
         if (roleUserBeans != null && !roleUserBeans.isEmpty()) {
@@ -288,7 +288,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
     }
 
     @Override
-    public List<RoleBean> getRolesByWorkGroupId(long workGroupId) {
+    public List<RoleBean> getRolesByWorkGroupId(String workGroupId) {
         List<WorkGroupRoleBean> workGroupRoleBeans = workGroupRoleBeanDao.find("select wgrb from WorkGroupRoleBean wgrb where wgrb.groupId=?1", workGroupId);
         List<RoleBean> roleBeans = new ArrayList<RoleBean>();
         if (workGroupRoleBeans != null && !workGroupRoleBeans.isEmpty()) {
@@ -307,13 +307,13 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
 //    }
 
     @Override
-    public List getUserIdsByRoleId(long id) {
+    public List getUserIdsByRoleId(String id) {
         List userIds = new ArrayList();
         List<RoleUserBean> roleUserBeans = roleUserBeanDao.find("select ob from RoleUserBean ob where ob.roleId = ?1", id);
 
         if (roleUserBeans != null && !roleUserBeans.isEmpty()) {
             for (RoleUserBean roleUserBean : roleUserBeans) {
-                if (roleUserBean != null && roleUserBean.getUserId() != 0) {
+                if (roleUserBean != null && roleUserBean.getUserId() != null && !roleUserBean.getUserId().isEmpty()) {
                     userIds.add(roleUserBean.getUserId());
                 }
             }
@@ -323,7 +323,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
     }
 
     @Override
-    public void afterDeleteEntity(Long id, JsonStatus status) {
+    public void afterDeleteEntity(String id, JsonStatus status) {
         roleUserBeanDao.deleteByRoleId(id);
         workGroupRoleBeanDao.update("delete from WorkGroupRoleBean wgr where wgr.roleId=?1", id);
         roleApplicationBeanDao.deleteByRoleId(id);
@@ -341,7 +341,8 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
             return jsonStatus;
         } else {
             try {
-                long roleId = Long.valueOf(ids.get(0).toString());
+//                long roleId = Long.valueOf(ids.get(0).toString());
+                String roleId = ids.get(0).toString();
                 String userId = ids.get(1).toString();
 
                 roleUserBeanDao.deleteByRoleId(roleId);
@@ -356,7 +357,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
                             roleUserBean.setCreateBy(userName);
                             roleUserBean.setUpdateBy(userName);
                             roleUserBean.setRoleId(roleId);
-                            roleUserBean.setUserId(Long.parseLong(_userId));
+                            roleUserBean.setUserId(_userId);
                             roleUserBeanDao.save(roleUserBean);
                         }
                     }
@@ -382,7 +383,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
      * @return
      */
     @Override
-    public AuthorizationDTO getAuthorizationTreeByUserId(long userId) {
+    public AuthorizationDTO getAuthorizationTreeByUserId(String userId) {
         AuthorizationDTO root = new AuthorizationDTO();
         Mapper mapper = new DozerBeanMapper();
 
@@ -429,7 +430,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
 
         applicationList.stream().distinct().forEach(app -> {
             AuthorizationDTO applicationDTO = mapper.map(app, AuthorizationDTO.class);
-            applicationDTO.setParentId(-1L);
+            applicationDTO.setParentId("-1");
             applicationDTO.setParentName(parentName);
             applicationDTO.setLeaf(false);
             applicationDTO.setChecked(true);
@@ -454,9 +455,9 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
     }
 
     @Override
-    public AuthorizationDTO getAuthorizationTree(long roleId) {
+    public AuthorizationDTO getAuthorizationTree(String roleId) {
         AuthorizationDTO root = new AuthorizationDTO();
-        root.setId(-1L);
+        root.setId("-1");
         root.setName(parentName);
         List<ApplicationBean> beans = applicationBeanDao.getAll();
         if (beans != null && beans.size() > 0) {
@@ -467,7 +468,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
                 Assert.notNull(applicationBean, "应用不能为空");
                 Mapper mapper = new DozerBeanMapper();
                 AuthorizationDTO applicationDTO = mapper.map(applicationBean, AuthorizationDTO.class);
-                applicationDTO.setParentId(-1L);
+                applicationDTO.setParentId("-1");
                 applicationDTO.setParentName(parentName);
                 applicationDTO.setLeaf(true);
                 applicationDTO.setChecked(false);

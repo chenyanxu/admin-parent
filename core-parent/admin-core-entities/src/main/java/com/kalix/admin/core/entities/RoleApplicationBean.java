@@ -19,26 +19,26 @@ public class RoleApplicationBean extends PersistentEntity {
     /**
      * 应用.
      */
-    private Long applicationId;
+    private String applicationId;
     /**
      * 角色.
      */
-    private Long roleId;
+    private String roleId;
 
 
-    public Long getApplicationId() {
+    public String getApplicationId() {
         return applicationId;
     }
 
-    public void setApplicationId(Long applicationId) {
+    public void setApplicationId(String applicationId) {
         this.applicationId = applicationId;
     }
 
-    public Long getRoleId() {
+    public String getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Long roleId) {
+    public void setRoleId(String roleId) {
         this.roleId = roleId;
     }
 }

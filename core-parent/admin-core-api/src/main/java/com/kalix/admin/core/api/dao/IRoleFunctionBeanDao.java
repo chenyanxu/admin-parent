@@ -11,8 +11,8 @@ import java.util.List;
  *         date:2015-7-27
  * @version 1.0.0
  */
-public interface IRoleFunctionBeanDao extends IGenericDao<RoleFunctionBean, Long> {
-    void deleteByRoleId(long id);
+public interface IRoleFunctionBeanDao extends IGenericDao<RoleFunctionBean, String> {
+    void deleteByRoleId(String id);
 
-    List<RoleFunctionBean> getRoleFunctionsByRoleId(long roleId);
+    List<RoleFunctionBean> getRoleFunctionsByRoleId(String roleId);
 }

@@ -3,5 +3,5 @@
 #-----------------------------------------------------------------
 
 Bundle-Activator: ${bundle.namespace}.internal.InitActivator
-Import-Package:javax.persistence,*
+Import-Package:javax.persistence,com.kalix.admin.template.dao,*
 Bundle-Category: Kalix Admin Template

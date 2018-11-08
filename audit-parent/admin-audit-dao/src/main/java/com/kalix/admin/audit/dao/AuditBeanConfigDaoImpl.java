@@ -16,7 +16,7 @@ import java.util.UUID;
  * @修改时间：
  * @修改备注：
  */
-public class AuditBeanConfigDaoImpl extends GenericDao<AuditConfigBean, Long> implements IAuditConfigBeanDao {
+public class AuditBeanConfigDaoImpl extends GenericDao<AuditConfigBean, String> implements IAuditConfigBeanDao {
     private String uuid;
 
     public AuditBeanConfigDaoImpl() {

@@ -21,13 +21,13 @@ public interface IFunctionBeanService extends IBizService<FunctionBean> {
      * @param id
      * @return
      */
-    FunctionDTO getAllByApplicationId(long id);
+    FunctionDTO getAllByApplicationId(String id);
 
     /**
      * 删除指定应用下所有功能
      * @param id
      */
-    void deleteByApplicationId(long id);
+    void deleteByApplicationId(String id);
 
     /**
      * 返回所有根节点

@@ -17,23 +17,23 @@ import java.util.Optional;
  *
  * @version 1.0.0
  */
-public class OrganizationUserBeanDaoImpl extends BaseAdminDao<OrganizationUserBean, Long> implements IOrganizationUserBeanDao {
+public class OrganizationUserBeanDaoImpl extends BaseAdminDao<OrganizationUserBean, String> implements IOrganizationUserBeanDao {
     private final String className = OrganizationUserBean.class.getName();
 
     @Override
-    public void deleteByOrganizationId(long id) {
-        super.updateNativeQuery("delete from sys_organization_user where orgId = " + id);
+    public void deleteByOrganizationId(String id) {
+        super.updateNativeQuery("delete from sys_organization_user where orgId = '" + id + "'");
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public long findOrganizationIdByUserId(long id) {
+    public String findOrganizationIdByUserId(String id) {
         Optional<OrganizationUserBean> bean = ((List<OrganizationUserBean>) this.find("select t from OrganizationUserBean t where t.userId = ?1", id))
                 .stream().findFirst();
         if (bean.isPresent()) {
             return bean.get().getOrgId();
         } else {
-            return 0;
+            return "0";
         }
     }
 
@@ -45,7 +45,7 @@ public class OrganizationUserBeanDaoImpl extends BaseAdminDao<OrganizationUserBe
      */
     @Override
     @SuppressWarnings("unchecked")
-    public List<OrganizationUserBean> findByOrgId(long orgId) {
+    public List<OrganizationUserBean> findByOrgId(String orgId) {
         return (List<OrganizationUserBean>) this.find("select t from OrganizationUserBean t where t.orgId = ?1", orgId);
     }
 
@@ -57,25 +57,25 @@ public class OrganizationUserBeanDaoImpl extends BaseAdminDao<OrganizationUserBe
      */
     @Override
     @SuppressWarnings("unchecked")
-    public List<OrganizationUserBean> findParentAndBrotherByOrgId(long orgId) {
-        return (List<OrganizationUserBean>) this.findByNativeSql("select * from sys_organization_user where orgId in (select id from sys_organization where id = (select parentid from sys_organization where id = " + orgId + ") or parentId = (select parentid from sys_organization where id = " + orgId + "))", OrganizationUserBean.class);
+    public List<OrganizationUserBean> findParentAndBrotherByOrgId(String orgId) {
+        return (List<OrganizationUserBean>) this.findByNativeSql("select * from sys_organization_user where orgId in (select id from sys_organization where id = (select parentid from sys_organization where id = '" + orgId + "') or parentId = (select parentid from sys_organization where id = '" + orgId + "'))", OrganizationUserBean.class);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<OrganizationUserBean> findByNotOrgId(long orgId) {
+    public List<OrganizationUserBean> findByNotOrgId(String orgId) {
         return (List<OrganizationUserBean>) this.find("select t from OrganizationUserBean t where t.orgId <> ?1", orgId);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<OrganizationUserBean> findByUserId(long userId) {
+    public List<OrganizationUserBean> findByUserId(String userId) {
         return (List<OrganizationUserBean>) this.find("select t from OrganizationUserBean t where t.userId = ?1", userId);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<OrganizationUserBean> findByUserIds(List<Long> userId) {
+    public List<OrganizationUserBean> findByUserIds(List<String> userId) {
         if (userId != null && !userId.isEmpty()) {
             return (List<OrganizationUserBean>) this.find("select t from OrganizationUserBean t where t.userId in (?1) order by t.userId", userId);
         }

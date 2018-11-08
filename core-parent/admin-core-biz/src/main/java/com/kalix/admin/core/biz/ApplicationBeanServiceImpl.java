@@ -44,7 +44,7 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
     private IBundleService bundleService;
 
     @Override
-    public boolean isDelete(Long entityId, JsonStatus status) {
+    public boolean isDelete(String entityId, JsonStatus status) {
         if (dao.get(entityId) == null) {
             status.setFailure(true);
             status.setMsg(FUNCTION_NAME + "已经被删除！");
@@ -54,7 +54,7 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
     }
 
     @Override
-    public void afterDeleteEntity(Long id, JsonStatus status) {
+    public void afterDeleteEntity(String id, JsonStatus status) {
         functionBeanService.deleteByApplicationId(id);
     }
 
@@ -121,7 +121,7 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
     @Override
     public ApplicationDTO getTreesByAllApplications() {
         ApplicationDTO root = new ApplicationDTO();
-        root.setId(-1L);
+        root.setId(null);
         //List<ApplicationBean> beans = dao.getAll();
         // 从bundle获取applications信息
         List<ApplicationBean> beans = getApplicationsFromConfig(null).getData();
@@ -156,7 +156,7 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
     @Override
     public AuthorizationDTO getAuthorizationTree() {
         AuthorizationDTO root = new AuthorizationDTO();
-        root.setId(-1L);
+        root.setId(null);
         List<ApplicationBean> beans = dao.getAll();
         if (beans != null && beans.size() > 0) {
             if (beans != null && beans.size() > 0) {
@@ -164,7 +164,7 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
                     Assert.notNull(applicationBean, "应用不能为空");
                     Mapper mapper = new DozerBeanMapper();
                     AuthorizationDTO applicationDTO = mapper.map(applicationBean, AuthorizationDTO.class);
-                    applicationDTO.setParentId(-1L);
+                    applicationDTO.setParentId(null);
                     applicationDTO.setLeaf(true);
                     applicationDTO.setChecked(true);
                     applicationDTO.setExpanded(true);
@@ -236,7 +236,7 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
 
     private JsonData makeAppBean(Bundle bundle, JsonData jsonData, String db_id, String code, String text, String iconCls) {
         ApplicationBean appBean = new ApplicationBean();
-        appBean.setId(Long.parseLong(db_id));
+        appBean.setId(db_id);
         appBean.setCode(code);
         appBean.setName(text);
         appBean.setIconCls(iconCls);

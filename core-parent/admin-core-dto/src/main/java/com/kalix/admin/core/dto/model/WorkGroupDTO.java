@@ -15,7 +15,7 @@ public class WorkGroupDTO extends BaseDTO {
     private String name; //名称
     private String remark; //名称
     private Boolean leaf; //是否是叶子节点
-    private Long parentId; //父节点
+    private String parentId; //父节点
     private String parentName; //父节点名称
     private List<WorkGroupDTO> children=new ArrayList<WorkGroupDTO>();
 
@@ -45,11 +45,11 @@ public class WorkGroupDTO extends BaseDTO {
         this.leaf = leaf;
     }
 
-    public Long getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 

@@ -17,17 +17,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "sys_templatecontent")
 public class TemplateContentBean extends PersistentEntity {
-    private Long templateId; // 模板id
+    private String templateId; // 模板id
     private Integer templateType; // 模板类型
     private String templateTypeDesc; // 模板类型文本
     @Lob
     private String content; // 模板内容
 
-    public Long getTemplateId() {
+    public String getTemplateId() {
         return templateId;
     }
 
-    public void setTemplateId(Long templateId) {
+    public void setTemplateId(String templateId) {
         this.templateId = templateId;
     }
 

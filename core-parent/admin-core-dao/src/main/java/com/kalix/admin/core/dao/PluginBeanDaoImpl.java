@@ -11,5 +11,5 @@ import com.kalix.admin.core.entities.PluginBean;
  * @version 1.0.0
  */
 
-public class PluginBeanDaoImpl extends BaseAdminDao<PluginBean, Long> implements IPluginBeanDao {
+public class PluginBeanDaoImpl extends BaseAdminDao<PluginBean, String> implements IPluginBeanDao {
 }

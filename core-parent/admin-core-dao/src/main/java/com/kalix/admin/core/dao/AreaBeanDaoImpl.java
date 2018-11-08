@@ -12,5 +12,5 @@ import com.kalix.admin.core.entities.AreaBean;
  * 修改时间:  2014/8/7 15:57
  * 修改备注:  [说明本次修改内容]
  */
-public class AreaBeanDaoImpl extends BaseAdminDao<AreaBean, Long> implements IAreaBeanDao {
+public class AreaBeanDaoImpl extends BaseAdminDao<AreaBean, String> implements IAreaBeanDao {
 }

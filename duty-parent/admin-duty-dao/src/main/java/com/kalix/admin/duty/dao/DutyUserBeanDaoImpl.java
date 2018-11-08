@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by zangyanming on 2016/3/15.
  */
-public class DutyUserBeanDaoImpl extends GenericDao<DutyUserBean, Long> implements IDutyUserBeanDao {
+public class DutyUserBeanDaoImpl extends GenericDao<DutyUserBean, String> implements IDutyUserBeanDao {
     @Override
     @PersistenceContext(unitName = "admin-duty-unit")
     public void setEntityManager(EntityManager em) {
@@ -20,28 +20,28 @@ public class DutyUserBeanDaoImpl extends GenericDao<DutyUserBean, Long> implemen
     }
 
     @Override
-    public void deleteByDutyId(long id) {
-        super.updateNativeQuery("delete from sys_duty_user where dutyId=" + id);
+    public void deleteByDutyId(String id) {
+        super.updateNativeQuery("delete from sys_duty_user where dutyId='" + id + "'");
     }
 
     @Override
-    public long findDutyIdByUserId(long userId) {
-        List<DutyUserBean> dutyUserBeanList = findByNativeSql("select * from sys_duty_user where userId=" + userId, DutyUserBean.class, null);
+    public String findDutyIdByUserId(String userId) {
+        List<DutyUserBean> dutyUserBeanList = findByNativeSql("select * from sys_duty_user where userId='" + userId + "'", DutyUserBean.class, null);
         if (dutyUserBeanList != null && dutyUserBeanList.size() > 0) {
             return dutyUserBeanList.get(0).getDutyId();
         }
-        return 0;
+        return "0";
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<DutyUserBean> findByDutyId(Long dutyId) {
+    public List<DutyUserBean> findByDutyId(String dutyId) {
         return (List<DutyUserBean>) this.find("select t from DutyUserBean t where t.dutyId = ?1", dutyId);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<DutyUserBean> findByUserIds(List<Long> userId) {
+    public List<DutyUserBean> findByUserIds(List<String> userId) {
         if (userId != null && !userId.isEmpty()) {
             return (List<DutyUserBean>) this.find("select t from DutyUserBean t where t.userId in (?1) order by t.userId", userId);
         }

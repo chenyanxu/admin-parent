@@ -55,7 +55,7 @@ public class AuditBeanServiceImpl extends GenericBizServiceImpl<IAuditBeanDao, A
     }
 
     @Override
-    public void beforeDeleteEntity(Long id, JsonStatus status) {
+    public void beforeDeleteEntity(String id, JsonStatus status) {
 
     }
 

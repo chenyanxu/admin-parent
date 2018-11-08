@@ -24,7 +24,7 @@ public interface IDataAuthBeanService extends IBizService<DataAuthBean> {
      */
     JsonStatus saveDataAuthUsers(List ids);
 
-    DataAuthBean getDataAuthBean(Long userId, String appId, String menuId);
+    DataAuthBean getDataAuthBean(String userId, String appId, String menuId);
 
-    List getUserIdsByDataAuthId(Long dataAuthId);
+    List getUserIdsByDataAuthId(String dataAuthId);
 }

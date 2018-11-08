@@ -19,25 +19,25 @@ public class RoleUserBean extends PersistentEntity {
     /**
      * 用户.
      */
-    private Long userId;
+    private String userId;
     /**
      * 角色.
      */
-    private Long roleId;
+    private String roleId;
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public Long getRoleId() {
+    public String getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Long roleId) {
+    public void setRoleId(String roleId) {
         this.roleId = roleId;
     }
 }

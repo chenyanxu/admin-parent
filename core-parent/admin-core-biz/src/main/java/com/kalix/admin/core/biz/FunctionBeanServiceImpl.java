@@ -29,7 +29,7 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
         super.init(FunctionBean.class.getName());
     }
 
-    public void removeChildren(Long id){
+    public void removeChildren(String id){
         List<FunctionBean> functionBeans = dao.find("select ob from FunctionBean ob where ob.parentId = ?1", id);
         if(functionBeans!=null&&functionBeans.size()>0){
             for(FunctionBean functionBean:functionBeans){
@@ -43,7 +43,7 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
 
     @Override
     @Transactional
-    public void doDelete(long entityId, JsonStatus jsonStatus) {
+    public void doDelete(String entityId, JsonStatus jsonStatus) {
         List<FunctionBean> functionBeans = dao.find("select ob from FunctionBean ob where ob.id = ?1", entityId);
         if(functionBeans!=null&&!functionBeans.isEmpty()) {
             removeChildren(entityId);
@@ -62,7 +62,7 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
      * 如果父节点下再没有子节点,将更新父节点状态
      * @param parentId
      */
-    public void updateParent(Long parentId){
+    public void updateParent(String parentId){
         List<FunctionBean> functionBeans = dao.find("select ob from FunctionBean ob where ob.id = ?1", parentId); //获得父节点
         if(functionBeans!=null&&functionBeans.size()>0){
             List<FunctionBean> children = dao.find("select ob from FunctionBean ob where ob.parentId = ?1", parentId); //获得父节点
@@ -99,7 +99,7 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
     public void afterSaveEntity(FunctionBean entity, JsonStatus status) {
         Assert.notNull(entity, "实体不能为空.");
         FunctionBean bean=(FunctionBean)entity;
-        if(bean.getParentId()!=-1){
+        if(bean.getParentId()!=null && !"-1".equals(bean.getParentId().trim())){
             FunctionBean parentFunctionBean = dao.get(bean.getParentId());
             if(parentFunctionBean!=null&&parentFunctionBean.getIsLeaf()==1){
                 parentFunctionBean.setIsLeaf(0L);
@@ -123,7 +123,7 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
     }
 
     @Override
-    public boolean isDelete(Long entityId, JsonStatus status) {
+    public boolean isDelete(String entityId, JsonStatus status) {
         if (dao.get(entityId) == null) {
             status.setFailure(true);
             status.setMsg(FUNCTION_NAME + "已经被删除！");
@@ -139,7 +139,7 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
         List<FunctionBean> beans = dao.find("select ob from FunctionBean ob where ob.name = ?1 and ob.applicationId=?2", bean.getName(), bean.getApplicationId());
         if(beans!=null&&beans.size()>0){
             FunctionBean functionBean=beans.get(0);
-            if(functionBean.getId()!=entity.getId()) {
+            if(!functionBean.getId().trim().equals(entity.getId().trim())) {
                 status.setFailure(true);
                 status.setMsg(FUNCTION_NAME + "已经存在,请检查名称！");
                 return false;
@@ -163,7 +163,7 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
 
     @Override
     @Transactional
-    public void deleteByApplicationId(long id) {
+    public void deleteByApplicationId(String id) {
         dao.update("delete from FunctionBean fb where fb.applicationId=?1", id);
     }
 
@@ -177,7 +177,7 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
         List<FunctionDTO> children = new ArrayList<FunctionDTO>();
 
         for (FunctionBean functionBean : elements) {
-            if (!root.getId().equals(-1L) && (root.getId().equals(functionBean.getParentId()))) {
+            if (!"-1L".equals(root.getId().trim()) && (root.getId().equals(functionBean.getParentId()))) {
                 FunctionDTO functionDTO = mapper.map(functionBean, FunctionDTO.class);
                 functionDTO.setLeaf(functionBean.getIsLeaf().equals(0L) ? false : true);
                 functionDTO.setParentName(root.getName());
@@ -201,7 +201,7 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
         List<AuthorizationDTO> children = new ArrayList<AuthorizationDTO>();
 
         for (FunctionBean functionBean : elements) {
-            if (root.getId() != -1 && (root.getId() == functionBean.getParentId())) {
+            if (root.getId() != null && root.getId().equals(functionBean.getParentId())) {
                 AuthorizationDTO functionDTO = mapper.map(functionBean, AuthorizationDTO.class);
                 functionDTO.setLeaf(functionBean.getIsLeaf() == 0 ? false : true);
                 functionDTO.setParentName(root.getName());
@@ -257,10 +257,10 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
         }
         return false;
     }
-    public FunctionDTO getAllByApplicationId(long id) {
+    public FunctionDTO getAllByApplicationId(String id) {
         List<FunctionBean> beans = dao.find("select ob from FunctionBean ob where ob.applicationId = ?1", id);
         FunctionDTO root=new FunctionDTO();
-        root.setId(-1L);
+        root.setId(null);
         if(beans!=null&&beans.size()>0){
             List<FunctionBean> rootElements = getRootElements(beans);
             if(rootElements!=null&&rootElements.size()>0) {
@@ -283,9 +283,9 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
      * @return
      */
     public List<FunctionBean> getRootElements(List<FunctionBean> elements) {
-        List<FunctionBean> roots=new ArrayList<FunctionBean>();
+        List<FunctionBean> roots=new ArrayList<>();
         for (FunctionBean element : elements) {
-            if (element.getParentId().equals(-1L)) {
+            if ("-1".equals(element.getParentId().trim())) {
                 roots.add(element);
             }
         }

@@ -12,5 +12,5 @@ import com.kalix.admin.core.entities.AdminDictBean;
  * @修改备注：
  */
 
-public class AdminDictBeanDaoImpl extends BaseAdminDao<AdminDictBean, Long> implements IAdminDictBeanDao {
+public class AdminDictBeanDaoImpl extends BaseAdminDao<AdminDictBean, String> implements IAdminDictBeanDao {
 }

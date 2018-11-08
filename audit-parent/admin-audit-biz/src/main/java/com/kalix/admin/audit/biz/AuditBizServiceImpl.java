@@ -57,7 +57,7 @@ public abstract class AuditBizServiceImpl<T extends IGenericDao, TP extends Pers
         auditBean.setCreationDate(new Date());
         auditBean.setAppName(getAppName());
         auditBean.setFunName(getFunName());
-        if (entity.getId() > 0) {
+        if (entity.getId() != null && !entity.getId().isEmpty()) {
             auditBean.setAction("更新");
             final TP oldEntity = (TP) dao.get(entity.getId());
             auditBean.setContent(AuditUtil.Match(entity, oldEntity, entityClassName));
@@ -73,7 +73,7 @@ public abstract class AuditBizServiceImpl<T extends IGenericDao, TP extends Pers
 
     @Override
     @Transactional
-    public void beforeDeleteEntity(Long id, JsonStatus status) {
+    public void beforeDeleteEntity(String id, JsonStatus status) {
         auditBean = new AuditBean();
         auditBean.setCreationDate(new Date());
         auditBean.setAppName(getAppName());

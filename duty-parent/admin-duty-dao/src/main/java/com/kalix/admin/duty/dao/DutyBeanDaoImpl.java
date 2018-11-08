@@ -17,7 +17,7 @@ import java.util.List;
  * @修改时间：
  * @修改备注：
  */
-public class DutyBeanDaoImpl extends GenericDao<DutyBean, Long> implements IDutyBeanDao {
+public class DutyBeanDaoImpl extends GenericDao<DutyBean, String> implements IDutyBeanDao {
     @Override
     @PersistenceContext(unitName = "admin-duty-unit")
     public void setEntityManager(EntityManager em) {
@@ -26,7 +26,7 @@ public class DutyBeanDaoImpl extends GenericDao<DutyBean, Long> implements IDuty
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<DutyBean> findByOrgId(Long orgId) {
+    public List<DutyBean> findByOrgId(String orgId) {
         return (List<DutyBean>) this.find("select t from DutyBean t where t.orgid = ?1 ", orgId);
     }
 }

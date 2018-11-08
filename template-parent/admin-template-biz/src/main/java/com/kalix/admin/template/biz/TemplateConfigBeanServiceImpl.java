@@ -19,9 +19,9 @@ import java.util.List;
  */
 public class TemplateConfigBeanServiceImpl extends GenericBizServiceImpl<ITemplateConfigBeanDao, TemplateConfigBean> implements ITemplateConfigBeanService {
 
-    public TemplateConfigBeanServiceImpl() {
-        super.init(TemplateConfigBean.class.getName());
-    }
+//    public TemplateConfigBeanServiceImpl() {
+//        super.init(TemplateConfigBean.class.getName());
+//    }
 
     @Override
     public void beforeUpdateEntity(TemplateConfigBean entity, JsonStatus status) {
@@ -34,18 +34,18 @@ public class TemplateConfigBeanServiceImpl extends GenericBizServiceImpl<ITempla
     }
 
     @Override
-    public void beforeDeleteEntity(Long id, JsonStatus status) {
+    public void beforeDeleteEntity(String id, JsonStatus status) {
 
     }
 
     @Override
-    public void deleteByTemplateId(Long templateId) {
-        dao.updateNativeQuery("delete from sys_templateconfig where templateid = " + templateId);
+    public void deleteByTemplateId(String templateId) {
+        dao.updateNativeQuery("delete from sys_templateconfig where templateid = '" + templateId + "'");
     }
 
     @Override
-    public List<TemplateConfigBean> getConfigByTemplateId(Long templateId) {
-        List<TemplateConfigBean> configsObj = dao.findByNativeSql("select * from sys_templateconfig where templateid = " + templateId, TemplateConfigBean.class, null);
+    public List<TemplateConfigBean> getConfigByTemplateId(String templateId) {
+        List<TemplateConfigBean> configsObj = dao.findByNativeSql("select * from sys_templateconfig where templateid = '" + templateId + "'", TemplateConfigBean.class, null);
         return configsObj;
     }
 }

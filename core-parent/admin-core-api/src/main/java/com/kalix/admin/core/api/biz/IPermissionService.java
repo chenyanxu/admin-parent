@@ -18,7 +18,7 @@ public interface IPermissionService {
      * 首先查询角色,之后查询角色与应用关联,最后根据关联关系中的应用ID查询应用
      * @return
      */
-    List<String> getApplicationCodesByUserId(long userId);
+    List<String> getApplicationCodesByUserId(String userId);
 
     /**
      *
@@ -26,5 +26,5 @@ public interface IPermissionService {
      * 首先查询角色,之后查询角色与功能关联,最后根据关联关系中的功能ID查询应用
      * @return
      */
-    List<String> getFunctionCodesByUserId(long userId);
+    List<String> getFunctionCodesByUserId(String userId);
 }

@@ -18,11 +18,11 @@ import java.util.List;
  */
 public interface IDutyBeanService extends IBizService<DutyBean> {
     //在此添加新的业务方法
-    JsonData getDutiesByOrgId(long orgId);
+    JsonData getDutiesByOrgId(String orgId);
 
-    List getUserIdsByDutyId(long dutyId);
+    List getUserIdsByDutyId(String dutyId);
 
-    List getUserLoginNamesByDutyId(long dutyId);
+    List getUserLoginNamesByDutyId(String dutyId);
 
     //JsonData getUserAll(long orgId);
 
@@ -30,13 +30,13 @@ public interface IDutyBeanService extends IBizService<DutyBean> {
 
     JsonStatus saveDutyUsers(List ids);
 
-    JsonStatus deleteDuty(long dutyId);
+    JsonStatus deleteDuty(String dutyId);
 
     List<String> getUserDutyNameList();
 
-    List<String> getUserListByOrg(long orgId, String dutyName);
+    List<String> getUserListByOrg(String orgId, String dutyName);
 
-    List<String>  getDutyByUserId(Long userId);
+    List<String>  getDutyByUserId(String userId);
 
     List<String> getUserListByOrgName(String orgName, String dutyName);
 }

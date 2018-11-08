@@ -1,0 +1,16 @@
+<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.2.0"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+">
+    <tx:enable-annotations/>
+    <!--栏目-->
+    <reference id="columnBeanDao" interface="com.kalix.uuidtest.api.dao.IColumnBeanDao"/>
+    <service id="columnBeanService" interface="com.kalix.uuidtest.api.biz.IColumnBeanService"
+             ref="columnBeanServiceImpl"/>
+    <bean id="columnBeanServiceImpl" class="com.kalix.uuidtest.biz.ColumnBeanServiceImpl">
+        <property name="dao" ref="columnBeanDao"/>
+    </bean>
+
+</blueprint>
+

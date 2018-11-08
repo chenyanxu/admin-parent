@@ -9,7 +9,7 @@ import com.kalix.admin.core.entities.WorkGroupBean;
  *         date:2015-7-23
  * @version 1.0.0
  */
-public class WorkGroupBeanDaoImpl extends BaseAdminDao<WorkGroupBean, Long> implements IWorkGroupBeanDao {
+public class WorkGroupBeanDaoImpl extends BaseAdminDao<WorkGroupBean, String> implements IWorkGroupBeanDao {
     private final String className = WorkGroupBean.class.getName();
 
     /**

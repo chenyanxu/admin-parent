@@ -11,7 +11,7 @@ import java.util.List;
  * Created by dell on 14-1-16.
  */
 
-public interface IUserBeanDao extends IUserEntityDao<UserBean,Long> {//IGenericDao<UserBean, Long> {
+public interface IUserBeanDao extends IUserEntityDao<UserBean,String> {//IGenericDao<UserBean, Long> {
     /**
      * Gets a list of users ordered by the uppercase version of their username.
      *
@@ -53,5 +53,5 @@ public interface IUserBeanDao extends IUserEntityDao<UserBean,Long> {//IGenericD
      * @param contain true 包含、false不包含
      * @return
      */
-    List<UserBean> findByUserId(List<Long> userId, boolean contain);
+    List<UserBean> findByUserId(List<String> userId, boolean contain);
 }

@@ -15,7 +15,7 @@ import java.util.List;
  * @修改备注：
  */
 public interface ITemplateConfigBeanService extends IBizService<TemplateConfigBean> {
-    void deleteByTemplateId(Long templateId);
+    void deleteByTemplateId(String templateId);
 
-    List<TemplateConfigBean> getConfigByTemplateId(Long templateId);
+    List<TemplateConfigBean> getConfigByTemplateId(String templateId);
 }

@@ -16,17 +16,17 @@ import java.util.List;
  */
 public interface IDepartmentBeanService extends IBizService<DepartmentBean> {
 
-    void deleteByOrgId(Long orgId);
+    void deleteByOrgId(String orgId);
 
     DepartmentDTO getAll();
 
-    DepartmentDTO getAllByOrgId(Long orgId);
+    DepartmentDTO getAllByOrgId(String orgId);
 
-    List getUsersByDepartmentId(long id);
+    List getUsersByDepartmentId(String id);
 
     JsonData getUserAll();
 
-    JsonData getUserAllAndDepartmentUsers(long orgId);
+    JsonData getUserAllAndDepartmentUsers(String orgId);
 
-    JsonStatus saveDepartmentUsers(long orgId, String userIds);
+    JsonStatus saveDepartmentUsers(String orgId, String userIds);
 }

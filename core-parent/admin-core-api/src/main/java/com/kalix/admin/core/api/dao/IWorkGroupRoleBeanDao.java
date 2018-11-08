@@ -9,6 +9,6 @@ import com.kalix.framework.core.api.dao.IGenericDao;
  *         date:2015-7-27
  * @version 1.0.0
  */
-public interface IWorkGroupRoleBeanDao extends IGenericDao<WorkGroupRoleBean, Long> {
-    void deleteByWorkGroupId(long id);
+public interface IWorkGroupRoleBeanDao extends IGenericDao<WorkGroupRoleBean, String> {
+    void deleteByWorkGroupId(String id);
 }

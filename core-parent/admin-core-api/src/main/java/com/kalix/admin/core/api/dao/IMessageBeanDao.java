@@ -11,5 +11,5 @@ import com.kalix.framework.core.api.dao.IGenericDao;
  * @修改时间：
  * @修改备注：
  */
-public interface IMessageBeanDao extends IGenericDao<MessageBean, Long> {
+public interface IMessageBeanDao extends IGenericDao<MessageBean, String> {
 }

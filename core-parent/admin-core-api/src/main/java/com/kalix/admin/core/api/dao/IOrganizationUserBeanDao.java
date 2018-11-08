@@ -15,13 +15,13 @@ import java.util.List;
  *
  * @version 1.0.0
  */
-public interface IOrganizationUserBeanDao extends IGenericDao<OrganizationUserBean, Long> {
+public interface IOrganizationUserBeanDao extends IGenericDao<OrganizationUserBean, String> {
     /**
      * 删除指定机构下所有用户 2016-07-01 by p
      *
      * @param id
      */
-    void deleteByOrganizationId(long id);
+    void deleteByOrganizationId(String id);
 
     /**
      * 查询指定用户所属机构 2016-07-01 by p
@@ -31,7 +31,7 @@ public interface IOrganizationUserBeanDao extends IGenericDao<OrganizationUserBe
      * @param userId
      * @return
      */
-    long findOrganizationIdByUserId(long userId);
+    String findOrganizationIdByUserId(String userId);
 
     /**
      * 同时查询指定机构父机构和兄弟机构用户对应关系 2016-09-01 by p
@@ -39,7 +39,7 @@ public interface IOrganizationUserBeanDao extends IGenericDao<OrganizationUserBe
      * @param orgId
      * @return
      */
-    List<OrganizationUserBean> findByOrgId(long orgId);
+    List<OrganizationUserBean> findByOrgId(String orgId);
 
     /**
      * 同时查询指定机构父机构和兄弟机构用户对应关系 2016-09-01 by p
@@ -47,14 +47,14 @@ public interface IOrganizationUserBeanDao extends IGenericDao<OrganizationUserBe
      * @param orgId
      * @return
      */
-    List<OrganizationUserBean> findParentAndBrotherByOrgId(long orgId);
+    List<OrganizationUserBean> findParentAndBrotherByOrgId(String orgId);
     /**
      * 查询不是指定机构的所有机构用户对应关系 2016-07-01 by p
      *
      * @param orgId
      * @return
      */
-    List<OrganizationUserBean> findByNotOrgId(long orgId);
+    List<OrganizationUserBean> findByNotOrgId(String orgId);
 
     /**
      * 查询指定用户的所有机构用户对应关系 2016-07-01 by p
@@ -62,7 +62,7 @@ public interface IOrganizationUserBeanDao extends IGenericDao<OrganizationUserBe
      * @param userId
      * @return
      */
-    List<OrganizationUserBean> findByUserId(long userId);
+    List<OrganizationUserBean> findByUserId(String userId);
 
     /**
      * 查询指定用户集合的所有机构用户对应关系 2016-08-25 by p
@@ -70,5 +70,5 @@ public interface IOrganizationUserBeanDao extends IGenericDao<OrganizationUserBe
      * @param userId
      * @return
      */
-    List<OrganizationUserBean> findByUserIds(List<Long> userId);
+    List<OrganizationUserBean> findByUserIds(List<String> userId);
 }

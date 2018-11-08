@@ -16,7 +16,7 @@ import java.util.List;
  * @修改备注：
  */
 
-public class RoleBeanDaoImpl extends BaseAdminDao<RoleBean, Long> implements IRoleBeanDao {
+public class RoleBeanDaoImpl extends BaseAdminDao<RoleBean, String> implements IRoleBeanDao {
     private final String className = RoleBean.class.getName();
     @Override
     public List<String> getRoleNameList() {
@@ -27,7 +27,7 @@ public class RoleBeanDaoImpl extends BaseAdminDao<RoleBean, Long> implements IRo
 
 
     @Override
-    public void removeRole(Long roleId) {
+    public void removeRole(String roleId) {
         super.remove(roleId);
     }
 
@@ -38,7 +38,7 @@ public class RoleBeanDaoImpl extends BaseAdminDao<RoleBean, Long> implements IRo
     }
 
     @Override
-    public RoleBean getRole(Long roleId) {
+    public RoleBean getRoleById(String roleId) {
         return super.get(roleId);
     }
 

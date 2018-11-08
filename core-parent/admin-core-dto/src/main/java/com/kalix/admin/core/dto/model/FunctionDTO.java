@@ -16,9 +16,9 @@ public class FunctionDTO extends BaseDTO {
     private String code; //功能代码
     private String text; //名称
     private Boolean leaf; //是否是叶子节点
-    private Long parentId; //父功能
+    private String parentId; //父功能
     private String remark; //备注
-    private Long applicationId;  // 归属应用
+    private String applicationId;  // 归属应用
     private String parentName; //父节点名称
     private String permission; //权限路径
     private Boolean dataPermission; // 数据权限是否生效
@@ -82,19 +82,19 @@ public class FunctionDTO extends BaseDTO {
         this.leaf = leaf;
     }
 
-    public Long getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 
-    public Long getApplicationId() {
+    public String getApplicationId() {
         return applicationId;
     }
 
-    public void setApplicationId(Long applicationId) {
+    public void setApplicationId(String applicationId) {
         this.applicationId = applicationId;
     }
 

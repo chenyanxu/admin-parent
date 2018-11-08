@@ -16,7 +16,7 @@ import java.util.List;
  * Created by dell on 14-1-16.
  */
 
-public class UserBeanDaoImpl extends UserEntityDao<UserBean,Long> implements IUserBeanDao{ //extends BaseAdminDao<UserBean, Long> implements IUserBeanDao {
+public class UserBeanDaoImpl extends UserEntityDao<UserBean,String> implements IUserBeanDao{ //extends BaseAdminDao<UserBean, Long> implements IUserBeanDao {
     //private final String className = UserBean.class.getName();
 
     @Override
@@ -58,7 +58,7 @@ public class UserBeanDaoImpl extends UserEntityDao<UserBean,Long> implements IUs
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<UserBean> findByUserId(List<Long> userId, boolean contain) {
+    public List<UserBean> findByUserId(List<String> userId, boolean contain) {
         if (userId != null && !userId.isEmpty()) {
             String s = userId.toString();
             String sql = s.substring(1, s.length() - 1);

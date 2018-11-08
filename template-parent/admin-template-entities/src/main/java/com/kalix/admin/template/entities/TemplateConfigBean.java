@@ -17,16 +17,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "sys_templateconfig")
 public class TemplateConfigBean extends PersistentEntity {
-    private Long templateId; //模板id
+    private String templateId; //模板id
     private String fieldName; //属性名称
     private String fieldDesc;//属性描述
     private String fieldValue;//属性值
 
-    public Long getTemplateId() {
+    public String getTemplateId() {
         return templateId;
     }
 
-    public void setTemplateId(Long templateId) {
+    public void setTemplateId(String templateId) {
         this.templateId = templateId;
     }
 

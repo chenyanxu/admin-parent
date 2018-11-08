@@ -22,13 +22,13 @@ public interface IOrganizationBeanService extends IBizService<OrganizationBean> 
 
     OrganizationDTO getAllOrg(Boolean isAll);
 
-    OrganizationDTO getOrganizationDTO(Long id);
+    OrganizationDTO getOrganizationDTO(String id);
 
     //OrganizationDTO getOrganizationDTOByName(String name);
 
-    List getUserIdsByOrganizationId(long orgId);
+    List getUserIdsByOrganizationId(String orgId);
 
-    JsonData getOrganizationUsers(long orgId);
+    JsonData getOrganizationUsers(String orgId);
 
     /**
      *
@@ -46,7 +46,7 @@ public interface IOrganizationBeanService extends IBizService<OrganizationBean> 
      * @param userId
      * @return
      */
-    JsonData getOrgsByUserId(long userId);
+    JsonData getOrgsByUserId(String userId);
 
     /**
      * 查询指定用户id所属机构ids
@@ -54,7 +54,7 @@ public interface IOrganizationBeanService extends IBizService<OrganizationBean> 
      * @param includeChildOrg 是否包含子机构, true包含/false不包含
      * @return
      */
-    List<Long> getOrgsByUserId(Long userId, Boolean includeChildOrg);
+    List<String> getOrgsByUserId(String userId, Boolean includeChildOrg);
 
     /**
      * 根据用户id获取指定用户的机构列表
@@ -62,7 +62,7 @@ public interface IOrganizationBeanService extends IBizService<OrganizationBean> 
      * @param userId
      * @return
      */
-    List<OrganizationDTO> getOrgsTreeByUserId(long userId);
+    List<OrganizationDTO> getOrgsTreeByUserId(String userId);
 
     /**
      * 根据用户名获取指定用户的兄弟机构列表
@@ -70,7 +70,7 @@ public interface IOrganizationBeanService extends IBizService<OrganizationBean> 
      * @param name
      * @return
      */
-    List<Long> getOrgsBrotherByUserName(String name);
+    List<String> getOrgsBrotherByUserName(String name);
 
     /**
      * 根据当前机构id，找到其父机构id路径
@@ -78,5 +78,5 @@ public interface IOrganizationBeanService extends IBizService<OrganizationBean> 
      * @param id
      * @return
      */
-    String getParentOrgIdPath(Long id);
+    String getParentOrgIdPath(String id);
 }

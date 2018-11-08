@@ -9,5 +9,5 @@ import com.kalix.framework.core.api.dao.IGenericDao;
  *         date:2015-7-27
  * @version 1.0.0
  */
-public interface IApplicationBeanDao extends IGenericDao<ApplicationBean, Long> {
+public interface IApplicationBeanDao extends IGenericDao<ApplicationBean, String> {
 }

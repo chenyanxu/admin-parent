@@ -34,7 +34,7 @@ public interface IRoleBeanService extends IBizService<RoleBean> {
      * 返回授权树
      * @return
      */
-    AuthorizationDTO getAuthorizationTree(long roleId);
+    AuthorizationDTO getAuthorizationTree(String roleId);
 
     /**
      * 保存授权信息
@@ -79,14 +79,14 @@ public interface IRoleBeanService extends IBizService<RoleBean> {
      * @param userId
      * @return
      */
-    List<RoleBean> getRolesByUserId(long userId);
+    List<RoleBean> getRolesByUserId(String userId);
 
     /**
      * 返回工作组下所有角色
      * @param workGroupId
      * @return
      */
-    List<RoleBean> getRolesByWorkGroupId(long workGroupId);
+    List<RoleBean> getRolesByWorkGroupId(String workGroupId);
 
     /**
      * 保存角色与用户关联
@@ -100,7 +100,7 @@ public interface IRoleBeanService extends IBizService<RoleBean> {
      * @param id
      * @return
      */
-    List getUserIdsByRoleId(long id);
+    List getUserIdsByRoleId(String id);
 
     /**
      * 根据用户id获取用户所有application、functions
@@ -108,5 +108,5 @@ public interface IRoleBeanService extends IBizService<RoleBean> {
      * @param userId
      * @return
      */
-    AuthorizationDTO getAuthorizationTreeByUserId(long userId);
+    AuthorizationDTO getAuthorizationTreeByUserId(String userId);
 }

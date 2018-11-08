@@ -66,7 +66,7 @@ public class AreaBeanServiceImpl extends ShiroGenericBizServiceImpl<IAreaBeanDao
 
     @Override
     public List<AreaBean> getRootBeanListByQhdm() {
-        AboutBean aboutBean = aboutBeanDao.get(1L);
+        AboutBean aboutBean = aboutBeanDao.get("1");
         String qhdm = "";
         if (aboutBean != null) {
             qhdm = aboutBean.getXzqh_dm();
@@ -82,7 +82,7 @@ public class AreaBeanServiceImpl extends ShiroGenericBizServiceImpl<IAreaBeanDao
 
 
     @Override
-    public void beforeDeleteEntity(Long id, JsonStatus status) {
+    public void beforeDeleteEntity(String id, JsonStatus status) {
         List<AreaBean> areaBeans = dao.find("select ob from AreaBean ob where ob.id = ?1", id);
         if(areaBeans!=null&&!areaBeans.isEmpty()) {
             removeChildren(id);
@@ -98,12 +98,12 @@ public class AreaBeanServiceImpl extends ShiroGenericBizServiceImpl<IAreaBeanDao
     }
 
     @Override
-    public void afterDeleteEntity(Long id, JsonStatus status) {
+    public void afterDeleteEntity(String id, JsonStatus status) {
 
     }
 
     @Override
-    public boolean isDelete(Long entityId, JsonStatus status) {
+    public boolean isDelete(String entityId, JsonStatus status) {
         if (dao.get(entityId) == null) {
             status.setFailure(true);
             status.setMsg(FUNCTION_NAME + "已经被删除！");
@@ -113,7 +113,7 @@ public class AreaBeanServiceImpl extends ShiroGenericBizServiceImpl<IAreaBeanDao
     }
 
     @Override
-    public JsonStatus deleteEntity(long entityId) {
+    public JsonStatus deleteEntity(String entityId) {
         JsonStatus jsonStatus = new JsonStatus();
         try {
             if (dao.get(entityId) == null) {
@@ -148,7 +148,7 @@ public class AreaBeanServiceImpl extends ShiroGenericBizServiceImpl<IAreaBeanDao
      * 如果父节点下再没有子节点,将更新父节点状态
      * @param id
      */
-    public void updateParent(Long id){
+    public void updateParent(String id){
         List<AreaBean> AreaBeans = dao.find("select ob from AreaBean ob where ob.id = ?1", id); //获得父节点
         if(AreaBeans!=null&&AreaBeans.size()>0){
             List<AreaBean> children = dao.find("select ob from AreaBean ob where ob.parentId = ?1", id); //获得父节点
@@ -165,7 +165,7 @@ public class AreaBeanServiceImpl extends ShiroGenericBizServiceImpl<IAreaBeanDao
     public void afterSaveEntity(AreaBean entity, JsonStatus status) {
         Assert.notNull(entity, "实体不能为空.");
         AreaBean bean=(AreaBean)entity;
-        if(bean.getParentId()!=-1){
+        if(bean.getParentId() != null){
             AreaBean parentAreaBean = (AreaBean) dao.get(bean.getParentId());
             if(parentAreaBean!=null&&parentAreaBean.getIsLeaf()==1){
                 parentAreaBean.setIsLeaf(0L);
@@ -219,7 +219,7 @@ public class AreaBeanServiceImpl extends ShiroGenericBizServiceImpl<IAreaBeanDao
         super.afterUpdateEntity(entity, status);
     }
 
-    public void removeChildren(Long id){
+    public void removeChildren(String id){
         List<AreaBean> AreaBeans = dao.find("select ob from AreaBean ob where ob.parentId = ?1", id);
         if(AreaBeans!=null&&AreaBeans.size()>0){
             for(AreaBean org:AreaBeans){
@@ -243,7 +243,7 @@ public class AreaBeanServiceImpl extends ShiroGenericBizServiceImpl<IAreaBeanDao
 //        List<DepartmentBean> departmentBeans=depBeanDao.find("select d from DepartmentBean d where d.id=?1",depId);
 //        Assert.notEmpty(departmentBeans,"当前用户所属部门不能为空.");
         AreaDTO root=new AreaDTO();
-        root.setId(-1L);
+        root.setId(null);
         List<AreaBean> beans = dao.getAll();
         if(beans!=null&&beans.size()>0){
             List<AreaBean> rootElements = getRootElements(beans);
@@ -273,7 +273,7 @@ public class AreaBeanServiceImpl extends ShiroGenericBizServiceImpl<IAreaBeanDao
         List<AreaDTO> children = new ArrayList<AreaDTO>();
 
         for (AreaBean areaBean : elements) {
-            if (root.getId() != -1 && (root.getId() == areaBean.getParentId())) {
+            if (root.getId() != null && root.getId().equals(areaBean.getParentId())) {
                 AreaDTO AreaDTO = mapper.map(areaBean, AreaDTO.class);
                 AreaDTO.setLeaf(areaBean.getIsLeaf() == 0 ? false : true);
                 AreaDTO.setParentName(root.getName());
@@ -295,7 +295,7 @@ public class AreaBeanServiceImpl extends ShiroGenericBizServiceImpl<IAreaBeanDao
     private List<AreaBean> getRootElements(List<AreaBean> elements) {
         List<AreaBean> roots=new ArrayList<AreaBean>();
         for (AreaBean element : elements) {
-            if (element.getParentId() == -1) {
+            if (element.getParentId() == null || element.getParentId().isEmpty()) {
                 roots.add(element);
             }
         }

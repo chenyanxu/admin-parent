@@ -12,5 +12,5 @@ import com.kalix.admin.core.entities.AboutBean;
  * 修改时间:  2014/8/7 15:57
  * 修改备注:  [说明本次修改内容]
  */
-public class AboutBeanDaoImpl extends BaseAdminDao<AboutBean, Long> implements IAboutBeanDao {
+public class AboutBeanDaoImpl extends BaseAdminDao<AboutBean, String> implements IAboutBeanDao {
 }

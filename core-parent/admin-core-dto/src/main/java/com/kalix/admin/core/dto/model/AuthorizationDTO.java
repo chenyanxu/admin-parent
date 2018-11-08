@@ -25,7 +25,7 @@ public class AuthorizationDTO extends BaseDTO {
     @ApiModelProperty("是否叶子节点")
     private Boolean leaf; //是否是叶子节点
     @ApiModelProperty("父节点")
-    private Long parentId; //父节点
+    private String parentId; //父节点
     @ApiModelProperty("父节点名称")
     private String parentName; //父节点名称
     @ApiModelProperty("是否展开子节点")
@@ -91,11 +91,11 @@ public class AuthorizationDTO extends BaseDTO {
         this.leaf = leaf;
     }
 
-    public Long getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 

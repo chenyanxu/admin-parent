@@ -9,11 +9,11 @@ import com.kalix.admin.core.entities.RoleUserBean;
  *         date:2015-7-23
  * @version 1.0.0
  */
-public class RoleUserBeanDaoImpl extends BaseAdminDao<RoleUserBean, Long> implements IRoleUserBeanDao {
+public class RoleUserBeanDaoImpl extends BaseAdminDao<RoleUserBean, String> implements IRoleUserBeanDao {
     private final String className = RoleUserBean.class.getName();
 
     @Override
-    public void deleteByRoleId(long id) {
-        super.updateNativeQuery("delete from sys_role_user where roleId="+id);
+    public void deleteByRoleId(String id) {
+        super.updateNativeQuery("delete from sys_role_user where roleId='"+id+"'");
     }
 }

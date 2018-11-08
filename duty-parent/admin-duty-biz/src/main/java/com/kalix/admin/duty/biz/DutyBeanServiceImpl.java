@@ -54,7 +54,7 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
     }
 
     @Override
-    public JsonData getDutiesByOrgId(long orgId) {
+    public JsonData getDutiesByOrgId(String orgId) {
         JsonData jsonData = new JsonData();
         List list=this.dao.findByOrgId(orgId);
 
@@ -65,15 +65,15 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
     }
 
     @Override
-    public List getUserIdsByDutyId(long dutyId) {
+    public List getUserIdsByDutyId(String dutyId) {
         return dutyUserBeanDao.findByDutyId(dutyId).stream()
-                .filter(n -> !n.getUserId().equals(0L))
+                .filter(n -> !n.getUserId().equals("0"))
                 .map(n -> n.getUserId())
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List getUserLoginNamesByDutyId(long dutyId) {
+    public List getUserLoginNamesByDutyId(String dutyId) {
         String sql = "select u.loginname " +
                 " from " + dutyUserBeanDao.getTableName() + " t, " + userBeanDao.getTableName() + " u " +
                 " where t.userid = u.id and t.dutyid = ?1";
@@ -88,7 +88,7 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
         }
         else {
             try {
-                long dutyId=Long.valueOf(ids.get(0).toString());
+                String dutyId=ids.get(0).toString();
                 String userId=ids.get(1).toString();
 
                 dutyUserBeanDao.deleteByDutyId(dutyId);
@@ -103,7 +103,7 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
                             dutyUserBean.setUpdateBy(userName);
                             dutyUserBean.setOrgId(bean.getOrgid());
                             dutyUserBean.setDutyId(dutyId);
-                            dutyUserBean.setUserId(Long.parseLong(_userId));
+                            dutyUserBean.setUserId(_userId);
                             dutyUserBeanDao.save(dutyUserBean);
                         }
                     }
@@ -119,7 +119,7 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
 
     @Override
     @Transactional
-    public JsonStatus deleteDuty(long dutyId) {
+    public JsonStatus deleteDuty(String dutyId) {
         try {
             dutyUserBeanDao.deleteByDutyId(dutyId);
             deleteEntity(dutyId);
@@ -136,7 +136,7 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
      */
     @Override
     public List<String> getUserDutyNameList(){
-        Long userId=this.getShiroService().getCurrentUserId();
+        String userId=this.getShiroService().getCurrentUserId();
         List<String> dutyNameList=new ArrayList<>();
         List<DutyUserBean> dutyUserBeenList=dutyUserBeanDao.find("select rub from DutyUserBean rub where rub.userId=?1", userId);
 
@@ -157,7 +157,7 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
      * @return
      */
     @Override
-    public List<String> getUserListByOrg(long orgId, String dutyName){
+    public List<String> getUserListByOrg(String orgId, String dutyName){
 
         List<String> userNameList=new ArrayList<>();
         //获得dutybean列表
@@ -190,9 +190,9 @@ public class DutyBeanServiceImpl extends ShiroGenericBizServiceImpl<IDutyBeanDao
      * @return
      */
     @Override
-    public List<String>  getDutyByUserId(Long userId){
+    public List<String>  getDutyByUserId(String userId){
         List<String> dutyList = new ArrayList<>();
-        List<DutyUserBean> dutyUserBeanList = dutyUserBeanDao.findByNativeSql("select * from sys_duty_user where userId=" + userId, DutyUserBean.class);
+        List<DutyUserBean> dutyUserBeanList = dutyUserBeanDao.findByNativeSql("select * from sys_duty_user where userId='" + userId + "'", DutyUserBean.class);
         if(dutyUserBeanList != null && dutyUserBeanList.size() > 0){
             for (DutyUserBean duty:dutyUserBeanList){
                 DutyBean dutyBean = dutyBeanDao.get(duty.getDutyId());

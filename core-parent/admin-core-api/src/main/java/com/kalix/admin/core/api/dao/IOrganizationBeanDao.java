@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @version 1.0.0
  */
-public interface IOrganizationBeanDao extends IGenericDao<OrganizationBean, Long> {
+public interface IOrganizationBeanDao extends IGenericDao<OrganizationBean, String> {
 
     /**
      * 查询指定名称的机构（不包括指定的id） 2016-06-30 by p
@@ -24,7 +24,7 @@ public interface IOrganizationBeanDao extends IGenericDao<OrganizationBean, Long
      * @param name
      * @return
      */
-    List<OrganizationBean> findByName(Long id, String name);
+    List<OrganizationBean> findByName(String id, String name);
 
     /**
      * 查询指定代码的机构（不包括指定的id） 2016-06-30 by p
@@ -33,7 +33,7 @@ public interface IOrganizationBeanDao extends IGenericDao<OrganizationBean, Long
      * @param code
      * @return
      */
-    List<OrganizationBean> findByCode(Long id, String code);
+    List<OrganizationBean> findByCode(String id, String code);
 
     /**
      * 查询指定代码的机构 2016-06-30 by p
@@ -49,7 +49,7 @@ public interface IOrganizationBeanDao extends IGenericDao<OrganizationBean, Long
      * @param parentId
      * @return
      */
-    List<OrganizationBean> findByParentId(Long parentId);
+    List<OrganizationBean> findByParentId(String parentId);
 
     /**
      * 查询所有id集合中的机构 2016-08-03 by p
@@ -57,5 +57,5 @@ public interface IOrganizationBeanDao extends IGenericDao<OrganizationBean, Long
      * @param id
      * @return
      */
-    List<OrganizationBean> findById(List<Long> id);
+    List<OrganizationBean> findById(List<String> id);
 }

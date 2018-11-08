@@ -46,7 +46,7 @@ public interface IUserBeanService extends IBizService<UserBean> {
      * @param password
      * @return
      */
-    boolean checkUserPassword(long userId, String password);
+    boolean checkUserPassword(String userId, String password);
 
     /**
      * 查询指定用户id所属机构（包括子机构）下所有用户
@@ -54,7 +54,7 @@ public interface IUserBeanService extends IBizService<UserBean> {
      * @param userId
      * @return
      */
-    JsonData findOrgsUserByUserId(Long userId);
+    JsonData findOrgsUserByUserId(String userId);
 
     /**
      * 查询指定用户id所属机构下所有用户ids
@@ -63,7 +63,7 @@ public interface IUserBeanService extends IBizService<UserBean> {
      * @param includeChildOrg 是否包含子机构, true包含/false不包含
      * @return
      */
-    List<Long> findOrgsUserByUserId(Long userId, Boolean includeChildOrg);
+    List<String> findOrgsUserByUserId(String userId, Boolean includeChildOrg);
 
 //    JsonData getAllUser();
 
@@ -160,13 +160,13 @@ public interface IUserBeanService extends IBizService<UserBean> {
      * @param sort
      * @return
      */
-    JsonData findUserByOrgId(Long orgId, int page, int limit, String sort);
+    JsonData findUserByOrgId(String orgId, int page, int limit, String sort);
 
-    JsonStatus saveEntityWithOrg(UserBean entity, Long id);
+    JsonStatus saveEntityWithOrg(UserBean entity, String id);
 
     Boolean existUserBeanByLoginName(String loginname);
 
     List<UserBean> getUsersByIds(List<String> userIds);
 
-    JsonData findUserById(Long userId);
+    JsonData findUserById(String userId);
 }

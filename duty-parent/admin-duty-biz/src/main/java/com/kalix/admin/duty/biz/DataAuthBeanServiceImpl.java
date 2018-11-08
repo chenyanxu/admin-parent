@@ -90,7 +90,7 @@ public class DataAuthBeanServiceImpl extends ShiroGenericBizServiceImpl<IDataAut
     }
 
     @Override
-    public boolean isDelete(Long entityId, JsonStatus status) {
+    public boolean isDelete(String entityId, JsonStatus status) {
         if (dao.get(entityId) == null) {
             status.setFailure(true);
             status.setMsg(FUNCTION_NAME + "已经被删除！");
@@ -103,14 +103,14 @@ public class DataAuthBeanServiceImpl extends ShiroGenericBizServiceImpl<IDataAut
     @Transactional
     public JsonStatus saveDataAuthUsers(List ids) {
         JsonStatus jsonStatus = new JsonStatus();
-        List<Long> failIds = new ArrayList<Long>();
+        List<String> failIds = new ArrayList<>();
         if (ids == null || ids.size() != 2) {
             jsonStatus.setFailure(true);
             jsonStatus.setMsg("保存失败!");
             return jsonStatus;
         } else {
             try {
-                Long dataAuthId = Long.valueOf(ids.get(0).toString());
+                String dataAuthId = ids.get(0).toString();
                 String userId = ids.get(1).toString();
 
                 dataAuthUserBeanDao.deleteByDataAuthId(dataAuthId);
@@ -128,11 +128,11 @@ public class DataAuthBeanServiceImpl extends ShiroGenericBizServiceImpl<IDataAut
                     for (String _userId : userIds) {
                         _userId = _userId.trim();
                         if (StringUtils.isNotEmpty(_userId)) {
-                            Long uid = Long.parseLong(_userId);
+                            String uid = _userId;
                             // 判断同一个应用，同一个菜单下，同一用户数据权限唯一
                             DataAuthBean multiDataAuthBean = this.getDataAuthBean(uid, appId, menuId);
                             if (multiDataAuthBean != null &&
-                                    multiDataAuthBean.getId() > 0 && !dataAuthId.equals(multiDataAuthBean.getId())) {
+                                    multiDataAuthBean.getId() != null && !multiDataAuthBean.getId().isEmpty() && !dataAuthId.equals(multiDataAuthBean.getId())) {
                                 failIds.add(uid);
                             } else {
                                 DataAuthUserBean dataAuthUserBean = new DataAuthUserBean();
@@ -157,7 +157,7 @@ public class DataAuthBeanServiceImpl extends ShiroGenericBizServiceImpl<IDataAut
 
         String failMsg = "";
         if (failIds.size() > 0) {
-            for (Long failId : failIds) {
+            for (String failId : failIds) {
                 UserBean userBean = userBeanService.getEntity(failId);
                 String userName = userBean.getName();
                 if (StringUtils.isEmpty(failMsg)) {
@@ -181,7 +181,7 @@ public class DataAuthBeanServiceImpl extends ShiroGenericBizServiceImpl<IDataAut
     }
 
     @Override
-    public DataAuthBean getEntity(long entityId) {
+    public DataAuthBean getEntity(String entityId) {
         DataAuthBean dataAuthBean = super.getEntity(entityId);
         List<WebApplicationBean> webApplicationBeanList = systemService.getApplicationList();
         this.translateEntity(webApplicationBeanList, dataAuthBean);
@@ -200,7 +200,7 @@ public class DataAuthBeanServiceImpl extends ShiroGenericBizServiceImpl<IDataAut
     }
 
     @Override
-    public DataAuthBean getDataAuthBean(Long userId, String appId, String menuId) {
+    public DataAuthBean getDataAuthBean(String userId, String appId, String menuId) {
         DataAuthBean result = null;
         /*List<DataAuthUserBean> dataAuthUserBeans = dataAuthUserBeanDao.getEntitiesByUserId(userId);
         List<DataAuthBean> dataAuthBeans = this.dao.find("select d.id, d.name from DataAuthBean d where d.appId = ?", appId);
@@ -221,7 +221,7 @@ public class DataAuthBeanServiceImpl extends ShiroGenericBizServiceImpl<IDataAut
     }
 
     @Override
-    public List getUserIdsByDataAuthId(Long dataAuthId) {
+    public List getUserIdsByDataAuthId(String dataAuthId) {
         return dataAuthUserBeanDao.findByDataAuthId(dataAuthId).stream()
                 .filter(n -> !n.getUserId().equals(0L))
                 .map(n -> n.getUserId())
