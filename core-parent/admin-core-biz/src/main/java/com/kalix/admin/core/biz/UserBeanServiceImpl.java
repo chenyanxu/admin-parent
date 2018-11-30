@@ -567,10 +567,12 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         }
         if (defaultRole != null) {
             RoleBean roleBean = roleBeanDao.getRole(defaultRole.getRoleName());
-            RoleUserBean bean = new RoleUserBean();
-            bean.setRoleId(roleBean.getId());
-            bean.setUserId(entity.getId());
-            roleUserBeanDao.save(bean);
+            if (roleBean != null) {
+                RoleUserBean bean = new RoleUserBean();
+                bean.setRoleId(roleBean.getId());
+                bean.setUserId(entity.getId());
+                roleUserBeanDao.save(bean);
+            }
         }
 
         super.afterSaveEntity(entity, status);
