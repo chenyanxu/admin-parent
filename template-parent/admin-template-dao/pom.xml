@@ -14,8 +14,8 @@
     <packaging>bundle</packaging>
 
     <properties>
-        <bundle.symbolicName>com.kalix.admin.template.dao</bundle.symbolicName>
-    </properties>
+    <bundle.symbolicName>com.kalix.admin.template.dao</bundle.symbolicName>
+</properties>
 
     <dependencies>
         <dependency>

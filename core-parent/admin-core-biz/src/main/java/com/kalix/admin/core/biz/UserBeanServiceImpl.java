@@ -271,6 +271,11 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         return getUserAttachedInfo(dao.findByNativeSql("select u.* from " + dao.getTableName() + " u, " + organizationUserBeanDao.getTableName() + " o  where u.id = o.userId and o.orgId = " + orgId, page, limit, UserBean.class));
     }
 
+    @Override
+    public List<UserBean> findUserByOrgId(Long orgId) {
+        return dao.findByNativeSql("select u.* from " + dao.getTableName() + " u, " + organizationUserBeanDao.getTableName() + " o  where u.id = o.userId and o.orgId = " + orgId, UserBean.class);
+    }
+
     /**
      * 查找全部用户
      *
