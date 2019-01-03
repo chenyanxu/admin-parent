@@ -24,6 +24,8 @@ public class FunctionBean extends PersistentEntity {
     private Boolean dataPermission; // 数据权限是否生效
     private String dataPermissionKey; //数据权限key
 
+    private String opFlag = "0"; // 操作标识(为解决维护菜单时id变化不一致问题)
+
     public String getPermission() {
         return permission;
     }
@@ -96,5 +98,13 @@ public class FunctionBean extends PersistentEntity {
 
     public void setDataPermissionKey(String dataPermissionKey) {
         this.dataPermissionKey = dataPermissionKey;
+    }
+
+    public String getOpFlag() {
+        return opFlag;
+    }
+
+    public void setOpFlag(String opFlag) {
+        this.opFlag = opFlag;
     }
 }
