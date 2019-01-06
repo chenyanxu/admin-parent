@@ -30,6 +30,8 @@ public class ApplicationBean extends PersistentEntity {
     private Boolean supportMobile; //是否支持手机应用
     private Boolean active; //是否运行
 
+    private String opFlag = "0"; // 操作标识(为解决维护菜单时id变化不一致问题)
+
     public String getName() {
         return name;
     }
@@ -84,6 +86,14 @@ public class ApplicationBean extends PersistentEntity {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public String getOpFlag() {
+        return opFlag;
+    }
+
+    public void setOpFlag(String opFlag) {
+        this.opFlag = opFlag;
     }
 
     public ApplicationBean() {
