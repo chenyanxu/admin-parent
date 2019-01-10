@@ -1,5 +1,7 @@
 package com.kalix.admin.core.biz;
 
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.Mapper;
 import com.kalix.admin.core.api.biz.IApplicationBeanService;
 import com.kalix.admin.core.api.biz.IFunctionBeanService;
 import com.kalix.admin.core.api.biz.IRoleBeanService;
@@ -18,8 +20,6 @@ import com.kalix.framework.core.util.Assert;
 import com.kalix.framework.core.util.ConfigUtil;
 import com.kalix.framework.core.util.SerializeUtil;
 import com.kalix.framework.osgi.api.IBundleService;
-import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
 import org.osgi.framework.Bundle;
 
 import java.util.ArrayList;
@@ -142,7 +142,7 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
                 });
             }
             for (ApplicationBean applicationBean : newBeans) {
-                Mapper mapper = new DozerBeanMapper();
+                Mapper mapper = DozerBeanMapperBuilder.buildDefault();
                 ApplicationDTO applicationDTO = mapper.map(applicationBean, ApplicationDTO.class);
                 applicationDTO.setLeaf(true);
                 applicationDTO.setText(applicationBean.getName());
@@ -162,7 +162,7 @@ public class ApplicationBeanServiceImpl extends ShiroGenericBizServiceImpl<IAppl
             if (beans != null && beans.size() > 0) {
                 for (ApplicationBean applicationBean : beans) {
                     Assert.notNull(applicationBean, "应用不能为空");
-                    Mapper mapper = new DozerBeanMapper();
+                    Mapper mapper = DozerBeanMapperBuilder.buildDefault();
                     AuthorizationDTO applicationDTO = mapper.map(applicationBean, AuthorizationDTO.class);
                     applicationDTO.setParentId(-1L);
                     applicationDTO.setLeaf(true);

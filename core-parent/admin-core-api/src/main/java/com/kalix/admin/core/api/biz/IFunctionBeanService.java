@@ -1,11 +1,12 @@
 package com.kalix.admin.core.api.biz;
 
+import com.github.dozermapper.core.Mapper;
 import com.kalix.admin.core.dto.model.AuthorizationDTO;
 import com.kalix.admin.core.dto.model.FunctionDTO;
 import com.kalix.admin.core.entities.FunctionBean;
 import com.kalix.admin.core.entities.RoleFunctionBean;
 import com.kalix.framework.core.api.biz.IBizService;
-import org.dozer.Mapper;
+
 
 import java.util.List;
 

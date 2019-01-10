@@ -1,5 +1,7 @@
 package com.kalix.admin.core.biz;
 
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.Mapper;
 import com.kalix.admin.core.api.biz.IAreaBeanService;
 import com.kalix.admin.core.api.biz.IOrganizationBeanService;
 import com.kalix.admin.core.api.dao.IAboutBeanDao;
@@ -12,8 +14,6 @@ import com.kalix.admin.core.entities.AreaBean;
 import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
-import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -249,7 +249,7 @@ public class AreaBeanServiceImpl extends ShiroGenericBizServiceImpl<IAreaBeanDao
             List<AreaBean> rootElements = getRootElements(beans);
             if(rootElements!=null&&rootElements.size()>0) {
                 for(AreaBean rootElement:rootElements){
-                    Mapper mapper = new DozerBeanMapper();
+                    Mapper mapper = DozerBeanMapperBuilder.buildDefault();
                     AreaDTO AreaDTO = mapper.map(rootElement, AreaDTO.class);
                     AreaDTO.setLeaf(rootElement.getIsLeaf() == 0 ? false : true);
                     AreaDTO.setParentName("根机构");

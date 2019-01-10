@@ -1,5 +1,7 @@
 package com.kalix.admin.core.biz;
 
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.Mapper;
 import com.kalix.admin.core.api.biz.IFunctionBeanService;
 import com.kalix.admin.core.api.biz.IRoleBeanService;
 import com.kalix.admin.core.api.biz.IWorkGroupBeanService;
@@ -12,8 +14,6 @@ import com.kalix.framework.core.api.persistence.PersistentEntity;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
 import org.apache.commons.lang.StringUtils;
-import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -384,7 +384,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
     @Override
     public AuthorizationDTO getAuthorizationTreeByUserId(long userId) {
         AuthorizationDTO root = new AuthorizationDTO();
-        Mapper mapper = new DozerBeanMapper();
+        Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 
         // 用户application
         List<ApplicationBean> applicationList = new ArrayList<>();
@@ -465,7 +465,7 @@ public class RoleBeanServiceImpl extends ShiroGenericBizServiceImpl<IRoleBeanDao
             List<RoleApplicationBean> roleApplicationBeans = roleApplicationBeanDao.find("select rab from RoleApplicationBean rab where rab.roleId=?1", roleId);
             for (ApplicationBean applicationBean : beans) {
                 Assert.notNull(applicationBean, "应用不能为空");
-                Mapper mapper = new DozerBeanMapper();
+                Mapper mapper = DozerBeanMapperBuilder.buildDefault();
                 AuthorizationDTO applicationDTO = mapper.map(applicationBean, AuthorizationDTO.class);
                 applicationDTO.setParentId(-1L);
                 applicationDTO.setParentName(parentName);

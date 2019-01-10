@@ -1,5 +1,7 @@
 package com.kalix.admin.core.biz;
 
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.Mapper;
 import com.kalix.admin.core.api.biz.IFunctionBeanService;
 import com.kalix.admin.core.api.dao.IFunctionBeanDao;
 import com.kalix.admin.core.dto.model.AuthorizationDTO;
@@ -9,8 +11,6 @@ import com.kalix.admin.core.entities.RoleFunctionBean;
 import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
-import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -265,7 +265,7 @@ public class FunctionBeanServiceImpl extends ShiroGenericBizServiceImpl<IFunctio
             List<FunctionBean> rootElements = getRootElements(beans);
             if(rootElements!=null&&rootElements.size()>0) {
                 for(FunctionBean rootElement:rootElements){
-                    Mapper mapper = new DozerBeanMapper();
+                    Mapper mapper = DozerBeanMapperBuilder.buildDefault();
                     FunctionDTO functionDTO = mapper.map(rootElement, FunctionDTO.class);
                     functionDTO.setLeaf(rootElement.getIsLeaf().equals(0L) ? false : true);
                     functionDTO.setParentName("根功能");

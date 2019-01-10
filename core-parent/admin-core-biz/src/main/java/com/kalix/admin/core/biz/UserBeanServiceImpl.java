@@ -1,5 +1,7 @@
 package com.kalix.admin.core.biz;
 
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.Mapper;
 import com.google.gson.reflect.TypeToken;
 import com.kalix.admin.core.api.biz.IAddFieldService;
 import com.kalix.admin.core.api.biz.IUserBeanService;
@@ -21,8 +23,7 @@ import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import com.kalix.framework.core.util.*;
 import com.kalix.framework.core.util.internal.InitActivator;
 import org.apache.commons.lang.StringUtils;
-import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
+
 import com.kalix.framework.core.util.OsgiUtil;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.InvalidSyntaxException;
@@ -440,7 +441,7 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
      * @return
      */
     private JsonData getUserAttachedInfo(JsonData jsonData) {
-        Mapper mapper = new DozerBeanMapper();
+        Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 
         List userList = jsonData.getData();
         List<UserDTO> userDTOList = new ArrayList<>();

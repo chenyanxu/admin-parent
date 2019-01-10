@@ -1,5 +1,7 @@
 package com.kalix.admin.core.biz;
 
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.Mapper;
 import com.kalix.admin.core.api.biz.IOrganizationBeanService;
 import com.kalix.admin.core.api.biz.IUserBeanService;
 import com.kalix.admin.core.api.dao.IOrganizationBeanDao;
@@ -20,8 +22,6 @@ import com.kalix.framework.core.util.Assert;
 import com.kalix.framework.core.util.HttpClientUtil;
 import com.kalix.framework.core.util.SerializeUtil;
 import org.apache.commons.lang.StringUtils;
-import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -437,7 +437,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
 
     private OrganizationDTO generateRoot(List<OrganizationBean> beans, Long id) {
         OrganizationDTO root;
-        Mapper mapper = new DozerBeanMapper();
+        Mapper mapper = DozerBeanMapperBuilder.buildDefault();
         String parentName = "根机构";
 
         root = new OrganizationDTO();
@@ -596,7 +596,7 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
     public List<Long> getOrgsBrotherByUserName(String name) {
         List<Long> list = new ArrayList<>();
         JsonData jsonData = new JsonData();
-        Mapper mapper = new DozerBeanMapper();
+        Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 
         UserBean userBean = userService.getUserBeanByLoginName(name);
         // 用户实体不能为空

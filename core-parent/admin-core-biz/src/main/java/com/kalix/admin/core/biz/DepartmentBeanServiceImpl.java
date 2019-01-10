@@ -1,5 +1,7 @@
 package com.kalix.admin.core.biz;
 
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.Mapper;
 import com.kalix.admin.core.api.biz.IDepartmentBeanService;
 import com.kalix.admin.core.api.dao.IDepartmentBeanDao;
 import com.kalix.admin.core.api.dao.IOrganizationUserBeanDao;
@@ -13,8 +15,6 @@ import com.kalix.framework.core.api.persistence.JsonStatus;
 import com.kalix.framework.core.api.persistence.PersistentEntity;
 import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import org.apache.commons.lang.StringUtils;
-import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -192,7 +192,7 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
             List<DepartmentBean> rootElements = getRootElements(beans);
             if(rootElements!=null&&rootElements.size()>0) {
                 for(DepartmentBean rootElement:rootElements){
-                    Mapper mapper = new DozerBeanMapper();
+                    Mapper mapper = DozerBeanMapperBuilder.buildDefault();
                     DepartmentDTO departmentDTO = mapper.map(rootElement, DepartmentDTO.class);
                     departmentDTO.setLeaf(rootElement.getIsLeaf() == 0 ? false : true);
                     departmentDTO.setParentName("根机构");
@@ -212,7 +212,7 @@ public class DepartmentBeanServiceImpl extends ShiroGenericBizServiceImpl<IDepar
             List<DepartmentBean> rootElements = getRootElements(beans);
             if(rootElements!=null&&rootElements.size()>0) {
                 for(DepartmentBean rootElement:rootElements){
-                    Mapper mapper = new DozerBeanMapper();
+                    Mapper mapper = DozerBeanMapperBuilder.buildDefault();
                     DepartmentDTO departmentDTO = mapper.map(rootElement, DepartmentDTO.class);
                     departmentDTO.setLeaf(rootElement.getIsLeaf() == 0 ? false : true);
                     departmentDTO.setParentName("根部门");
