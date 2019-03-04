@@ -58,5 +58,13 @@
                 <to uri="bean:dictService?method=getDictTypes(${header.query})"/>
             </get>
         </rest>
+
+        <rest path="/admin/dicts/types/labels" consumes="application/json;charset=utf-8"
+              produces="application/json;charset=utf-8">
+            <get id="route-getValueByTypeAndLabel">
+                <description>Find dict Value By Type and Label</description>
+                <to uri="bean:dictService?method=getValueByTypeAndLabel(${header.type},${header.label})"/>
+            </get>
+        </rest>
     </camelContext>
 </blueprint>

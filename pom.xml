@@ -39,6 +39,16 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>com.kalix.framework.core</groupId>
+                <artifactId>framework-core-api</artifactId>
+                <version>${project.framework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kalix.middleware.excel</groupId>
+                <artifactId>middleware-excel-api</artifactId>
+                <version>${project.middleware.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>

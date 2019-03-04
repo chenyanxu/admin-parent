@@ -17,6 +17,7 @@ INSERT INTO public.admin_dict (id, createby, createbyid, creationdate, updateby,
 INSERT INTO public.admin_dict (id, createby, createbyid, creationdate, updateby, updatebyid, updatedate, description, label, type, value, version_) VALUES (16, '管理员', '-1', '2017-09-25 09:03:56.536', '管理员', '-1', '2017-09-25 09:03:56.504', '', '学生', '用户类型', '1', 1);
 INSERT INTO public.admin_dict (id, createby, createbyid, creationdate, updateby, updatebyid, updatedate, description, label, type, value, version_) VALUES (17, '管理员', '-1', '2017-09-25 09:04:08.395', '管理员', '-1', '2017-09-25 09:04:08.355', '', '科研人员', '用户类型', '2', 1);
 INSERT INTO public.admin_dict (id, createby, createbyid, creationdate, updateby, updatebyid, updatedate, description, label, type, value, version_) VALUES (18, '管理员', '-1', '2017-09-25 09:04:08.395', '管理员', '-1', '2017-09-25 09:04:08.355', '', '招聘企业', '用户类型', '3', 1);
+
 INSERT INTO public.admin_dict (id, createby, createbyid, creationdate, updateby, updatebyid, updatedate, description, label, type, value, version_) VALUES (19, '管理员', '-1', '2018-02-09 15:16:08.395', '管理员', '-1', '2018-02-09 15:16:08.395', '', 'HTML', '模板类型', '0', 1);
 INSERT INTO public.admin_dict (id, createby, createbyid, creationdate, updateby, updatebyid, updatedate, description, label, type, value, version_) VALUES (20, '管理员', '-1', '2018-02-09 15:16:08.395', '管理员', '-1', '2018-02-09 15:16:08.395', '', 'WORD', '模板类型', '1', 1);
 
@@ -90,3 +91,5 @@ INSERT INTO "public"."admin_dict" (id, createby, createbyid, creationdate, updat
 INSERT INTO "public"."admin_dict" (id, createby, createbyid, creationdate, updateby, updatebyid, updatedate, description, label, type, value, version_) VALUES ('90', '管理员', '-1', '2018-06-20 10:17:46.136', '管理员', '-1', '2018-06-20 10:17:46.037', '', '社会实践', '环节类别', '8', '1');
 INSERT INTO "public"."admin_dict" (id, createby, createbyid, creationdate, updateby, updatebyid, updatedate, description, label, type, value, version_) VALUES ('91', '管理员', '-1', '2018-06-20 10:17:46.136', '管理员', '-1', '2018-06-20 10:17:46.037', '', '集中实践教学环节', '环节类别', '9', '1');
 INSERT INTO "public"."admin_dict" (id, createby, createbyid, creationdate, updateby, updatebyid, updatedate, description, label, type, value, version_) VALUES ('92', '管理员', '-1', '2018-06-20 10:17:46.136', '管理员', '-1', '2018-06-20 10:17:46.037', '', '其他', '环节类别', '10', '1');
+
+INSERT INTO public.admin_dict (id, createby, createbyid, creationdate, updateby, updatebyid, updatedate, description, label, type, value, version_) VALUES (93, '管理员', '-1', '2019-03-04 09:04:08.395', '管理员', '-1', '2019-03-04 09:04:08.355', '', '国家教育考生', '用户类型', '4', 1);

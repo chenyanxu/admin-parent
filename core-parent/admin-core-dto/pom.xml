@@ -15,4 +15,11 @@
     <properties>
         <bundle.symbolicName>com.kalix.admin.core.dto</bundle.symbolicName>
     </properties>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.kalix.middleware.excel</groupId>
+            <artifactId>middleware-excel-api</artifactId>
+        </dependency>
+    </dependencies>
 </project>

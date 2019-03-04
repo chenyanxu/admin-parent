@@ -5,4 +5,5 @@
 Bundle-Activator: ${bundle.namespace}.internal.InitActivator
 #Import-Package:com.kalix.framework.core.api.biz,com.kalix.framework.core.api.persistence,cn.com.rexen.admin.entities,*
 Import-Package:*
+Export-Package: com.kalix.middleware.excel.api.model.admin.core,com.kalix.admin.core.dto.model,com.kalix.admin.core.dto.model.query
 Bundle-Category:Kalix Admin DTO
