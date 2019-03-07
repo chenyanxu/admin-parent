@@ -28,6 +28,8 @@ public class UserBean extends UserEntity {
     private Integer position;
     @ApiModelProperty(value = "身份证号", example = "0")
     private String idCards;
+    @ApiModelProperty(value = "准考证号", example = "0")
+    private String examCardNumber;
 //    @ApiModelProperty(value="性别（男 女）",allowableValues = "男,女",position=2,example = "男")
 //    private String sex;
 //    @ApiModelProperty(value="登录名",position=3,example = "test_login")
@@ -166,5 +168,13 @@ public class UserBean extends UserEntity {
 
     public void setIdCards(String idCards) {
         this.idCards = idCards;
+    }
+
+    public String getExamCardNumber() {
+        return examCardNumber;
+    }
+
+    public void setExamCardNumber(String examCardNumber) {
+        this.examCardNumber = examCardNumber;
     }
 }
