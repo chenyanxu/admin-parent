@@ -32,6 +32,7 @@ public class UserDTO extends BaseDTO {
     private String abridge; //中文名字缩写
     private String fullName; //中文名字全拼
     private Long userType;
+    private String idCards; // 身份证号
     private String examCardNumber; // 准考证号
 
     public String getLoginName() {
@@ -188,6 +189,10 @@ public class UserDTO extends BaseDTO {
 
     public void setUserType(Long userType) {
         this.userType = userType;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getExamCardNumber() {
