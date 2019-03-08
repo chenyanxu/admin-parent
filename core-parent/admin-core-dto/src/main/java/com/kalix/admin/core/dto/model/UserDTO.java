@@ -195,6 +195,14 @@ public class UserDTO extends BaseDTO {
         return password;
     }
 
+    public String getIdCards() {
+        return idCards;
+    }
+
+    public void setIdCards(String idCards) {
+        this.idCards = idCards;
+    }
+
     public String getExamCardNumber() {
         return examCardNumber;
     }
