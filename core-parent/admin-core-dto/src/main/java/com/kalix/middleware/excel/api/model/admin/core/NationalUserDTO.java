@@ -19,6 +19,7 @@ public class NationalUserDTO extends BaseDTO {
     private String name;        // 姓名
     private String sex;         // 性别
     private String mobile;      // 手机
+    private String examCardNumber; // 准考证号
 
     @ExcelField(title = "用户类型", type=0, align = 1, dictType = "用户类型", sort = 10)
     public Long getUserType() {
@@ -81,5 +82,14 @@ public class NationalUserDTO extends BaseDTO {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    @ExcelField(title = "准考证号", type=0,align = 1, sort = 80)
+    public String getExamCardNumber() {
+        return examCardNumber;
+    }
+
+    public void setExamCardNumber(String examCardNumber) {
+        this.examCardNumber = examCardNumber;
     }
 }
