@@ -539,6 +539,35 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         return jsonData;
     }
 
+    @Override
+    public JsonStatus updateUserPasswordByCardId(String jsonStr) {
+        try {
+            List<UserBean> userList = dao.getAll();
+            if (userList != null && !userList.isEmpty()) {
+                userList = userList.stream().filter(u->(u.getIdCards()!=null && !u.getIdCards().isEmpty()))
+                        .collect(Collectors.toList());
+                if (userList != null && !userList.isEmpty()) {
+                    List<UserBean> users = userList.stream().map(user->{
+                        String idCards = user.getIdCards();
+                        String tempPassword = idCards.substring(idCards.length()-6);
+                        user.setPassword(MD5Util.encode(tempPassword));
+                        return user;
+                    }).collect(Collectors.toList());
+                    if (users != null && !users.isEmpty()) {
+                        for (UserBean user : users) {
+                            dao.save(user);
+                        }
+                    }
+                    //dao.addBatch(users);
+                }
+            }
+            return JsonStatus.successResult("修改成功");
+        } catch(Exception e) {
+            e.printStackTrace();
+            return JsonStatus.failureResult("修改失败");
+        }
+    }
+
     /**
      * 在用户新建之后，设置用户的默认角色
      * 根据config.admin.dict.cfg文件中，admin_default_roles的属性

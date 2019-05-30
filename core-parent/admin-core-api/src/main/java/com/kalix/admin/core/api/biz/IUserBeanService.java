@@ -171,4 +171,10 @@ public interface IUserBeanService extends IBizService<UserBean> {
     List<UserBean> getUsersByIds(List<String> userIds);
 
     JsonData findUserById(Long userId);
+
+    /**
+     * 通过身份证号修改密码
+     * @return
+     */
+    JsonStatus updateUserPasswordByCardId(String jsonStr);
 }
