@@ -102,6 +102,16 @@ public class UserBeanDaoImpl extends UserEntityDao<UserBean,Long> implements IUs
         CriteriaQuery select = criteriaQuery.select(from);
         return select;
     }*/
-
+    @Override
+    @Transactional
+    public void updateBatch(List<UserBean> userBeans) {
+        if (userBeans != null && !userBeans.isEmpty()) {
+            EntityManager entityManager = this.getEntityManager();
+            for (UserBean user : userBeans) {
+                entityManager.merge(user);
+            }
+            entityManager.flush();
+        }
+    }
 
 }

@@ -54,4 +54,6 @@ public interface IUserBeanDao extends IUserEntityDao<UserBean,Long> {//IGenericD
      * @return
      */
     List<UserBean> findByUserId(List<Long> userId, boolean contain);
+
+    void updateBatch(List<UserBean> userBeans);
 }

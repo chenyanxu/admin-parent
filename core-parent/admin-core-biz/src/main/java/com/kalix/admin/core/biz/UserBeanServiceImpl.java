@@ -29,6 +29,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -553,12 +554,16 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
                         user.setPassword(MD5Util.encode(tempPassword));
                         return user;
                     }).collect(Collectors.toList());
-                    if (users != null && !users.isEmpty()) {
-                        for (UserBean user : users) {
-                            dao.save(user);
-                        }
-                    }
-                    //dao.addBatch(users);
+//                    if (users != null && !users.isEmpty()) {
+////                        // EntityManager entityManager = dao.getEntityManager();
+////                        for (UserBean user : users) {
+////                            dao.save(user);
+////                            // entityManager.merge(user);
+////                            // break;
+////                        }
+////                        // entityManager.flush();
+////                    }
+                    dao.updateBatch(users);
                 }
             }
             return JsonStatus.successResult("修改成功");
