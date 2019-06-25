@@ -177,4 +177,8 @@ public interface IUserBeanService extends IBizService<UserBean> {
      * @return
      */
     JsonStatus updateUserPasswordByCardId(String jsonStr);
+
+    List<UserBean> getUsersByNameIdCardAndExamNum(String name, String idCard, String examNum);
+
+    List<Long> getOrgIdsByUserId(Long userId);
 }

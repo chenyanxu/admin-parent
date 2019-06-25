@@ -15,10 +15,10 @@ public class NationalUserDTO extends BaseDTO {
     private Long userType;      // 用户类型
     private String loginName;   // 登录名
     private String idCards;     // 身份证号
-    private String code;        // 学号
+    // private String code;        // 学号
     private String name;        // 姓名
     private String sex;         // 性别
-    private String mobile;      // 手机
+    // private String mobile;      // 手机
     private String examCardNumber; // 准考证号
 
     @ExcelField(title = "用户类型", type=0, align = 1, dictType = "用户类型", sort = 10)
@@ -48,14 +48,14 @@ public class NationalUserDTO extends BaseDTO {
         this.idCards = idCards;
     }
 
-    @ExcelField(title = "学号", type=0, align = 1, sort = 40)
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
+//    @ExcelField(title = "学号", type=0, align = 1, sort = 40)
+//    public String getCode() {
+//        return code;
+//    }
+//
+//    public void setCode(String code) {
+//        this.code = code;
+//    }
 
     @ExcelField(title = "姓名", type=0,align = 1, sort = 50)
     public String getName() {
@@ -75,14 +75,14 @@ public class NationalUserDTO extends BaseDTO {
         this.sex = sex;
     }
 
-    @ExcelField(title = "手机", type=0,align = 1, sort = 70)
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
+//    @ExcelField(title = "手机", type=0,align = 1, sort = 70)
+//    public String getMobile() {
+//        return mobile;
+//    }
+//
+//    public void setMobile(String mobile) {
+//        this.mobile = mobile;
+//    }
 
     @ExcelField(title = "准考证号", type=0,align = 1, sort = 80)
     public String getExamCardNumber() {

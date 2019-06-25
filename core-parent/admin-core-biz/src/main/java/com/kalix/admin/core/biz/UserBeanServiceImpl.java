@@ -573,6 +573,18 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
         }
     }
 
+    @Override
+    public List<UserBean> getUsersByNameIdCardAndExamNum(String name, String idCard, String examNum) {
+        String sql = "select * from sys_user where name='"+name+"' and idcards='"
+                +idCard+"' and examcardnumber='"+examNum+"'";
+        return dao.findByNativeSql(sql, UserBean.class);
+    }
+
+    @Override
+    public List<Long> getOrgIdsByUserId(Long userId) {
+        return organizationUserBeanDao.findByUserId(userId).stream().map(OrganizationUserBean::getOrgId).collect(Collectors.toList());
+    }
+
     /**
      * 在用户新建之后，设置用户的默认角色
      * 根据config.admin.dict.cfg文件中，admin_default_roles的属性
