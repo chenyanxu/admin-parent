@@ -178,6 +178,12 @@ public interface IUserBeanService extends IBizService<UserBean> {
      */
     JsonStatus updateUserPasswordByCardId(String jsonStr);
 
+    /**
+     * 通过身份证号修改指定用户的密码（初始化密码为身份证号后六位）
+     * @param userIds
+     */
+    void updateUserPasswordByCardId(List<Long> userIds);
+
     List<UserBean> getUsersByNameIdCardAndExamNum(String name, String idCard, String examNum);
 
     List<Long> getOrgIdsByUserId(Long userId);

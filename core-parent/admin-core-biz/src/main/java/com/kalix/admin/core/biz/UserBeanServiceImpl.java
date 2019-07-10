@@ -544,32 +544,43 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
     public JsonStatus updateUserPasswordByCardId(String jsonStr) {
         try {
             List<UserBean> userList = dao.getAll();
-            if (userList != null && !userList.isEmpty()) {
-                userList = userList.stream().filter(u->(u.getIdCards()!=null && !u.getIdCards().isEmpty()))
-                        .collect(Collectors.toList());
-                if (userList != null && !userList.isEmpty()) {
-                    List<UserBean> users = userList.stream().map(user->{
-                        String idCards = user.getIdCards();
-                        String tempPassword = idCards.substring(idCards.length()-6);
-                        user.setPassword(MD5Util.encode(tempPassword));
-                        return user;
-                    }).collect(Collectors.toList());
-//                    if (users != null && !users.isEmpty()) {
-////                        // EntityManager entityManager = dao.getEntityManager();
-////                        for (UserBean user : users) {
-////                            dao.save(user);
-////                            // entityManager.merge(user);
-////                            // break;
-////                        }
-////                        // entityManager.flush();
-////                    }
-                    dao.updateBatch(users);
-                }
-            }
+            updatePasswordByIdCard(userList);
             return JsonStatus.successResult("修改成功");
         } catch(Exception e) {
             e.printStackTrace();
             return JsonStatus.failureResult("修改失败");
+        }
+    }
+
+    @Override
+    public void updateUserPasswordByCardId(List<Long> userIds) {
+        if (userIds == null || userIds.isEmpty()) {
+            return;
+        }
+        List<String> userIdStrList = userIds.stream().map(e->String.valueOf(e)).collect(Collectors.toList());
+        String userIdStr = String.join(",", userIdStrList);
+        String sql = "select * from sys_user where id in ("+userIdStr+")";
+        try {
+            List<UserBean> userList = dao.findByNativeSql(sql, UserBean.class);
+            updatePasswordByIdCard(userList);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updatePasswordByIdCard(List<UserBean> userList) {
+        if (userList != null && !userList.isEmpty()) {
+            userList = userList.stream().filter(u->(u.getIdCards()!=null && !u.getIdCards().isEmpty()))
+                    .collect(Collectors.toList());
+            if (userList != null && !userList.isEmpty()) {
+                List<UserBean> users = userList.stream().map(user->{
+                    String idCards = user.getIdCards();
+                    String tempPassword = idCards.substring(idCards.length()-6);
+                    user.setPassword(MD5Util.encode(tempPassword));
+                    return user;
+                }).collect(Collectors.toList());
+                dao.updateBatch(users);
+            }
         }
     }
 

@@ -5,6 +5,7 @@ import com.kalix.admin.core.entities.OrganizationBean;
 import com.kalix.framework.core.api.biz.IBizService;
 import com.kalix.framework.core.api.persistence.JsonData;
 import com.kalix.framework.core.api.persistence.JsonStatus;
+import com.kalix.middleware.excel.api.model.admin.core.OrgUserDTO;
 
 import java.util.List;
 
@@ -39,6 +40,13 @@ public interface IOrganizationBeanService extends IBizService<OrganizationBean> 
      * @return
      */
     JsonStatus saveOrganizationUsers(List ids);
+
+    /**
+     * 导入机构用户
+     * @param userDto
+     * @return
+     */
+    JsonStatus importOrganizationUsers(OrgUserDTO userDto);
 
     /**
      * 根据UserId，在用户与部门的关联表中查询部门信息。

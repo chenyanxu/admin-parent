@@ -1,0 +1,79 @@
+package com.kalix.middleware.excel.api.model.admin.core;
+
+import com.kalix.framework.core.api.web.model.BaseDTO;
+import com.kalix.middleware.excel.api.annotation.ExcelField;
+
+public class OrgUserDTO extends BaseDTO {
+    // private Long userType;      // 用户类型
+    private String loginName;   // 登录名
+    /**
+    private String idCards;     // 身份证号
+    private String name;        // 姓名
+    private String sex;         // 性别
+    private String examCardNumber; // 准考证号
+    **/
+    private String orgCode; // 机构代码
+/**
+    @ExcelField(title = "用户类型", type=0, align = 1, dictType = "用户类型", sort = 10)
+    public Long getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Long userType) {
+        this.userType = userType;
+    }
+**/
+    @ExcelField(title = "登录名", type=0, align = 1, sort = 10)
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
+/**
+    @ExcelField(title = "身份证号", type=0, align = 1, sort = 30)
+    public String getIdCards() {
+        return idCards;
+    }
+
+    public void setIdCards(String idCards) {
+        this.idCards = idCards;
+    }
+
+    @ExcelField(title = "姓名", type=0,align = 1, sort = 40)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @ExcelField(title = "性别", type=0,align = 1, sort = 50)
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    @ExcelField(title = "准考证号", type=0,align = 1, sort = 60)
+    public String getExamCardNumber() {
+        return examCardNumber;
+    }
+
+    public void setExamCardNumber(String examCardNumber) {
+        this.examCardNumber = examCardNumber;
+    }
+**/
+    @ExcelField(title = "机构代码", type=0,align = 1, sort = 20)
+    public String getOrgCode() {
+        return orgCode;
+    }
+
+    public void setOrgCode(String orgCode) {
+        this.orgCode = orgCode;
+    }
+}

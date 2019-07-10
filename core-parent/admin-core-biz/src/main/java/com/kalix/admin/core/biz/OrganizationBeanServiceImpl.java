@@ -21,6 +21,8 @@ import com.kalix.framework.core.impl.biz.ShiroGenericBizServiceImpl;
 import com.kalix.framework.core.util.Assert;
 import com.kalix.framework.core.util.HttpClientUtil;
 import com.kalix.framework.core.util.SerializeUtil;
+import com.kalix.middleware.excel.api.model.admin.core.NationalUserDTO;
+import com.kalix.middleware.excel.api.model.admin.core.OrgUserDTO;
 import org.apache.commons.lang.StringUtils;
 
 import javax.transaction.Transactional;
@@ -422,6 +424,41 @@ public class OrganizationBeanServiceImpl extends ShiroGenericBizServiceImpl<IOrg
         }
 
         return jsonStatus;
+    }
+
+    @Override
+    public JsonStatus importOrganizationUsers(OrgUserDTO userDto) {
+        String orgCode = userDto.getOrgCode();
+        String loginName = userDto.getLoginName();
+        if (orgCode == null || orgCode.isEmpty() || loginName == null || loginName.isEmpty()) {
+            return JsonStatus.failureResult("导入的信息为空");
+        }
+
+        List<OrganizationBean> orgBeanList = dao.findByNativeSql("select * from sys_organization where code = '"+orgCode+"'", OrganizationBean.class);
+        if (orgBeanList == null || orgBeanList.isEmpty()) {
+            return JsonStatus.failureResult("导入的机构编码不存在");
+        }
+
+        UserBean userBean = userService.getUserBeanByLoginName(loginName);
+        if (userBean == null) {
+            return JsonStatus.failureResult("导入的用户不存在");
+        }
+
+        Long orgId = orgBeanList.get(0).getId();
+        Long userId = userBean.getId();
+        String sql = "select * from sys_organization_user where orgid = " + orgId + " and userid = " + userId;
+        List<OrganizationUserBean> orgUserList = organizationUserDao.findByNativeSql(sql, OrganizationUserBean.class);
+        if (orgUserList != null && !orgUserList.isEmpty()) {
+            return JsonStatus.failureResult("导入的用户已存在");
+        }
+        try {
+            String userName = shiroService.getCurrentUserLoginName();
+            organizationUserDao.save(new OrganizationUserBean(userId, orgId, userName, userName));
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return JsonStatus.successResult("导入成功");
     }
 
     /**
