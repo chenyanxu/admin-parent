@@ -622,11 +622,11 @@ public class UserBeanServiceImpl extends ShiroGenericBizServiceImpl<IUserBeanDao
            }
 
 
-            defaultRole = JNDIHelper.getJNDIServiceForName(IUserDefaultRole.class.getName(), map);
-        } catch (IOException e) {
+            defaultRole = null; // JNDIHelper.getJNDIServiceForName(IUserDefaultRole.class.getName(), map);
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (InvalidSyntaxException e) {
-            e.printStackTrace();
+//        } catch (InvalidSyntaxException e) {
+//            e.printStackTrace();
         }
         if (defaultRole != null) {
             RoleBean roleBean = roleBeanDao.getRole(defaultRole.getRoleName());
